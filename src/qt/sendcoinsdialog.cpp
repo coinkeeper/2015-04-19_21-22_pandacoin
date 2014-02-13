@@ -32,7 +32,7 @@ SendCoinsDialog::SendCoinsDialog(QWidget *parent) :
 #endif
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
-    ui->lineEditCoinControlChange->setPlaceholderText(tr("Enter a Dogecoin address (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)"));
+    ui->lineEditCoinControlChange->setPlaceholderText(tr("Enter a PandaCoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)"));
 #endif
 
     addEntry();

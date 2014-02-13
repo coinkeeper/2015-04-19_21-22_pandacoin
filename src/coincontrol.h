@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2014 Dogecoin Developers
+// Copyright (c) 2013-2014 PandaCoin Developers
 
 #ifndef COINCONTROL_H
 #define COINCONTROL_H

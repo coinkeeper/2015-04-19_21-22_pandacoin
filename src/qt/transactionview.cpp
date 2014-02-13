@@ -391,7 +391,7 @@ void TransactionView::viewOnDogechain()
     QModelIndexList selection = transactionView->selectionModel()->selectedRows();
     if(!selection.isEmpty())
     {
-        QString format("http://dogechain.info/tx/");
+        QString format("http://pandachain.info/tx/");
         format += selection.at(0).data(TransactionTableModel::TxIDRole).toString();
 
         QDesktopServices::openUrl(QUrl(format));

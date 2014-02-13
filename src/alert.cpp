@@ -2,7 +2,7 @@
 // Alert system
 //
 
-// Copyright (c) 2013-2014 Dogecoin Developers
+// Copyright (c) 2013-2014 PandaCoin Developers
 
 #include <algorithm>
 #include <boost/algorithm/string/classification.hpp>

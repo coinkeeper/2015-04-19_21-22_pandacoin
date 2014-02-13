@@ -6,13 +6,13 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About Dogecoin</source>
-        <translation>About Dogecoin</translation>
+        <source>About PandaCoin</source>
+        <translation>About PandaCoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;Dogecoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;Dogecoin&lt;/b&gt; version</translation>
+        <source>&lt;b&gt;PandaCoin&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;PandaCoin&lt;/b&gt; version</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -36,8 +36,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+0"/>
-        <source>The Dogecoin developers</source>
-        <translation>The Dogecoin developers</translation>
+        <source>The PandaCoin developers</source>
+        <translation>The PandaCoin developers</translation>
     </message>
 </context>
 <context>
@@ -69,8 +69,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="+63"/>
-        <source>These are your Dogecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>These are your Dogecoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
+        <source>These are your PandaCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>These are your PandaCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
     </message>
     <message>
         <location filename="../forms/addressbookpage.ui" line="+14"/>
@@ -84,8 +84,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a Dogecoin address</source>
-        <translation>Sign a message to prove you own a Dogecoin address</translation>
+        <source>Sign a message to prove you own a PandaCoin address</source>
+        <translation>Sign a message to prove you own a PandaCoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -109,8 +109,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-44"/>
-        <source>Verify a message to ensure it was signed with a specified Dogecoin address</source>
-        <translation>Verify a message to ensure it was signed with a specified Dogecoin address</translation>
+        <source>Verify a message to ensure it was signed with a specified PandaCoin address</source>
+        <translation>Verify a message to ensure it was signed with a specified PandaCoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -124,8 +124,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location filename="../addressbookpage.cpp" line="-5"/>
-        <source>These are your Dogecoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>These are your Dogecoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
+        <source>These are your PandaCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation>These are your PandaCoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -250,8 +250,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DOGECOINS&lt;/b&gt;!</source>
-        <translation>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR DOGECOINS&lt;/b&gt;!</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR PANDACOINS&lt;/b&gt;!</source>
+        <translation>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR PANDACOINS&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -277,8 +277,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-56"/>
-        <source>Dogecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your dogecoins from being stolen by malware infecting your computer.</source>
-        <translation>Dogecoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your dogecoins from being stolen by malware infecting your computer.</translation>
+        <source>PandaCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your pandacoins from being stolen by malware infecting your computer.</source>
+        <translation>PandaCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your pandacoins from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -376,8 +376,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about Dogecoin</source>
-        <translation>Show information about Dogecoin</translation>
+        <source>Show information about PandaCoin</source>
+        <translation>Show information about PandaCoin</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -421,13 +421,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-347"/>
-        <source>Send coins to a Dogecoin address</source>
-        <translation>Send coins to a Dogecoin address</translation>
+        <source>Send coins to a PandaCoin address</source>
+        <translation>Send coins to a PandaCoin address</translation>
     </message>
     <message>
         <location line="+49"/>
-        <source>Modify configuration options for Dogecoin</source>
-        <translation>Modify configuration options for Dogecoin</translation>
+        <source>Modify configuration options for PandaCoin</source>
+        <translation>Modify configuration options for PandaCoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -457,8 +457,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-165"/>
         <location line="+530"/>
-        <source>Dogecoin</source>
-        <translation>Dogecoin</translation>
+        <source>PandaCoin</source>
+        <translation>PandaCoin</translation>
     </message>
     <message>
         <location line="-530"/>
@@ -482,8 +482,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+22"/>
-        <source>&amp;About Dogecoin</source>
-        <translation>&amp;About Dogecoin</translation>
+        <source>&amp;About PandaCoin</source>
+        <translation>&amp;About PandaCoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -502,13 +502,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+7"/>
-        <source>Sign messages with your Dogecoin addresses to prove you own them</source>
-        <translation>Sign messages with your Dogecoin addresses to prove you own them</translation>
+        <source>Sign messages with your PandaCoin addresses to prove you own them</source>
+        <translation>Sign messages with your PandaCoin addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Verify messages to ensure they were signed with specified Dogecoin addresses</source>
-        <translation>Verify messages to ensure they were signed with specified Dogecoin addresses</translation>
+        <source>Verify messages to ensure they were signed with specified PandaCoin addresses</source>
+        <translation>Verify messages to ensure they were signed with specified PandaCoin addresses</translation>
     </message>
     <message>
         <location line="+28"/>
@@ -538,15 +538,15 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+47"/>
-        <source>Dogecoin client</source>
-        <translation>Dogecoin client</translation>
+        <source>PandaCoin client</source>
+        <translation>PandaCoin client</translation>
     </message>
     <message numerus="yes">
         <location line="+141"/>
-        <source>%n active connection(s) to Dogecoin network</source>
+        <source>%n active connection(s) to PandaCoin network</source>
         <translation>
-            <numerusform>%n active connection to Dogecoin network</numerusform>
-            <numerusform>%n active connections to Dogecoin network</numerusform>
+            <numerusform>%n active connection to PandaCoin network</numerusform>
+            <numerusform>%n active connections to PandaCoin network</numerusform>
         </translation>
     </message>
     <message>
@@ -670,8 +670,8 @@ Address: %4
     <message>
         <location line="-23"/>
         <location line="+23"/>
-        <source>URI can not be parsed! This can be caused by an invalid Dogecoin address or malformed URI parameters.</source>
-        <translation>URI can not be parsed! This can be caused by an invalid Dogecoin address or malformed URI parameters.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid PandaCoin address or malformed URI parameters.</source>
+        <translation>URI can not be parsed! This can be caused by an invalid PandaCoin address or malformed URI parameters.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -685,8 +685,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+111"/>
-        <source>A fatal error occurred. Dogecoin can no longer continue safely and will quit.</source>
-        <translation>A fatal error occurred. Dogecoin can no longer continue safely and will quit.</translation>
+        <source>A fatal error occurred. PandaCoin can no longer continue safely and will quit.</source>
+        <translation>A fatal error occurred. PandaCoin can no longer continue safely and will quit.</translation>
     </message>
 </context>
 <context>
@@ -751,8 +751,8 @@ Address: %4
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid Dogecoin address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid Dogecoin address.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid PandaCoin address.</source>
+        <translation>The entered address &quot;%1&quot; is not a valid PandaCoin address.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -770,8 +770,8 @@ Address: %4
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>Dogecoin-Qt</source>
-        <translation>Dogecoin-Qt</translation>
+        <source>PandaCoin-Qt</source>
+        <translation>PandaCoin-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -833,13 +833,13 @@ Address: %4
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start Dogecoin after logging in to the system.</source>
-        <translation>Automatically start Dogecoin after logging in to the system.</translation>
+        <source>Automatically start PandaCoin after logging in to the system.</source>
+        <translation>Automatically start PandaCoin after logging in to the system.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start Dogecoin on system login</source>
-        <translation>&amp;Start Dogecoin on system login</translation>
+        <source>&amp;Start PandaCoin on system login</source>
+        <translation>&amp;Start PandaCoin on system login</translation>
     </message>
     <message>
         <location line="+35"/>
@@ -858,8 +858,8 @@ Address: %4
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the Dogecoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the Dogecoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the PandaCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the PandaCoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -868,8 +868,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the Dogecoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connect to the Dogecoin network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
+        <source>Connect to the PandaCoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connect to the PandaCoin network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -943,8 +943,8 @@ Address: %4
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting Dogecoin.</source>
-        <translation>The user interface language can be set here. This setting will take effect after restarting Dogecoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting PandaCoin.</source>
+        <translation>The user interface language can be set here. This setting will take effect after restarting PandaCoin.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -958,8 +958,8 @@ Address: %4
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show Dogecoin addresses in the transaction list or not.</source>
-        <translation>Whether to show Dogecoin addresses in the transaction list or not.</translation>
+        <source>Whether to show PandaCoin addresses in the transaction list or not.</source>
+        <translation>Whether to show PandaCoin addresses in the transaction list or not.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1010,8 +1010,8 @@ Address: %4
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting Dogecoin.</source>
-        <translation>This setting will take effect after restarting Dogecoin.</translation>
+        <source>This setting will take effect after restarting PandaCoin.</source>
+        <translation>This setting will take effect after restarting PandaCoin.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1029,8 +1029,8 @@ Address: %4
     <message>
         <location line="+50"/>
         <location line="+166"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Dogecoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Dogecoin network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the PandaCoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the PandaCoin network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-124"/>
@@ -1083,8 +1083,8 @@ Address: %4
     <name>PaymentServer</name>
     <message>
         <location filename="../paymentserver.cpp" line="+107"/>
-        <source>Cannot start dogecoin: click-to-pay handler</source>
-        <translation>Cannot start dogecoin: click-to-pay handler</translation>
+        <source>Cannot start pandacoin: click-to-pay handler</source>
+        <translation>Cannot start pandacoin: click-to-pay handler</translation>
     </message>
 </context>
 <context>
@@ -1233,8 +1233,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Dogecoin-Qt help message to get a list with possible Dogecoin command-line options.</source>
-        <translation>Show the Dogecoin-Qt help message to get a list with possible Dogecoin command-line options.</translation>
+        <source>Show the PandaCoin-Qt help message to get a list with possible PandaCoin command-line options.</source>
+        <translation>Show the PandaCoin-Qt help message to get a list with possible PandaCoin command-line options.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1253,13 +1253,13 @@ Address: %4
     </message>
     <message>
         <location line="-104"/>
-        <source>Dogecoin - Debug window</source>
-        <translation>Dogecoin - Debug window</translation>
+        <source>PandaCoin - Debug window</source>
+        <translation>PandaCoin - Debug window</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>Dogecoin Core</source>
-        <translation>Dogecoin Core</translation>
+        <source>PandaCoin Core</source>
+        <translation>PandaCoin Core</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1268,8 +1268,8 @@ Address: %4
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the Dogecoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open the Dogecoin debug log file from the current data directory. This can take a few seconds for large log files.</translation>
+        <source>Open the PandaCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open the PandaCoin debug log file from the current data directory. This can take a few seconds for large log files.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1278,8 +1278,8 @@ Address: %4
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-30"/>
-        <source>Welcome to the Dogecoin RPC console.</source>
-        <translation>Welcome to the Dogecoin RPC console.</translation>
+        <source>Welcome to the PandaCoin RPC console.</source>
+        <translation>Welcome to the PandaCoin RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1421,8 +1421,8 @@ Address: %4
     </message>
     <message>
         <location line="+34"/>
-        <source>The address to send the payment to (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</source>
-        <translation>The address to send the payment to (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</translation>
+        <source>The address to send the payment to (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>The address to send the payment to (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -1462,8 +1462,8 @@ Address: %4
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Dogecoin address (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</source>
-        <translation>Enter a Dogecoin address (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</translation>
+        <source>Enter a PandaCoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>Enter a PandaCoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
 </context>
 <context>
@@ -1485,8 +1485,8 @@ Address: %4
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</source>
-        <translation>The address to sign the message with (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</translation>
+        <source>The address to sign the message with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>The address to sign the message with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1527,8 +1527,8 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this Dogecoin address</source>
-        <translation>Sign the message to prove you own this Dogecoin address</translation>
+        <source>Sign the message to prove you own this PandaCoin address</source>
+        <translation>Sign the message to prove you own this PandaCoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1558,13 +1558,13 @@ Address: %4
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</source>
-        <translation>The address the message was signed with (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</translation>
+        <source>The address the message was signed with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>The address the message was signed with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified Dogecoin address</source>
-        <translation>Verify the message to ensure it was signed with the specified Dogecoin address</translation>
+        <source>Verify the message to ensure it was signed with the specified PandaCoin address</source>
+        <translation>Verify the message to ensure it was signed with the specified PandaCoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1579,8 +1579,8 @@ Address: %4
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a Dogecoin address (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</source>
-        <translation>Enter a Dogecoin address (e.g. DJ7zB7c5BsB9UJLy1rKQtY7c6CQfGiaRLM)</translation>
+        <source>Enter a PandaCoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>Enter a PandaCoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -1589,8 +1589,8 @@ Address: %4
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter Dogecoin signature</source>
-        <translation>Enter Dogecoin signature</translation>
+        <source>Enter PandaCoin signature</source>
+        <translation>Enter PandaCoin signature</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -1663,8 +1663,8 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <location filename="../splashscreen.cpp" line="+22"/>
-        <source>The Dogecoin developers</source>
-        <translation>The Dogecoin developers</translation>
+        <source>The PandaCoin developers</source>
+        <translation>The PandaCoin developers</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2216,8 +2216,8 @@ Address: %4
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+94"/>
-        <source>Dogecoin version</source>
-        <translation>Dogecoin version</translation>
+        <source>PandaCoin version</source>
+        <translation>PandaCoin version</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -2226,8 +2226,8 @@ Address: %4
     </message>
     <message>
         <location line="-29"/>
-        <source>Send command to -server or dogecoind</source>
-        <translation>Send command to -server or dogecoind</translation>
+        <source>Send command to -server or pandacoind</source>
+        <translation>Send command to -server or pandacoind</translation>
     </message>
     <message>
         <location line="-23"/>
@@ -2246,13 +2246,13 @@ Address: %4
     </message>
     <message>
         <location line="+24"/>
-        <source>Specify configuration file (default: dogecoin.conf)</source>
-        <translation>Specify configuration file (default: dogecoin.conf)</translation>
+        <source>Specify configuration file (default: pandacoin.conf)</source>
+        <translation>Specify configuration file (default: pandacoin.conf)</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Specify pid file (default: dogecoind.pid)</source>
-        <translation>Specify pid file (default: dogecoind.pid)</translation>
+        <source>Specify pid file (default: pandacoind.pid)</source>
+        <translation>Specify pid file (default: pandacoind.pid)</translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2266,8 +2266,8 @@ Address: %4
     </message>
     <message>
         <location line="-28"/>
-        <source>Listen for connections on &lt;port&gt; (default: 22556 or testnet: 44556)</source>
-        <translation>Listen for connections on &lt;port&gt; (default: 22556 or testnet: 44556)</translation>
+        <source>Listen for connections on &lt;port&gt; (default: 22445 or testnet: 44656)</source>
+        <translation>Listen for connections on &lt;port&gt; (default: 22445 or testnet: 44656)</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2301,8 +2301,8 @@ Address: %4
     </message>
     <message>
         <location line="+27"/>
-        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 22555 or testnet: 44555)</source>
-        <translation>Listen for JSON-RPC connections on &lt;port&gt; (default: 22555 or testnet: 44555)</translation>
+        <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 22444 or testnet: 44655)</source>
+        <translation>Listen for JSON-RPC connections on &lt;port&gt; (default: 22444 or testnet: 44655)</translation>
     </message>
     <message>
         <location line="+37"/>
@@ -2329,24 +2329,24 @@ Address: %4
         <source>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=dogecoinrpc
+rpcuser=pandacoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Dogecoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;PandaCoin Alert&quot; admin@foo.com
 </source>
         <translation>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser=dogecoinrpc
+rpcuser=pandacoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;Dogecoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;PandaCoin Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -2361,8 +2361,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dogecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Cannot obtain a lock on data directory %s. Dogecoin is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s. Dogecoin is probably already running.</translation>
+        <source>Cannot obtain a lock on data directory %s. PandaCoin is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s. PandaCoin is probably already running.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2406,8 +2406,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dogecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+3"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Dogecoin will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Dogecoin will not work properly.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong PandaCoin will not work properly.</source>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong PandaCoin will not work properly.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2656,8 +2656,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dogecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+5"/>
-        <source>SSL options: (see the DogeCoin Wiki for SSL setup instructions)</source>
-        <translation>SSL options: (see the DogeCoin Wiki for SSL setup instructions)</translation>
+        <source>SSL options: (see the PandaCoin Wiki for SSL setup instructions)</source>
+        <translation>SSL options: (see the PandaCoin Wiki for SSL setup instructions)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2846,13 +2846,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Dogecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of Dogecoin</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of Dogecoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of PandaCoin</source>
+        <translation>Error loading wallet.dat: Wallet requires newer version of PandaCoin</translation>
     </message>
     <message>
         <location line="+93"/>
-        <source>Wallet needed to be rewritten: restart Dogecoin to complete</source>
-        <translation>Wallet needed to be rewritten: restart Dogecoin to complete</translation>
+        <source>Wallet needed to be rewritten: restart PandaCoin to complete</source>
+        <translation>Wallet needed to be rewritten: restart PandaCoin to complete</translation>
     </message>
     <message>
         <location line="-95"/>
@@ -2911,8 +2911,8 @@ for example: alertnotify=echo %%s | mail -s &quot;Dogecoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="-25"/>
-        <source>Unable to bind to %s on this computer. Dogecoin is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. Dogecoin is probably already running.</translation>
+        <source>Unable to bind to %s on this computer. PandaCoin is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. PandaCoin is probably already running.</translation>
     </message>
     <message>
         <location line="+64"/>
