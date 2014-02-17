@@ -111,10 +111,10 @@ PaymentServer::PaymentServer(QApplication* parent) : QObject(parent), saveURIs(t
     else
         connect(uriServer, SIGNAL(newConnection()), this, SLOT(handleURIConnection()));
 
-    QDesktopServices::setUrlHandler("pandacoin", this, SLOT(handleDogeURI));
+    QDesktopServices::setUrlHandler("pandacoin", this, SLOT(handlePandaURI));
 }
 
-void PaymentServer::handleDogeURI(const QUrl &url)
+void PaymentServer::handlePandaURI(const QUrl &url)
 {
     emit receivedURI(url.toString());
 }
