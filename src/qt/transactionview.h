@@ -67,7 +67,7 @@ private slots:
     void copyLabel();
     void copyAmount();
     void copyTxID();
-    void viewOnDogechain();
+    void viewOnPandachain();
 
 signals:
     void doubleClicked(const QModelIndex&);
