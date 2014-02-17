@@ -1,11 +1,11 @@
 # PandaCoin [PND, Ᵽ] Integration/Staging Tree
-http://pandacoin.com/
+http://thepandacoin.co
 
 ![PandaCoin](http://i.imgur.com/qbrwsMm.png)
 
 ## What is PandaCoin? - Such coin
 PandaCoin is like Bitcoin, but based on Litecoin, and also much more wow.
-http://pandacoin.com/
+http://thepandacoin.co
 
 ## License - Much license
 PandaCoin is released under the terms of the MIT license. See [COPYING](COPYING)
