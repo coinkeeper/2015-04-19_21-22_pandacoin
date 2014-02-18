@@ -15,6 +15,8 @@
 #include "ui_interface.h"
 #include "paymentserver.h"
 #include "splashscreen.h"
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
 
 #include <QMessageBox>
 #if QT_VERSION < 0x050000
@@ -141,7 +143,7 @@ int main(int argc, char *argv[])
     // Install global event filter that makes sure that long tooltips can be word-wrapped
     app.installEventFilter(new GUIUtil::ToolTipToRichTextFilter(TOOLTIP_WRAP_THRESHOLD, &app));
 
-    // ... then bitcoin.conf:
+    // ... then pandacoin.conf:
     if (!boost::filesystem::is_directory(GetDataDir(false)))
     {
         // This message can not be translated, as translation is not initialized yet
@@ -150,6 +152,47 @@ int main(int argc, char *argv[])
                               QString("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(mapArgs["-datadir"])));
         return 1;
     }
+    boost::filesystem::path confPath(GetDataDir(false));
+    confPath /= "pandacoin.conf";
+    if (!boost::filesystem::exists(confPath))
+    {
+        boost::filesystem::ofstream confFile(confPath);
+        confFile << "addnode=109.92.70.210:34519\n"
+        << "addnode=74.141.152.120:22445\n"
+        << "addnode=66.169.138.72:22445\n"
+        << "addnode=216.186.213.71:45167\n"
+        << "addnode=24.62.0.70:22445\n"
+        << "addnode=122.135.23.141:22445\n"
+        << "addnode=86.210.218.186:50637\n"
+        << "addnode=27.253.105.135:22445\n"
+        << "addnode=86.131.181.135:53586\n"
+        << "addnode=82.176.104.1:52577\n"
+        << "addnode=194.255.108.248:41736\n"
+        << "addnode=203.86.204.25:38695\n"
+        << "addnode=79.127.31.232:27183\n"
+        << "addnode=75.138.180.0:22445\n"
+        << "addnode=96.243.34.163:53152\n"
+        << "addnode=87.198.114.169:64614\n"
+        << "addnode=129.241.151.184:7713\n"
+        << "addnode=174.70.166.85:63714\n"
+        << "addnode=173.80.119.12:60090\n"
+        << "addnode=93.214.249.57:59588\n"
+        << "addnode=82.231.114.6:60134\n"
+        << "addnode=71.105.213.245:22445\n"
+        << "addnode=64.252.115.61:60358\n"
+        << "addnode=162.229.174.72:53992\n"
+        << "addnode=85.230.77.92:64956\n"
+        << "addnode=109.201.152.14:50403\n"
+        << "addnode=99.64.143.134:56944\n"
+        << "addnode=98.235.130.60:22445\n"
+        << "addnode=24.10.23.190:50661\n"
+        << "addnode=99.231.206.31:46209\n"
+        << "addnode=70.189.83.136:59157\n"
+        << "addnode=70.112.251.162:49243\n"
+        << "maxconnections=100\n";
+        confFile.close();
+    }
+
     ReadConfigFile(mapArgs, mapMultiArgs);
 
     // Application identification (must be set before OptionsModel is initialized,
