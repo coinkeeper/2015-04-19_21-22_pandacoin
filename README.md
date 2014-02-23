@@ -25,7 +25,7 @@ For the block schedule, see http://en.wikipedia.org/wiki/PandaCoin#Block_schedul
 ### How get panda?
 Scrypt Proof of Work
 
-1 Minute Block Targets, 4 Hour Diff Readjustments
+1 Minute Block Targets
 
 Special reward system: Random block rewards
 
@@ -41,7 +41,7 @@ Block 300,001 — 400,000: 0-62,500 PandaCoin Reward
 
 Block 400,001 - 500,000: 0-31,250 PandaCoin Reward
 
-Block 500,000+: 5,000 PandaCoin Reward
+Block 500,000+: 10,000 PandaCoin Reward
 
 ### Wow plz make pandacoind
 
