@@ -573,11 +573,11 @@ int64 CWallet::GetDebit(const CTxIn &txin) const
 bool CWallet::HasAddress(const CTxDestination &txDest) const
 {
 	bool	hasAddress = false;
-	
+
 	LOCK(cs_wallet);
 	if (mapAddressBook.count(txDest))
 		hasAddress = true;
-	
+
 	return hasAddress;
 }
 
@@ -650,7 +650,7 @@ void CWalletTx::GetAmounts(list<pair<CTxDestination, int64> >& listReceived,
                            list<pair<CTxDestination, int64> >& listSent, int64& nFee, string& strSentAccount) const
 {
 	CTxDestination	address;
-	
+
     nFee = 0;
     listReceived.clear();
     listSent.clear();
@@ -666,13 +666,13 @@ void CWalletTx::GetAmounts(list<pair<CTxDestination, int64> >& listReceived,
 
 	if (!fMineCached)
 		vfMine.resize(vout.size());
-		
+
     // Sent/received.
 	for (unsigned int i = 0; i < vout.size(); i++) {
 		const CTxOut	&txout = vout[i];
 		bool			isMine = false;
 		bool			warnUnkownTX = false;
-		
+
 		if (!fMineCached) {
 			address = CNoDestination();
 			warnUnkownTX = !ExtractDestinationAndMine(*pwallet, txout.scriptPubKey, address, &isMine);
@@ -1014,8 +1014,7 @@ void CWallet::AvailableCoins(vector<COutput>& vCoins, bool fOnlyConfirmed, const
                 continue;
 
             for (unsigned int i = 0; i < pcoin->vout.size(); i++) {
-                if (!(pcoin->IsSpent(i)) && IsMine(pcoin->vout[i]) &&
-                    !IsLockedCoin((*it).first, i) && pcoin->vout[i].nValue >= nMinimumInputValue &&
+                if (!(pcoin->IsSpent(i)) && IsMine(pcoin->vout[i]) && !IsLockedCoin((*it).first, i) &&
                     (!coinControl || !coinControl->HasSelected() || coinControl->IsSelected((*it).first, i)))
                         vCoins.push_back(COutput(pcoin, i, pcoin->GetDepthInMainChain()));
             }
