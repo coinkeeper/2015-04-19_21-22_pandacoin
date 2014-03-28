@@ -1095,16 +1095,12 @@ int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
     long seed = hex2long(cseed);
     int rand = generateMTRandom(seed, 999999);
     int rand1 = 0;
-    int rand2 = 0;
-    int rand3 = 0;
-    int rand4 = 0;
-    int rand5 = 0;
 
     if(nHeight < 50000)
     {
         nSubsidy = (1 + rand) * COIN;
     }
-    else if(nHeight < 100000)
+    else if(nHeight < 63500)
     {
         cseed_str = prevHash.ToString().substr(7,7);
         cseed = cseed_str.c_str();
@@ -1112,37 +1108,10 @@ int64 static GetBlockValue(int nHeight, int64 nFees, uint256 prevHash)
         rand1 = generateMTRandom(seed, 499999);
         nSubsidy = (1 + rand1) * COIN;
     }
-    else if(nHeight < 200000)
+    else
     {
-        cseed_str = prevHash.ToString().substr(6,7);
-        cseed = cseed_str.c_str();
-        seed = hex2long(cseed);
-        rand2 = generateMTRandom(seed, 249999);
-        nSubsidy = (1 + rand2) * COIN;
-    }
-    else if(nHeight < 300000)
-    {
-        cseed_str = prevHash.ToString().substr(7,7);
-        cseed = cseed_str.c_str();
-        seed = hex2long(cseed);
-        rand3 = generateMTRandom(seed, 124999);
-        nSubsidy = (1 + rand3) * COIN;
-    }
-    else if(nHeight < 400000)
-    {
-        cseed_str = prevHash.ToString().substr(7,7);
-        cseed = cseed_str.c_str();
-        seed = hex2long(cseed);
-        rand4 = generateMTRandom(seed, 62499);
-        nSubsidy = (1 + rand4) * COIN;
-    }
-    else if(nHeight < 500000)
-    {
-        cseed_str = prevHash.ToString().substr(6,7);
-        cseed = cseed_str.c_str();
-        seed = hex2long(cseed);
-        rand5 = generateMTRandom(seed, 31249);
-        nSubsidy = (1 + rand5) * COIN;
+        // Reduce until either PoS is done or plans for improved rewards are in place
+        nSubsidy = 50000 * COIN;
     }
 
     return nSubsidy + nFees;
