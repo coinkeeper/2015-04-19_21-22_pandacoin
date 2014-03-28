@@ -21,6 +21,11 @@ CONFIG += exceptions
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
+# do no steal:
+# BDB_INCLUDE_PATH=/opt/local/include/db48
+# BDB_LIB_PATH=/opt/local/lib/db48
+# BDB_LIB_SUFFIX=-4.8
+
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
