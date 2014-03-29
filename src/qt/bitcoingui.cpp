@@ -83,7 +83,11 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
     setCentralWidget(walletFrame);
 
     //specify a new font.
-    QFont newFont("Arial", 10);
+#ifdef Q_OS_MAC
+    QFont newFont("ArialMT", 12);
+#else
+    QFont newFont("ArialMT", 10);
+#endif
 
     //set font of application
     QApplication::setFont(newFont);

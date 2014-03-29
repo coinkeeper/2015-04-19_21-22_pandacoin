@@ -60,8 +60,8 @@ QString dateTimeStr(qint64 nTime)
 
 QFont bitcoinAddressFont()
 {
-    QFont font("Cursive");
-    font.setFamily("Arial");
+    QFont font("Monospace");
+    font.setStyleHint(QFont::TypeWriter);
     return font;
 }
 
