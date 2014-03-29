@@ -8,7 +8,7 @@ from datetime import date
 
 bitcoinDir = "./";
 
-inFile     = bitcoinDir+"/share/qt/Info.plist"
+inFile     = bitcoinDir+"/src/mac/Info.plist"
 outFile    = "PandaCoin-Qt.app/Contents/Info.plist"
 version    = "unknown";
 
