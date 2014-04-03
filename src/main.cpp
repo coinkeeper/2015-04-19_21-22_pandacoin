@@ -1266,7 +1266,7 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const CBloc
 		PastRateActualSeconds = LatestBlockTime - BlockReading->GetBlockTime();
 		PastRateTargetSeconds			= TargetBlocksSpacingSeconds * PastBlocksMass;
 		PastRateAdjustmentRatio			= double(1);
-		if (BlockReading->nHeight > 71000)
+		if (BlockReading->nHeight > 71000) {
 		        if (PastRateActualSeconds < 1) { PastRateActualSeconds = 1; }
 		} else {
 		        if (PastRateActualSeconds < 0) { PastRateActualSeconds = 0; }
