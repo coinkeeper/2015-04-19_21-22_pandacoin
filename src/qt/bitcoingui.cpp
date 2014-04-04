@@ -75,7 +75,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
     QApplication::setWindowIcon(QIcon(":icons/bitcoin"));
     setWindowIcon(QIcon(":icons/bitcoin"));
 #else
-    setUnifiedTitleAndToolBarOnMac(true);
+    setUnifiedTitleAndToolBarOnMac(false);
     QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
     // Create wallet frame and make it the central widget
@@ -84,9 +84,9 @@ BitcoinGUI::BitcoinGUI(QWidget *parent) :
 
     //specify a new font.
 #ifdef Q_OS_MAC
-    QFont newFont("ArialMT", 12);
+    QFont newFont("Arial", 12);
 #else
-    QFont newFont("ArialMT", 10);
+    QFont newFont("Arial", 10);
 #endif
 
     //set font of application
