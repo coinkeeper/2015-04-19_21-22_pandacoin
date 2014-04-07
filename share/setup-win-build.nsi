@@ -67,12 +67,6 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
     File ..\release\pandacoin-qt.exe
-    File ..\release\libgcc_s_dw2-1.dll
-    File ..\release\libstdc++-6.dll
-    File ..\release\mingwm10.dll
-    File ..\release\QtCore4.dll
-    File ..\release\QtGui4.dll
-    File ..\release\QtNetwork4.dll
     File /oname=readme.txt ..\doc\README_windows.txt
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
@@ -117,12 +111,6 @@ done${UNSECTION_ID}:
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
     Delete /REBOOTOK $INSTDIR\pandacoin-qt.exe
-    Delete /REBOOTOK $INSTDIR\libgcc_s_dw2-1.dll
-    Delete /REBOOTOK $INSTDIR\libstdc++-6.dll
-    Delete /REBOOTOK $INSTDIR\mingwm10.dll
-    Delete /REBOOTOK $INSTDIR\QtCore4.dll
-    Delete /REBOOTOK $INSTDIR\QtGui4.dll
-    Delete /REBOOTOK $INSTDIR\QtNetwork4.dll
     Delete /REBOOTOK $INSTDIR\readme.txt
     DeleteRegValue HKCU "${REGKEY}\Components" Main
 SectionEnd
