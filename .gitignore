@@ -35,3 +35,6 @@ build
 Thumbs.db
 
 !src/leveldb*/Makefile
+
+# Qt 5 whenever needed
+.qmake.stash
