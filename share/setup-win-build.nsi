@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION "1.5.5.0"
+!define VERSION "1.6.0.0"
 !define COMPANY "PandaCoin"
 !define URL http://thepandacoin.net
 
