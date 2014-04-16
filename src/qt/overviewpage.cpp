@@ -118,7 +118,7 @@ OverviewPage::OverviewPage(QWidget *parent) :
     ui->labelTransactionsStatus->setText("(" + tr("out of sync") + ")");
 
     // Customized branding image.
-    boost::filesystem::path dogepath = GetDataDir(false);
+    boost::filesystem::path pandapath = GetDataDir(false);
     pandapath /= "pandacoin.png";
     QPixmap pandacoin(pandapath.string().c_str());
 
