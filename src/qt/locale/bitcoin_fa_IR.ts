@@ -637,7 +637,7 @@ Amount: %2
 Type: %3
 Address: %4
 </source>
-        <translation>تاریخ: %1⏎ میزان وجه : %2⏎ نوع: %3⏎ آدرس: %4⏎ 
+        <translation>تاریخ: %1⏎ میزان وجه : %2⏎ نوع: %3⏎ آدرس: %4⏎
 </translation>
     </message>
     <message>

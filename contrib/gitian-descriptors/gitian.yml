@@ -5,7 +5,7 @@ suites:
 architectures:
 - "i386"
 - "amd64"
-packages: 
+packages:
 - "libdb4.8++-dev"
 - "qt4-qmake"
 - "libqt4-dev"

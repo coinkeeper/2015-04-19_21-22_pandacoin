@@ -19,10 +19,10 @@ endif
 INCLUDEPATHS= \
  -I"$(CURDIR)" \
  -I"$(CURDIR)"/obj \
- -I"$(DEPSDIR)/include" 
+ -I"$(DEPSDIR)/include"
 
 LIBPATHS= \
- -L"$(DEPSDIR)/lib" 
+ -L"$(DEPSDIR)/lib"
 
 USE_UPNP:=1
 USE_IPV6:=1

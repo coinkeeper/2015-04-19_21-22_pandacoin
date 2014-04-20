@@ -275,7 +275,7 @@ Value getworkex(const Array& params, bool fHelp)
 
         if (vchData.size() != 128)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter");
-            
+
         CBlock* pdata = (CBlock*)&vchData[0];
 
         // Byte reverse

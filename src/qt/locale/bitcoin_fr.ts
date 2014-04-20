@@ -2308,7 +2308,7 @@ If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
 for example: alertnotify=echo %%s | mail -s &quot;PandaCoin Alert&quot; admin@foo.com
 </source>
-        <translation>%s, vous devez définir un mot de passe rpc dans le fichier de configuration : 
+        <translation>%s, vous devez définir un mot de passe rpc dans le fichier de configuration :
 %s
 Il vous est conseillé d&apos;utiliser le mot de passe aléatoire suivant :
 rpcuser=pandacoinrpc

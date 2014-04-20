@@ -34,16 +34,16 @@ Unpack the files into a directory and run:
 
 See the documentation at (http://www.PandaCoin.com)
 for help and more information.
-                                                                                                                                                                           
-                                                                                                                                                                           
-Other Pages                                                                                                                                                                
----------------------                                                                                                                                                      
-- [Unix Build Notes](build-unix.md)                                                                                                                                        
-- [OSX Build Notes](build-osx.md)                                                                                                                                          
-- [Windows Build Notes](build-msw.md)                                                                                                                                      
-- [Coding Guidelines](coding.md)                                                                                                                                           
-- [Release Process](release-process.md)                                                                                                                                    
-- [Release Notes](release-notes.md)                                                                                                                                        
-- [Multiwallet Qt Development](multiwallet-qt.md)                                                                                                                          
-- [Unit Tests](unit-tests.md)                                                                                                                                              
+
+
+Other Pages
+---------------------
+- [Unix Build Notes](build-unix.md)
+- [OSX Build Notes](build-osx.md)
+- [Windows Build Notes](build-msw.md)
+- [Coding Guidelines](coding.md)
+- [Release Process](release-process.md)
+- [Release Notes](release-notes.md)
+- [Multiwallet Qt Development](multiwallet-qt.md)
+- [Unit Tests](unit-tests.md)
 - [Translation Process](translation_process.md)

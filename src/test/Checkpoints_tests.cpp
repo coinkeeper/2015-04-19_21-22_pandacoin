@@ -19,7 +19,7 @@ BOOST_AUTO_TEST_CASE(sanity)
     BOOST_CHECK(Checkpoints::CheckBlock(42279, p42279));
     BOOST_CHECK(Checkpoints::CheckBlock(42400, p42400));
 
-    
+
     // Wrong hashes at checkpoints should fail:
     BOOST_CHECK(!Checkpoints::CheckBlock(42279, p42400));
     BOOST_CHECK(!Checkpoints::CheckBlock(42400, p42279));
@@ -29,6 +29,6 @@ BOOST_AUTO_TEST_CASE(sanity)
     BOOST_CHECK(Checkpoints::CheckBlock(42400+1, p42279));
 
     BOOST_CHECK(Checkpoints::GetTotalBlocksEstimate() >= 42400);
-}    
+}
 
 BOOST_AUTO_TEST_SUITE_END()

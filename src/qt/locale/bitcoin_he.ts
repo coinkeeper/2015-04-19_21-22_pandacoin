@@ -2316,7 +2316,7 @@ rpcpassword=%s
 אסור ששם המשתמש והסיסמא יהיו זהים.
 אם הקובץ אינו קיים, צור אותו עם הרשאות קריאה לבעלים בלבד.
 זה מומלץ לסמן alertnotify כדי לקבל דיווח על תקלות;
-למשל: alertnotify=echo %%s | mail -s &quot;PandaCoin Alert&quot; admin@foo.com 
+למשל: alertnotify=echo %%s | mail -s &quot;PandaCoin Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>

@@ -743,14 +743,14 @@ static int weakPassword(std::string passwd)
       return 1;
     else
       return 0;
-    
+
 }
 
 void StartRPCThreads()
 {
     strRPCUserColonPass = mapArgs["-rpcuser"] + ":" + mapArgs["-rpcpassword"];
     if ((mapArgs["-rpcpassword"] == "") ||
-        (mapArgs["-rpcuser"] == mapArgs["-rpcpassword"]) 
+        (mapArgs["-rpcuser"] == mapArgs["-rpcpassword"])
         || weakPassword(mapArgs["-rpcpassword"]))
     {
         unsigned char rand_pwd[32];

@@ -1,4 +1,4 @@
---- 
+---
 name: bitcoin
 urls:
 - http://bitcoin.org/bitcoin-latest-linux-gitian.zip
@@ -40,7 +40,7 @@ signers:
     name: "Warren Togami"
     key: wtogami
   E084FE305BDF0C476F779792657EB016521670C0:
-    weight: 40 
+    weight: 40
     name: "Rama McIntosh"
     key: face
   1A2511E978239E491A096D0A828AC1F94EF26053:

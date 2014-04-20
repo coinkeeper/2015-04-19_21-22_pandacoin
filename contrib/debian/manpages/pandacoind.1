@@ -1,8 +1,8 @@
-.TH PANDACOIND "1" "January 2011" "pandacoind 3.19" 
+.TH PANDACOIND "1" "January 2011" "pandacoind 3.19"
 .SH NAME
 pandacoind \- peer-to-peer network based digital currency
 .SH SYNOPSIS
-pandacoin [options] <command> [params]  
+pandacoin [options] <command> [params]
 .TP
 pandacoin [options] help <command> \- Get help for a command
 .SH DESCRIPTION
@@ -184,13 +184,13 @@ Moves funds between accounts.
 .TP
 \fBsendfrom* <'account'> <'pandacoinaddress'> <'amount'> ['minconf=1'] ['comment'] ['comment-to']\fR
 Sends amount from account's balance to 'pandacoinaddress'. This method will fail if there is less than amount pandacoins with ['minconf'] confirmations in the account's balance (unless account is the empty-string-named default account; it behaves like the *sendtoaddress* method). Returns transaction ID on success.
-.TP     
+.TP
 \fBsendtoaddress 'pandacoinaddress' 'amount' ['comment'] ['comment-to']\fR
 Sends amount from the server's available balance to 'pandacoinaddress'. amount is a real and is rounded to the nearest 0.01. Returns transaction id on success.
-.TP    
+.TP
 \fBstop\fR
 Stops the pandacoin server.
-.TP    
+.TP
 \fBvalidateaddress 'pandacoinaddress'\fR
 Checks that 'pandacoinaddress' looks like a proper pandacoin address. Returns an object containing:
 
