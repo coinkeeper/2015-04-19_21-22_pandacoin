@@ -55,13 +55,13 @@ Release Process
 	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../pandacoin/contrib/gitian-descriptors/gitian.yml
 	pushd build/out
 	zip -r pandacoin-${VERSION}-linux.zip *
-	mv pandacoin-${VERSION}-linux.zip ../../
+	mv pandacoin-${VERSION}-linux-gitian.zip ../../
 	popd
 	./bin/gbuild --commit pandacoin=v${VERSION} ../pandacoin/contrib/gitian-descriptors/gitian-win32.yml
 	./bin/gsign --signer $SIGNER --release ${VERSION}-win32 --destination ../gitian.sigs/ ../pandacoin/contrib/gitian-descriptors/gitian-win32.yml
 	pushd build/out
 	zip -r pandacoin-${VERSION}-win32.zip *
-	mv pandacoin-${VERSION}-win32.zip ../../
+	mv pandacoin-${VERSION}-win32-gitian.zip ../../
 	popd
 
   Build output expected:
