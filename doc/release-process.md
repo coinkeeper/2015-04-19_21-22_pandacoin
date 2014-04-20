@@ -39,15 +39,15 @@ Release Process
 	wget 'http://zlib.net/zlib-1.2.6.tar.gz'
 	wget 'ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng-1.5.9.tar.gz'
 	wget 'http://fukuchi.org/works/qrencode/qrencode-3.2.0.tar.bz2'
-	wget 'http://downloads.sourceforge.net/project/boost/boost/1.50.0/boost_1_50_0.tar.bz2'
-	wget 'http://releases.qt-project.org/qt4/source/qt-everywhere-opensource-src-4.8.3.tar.gz'
+	wget 'http://downloads.sourceforge.net/project/boost/boost/1.54.0/boost_1_54_0.tar.bz2'
+	wget 'http://download.qt-project.org/official_releases/qt/4.8/4.8.5/qt-everywhere-opensource-src-4.8.5.tar.gz'
 	cd ..
 	./bin/gbuild ../pandacoin/contrib/gitian-descriptors/boost-win32.yml
-	mv build/out/boost-win32-1.50.0-gitian2.zip inputs/
+	mv build/out/boost-win32-1.54.0-gitian-r6.zip inputs/
 	./bin/gbuild ../pandacoin/contrib/gitian-descriptors/qt-win32.yml
-	mv build/out/qt-win32-4.8.3-gitian-r1.zip inputs/
+	mv build/out/qt-win32-4.8.5-gitian-r4.zip inputs/
 	./bin/gbuild ../pandacoin/contrib/gitian-descriptors/deps-win32.yml
-	mv build/out/pandacoin-deps-0.0.5.zip inputs/
+	mv build/out/bitcoin-deps-win32-gitian-r9.zip inputs/
 
  Build pandacoind and pandacoin-qt on Linux32, Linux64, and Win32:
 
