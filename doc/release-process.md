@@ -25,7 +25,7 @@ Release Process
 ##perform gitian builds
 
  From a directory containing the pandacoin source, gitian-builder and gitian.sigs
-  
+
 	export SIGNER=(your gitian key, ie bluematt, sipa, etc)
 	export VERSION=0.8.0
 	cd ./gitian-builder
@@ -50,7 +50,7 @@ Release Process
 	mv build/out/pandacoin-deps-0.0.5.zip inputs/
 
  Build pandacoind and pandacoin-qt on Linux32, Linux64, and Win32:
-  
+
 	./bin/gbuild --commit pandacoin=v${VERSION} ../pandacoin/contrib/gitian-descriptors/gitian.yml
 	./bin/gsign --signer $SIGNER --release ${VERSION} --destination ../gitian.sigs/ ../pandacoin/contrib/gitian-descriptors/gitian.yml
 	pushd build/out
@@ -82,7 +82,7 @@ repackage gitian builds for release as stand-alone zip/tar/installer exe
 
 	unzip pandacoin-${VERSION}-win32-gitian.zip -d pandacoin-${VERSION}-win32
 	mv pandacoin-${VERSION}-win32/pandacoin-*-setup.exe .
-	zip -r pandacoin-${VERSION}-win32.zip bitcoin-${VERSION}-win32
+	zip -r pandacoin-${VERSION}-win32.zip pandacoin-${VERSION}-win32
 	rm -rf pandacoin-${VERSION}-win32
 
 **Perform Mac build:**
@@ -158,4 +158,4 @@ From a directory containing pandacoin source, gitian.sigs and gitian zips
 	popd
 
 - Upload gitian zips to SourceForge
-- Celebrate 
+- Celebrate
