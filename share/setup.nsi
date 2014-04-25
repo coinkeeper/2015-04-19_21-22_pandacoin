@@ -5,7 +5,7 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 1.6.0.0
+!define VERSION 1.6.1.0
 !define COMPANY "PandaCoin project"
 !define URL http://thepandacoin.net
 
@@ -45,13 +45,13 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile pandacoin-1.6.0-win32-setup.exe
+OutFile pandacoin-1.6.1-win32-setup.exe
 InstallDir $PROGRAMFILES\PandaCoin
 CRCCheck on
 XPStyle on
 BrandingText " "
 ShowInstDetails show
-VIProductVersion 1.6.0.0
+VIProductVersion 1.6.1.0
 VIAddVersionKey ProductName PandaCoin
 VIAddVersionKey ProductVersion "${VERSION}"
 VIAddVersionKey CompanyName "${COMPANY}"
