@@ -11,6 +11,7 @@
 #include "ui_interface.h"
 #include "checkpoints.h"
 #include "zerocoin/ZeroTest.h"
+
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
@@ -460,11 +461,15 @@ bool AppInit2()
             nConnectTimeout = nNewTimeout;
     }
 
+    // This is to indicate that the block was signed from a PoS wallet
+    const char* pszP2SH = "/PND2/";
+    COINBASE_FLAGS << std::vector<unsigned char>(pszP2SH, pszP2SH+strlen(pszP2SH));
+
     if (mapArgs.count("-paytxfee"))
     {
         if (!ParseMoney(mapArgs["-paytxfee"], nTransactionFee))
             return InitError(strprintf(_("Invalid amount for -paytxfee=<amount>: '%s'"), mapArgs["-paytxfee"].c_str()));
-        if (nTransactionFee > 0.25 * COIN)
+        if (nTransactionFee > 25 * COIN)
             InitWarning(_("Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction."));
     }
 
@@ -869,6 +874,22 @@ bool AppInit2()
             LoadExternalBlockFile(file);
             RenameOver(pathBootstrap, pathBootstrapOld);
         }
+    }
+
+    // Pandacoin: import PoW blockchain
+    filesystem::path pathOldblockchain = GetDataDir() / "blocks";
+    if (filesystem::exists(pathOldblockchain)) {
+        uiInterface.InitMessage(_("Importing blockchain from PoW wallet..."));
+
+        FILE *file = fopen((pathOldblockchain / "blk00000.dat").string().c_str(), "rb");
+        if (file) {
+            LoadExternalBlockFile(file);
+        }
+        file = fopen((pathOldblockchain / "blk00001.dat").string().c_str(), "rb");
+        if (file) {
+            LoadExternalBlockFile(file);
+        }
+        filesystem::remove_all(pathOldblockchain);
     }
 
     // ********************************************************* Step 10: load peers
