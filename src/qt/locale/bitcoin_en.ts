@@ -5,19 +5,19 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About BlackCoin</source>
-        <translation>About BlackCoin</translation>
+        <source>About Pandacoin</source>
+        <translation>About Pandacoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;BlackCoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;BlackCoin&lt;/b&gt; version</translation>
+        <source>&lt;b&gt;Pandacoin&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;Pandacoin&lt;/b&gt; version</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The BlackCoin developers</source>
+Copyright © 2014 The Pandacoin developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -65,8 +65,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your BlackCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>These are your BlackCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
+        <source>These are your Pandacoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>These are your Pandacoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -80,8 +80,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a BlackCoin address</source>
-        <translation>Sign a message to prove you own a BlackCoin address</translation>
+        <source>Sign a message to prove you own a Pandacoin address</source>
+        <translation>Sign a message to prove you own a Pandacoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -95,8 +95,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified BlackCoin address</source>
-        <translation>Verify a message to ensure it was signed with a specified BlackCoin address</translation>
+        <source>Verify a message to ensure it was signed with a specified Pandacoin address</source>
+        <translation>Verify a message to ensure it was signed with a specified Pandacoin address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -263,8 +263,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-58"/>
-        <source>BlackCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>BlackCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</translation>
+        <source>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -377,8 +377,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+6"/>
-        <source>Show information about BlackCoin</source>
-        <translation>Show information about BlackCoin</translation>
+        <source>Show information about Pandacoin</source>
+        <translation>Show information about Pandacoin</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -430,13 +430,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-64"/>
-        <source>Send coins to a BlackCoin address</source>
-        <translation>Send coins to a BlackCoin address</translation>
+        <source>Send coins to a Pandacoin address</source>
+        <translation>Send coins to a Pandacoin address</translation>
     </message>
     <message>
         <location line="+47"/>
-        <source>Modify configuration options for BlackCoin</source>
-        <translation>Modify configuration options for BlackCoin</translation>
+        <source>Modify configuration options for Pandacoin</source>
+        <translation>Modify configuration options for Pandacoin</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -475,8 +475,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-202"/>
-        <source>BlackCoin</source>
-        <translation>BlackCoin</translation>
+        <source>Pandacoin</source>
+        <translation>Pandacoin</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -485,8 +485,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+180"/>
-        <source>&amp;About BlackCoin</source>
-        <translation>&amp;About BlackCoin</translation>
+        <source>&amp;About Pandacoin</source>
+        <translation>&amp;About Pandacoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -542,15 +542,15 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>BlackCoin client</source>
-        <translation>BlackCoin client</translation>
+        <source>Pandacoin client</source>
+        <translation>Pandacoin client</translation>
     </message>
     <message numerus="yes">
         <location line="+75"/>
-        <source>%n active connection(s) to BlackCoin network</source>
+        <source>%n active connection(s) to Pandacoin network</source>
         <translation>
-            <numerusform>%n active connection to BlackCoin network</numerusform>
-            <numerusform>%n active connections to BlackCoin network</numerusform>
+            <numerusform>%n active connection to Pandacoin network</numerusform>
+            <numerusform>%n active connections to Pandacoin network</numerusform>
         </translation>
     </message>
     <message>
@@ -593,12 +593,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-312"/>
-        <source>About BlackCoin card</source>
+        <source>About Pandacoin card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about BlackCoin card</source>
+        <source>Show information about Pandacoin card</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -687,8 +687,8 @@ Address: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid BlackCoin address or malformed URI parameters.</source>
-        <translation>URI can not be parsed! This can be caused by an invalid BlackCoin address or malformed URI parameters.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
+        <translation>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -759,8 +759,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. BlackCoin can no longer continue safely and will quit.</source>
-        <translation>A fatal error occurred. BlackCoin can no longer continue safely and will quit.</translation>
+        <source>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</source>
+        <translation>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</translation>
     </message>
 </context>
 <context>
@@ -1079,8 +1079,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid BlackCoin address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid BlackCoin address.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid Pandacoin address.</source>
+        <translation>The entered address &quot;%1&quot; is not a valid Pandacoin address.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1098,8 +1098,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>BlackCoin-Qt</source>
-        <translation>BlackCoin-Qt</translation>
+        <source>Pandacoin-Qt</source>
+        <translation>Pandacoin-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1171,13 +1171,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start BlackCoin after logging in to the system.</source>
-        <translation>Automatically start BlackCoin after logging in to the system.</translation>
+        <source>Automatically start Pandacoin after logging in to the system.</source>
+        <translation>Automatically start Pandacoin after logging in to the system.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start BlackCoin on system login</source>
-        <translation>&amp;Start BlackCoin on system login</translation>
+        <source>&amp;Start Pandacoin on system login</source>
+        <translation>&amp;Start Pandacoin on system login</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1196,8 +1196,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the BlackCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the BlackCoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the Pandacoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the Pandacoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1206,8 +1206,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the BlackCoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connect to the BlackCoin network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
+        <source>Connect to the Pandacoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connect to the Pandacoin network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1281,8 +1281,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting BlackCoin.</source>
-        <translation>The user interface language can be set here. This setting will take effect after restarting BlackCoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting Pandacoin.</source>
+        <translation>The user interface language can be set here. This setting will take effect after restarting Pandacoin.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1296,8 +1296,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show BlackCoin addresses in the transaction list or not.</source>
-        <translation>Whether to show BlackCoin addresses in the transaction list or not.</translation>
+        <source>Whether to show Pandacoin addresses in the transaction list or not.</source>
+        <translation>Whether to show Pandacoin addresses in the transaction list or not.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1343,8 +1343,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting BlackCoin.</source>
-        <translation>This setting will take effect after restarting BlackCoin.</translation>
+        <source>This setting will take effect after restarting Pandacoin.</source>
+        <translation>This setting will take effect after restarting Pandacoin.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1362,8 +1362,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+33"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the BlackCoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the BlackCoin network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Pandacoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the Pandacoin network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-160"/>
@@ -1578,8 +1578,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the BlackCoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Show the BlackCoin-Qt help message to get a list with possible BlackCoin command-line options.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
+        <translation>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1598,13 +1598,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-104"/>
-        <source>BlackCoin - Debug window</source>
-        <translation>BlackCoin - Debug window</translation>
+        <source>Pandacoin - Debug window</source>
+        <translation>Pandacoin - Debug window</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>BlackCoin Core</source>
-        <translation>BlackCoin Core</translation>
+        <source>Pandacoin Core</source>
+        <translation>Pandacoin Core</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1613,8 +1613,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the BlackCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open the BlackCoin debug log file from the current data directory. This can take a few seconds for large log files.</translation>
+        <source>Open the Pandacoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open the Pandacoin debug log file from the current data directory. This can take a few seconds for large log files.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1623,8 +1623,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the BlackCoin RPC console.</source>
-        <translation>Welcome to the BlackCoin RPC console.</translation>
+        <source>Welcome to the Pandacoin RPC console.</source>
+        <translation>Welcome to the Pandacoin RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1782,8 +1782,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a BlackCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Enter a BlackCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1882,7 +1882,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+251"/>
-        <source>WARNING: Invalid BlackCoin address</source>
+        <source>WARNING: Invalid Pandacoin address</source>
         <translation></translation>
     </message>
     <message>
@@ -1926,7 +1926,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <source>The address to send the payment to  (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
         <translation></translation>
     </message>
     <message>
@@ -1956,8 +1956,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a BlackCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Enter a BlackCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
 </context>
 <context>
@@ -1980,8 +1980,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>The address to sign the message with (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>The address to sign the message with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>The address to sign the message with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -2017,8 +2017,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this BlackCoin address</source>
-        <translation>Sign the message to prove you own this BlackCoin address</translation>
+        <source>Sign the message to prove you own this Pandacoin address</source>
+        <translation>Sign the message to prove you own this Pandacoin address</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2044,13 +2044,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>The address the message was signed with (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>The address the message was signed with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>The address the message was signed with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified BlackCoin address</source>
-        <translation>Verify the message to ensure it was signed with the specified BlackCoin address</translation>
+        <source>Verify the message to ensure it was signed with the specified Pandacoin address</source>
+        <translation>Verify the message to ensure it was signed with the specified Pandacoin address</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2060,8 +2060,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a BlackCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Enter a BlackCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2070,8 +2070,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter BlackCoin signature</source>
-        <translation>Enter BlackCoin signature</translation>
+        <source>Enter Pandacoin signature</source>
+        <translation>Enter Pandacoin signature</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2653,8 +2653,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
-        <source>BlackCoin version</source>
-        <translation>BlackCoin version</translation>
+        <source>Pandacoin version</source>
+        <translation>Pandacoin version</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2663,8 +2663,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+1"/>
-        <source>Send command to -server or blackcoind</source>
-        <translation>Send command to -server or blackcoind</translation>
+        <source>Send command to -server or pandacoind</source>
+        <translation>Send command to -server or pandacoind</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2683,13 +2683,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+2"/>
-        <source>Specify configuration file (default: blackcoin.conf)</source>
-        <translation>Specify configuration file (default: blackcoin.conf)</translation>
+        <source>Specify configuration file (default: pandacoin.conf)</source>
+        <translation>Specify configuration file (default: pandacoin.conf)</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Specify pid file (default: blackcoind.pid)</source>
-        <translation>Specify pid file (default: blackcoind.pid)</translation>
+        <source>Specify pid file (default: pandacoind.pid)</source>
+        <translation>Specify pid file (default: pandacoind.pid)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2838,8 +2838,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+61"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong BlackCoin will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong BlackCoin will not work properly.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Pandacoin will not work properly.</source>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Pandacoin will not work properly.</translation>
     </message>
     <message>
         <location line="-31"/>
@@ -3027,13 +3027,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>%s, you must set a rpcpassword in the configuration file:
  %s
 It is recommended you use the following random password:
-rpcuser=blackcoinrpc
+rpcuser=pandacoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;BlackCoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3159,13 +3159,13 @@ for example: alertnotify=echo %%s | mail -s &quot;BlackCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  BlackCoin is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s.  BlackCoin is probably already running.</translation>
+        <source>Cannot obtain a lock on data directory %s.  Pandacoin is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s.  Pandacoin is probably already running.</translation>
     </message>
     <message>
         <location line="-98"/>
-        <source>BlackCoin</source>
-        <translation>BlackCoin</translation>
+        <source>Pandacoin</source>
+        <translation>Pandacoin</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3199,13 +3199,13 @@ for example: alertnotify=echo %%s | mail -s &quot;BlackCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+4"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of BlackCoin</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of BlackCoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of Pandacoin</source>
+        <translation>Error loading wallet.dat: Wallet requires newer version of Pandacoin</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart BlackCoin to complete</source>
-        <translation>Wallet needed to be rewritten: restart BlackCoin to complete</translation>
+        <source>Wallet needed to be rewritten: restart Pandacoin to complete</source>
+        <translation>Wallet needed to be rewritten: restart Pandacoin to complete</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3274,8 +3274,8 @@ for example: alertnotify=echo %%s | mail -s &quot;BlackCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+122"/>
-        <source>Unable to bind to %s on this computer. BlackCoin is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. BlackCoin is probably already running.</translation>
+        <source>Unable to bind to %s on this computer. Pandacoin is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. Pandacoin is probably already running.</translation>
     </message>
     <message>
         <location line="-97"/>
