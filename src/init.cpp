@@ -889,8 +889,9 @@ bool AppInit2()
         if (file) {
             LoadExternalBlockFile(file);
         }
-        filesystem::remove_all(pathOldblockchain);
-        filesystem::copy_file(GetDataDir() / "wallet.dat", GetDataDir() / "wallet.dat.old");
+        system::error_code errcode;
+        filesystem::remove_all(pathOldblockchain, errcode);
+        filesystem::copy_file(GetDataDir() / "wallet.dat", GetDataDir() / "wallet.dat.old", errcode);
     }
 
     // ********************************************************* Step 10: load peers
