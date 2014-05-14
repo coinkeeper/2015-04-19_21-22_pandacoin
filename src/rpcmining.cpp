@@ -28,24 +28,32 @@ Value getmininginfo(const Array& params, bool fHelp)
     obj.push_back(Pair("currentblocksize",(uint64_t)nLastBlockSize));
     obj.push_back(Pair("currentblocktx",(uint64_t)nLastBlockTx));
 
-    diff.push_back(Pair("proof-of-work",        GetDifficulty()));
-    diff.push_back(Pair("proof-of-stake",       GetDifficulty(GetLastBlockIndex(pindexBest, true))));
-    diff.push_back(Pair("search-interval",      (int)nLastCoinStakeSearchInterval));
-    obj.push_back(Pair("difficulty",    diff));
+    if(nBestHeight >= LAST_POW_BLOCK)
+    {
+        diff.push_back(Pair("proof-of-stake",  GetDifficulty(GetLastBlockIndex(pindexBest, true))));
+        diff.push_back(Pair("search-interval", (int)nLastCoinStakeSearchInterval));
+        obj.push_back(Pair("difficulty",       diff));
 
-//    obj.push_back(Pair("blockvalue",    (uint64_t)GetProofOfWorkReward(0)));
-    obj.push_back(Pair("netmhashps",     GetPoWMHashPS()));
-    obj.push_back(Pair("netstakeweight", GetPoSKernelPS()));
+        obj.push_back(Pair("netstakeweight",   GetPoSKernelPS()));
+        weight.push_back(Pair("minimum",       (uint64_t)nMinWeight));
+        weight.push_back(Pair("maximum",       (uint64_t)nMaxWeight));
+        weight.push_back(Pair("combined",      (uint64_t)nWeight));
+        obj.push_back(Pair("stakeweight",      weight));
+        obj.push_back(Pair("stakeinterest",    (uint64_t)COIN_YEAR_REWARD));
+    }
+    else
+    {
+        obj.push_back(Pair("difficulty",    (double)GetDifficulty()));
+        obj.push_back(Pair("generate",      false));
+        obj.push_back(Pair("genproclimit",  -1));
+        obj.push_back(Pair("hashespersec",  0));
+        obj.push_back(Pair("networkhashps", (uint64_t)(GetDifficulty() * 71582788.26)));
+    }
+
     obj.push_back(Pair("errors",        GetWarnings("statusbar")));
     obj.push_back(Pair("pooledtx",      (uint64_t)mempool.size()));
-
-    weight.push_back(Pair("minimum",    (uint64_t)nMinWeight));
-    weight.push_back(Pair("maximum",    (uint64_t)nMaxWeight));
-    weight.push_back(Pair("combined",  (uint64_t)nWeight));
-    obj.push_back(Pair("stakeweight", weight));
-
-    obj.push_back(Pair("stakeinterest",    (uint64_t)COIN_YEAR_REWARD));
     obj.push_back(Pair("testnet",       fTestNet));
+
     return obj;
 }
 

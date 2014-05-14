@@ -175,11 +175,17 @@ Value getdifficulty(const Array& params, bool fHelp)
             "getdifficulty\n"
             "Returns the difficulty as a multiple of the minimum difficulty.");
 
-    Object obj;
-    obj.push_back(Pair("proof-of-work",        GetDifficulty()));
-    obj.push_back(Pair("proof-of-stake",       GetDifficulty(GetLastBlockIndex(pindexBest, true))));
-    obj.push_back(Pair("search-interval",      (int)nLastCoinStakeSearchInterval));
-    return obj;
+    if(nBestHeight < LAST_POW_BLOCK)
+    {
+        return GetDifficulty();
+    }
+    else
+    {
+        Object obj;
+        obj.push_back(Pair("proof-of-stake",       GetDifficulty(GetLastBlockIndex(pindexBest, true))));
+        obj.push_back(Pair("search-interval",      (int)nLastCoinStakeSearchInterval));
+        return obj;
+    }
 }
 
 
