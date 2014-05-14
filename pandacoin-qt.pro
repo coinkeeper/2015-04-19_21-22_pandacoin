@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = pandacoin-qt
-VERSION = 1.0.6
+VERSION = 1.7.0
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -27,9 +27,8 @@ UI_DIR = build
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
-    # Mac: compile for maximum compatibility (10.5, 32-bit)
-    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk
-
+    # Mac: compile for maximum compatibility (10.6, 64-bit)
+    macx:QMAKE_MACOSX_DEPLOYMENT_TARGET=10.6
     !windows:!macx {
         # Linux: static link
         LIBS += -Wl,-Bstatic
@@ -94,6 +93,55 @@ contains(USE_IPV6, -) {
 contains(BITCOIN_NEED_QT_PLUGINS, 1) {
     DEFINES += BITCOIN_NEED_QT_PLUGINS
     QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
+}
+
+macx: {
+
+    isEmpty(DEPSDIR) {
+
+        check_dir = /usr/local/Cellar
+        exists($$check_dir) {
+            DEPSDIR = /usr/local
+        }
+
+        !exists($$check_dir) {
+            DEPSDIR = /opt/local
+        }
+    }
+
+    isEmpty(BOOST_LIB_PATH) {
+        BOOST_LIB_PATH = $$DEPSDIR/lib
+    }
+
+    isEmpty(BOOST_INCLUDE_PATH) {
+        BOOST_INCLUDE_PATH = $$DEPSDIR/include
+    }
+
+    isEmpty(BDB_LIB_PATH) {
+        BDB_LIB_PATH = $$DEPSDIR/lib
+    }
+
+    isEmpty(BDB_INCLUDE_PATH) {
+        BDB_INCLUDE_PATH = $$DEPSDIR/include
+    }
+
+    HEADERS += src/qt/macdockiconhandler.h src/qt/macnotificationhandler.h
+    OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm src/qt/macnotificationhandler.mm
+    LIBS += -framework Foundation -framework ApplicationServices -framework AppKit -framework CoreServices \
+        $$BDB_LIB_PATH/libdb_cxx.a \
+        $$BOOST_LIB_PATH/libboost_system-mt.a \
+        $$BOOST_LIB_PATH/libboost_filesystem-mt.a \
+        $$BOOST_LIB_PATH/libboost_program_options-mt.a \
+        $$BOOST_LIB_PATH/libboost_thread-mt.a \
+        $$BOOST_LIB_PATH/libboost_chrono-mt.a
+    DEFINES += MAC_OSX
+    ICON = src/mac/artwork/Pandacoin.icns
+    QMAKE_INFO_PLIST=src/mac/Info.plist
+    # osx 10.9 has changed the stdlib default to libc++. To prevent some link error, you may need to use libstdc++
+    QMAKE_CXXFLAGS += -stdlib=libstdc++
+
+    QMAKE_CFLAGS_THREAD += -pthread
+    QMAKE_CXXFLAGS_THREAD += -pthread
 }
 
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
