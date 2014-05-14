@@ -135,7 +135,7 @@ macx: {
         $$BOOST_LIB_PATH/libboost_thread-mt.a \
         $$BOOST_LIB_PATH/libboost_chrono-mt.a
     DEFINES += MAC_OSX
-    ICON = src/mac/artwork/Pandacoin.icns
+    ICON = src/mac/artwork/PandaCoin.icns
     QMAKE_INFO_PLIST=src/mac/Info.plist
     # osx 10.9 has changed the stdlib default to libc++. To prevent some link error, you may need to use libstdc++
     QMAKE_CXXFLAGS += -stdlib=libstdc++
@@ -459,16 +459,6 @@ windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     DEFINES += LINUX
     LIBS += -lrt
 }
-
-macx:HEADERS += src/qt/macdockiconhandler.h
-macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
-macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
-macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
-macx:ICON = src/qt/res/icons/bitcoin.icns
-macx:TARGET = "Pandacoin-Qt"
-macx:QMAKE_CFLAGS_THREAD += -pthread
-macx:QMAKE_LFLAGS_THREAD += -pthread
-macx:QMAKE_CXXFLAGS_THREAD += -pthread
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH
