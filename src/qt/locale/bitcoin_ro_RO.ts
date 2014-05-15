@@ -545,7 +545,7 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n conexiune activă la reteaua Pandacoin</numerusform><numerusform>%n conexiuni active la reteaua BlackCoin</numerusform><numerusform>%n conexiuni active la reteaua BlackCoin</numerusform></translation>
+        <translation><numerusform>%n conexiune activă la reteaua Pandacoin</numerusform><numerusform>%n conexiuni active la reteaua Pandacoin</numerusform><numerusform>%n conexiuni active la reteaua Pandacoin</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1562,8 +1562,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Afișa mesajul de ajutor Pandacoin-Qt pentru a obține o listă cu posibile opțiuni de linie de comandă BlackCoin.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Afișa mesajul de ajutor Pandacoin-Qt pentru a obține o listă cu posibile opțiuni de linie de comandă Pandacoin.</translation>
     </message>
     <message>
         <location line="+3"/>

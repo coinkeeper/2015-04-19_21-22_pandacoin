@@ -545,7 +545,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n connexion active au réseau Pandacoin</numerusform><numerusform>%n connexions actives au réseau BlackCoin</numerusform></translation>
+        <translation><numerusform>%n connexion active au réseau Pandacoin</numerusform><numerusform>%n connexions actives au réseau Pandacoin</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1562,8 +1562,8 @@ Cela implique que des frais à hauteur d&apos;au moins %2 seront nécessaires.</
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Afficher le message d&apos;aide Pandacoin-Qt afin d&apos;obtenir la liste des options de de L&apos;outil en ligne de commande BlackCoin</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Afficher le message d&apos;aide Pandacoin-Qt afin d&apos;obtenir la liste des options de de L&apos;outil en ligne de commande Pandacoin</translation>
     </message>
     <message>
         <location line="+3"/>

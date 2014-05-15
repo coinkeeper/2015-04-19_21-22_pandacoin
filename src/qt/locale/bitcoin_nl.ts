@@ -545,7 +545,7 @@ Dit product bevat software ontwikkeld door het OpenSSL Project voor gebruik in d
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n actieve verbinding naar Pandacoin netwerk</numerusform><numerusform>%n actieve verbindingen naar BlackCoin netwerk</numerusform></translation>
+        <translation><numerusform>%n actieve verbinding naar Pandacoin netwerk</numerusform><numerusform>%n actieve verbindingen naar Pandacoin netwerk</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1562,7 +1562,7 @@ Dit betekend dat een fee van %2 is vereist.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
         <translation>Laat het Pandacoin-QT help bericht zien om een lijst te krijgen met mogelijke Pandacoin command-regel opties.</translation>
     </message>
     <message>

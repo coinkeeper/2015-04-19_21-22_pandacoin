@@ -540,7 +540,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n conexió activa a la xarxa Pandacoin</numerusform><numerusform>%n conexions actives a la xarxa BlackCoin</numerusform></translation>
+        <translation><numerusform>%n conexió activa a la xarxa Pandacoin</numerusform><numerusform>%n conexions actives a la xarxa Pandacoin</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1553,8 +1553,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Mostra el missatge d&apos;ajuda de Pandacoin-Qt per obtenir una llista amb les possibles opcions de línia d&apos;ordres BlackCoin.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Mostra el missatge d&apos;ajuda de Pandacoin-Qt per obtenir una llista amb les possibles opcions de línia d&apos;ordres Pandacoin.</translation>
     </message>
     <message>
         <location line="+3"/>

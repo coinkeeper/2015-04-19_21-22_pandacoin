@@ -548,7 +548,7 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n conexión activa a la red Pandacoin</numerusform><numerusform>%n conexiones activas a la red BlackCoin</numerusform></translation>
+        <translation><numerusform>%n conexión activa a la red Pandacoin</numerusform><numerusform>%n conexiones activas a la red Pandacoin</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1565,8 +1565,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Mostrar el mensaje de ayuda de Pandacoin-Qt para obtener una lista con las posibles opciones de línea de comandos para BlackCoin.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Mostrar el mensaje de ayuda de Pandacoin-Qt para obtener una lista con las posibles opciones de línea de comandos para Pandacoin.</translation>
     </message>
     <message>
         <location line="+3"/>

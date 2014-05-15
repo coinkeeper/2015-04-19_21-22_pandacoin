@@ -545,7 +545,7 @@ Tento produkt obsahuje softvér vyvinutý Projektom OpenSSL Project pre použiti
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n aktívne spojenie s Pandacoin sieťov</numerusform><numerusform>%n aktívnych spojení s BlackCoin sieťov</numerusform><numerusform>%n aktívnych spojení s BlackCoin sieťov</numerusform></translation>
+        <translation><numerusform>%n aktívne spojenie s Pandacoin sieťov</numerusform><numerusform>%n aktívnych spojení s Pandacoin sieťov</numerusform><numerusform>%n aktívnych spojení s Pandacoin sieťov</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1561,8 +1561,8 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Zobraziť Pandacoin-Qt nápovedu k získaniu zoznamu pre možnosti BlackCoin príkazového riadku.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Zobraziť Pandacoin-Qt nápovedu k získaniu zoznamu pre možnosti Pandacoin príkazového riadku.</translation>
     </message>
     <message>
         <location line="+3"/>

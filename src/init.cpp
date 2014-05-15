@@ -151,7 +151,7 @@ bool AppInit(int argc, char* argv[])
             std::string strUsage = _("Pandacoin version") + " " + FormatFullVersion() + "\n\n" +
                 _("Usage:") + "\n" +
                   "  pandacoind [options]                     " + "\n" +
-                  "  pandacoind [options] <command> [params]  " + _("Send command to -server or blackcoind") + "\n" +
+                  "  pandacoind [options] <command> [params]  " + _("Send command to -server or pandacoind") + "\n" +
                   "  pandacoind [options] help                " + _("List commands") + "\n" +
                   "  pandacoind [options] help <command>      " + _("Get help for a command") + "\n";
 

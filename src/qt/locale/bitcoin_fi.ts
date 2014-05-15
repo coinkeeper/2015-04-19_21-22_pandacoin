@@ -544,7 +544,7 @@ Tämä tuote sisältää OpenSSL-projektin kehittämää ohjelmistoa OpenSSL-ty�
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n aktiivinen yhteys Pandacoin-verkkoon</numerusform><numerusform>%n aktiivista yhteyttä BlackCoin-verkkoon</numerusform></translation>
+        <translation><numerusform>%n aktiivinen yhteys Pandacoin-verkkoon</numerusform><numerusform>%n aktiivista yhteyttä Pandacoin-verkkoon</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1560,8 +1560,8 @@ Tämä tarkoittaa, että ainakin %2 rahansiirtopalkkio tarvitaan.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Näytä Pandacoin-Qt:n avustusohje saadaksesi listan käytettävistä BlackCoinin komentokehotteen määritteistä.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Näytä Pandacoin-Qt:n avustusohje saadaksesi listan käytettävistä Pandacoinin komentokehotteen määritteistä.</translation>
     </message>
     <message>
         <location line="+3"/>

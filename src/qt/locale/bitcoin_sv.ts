@@ -546,7 +546,7 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n aktiv anslutning till Pandacoin nätverket</numerusform><numerusform>%n aktiva anslutning till BlackCoin nätverket</numerusform></translation>
+        <translation><numerusform>%n aktiv anslutning till Pandacoin nätverket</numerusform><numerusform>%n aktiva anslutning till Pandacoin nätverket</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1563,8 +1563,8 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Visa Pandacoin-Qt hjälp meddelandet för att få en lista över möjliga BlackCoin kommandoradsalternativ.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Visa Pandacoin-Qt hjälp meddelandet för att få en lista över möjliga Pandacoin kommandoradsalternativ.</translation>
     </message>
     <message>
         <location line="+3"/>

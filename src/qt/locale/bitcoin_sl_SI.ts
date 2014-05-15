@@ -543,7 +543,7 @@ Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v Ope
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n aktivne povezave na Pandacoin omrežje</numerusform><numerusform>%n aktivnih povezav na BlackCoin omrežje</numerusform><numerusform>%n aktivnih povezav na BlackCoin omrežje</numerusform><numerusform>%n aktivnih povezav na BlackCoin omrežje</numerusform></translation>
+        <translation><numerusform>%n aktivne povezave na Pandacoin omrežje</numerusform><numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform><numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform><numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1560,8 +1560,8 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Prikaži Pandacoin-Qt sporočilo za pomoč , ki prikaže vse možnosti ukazne vrstice BlackCoin aplikacije</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Prikaži Pandacoin-Qt sporočilo za pomoč , ki prikaže vse možnosti ukazne vrstice Pandacoin aplikacije</translation>
     </message>
     <message>
         <location line="+3"/>

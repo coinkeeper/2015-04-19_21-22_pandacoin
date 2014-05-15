@@ -545,7 +545,7 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n aktiv forbindelse til Pandacoin netværk</numerusform><numerusform>%n aktive forbindelser til BlackCoin netværk</numerusform></translation>
+        <translation><numerusform>%n aktiv forbindelse til Pandacoin netværk</numerusform><numerusform>%n aktive forbindelser til Pandacoin netværk</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -1562,8 +1562,8 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Vis Pandacoin-Qt hjælpe besked for at få en liste med mulige BlackCoin kommandolinjeparametre.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Vis Pandacoin-Qt hjælpe besked for at få en liste med mulige Pandacoin kommandolinjeparametre.</translation>
     </message>
     <message>
         <location line="+3"/>

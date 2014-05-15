@@ -27,7 +27,7 @@ but you can get the current version from http://developer.apple.com
 
 1.  Clone the github tree to get the source code:
 
-git clone git@github.com:rat4/pandacoin.git blackcoin
+git clone git@github.com:rat4/pandacoin.git pandacoin
 
 2.  Download and install MacPorts from http://www.macports.org/
 
@@ -49,6 +49,6 @@ make -f makefile.osx
 Run:
   ./pandacoind --help  # for a list of command-line options.
 Run
-  ./pandacoind -daemon # to start the blackcoin daemon.
+  ./pandacoind -daemon # to start the pandacoin daemon.
 Run
   ./pandacoind help # When the daemon is running, to get a list of RPC commands

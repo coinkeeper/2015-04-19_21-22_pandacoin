@@ -1578,8 +1578,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</source>
-        <translation>Show the Pandacoin-Qt help message to get a list with possible BlackCoin command-line options.</translation>
+        <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
+        <translation>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</translation>
     </message>
     <message>
         <location line="+3"/>

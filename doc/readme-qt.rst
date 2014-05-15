@@ -1,4 +1,4 @@
-Pandacoin-qt: Qt5 GUI for BlackCoin
+Pandacoin-qt: Qt5 GUI for Pandacoin
 ===============================
 
 Build instructions
