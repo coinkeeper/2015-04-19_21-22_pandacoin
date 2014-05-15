@@ -4,12 +4,12 @@
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About Pandacoin</source>
-        <translation>关于黑币</translation>
+        <translation>关于熊猫币</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>&lt;b&gt;Pandacoin&lt;/b&gt; version</source>
-        <translation>黑币客户端 版本</translation>
+        <translation>熊猫币客户端 版本</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -18,7 +18,7 @@ Copyright © 2012-2014 The NovaCoin developers
 Copyright © 2014 The Pandacoin developers</source>
         <translation>版权所有 © 2009-2014 比特币Bitcoin开发组
 版权所有 © 2012-2014 新星币Novacoin开发组
-版权所有 © 2014 黑币Pandacoin开发组</translation>
+版权所有 © 2014 熊猫币Pandacoin开发组</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -66,7 +66,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-46"/>
         <source>These are your Pandacoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>这是您用来接收支付的黑币地址列表。为不同的支付方建立不同的地址以便于了解支付来源。</translation>
+        <translation>这是您用来接收支付的熊猫币地址列表。为不同的支付方建立不同的地址以便于了解支付来源。</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -81,7 +81,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+11"/>
         <source>Sign a message to prove you own a Pandacoin address</source>
-        <translation>对信息进行签名以证明您对该黑币地址的所有权</translation>
+        <translation>对信息进行签名以证明您对该熊猫币地址的所有权</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -96,7 +96,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-14"/>
         <source>Verify a message to ensure it was signed with a specified Pandacoin address</source>
-        <translation>验证信息以保证其经过指定黑币地址的签名</translation>
+        <translation>验证信息以保证其经过指定熊猫币地址的签名</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -237,7 +237,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+1"/>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation>警告：如果您丢失了加密该钱包的密码，其中所有的黑币将会丢失！</translation>
+        <translation>警告：如果您丢失了加密该钱包的密码，其中所有的熊猫币将会丢失！</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -264,7 +264,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-58"/>
         <source>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>黑币客户端即将关闭以完成加密过程。请记住，加密钱包并不能完全防止您的电子货币被入侵您计算机的木马软件盗窃。</translation>
+        <translation>熊猫币客户端即将关闭以完成加密过程。请记住，加密钱包并不能完全防止您的电子货币被入侵您计算机的木马软件盗窃。</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -353,7 +353,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-13"/>
         <source>&amp;Receive coins</source>
-        <translation>接收黑币(&amp;R)</translation>
+        <translation>接收熊猫币(&amp;R)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -378,7 +378,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+6"/>
         <source>Show information about Pandacoin</source>
-        <translation>显示关于黑币的信息</translation>
+        <translation>显示关于熊猫币的信息</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -428,7 +428,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-64"/>
         <source>Send coins to a Pandacoin address</source>
-        <translation>向指定的地址发送黑币</translation>
+        <translation>向指定的地址发送熊猫币</translation>
     </message>
     <message>
         <location line="+47"/>
@@ -473,7 +473,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-202"/>
         <source>Pandacoin</source>
-        <translation>黑币</translation>
+        <translation>熊猫币</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -483,7 +483,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+180"/>
         <source>&amp;About Pandacoin</source>
-        <translation>关于黑币(&amp;A)</translation>
+        <translation>关于熊猫币(&amp;A)</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -540,12 +540,12 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+0"/>
         <location line="+60"/>
         <source>Pandacoin client</source>
-        <translation>黑币客户端</translation>
+        <translation>熊猫币客户端</translation>
     </message>
     <message numerus="yes">
         <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>与黑币网络建立了 %n 个连接</numerusform></translation>
+        <translation><numerusform>与熊猫币网络建立了 %n 个连接</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -575,7 +575,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+2"/>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation>未进行权益增值，因为钱包中没有成熟的黑币</translation>
+        <translation>未进行权益增值，因为钱包中没有成熟的熊猫币</translation>
     </message>
     <message numerus="yes">
         <location line="-403"/>
@@ -585,12 +585,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-312"/>
         <source>About Pandacoin card</source>
-        <translation>关于黑币卡</translation>
+        <translation>关于熊猫币卡</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show information about Pandacoin card</source>
-        <translation>显示关于黑币卡的信息</translation>
+        <translation>显示关于熊猫币卡的信息</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -670,7 +670,7 @@ Address: %4
         <location line="-15"/>
         <location line="+15"/>
         <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
-        <translation>无法解析URI：无效的黑币地址或错误的URI参数。</translation>
+        <translation>无法解析URI：无效的熊猫币地址或错误的URI参数。</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -730,7 +730,7 @@ Address: %4
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
         <source>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</source>
-        <translation>发生严重错误，黑币客户端即将关闭。</translation>
+        <translation>发生严重错误，熊猫币客户端即将关闭。</translation>
     </message>
 </context>
 <context>
@@ -746,7 +746,7 @@ Address: %4
     <message>
         <location filename="../forms/coincontroldialog.ui" line="+14"/>
         <source>Coin Control</source>
-        <translation>黑币控制</translation>
+        <translation>熊猫币控制</translation>
     </message>
     <message>
         <location line="+31"/>
@@ -1057,7 +1057,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-5"/>
         <source>The entered address &quot;%1&quot; is not a valid Pandacoin address.</source>
-        <translation>“%1” 不是有效的黑币地址。</translation>
+        <translation>“%1” 不是有效的熊猫币地址。</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1076,7 +1076,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
-        <translation>黑币客户端Pandacoin-Qt</translation>
+        <translation>熊猫币客户端Pandacoin-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1149,12 +1149,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+31"/>
         <source>Automatically start Pandacoin after logging in to the system.</source>
-        <translation>开机自动启动黑币客户端</translation>
+        <translation>开机自动启动熊猫币客户端</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Start Pandacoin on system login</source>
-        <translation>开机时自动启动黑币客户端(&amp;S)</translation>
+        <translation>开机时自动启动熊猫币客户端(&amp;S)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1174,7 +1174,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+6"/>
         <source>Automatically open the Pandacoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>路由器自动打开黑币客户端端口。该功能仅在路由器开启UPnP支持时有效。</translation>
+        <translation>路由器自动打开熊猫币客户端端口。该功能仅在路由器开启UPnP支持时有效。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1184,7 +1184,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+7"/>
         <source>Connect to the Pandacoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>经SOCKS代理连接到黑币网络(例如使用Tor)</translation>
+        <translation>经SOCKS代理连接到熊猫币网络(例如使用Tor)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1259,27 +1259,27 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+13"/>
         <source>The user interface language can be set here. This setting will take effect after restarting Pandacoin.</source>
-        <translation>在此设置用户界面语言。重启黑币客户端后设置生效。</translation>
+        <translation>在此设置用户界面语言。重启熊猫币客户端后设置生效。</translation>
     </message>
     <message>
         <location line="+11"/>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>黑币金额单位(&amp;U)：</translation>
+        <translation>熊猫币金额单位(&amp;U)：</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>选择黑币单位。</translation>
+        <translation>选择熊猫币单位。</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Whether to show Pandacoin addresses in the transaction list or not.</source>
-        <translation>是否在交易列表中显示黑币地址</translation>
+        <translation>是否在交易列表中显示熊猫币地址</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Display addresses in transaction list</source>
-        <translation>在交易清单中显示黑币地址(&amp;D)</translation>
+        <translation>在交易清单中显示熊猫币地址(&amp;D)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1289,7 +1289,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Display coin &amp;control features (experts only!)</source>
-        <translation>显示黑币控制选项(仅用于专家用户)</translation>
+        <translation>显示熊猫币控制选项(仅用于专家用户)</translation>
     </message>
     <message>
         <location line="+71"/>
@@ -1576,12 +1576,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-104"/>
         <source>Pandacoin - Debug window</source>
-        <translation>黑币客户端-调试窗口</translation>
+        <translation>熊猫币客户端-调试窗口</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Pandacoin Core</source>
-        <translation>黑币核心进程</translation>
+        <translation>熊猫币核心进程</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1601,7 +1601,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
         <source>Welcome to the Pandacoin RPC console.</source>
-        <translation>欢迎使用黑币RPC控制台。</translation>
+        <translation>欢迎使用熊猫币RPC控制台。</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1760,7 +1760,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
         <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>输入黑币地址(例如：PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <translation>输入熊猫币地址(例如：PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1860,7 +1860,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+251"/>
         <source>WARNING: Invalid Pandacoin address</source>
-        <translation>警告：无效的黑币地址</translation>
+        <translation>警告：无效的熊猫币地址</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1934,7 +1934,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
         <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>输入一个黑币地址 (例：PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <translation>输入一个熊猫币地址 (例：PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
 </context>
 <context>
@@ -1995,7 +1995,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>Sign the message to prove you own this Pandacoin address</source>
-        <translation>对该消息进行签名以证明您对该黑币地址的所有权</translation>
+        <translation>对该消息进行签名以证明您对该熊猫币地址的所有权</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2022,12 +2022,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>The address the message was signed with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>用来签名该消息的黑币地址(例： PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <translation>用来签名该消息的熊猫币地址(例： PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Verify the message to ensure it was signed with the specified Pandacoin address</source>
-        <translation>确认该消息以保证它经由指定的黑币地址签名</translation>
+        <translation>确认该消息以保证它经由指定的熊猫币地址签名</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2038,7 +2038,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
         <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>输入黑币地址(例： PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <translation>输入熊猫币地址(例： PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2048,7 +2048,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Enter Pandacoin signature</source>
-        <translation>输入黑币签名</translation>
+        <translation>输入熊猫币签名</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2619,7 +2619,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
         <source>Pandacoin version</source>
-        <translation>黑币客户端 版本</translation>
+        <translation>熊猫币客户端 版本</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2708,7 +2708,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+2"/>
         <source>Stake your coins to support network and gain reward (default: 1)</source>
-        <translation>进行权益累积以支持黑币网络并获得报酬(默认: 1)</translation>
+        <translation>进行权益累积以支持熊猫币网络并获得报酬(默认: 1)</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2812,7 +2812,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+61"/>
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Pandacoin will not work properly.</source>
-        <translation>警告：请确认您计算机的本地时间。如果时钟错误，黑币客户端将不能正常工作。</translation>
+        <translation>警告：请确认您计算机的本地时间。如果时钟错误，熊猫币客户端将不能正常工作。</translation>
     </message>
     <message>
         <location line="-31"/>
@@ -3148,12 +3148,12 @@ alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@foo.com
     <message>
         <location line="+1"/>
         <source>Cannot obtain a lock on data directory %s.  Pandacoin is probably already running.</source>
-        <translation>无法从数据目录 %s 获得锁定.  黑币客户端可能已在运行中.</translation>
+        <translation>无法从数据目录 %s 获得锁定.  熊猫币客户端可能已在运行中.</translation>
     </message>
     <message>
         <location line="-98"/>
         <source>Pandacoin</source>
-        <translation>黑币</translation>
+        <translation>熊猫币</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3263,7 +3263,7 @@ alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@foo.com
     <message>
         <location line="+122"/>
         <source>Unable to bind to %s on this computer. Pandacoin is probably already running.</source>
-        <translation>无法绑定到该计算机上的 %s. 黑币客户端可能已在运行中。</translation>
+        <translation>无法绑定到该计算机上的 %s. 熊猫币客户端可能已在运行中。</translation>
     </message>
     <message>
         <location line="-97"/>
