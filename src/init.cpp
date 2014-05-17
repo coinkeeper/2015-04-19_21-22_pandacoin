@@ -889,9 +889,14 @@ bool AppInit2()
         if (file) {
             LoadExternalBlockFile(file);
         }
+#if BOOST_VERSION >= 105000
         system::error_code errcode;
         filesystem::remove_all(pathOldblockchain, errcode);
         filesystem::copy_file(GetDataDir() / "wallet.dat", GetDataDir() / "wallet.dat.old", errcode);
+#else
+        filesystem::remove_all(pathOldblockchain);
+        filesystem::copy_file(GetDataDir() / "wallet.dat", GetDataDir() / "wallet.dat.old");
+#endif
     }
 
     // ********************************************************* Step 10: load peers
