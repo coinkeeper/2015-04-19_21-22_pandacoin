@@ -19,9 +19,10 @@ public:
     enum Mode {
         Encrypt,       /**< Ask passphrase twice and encrypt */
         UnlockStaking, /**< Ask passphrase and unlock */
+        Login,         /**< Ask passphrase and unlock, same as UnlockStaking but different visually */
         Unlock,        /**< Ask passphrase and unlock */
         ChangePass,    /**< Ask old passphrase + new passphrase twice */
-        Decrypt        /**< Ask passphrase and decrypt wallet */
+        Decrypt       /**< Ask passphrase and decrypt wallet */
     };
 
     explicit AskPassphraseDialog(Mode mode, QWidget *parent = 0);

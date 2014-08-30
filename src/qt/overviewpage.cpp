@@ -5,16 +5,20 @@
 #include "bitcoinunits.h"
 #include "optionsmodel.h"
 #include "transactiontablemodel.h"
-#include "transactionfilterproxy.h"
 #include "guiutil.h"
 #include "guiconstants.h"
+#include "accountmodel.h"
+#include "richtextdelegate.h"
 
 #include <QAbstractItemDelegate>
 #include <QPainter>
+#include <QLocale>
+#include <QDateTime>
+#include <QSortFilterProxyModel>
+#include <QListView>
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 3
-
 class TxViewDelegate : public QAbstractItemDelegate
 {
     Q_OBJECT
@@ -66,7 +70,7 @@ public:
             foreground = option.palette.color(QPalette::Text);
         }
         painter->setPen(foreground);
-        QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true);
+        QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true, true);
         if(!confirmed)
         {
             amountText = QString("[") + amountText + QString("]");
@@ -87,40 +91,38 @@ public:
     int unit;
 
 };
-#include "overviewpage.moc"
 
-OverviewPage::OverviewPage(QWidget *parent) :
-    QWidget(parent),
-    ui(new Ui::OverviewPage),
-    currentBalance(-1),
-    currentStake(0),
-    currentUnconfirmedBalance(-1),
-    currentImmatureBalance(-1),
-    txdelegate(new TxViewDelegate()),
-    filter(0)
+
+
+OverviewPage::OverviewPage(QWidget *parent)
+: QWidget(parent)
+, ui(new Ui::OverviewPage)
+, currentBalance(-1)
+, currentStake(0)
+, currentUnconfirmedBalance(-1)
+//, txdelegate(new TxViewDelegate())
 {
     ui->setupUi(this);
 
-    // Recent transactions
-    ui->listTransactions->setItemDelegate(txdelegate);
-    ui->listTransactions->setIconSize(QSize(DECORATION_SIZE, DECORATION_SIZE));
-    ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
-    ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
+    connect(ui->portfolio_heading_more, SIGNAL(pressed()), this, SIGNAL(requestGotoTransactionPage()));
+    connect(ui->PortfolioTable, SIGNAL(clicked(QModelIndex)), this, SLOT(handleAccountClicked(QModelIndex)));
 
-    connect(ui->listTransactions, SIGNAL(clicked(QModelIndex)), this, SLOT(handleTransactionClicked(QModelIndex)));
+    //fixme: hardcoded
+    ui->welcome_heading->setText("Welcome to your PandaBank, You last logged on at " + QDateTime::currentDateTime().time().toString() + " on "+ QDateTime::currentDateTime().date().toString());
 
-    // init "out of sync" warning labels
-    ui->labelWalletStatus->setText("(" + tr("out of sync") + ")");
-    ui->labelTransactionsStatus->setText("(" + tr("out of sync") + ")");
-
-    // start with displaying the "out of sync" warnings
-    showOutOfSyncWarning(true);
+    //Hide for now (apparently this will only be visible in later versions of UI).
+    ui->portfolio_overview_description->setVisible(false);
 }
 
-void OverviewPage::handleTransactionClicked(const QModelIndex &index)
+void OverviewPage::handleAccountClicked(const QModelIndex &index)
 {
-    if(filter)
-        emit transactionClicked(filter->mapToSource(index));
+    if(model)
+    {
+        if(index.column() == AccountModel::Address || index.column() == AccountModel::Label)
+        {
+            emit accountClicked(ui->PortfolioTable->model()->data(index).toString());
+        }
+    }
 }
 
 OverviewPage::~OverviewPage()
@@ -135,35 +137,44 @@ void OverviewPage::setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBa
     currentStake = stake;
     currentUnconfirmedBalance = unconfirmedBalance;
     currentImmatureBalance = immatureBalance;
-    ui->labelBalance->setText(BitcoinUnits::formatWithUnit(unit, balance));
-    ui->labelStake->setText(BitcoinUnits::formatWithUnit(unit, stake));
-    ui->labelUnconfirmed->setText(BitcoinUnits::formatWithUnit(unit, unconfirmedBalance));
-    ui->labelImmature->setText(BitcoinUnits::formatWithUnit(unit, immatureBalance));
-    ui->labelTotal->setText(BitcoinUnits::formatWithUnit(unit, balance + stake + unconfirmedBalance + immatureBalance));
-
-    // only show immature (newly mined) balance if it's non-zero, so as not to complicate things
-    // for the non-mining users
-    bool showImmature = immatureBalance != 0;
-    ui->labelImmature->setVisible(showImmature);
-    ui->labelImmatureText->setVisible(showImmature);
+    ui->labelBalance->setText(formatBitcoinAmountAsRichString(BitcoinUnits::formatWithUnit(unit, balance, true, false)));
+    ui->labelStake->setText(formatBitcoinAmountAsRichString(BitcoinUnits::formatWithUnit(unit, stake, true, false)));
+    ui->labelUnconfirmed->setText(formatBitcoinAmountAsRichString(BitcoinUnits::formatWithUnit(unit, unconfirmedBalance, true, false)));
+    ui->labelTotal->setText(formatBitcoinAmountAsRichString(BitcoinUnits::formatWithUnit(unit, balance + stake + unconfirmedBalance, true, false)));
 }
+
 
 void OverviewPage::setModel(WalletModel *model)
 {
     this->model = model;
     if(model && model->getOptionsModel())
     {
-        // Set up transaction list
-        filter = new TransactionFilterProxy();
-        filter->setSourceModel(model->getTransactionTableModel());
-        filter->setLimit(NUM_ITEMS);
-        filter->setDynamicSortFilter(true);
-        filter->setSortRole(Qt::EditRole);
-        filter->setShowInactive(false);
-        filter->sort(TransactionTableModel::Status, Qt::DescendingOrder);
+        //LEAKLEAK
+        RichTextDelegate* richDelegate = new RichTextDelegate(this);
 
-        ui->listTransactions->setModel(filter);
-        ui->listTransactions->setModelColumn(TransactionTableModel::ToAddress);
+        //LEAKLEAK
+        QSortFilterProxyModel* sortableAccountModel = new QSortFilterProxyModel(this);
+        sortableAccountModel->setSortRole(Qt::UserRole);
+        sortableAccountModel->setSourceModel(model->getMyAccountModel());
+        ui->PortfolioTable->setModel(sortableAccountModel);
+        ui->PortfolioTable->setItemDelegateForColumn(AccountModel::Balance ,richDelegate);
+        ui->PortfolioTable->setSortingEnabled(true);
+        ui->PortfolioTable->sortByColumn(0);
+        ui->PortfolioTable->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+
+        //LEAKLEAK
+        SingleColumnAccountModel* listModel=new SingleColumnAccountModel(model->getMyAccountModel(), true, false, tr("Select account"));
+        ui->quick_transfer_from_combobox->setModel(listModel);
+        ui->quick_transfer_from_combobox->setItemDelegate(richDelegate);
+        // Sadly the below is necessary in order to be able to style QComboBox pull down lists properly.
+        ui->quick_transfer_from_combobox->setView(new QListView(this));
+
+        //LEAKLEAK
+        SingleColumnAccountModel* listModel2=new SingleColumnAccountModel(model->getExternalAccountModel(), false, false, tr("Select account"));
+        ui->quick_transfer_to_combobox->setModel(listModel2);
+        ui->quick_transfer_to_combobox->setItemDelegate(richDelegate);
+        // Sadly the below is necessary in order to be able to style QComboBox pull down lists properly.
+        ui->quick_transfer_to_combobox->setView(new QListView(this));
 
         // Keep up to date with wallet
         setBalance(model->getBalance(), model->getStake(), model->getUnconfirmedBalance(), model->getImmatureBalance());
@@ -180,18 +191,75 @@ void OverviewPage::updateDisplayUnit()
 {
     if(model && model->getOptionsModel())
     {
+        int unit = model->getOptionsModel()->getDisplayUnit();
+
         if(currentBalance != -1)
             setBalance(currentBalance, model->getStake(), currentUnconfirmedBalance, currentImmatureBalance);
 
-        // Update txdelegate->unit with the current unit
-        txdelegate->unit = model->getOptionsModel()->getDisplayUnit();
+        ui->quick_transfer_amount->setDisplayUnit(unit);
 
-        ui->listTransactions->update();
+        // Update txdelegate->unit with the current unit
+        //txdelegate->unit = model->getOptionsModel()->getDisplayUnit();
+
+        //ui->listTransactions->update();
     }
 }
 
 void OverviewPage::showOutOfSyncWarning(bool fShow)
 {
-    ui->labelWalletStatus->setVisible(fShow);
-    ui->labelTransactionsStatus->setVisible(fShow);
+    //ui->labelWalletStatus->setVisible(fShow);
+    //ui->labelTransactionsStatus->setVisible(fShow);
 }
+
+void OverviewPage::on_quick_transfer_next_button_clicked()
+{
+    QList<SendCoinsRecipient> recipients;
+
+    if(!model)
+        return;
+
+    if(!ui->quick_transfer_amount->validate())
+    {
+        ui->quick_transfer_amount->setValid(false);
+        return;
+    }
+    else
+    {
+        if(ui->quick_transfer_amount->value() <= 0)
+        {
+            // Cannot send 0 coins or less
+            ui->quick_transfer_amount->setValid(false);
+            return;
+        }
+    }
+    if(ui->quick_transfer_to_combobox->currentIndex() < 1)
+    {
+        //fixme: indicate invalid somehow
+        //ui->quick_transfer_to_combobox->setValid(false);
+        return;
+    }
+    if(ui->quick_transfer_from_combobox->currentIndex() < 1)
+    {
+        //fixme: indicate invalid somehow
+        //ui->quick_transfer_from_combobox->setValid(false);
+        return;
+    }
+
+    int toIndex = ui->quick_transfer_to_combobox->currentIndex() - 1;
+    int fromIndex = ui->quick_transfer_from_combobox->currentIndex() - 1;
+    QString toAddress = model->getAllAccountModel()->data(AccountModel::Address, toIndex).toString().trimmed();
+    QString toLabel = model->getAllAccountModel()->data(AccountModel::Label, toIndex).toString().trimmed();
+    QString fromAccountAddress = model->getMyAccountModel()->data(AccountModel::Address, fromIndex).toString().trimmed();
+
+    qint64 amt=ui->quick_transfer_amount->value();
+
+    recipients.append(SendCoinsRecipient(amt, toAddress, toLabel));
+
+    if(GUIUtil::SendCoinsHelper(this, recipients, model, fromAccountAddress, true))
+    {
+        ui->quick_transfer_amount->clear();
+        ui->quick_transfer_to_combobox->clear();
+        ui->quick_transfer_from_combobox->clear();
+    }
+}
+

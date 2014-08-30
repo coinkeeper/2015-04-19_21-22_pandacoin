@@ -154,12 +154,12 @@ void AddressBookPage::setOptionsModel(OptionsModel *optionsModel)
 
 void AddressBookPage::on_copyToClipboard_clicked()
 {
-    GUIUtil::copyEntryData(ui->tableView, AddressTableModel::Address);
+    GUIUtil::copyEntryData(ui->tableView, ui->tableView->currentIndex().row(), 0,AddressTableModel::Address);
 }
 
 void AddressBookPage::onCopyLabelAction()
 {
-    GUIUtil::copyEntryData(ui->tableView, AddressTableModel::Label);
+    GUIUtil::copyEntryData(ui->tableView, ui->tableView->currentIndex().row(), 0, AddressTableModel::Label);
 }
 
 void AddressBookPage::onEditAction()

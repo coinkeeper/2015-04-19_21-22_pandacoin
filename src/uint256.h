@@ -12,6 +12,9 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#ifdef __MINGW32__
+#include <stdint.h>
+#endif
 
 inline int Testuint256AdHoc(std::vector<std::string> vArg);
 

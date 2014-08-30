@@ -3,15 +3,15 @@
 
 #include <QAbstractTableModel>
 #include <QStringList>
+#include "addresstablemodel_impl.h"
 
-class AddressTablePriv;
 class CWallet;
 class WalletModel;
 
 /**
    Qt model of the address book in the core. This allows views to access and modify the address book.
  */
-class AddressTableModel : public QAbstractTableModel
+class AddressTableModel : public QAbstractAddressTableModel
 {
     Q_OBJECT
 public:
@@ -61,6 +61,10 @@ public:
      */
     QString labelForAddress(const QString &address) const;
 
+    /* Look up address for label in address book, if not found return empty string.
+     */
+    QString addressForLabel(const QString &label) const;
+
     /* Look up row index of an address in the model.
        Return -1 if not found.
      */
@@ -71,20 +75,14 @@ public:
 private:
     WalletModel *walletModel;
     CWallet *wallet;
-    AddressTablePriv *priv;
     QStringList columns;
     EditStatus editStatus;
-
-    /** Notify listeners that data changed. */
-    void emitDataChanged(int index);
 
 signals:
     void defaultAddressChanged(const QString &address);
 
 public slots:
-    /* Update address list from core.
-     */
-    void updateEntry(const QString &address, const QString &label, bool isMine, int status);
+
 
     friend class AddressTablePriv;
 };

@@ -4,6 +4,9 @@
 #include "uint256.h"
 
 #include <QList>
+#ifdef __MINGW32__
+#include <stdint.h>
+#endif
 
 class CWallet;
 class CWalletTx;
@@ -68,28 +71,55 @@ public:
         SendToOther,
         RecvWithAddress,
         RecvFromOther,
-        SendToSelf
+        InternalSend,
+        InternalReceive
     };
 
     /** Number of confirmation recommended for accepting a transaction */
     static const int RecommendedNumConfirmations = 10;
 
-    TransactionRecord():
-            hash(), time(0), type(Other), address(""), debit(0), credit(0), idx(0)
+    TransactionRecord()
+    : hash()
+    , time(0)
+    , type(Other)
+    , address("")
+    , debit(0)
+    , credit(0)
+    , balance(0)
+    , balanceNeedsRecalc(true)
+    , idx(0)
     {
     }
 
-    TransactionRecord(uint256 hash, int64_t time):
-            hash(hash), time(time), type(Other), address(""), debit(0),
-            credit(0), idx(0)
+    TransactionRecord(uint256 hash, int64_t time)
+    : hash(hash)
+    , time(time)
+    , type(Other)
+    , address("")
+    , debit(0)
+    , credit(0)
+    , balance(0)
+    , balanceNeedsRecalc(true)
+    , idx(0)
     {
     }
 
-    TransactionRecord(uint256 hash, int64_t time,
-                Type type, const std::string &address,
-                int64_t debit, int64_t credit):
-            hash(hash), time(time), type(type), address(address), debit(debit), credit(credit), idx(0)
+    TransactionRecord(uint256 hash, int64_t time, Type type, const std::string &address, int64_t debit, int64_t credit)
+    : hash(hash)
+    , time(time)
+    , type(type)
+    , address(address)
+    , debit(debit)
+    , credit(credit)
+    , balance(0)
+    , balanceNeedsRecalc(true)
+    , idx(0)
     {
+    }
+
+    bool operator==(const TransactionRecord& comp)
+    {
+        return hash == comp.hash && time == comp.time && type == comp.type && debit == comp.debit && credit == comp.credit;
     }
 
     /** Decompose CWallet transaction to model transaction records.
@@ -103,9 +133,13 @@ public:
     qint64 time;
     Type type;
     std::string address;
+    std::string fromAddress;
     qint64 debit;
     qint64 credit;
     /**@}*/
+
+    qint64 balance;
+    bool balanceNeedsRecalc;
 
     /** Subtransaction index, for sort key */
     int idx;

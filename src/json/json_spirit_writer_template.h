@@ -28,7 +28,8 @@ namespace json_spirit
     template< class String_type >
     String_type non_printable_to_string( unsigned int c )
     {
-        typedef typename String_type::value_type Char_type;
+        // Commented out to remove compile warnings.
+        //typedef typename String_type::value_type Char_type;
 
         String_type result( 6, '\\' );
 

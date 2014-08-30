@@ -146,7 +146,24 @@ macx: {
 
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
-SOURCES += src/txdb-leveldb.cpp
+SOURCES += src/txdb-leveldb.cpp \
+    src/qt/forms/lockbar.cpp \
+    src/qt/forms/mainframe.cpp \
+    src/qt/accountmodel.cpp \
+    src/qt/forms/accountpage.cpp \
+    src/qt/forms/accountsummaryheaderwidget.cpp \
+    src/qt/forms/transactionfilterwidget.cpp \
+    src/qt/forms/tabbeddatewidget.cpp \
+    src/qt/forms/createaccountwidget.cpp \
+    src/qt/forms/transferpage.cpp \
+    src/qt/forms/addressbookpage_new.cpp \
+    src/qt/addresstablemodel_impl.cpp \
+    src/qt/forms/sendcoinstargetwidget.cpp \
+    src/qt/portfoliooverviewtable.cpp \
+    src/qt/transactionviewtable.cpp \
+    src/qt/richtextdelegate.cpp \
+    src/qt/richtextcombo.cpp \
+    src/qt/pandastyles.cpp
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a
@@ -200,12 +217,13 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/optionsdialog.h \
     src/qt/coincontroldialog.h \
     src/qt/coincontroltreewidget.h \
-    src/qt/sendcoinsdialog.h \
     src/qt/addressbookpage.h \
     src/qt/signverifymessagedialog.h \
     src/qt/aboutdialog.h \
     src/qt/editaddressdialog.h \
     src/qt/bitcoinaddressvalidator.h \
+	src/qt/menubar.h \
+	src/qt/tabbar.h \
     src/alert.h \
     src/addrman.h \
     src/base58.h \
@@ -283,13 +301,29 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/rpcconsole.h \
     src/version.h \
     src/netbase.h \
-    src/clientversion.h
+    src/clientversion.h \
+    src/qt/forms/lockbar.h \
+    src/qt/forms/mainframe.h \
+    src/qt/accountmodel.h \
+    src/qt/forms/accountpage.h \
+    src/qt/forms/accountsummaryheaderwidget.h \
+    src/qt/forms/transactionfilterwidget.h \
+    src/qt/forms/tabbeddatewidget.h \
+    src/qt/forms/createaccountwidget.h \
+    src/qt/forms/transferpage.h \
+    src/qt/forms/addressbookpage_new.h \
+    src/qt/addresstablemodel_impl.h \
+    src/qt/forms/sendcoinstargetwidget.h \
+    src/qt/portfoliooverviewtable.h \
+    src/qt/transactionviewtable.h \
+    src/qt/richtextdelegate.h \
+    src/qt/richtextcombo.h \
+    src/qt/pandastyles.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
     src/qt/addresstablemodel.cpp \
     src/qt/optionsdialog.cpp \
-    src/qt/sendcoinsdialog.cpp \
     src/qt/coincontroldialog.cpp \
     src/qt/coincontroltreewidget.cpp \
     src/qt/addressbookpage.cpp \
@@ -297,6 +331,8 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
+	src/qt/menubar.cpp \
+	src/qt/tabbar.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
@@ -369,7 +405,6 @@ RESOURCES += \
 
 FORMS += \
     src/qt/forms/coincontroldialog.ui \
-    src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/addressbookpage.ui \
     src/qt/forms/signverifymessagedialog.ui \
     src/qt/forms/aboutdialog.ui \
@@ -379,7 +414,18 @@ FORMS += \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
-    src/qt/forms/optionsdialog.ui
+    src/qt/forms/optionsdialog.ui \
+	src/qt/forms/menubar.ui \
+    src/qt/forms/lockbar.ui \
+    src/qt/forms/mainframe.ui \
+    src/qt/forms/accountpage.ui \
+    src/qt/forms/accountsummaryheaderwidget.ui \
+    src/qt/forms/transactionfilterwidget.ui \
+    src/qt/forms/tabbeddatewidget.ui \
+    src/qt/forms/createaccountwidget.ui \
+    src/qt/forms/transferpage.ui \
+    src/qt/forms/addressbookpage_new.ui \
+    src/qt/forms/sendcoinstargetwidget.ui
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
@@ -408,7 +454,8 @@ QMAKE_EXTRA_COMPILERS += TSQM
 
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
-    doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
+    doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc \
+    src/qt/res/qss/main.qss
 
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {

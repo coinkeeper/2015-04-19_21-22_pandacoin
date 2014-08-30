@@ -4,14 +4,13 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 
-#include <stdint.h>
-
 class TransactionTableModel;
 class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
-class AddressBookPage;
+class AccountPage;
+class TransferPage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
@@ -24,7 +23,8 @@ class QTableView;
 class QAbstractItemModel;
 class QModelIndex;
 class QProgressBar;
-class QStackedWidget;
+class QResizeEvent;
+class MainFrame;
 class QUrl;
 QT_END_NAMESPACE
 
@@ -47,7 +47,7 @@ public:
         The wallet model represents a bitcoin wallet, and offers access to the list of transactions, address book and sending
         functionality.
     */
-    void setWalletModel(WalletModel *walletModel);
+    bool setWalletModel(WalletModel *walletModel);
 
 protected:
     void changeEvent(QEvent *e);
@@ -56,16 +56,15 @@ protected:
     void dropEvent(QDropEvent *event);
 
 private:
+    virtual void resizeEvent(QResizeEvent *event);
+
     ClientModel *clientModel;
     WalletModel *walletModel;
 
-    QStackedWidget *centralWidget;
+    MainFrame *centralWidget;
 
     OverviewPage *overviewPage;
-    QWidget *transactionsPage;
-    AddressBookPage *addressBookPage;
-    AddressBookPage *receiveCoinsPage;
-    SendCoinsDialog *sendCoinsPage;
+    AccountPage *transactionsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
 
     QLabel *labelEncryptionIcon;
@@ -98,19 +97,13 @@ private:
 
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
-    TransactionView *transactionView;
     RPCConsole *rpcConsole;
+    TransferPage *transferPage;
 
     QMovie *syncIconMovie;
 
-    uint64_t nWeight;
-
     /** Create the main UI actions. */
     void createActions();
-    /** Create the menu bar and sub-menus. */
-    void createMenuBar();
-    /** Create the toolbars */
-    void createToolBars();
     /** Create system tray (notification) icon */
     void createTrayIcon();
 
@@ -138,11 +131,16 @@ public slots:
     void askFee(qint64 nFeeRequired, bool *payFee);
     void handleURI(QString strURI);
 
+    /** Show menus as needed. */
+    void showFileMenu(QPoint pos);
+    void showSettingsMenu(QPoint pos);
+    void showHelpMenu(QPoint pos);
+
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
-    /** Switch to history (transactions) page */
-    void gotoHistoryPage();
+    /** Switch to history (transactions) page - optionally set an active account */
+    void gotoHistoryPage(const QString& account="");
     /** Switch to address book page */
     void gotoAddressBookPage();
     /** Switch to receive coins page */
@@ -175,7 +173,7 @@ private slots:
     /** Change encrypted wallet passphrase */
     void changePassphrase();
     /** Ask for passphrase to unlock wallet temporarily */
-    void unlockWallet();
+    bool unlockWallet(bool forStakingOnly=false, bool forLogin=false);
 
     void lockWallet();
 
@@ -184,7 +182,6 @@ private slots:
     /** simply calls showNormalIfMinimized(true) for use in SLOT() macro */
     void toggleHidden();
 
-    void updateWeight();
     void updateStakingIcon();
 };
 

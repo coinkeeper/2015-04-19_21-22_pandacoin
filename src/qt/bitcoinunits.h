@@ -10,7 +10,7 @@
 class BitcoinUnits: public QAbstractListModel
 {
 public:
-    explicit BitcoinUnits(QObject *parent);
+    explicit BitcoinUnits(QObject *parent, int padUnits=-1);
 
     /** Bitcoin units.
       @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
@@ -41,9 +41,9 @@ public:
     //! Number of decimals left
     static int decimals(int unit);
     //! Format as string
-    static QString format(int unit, qint64 amount, bool plussign=false);
+    static QString format(int unit, qint64 amount, bool addCommas, bool plussign);
     //! Format as string (with unit)
-    static QString formatWithUnit(int unit, qint64 amount, bool plussign=false);
+    static QString formatWithUnit(int unit, qint64 amount, bool addCommas, bool plussign);
     //! Parse string to coin amount
     static bool parse(int unit, const QString &value, qint64 *val_out);
     ///@}
@@ -60,6 +60,7 @@ public:
     ///@}
 private:
     QList<BitcoinUnits::Unit> unitlist;
+    int padUnits;
 };
 typedef BitcoinUnits::Unit BitcoinUnit;
 

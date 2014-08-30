@@ -133,6 +133,10 @@ public:
     // keystore implementation
     // Generate a new key
     CPubKey GenerateNewKey();
+    // Generate a new key - must manually call AddNewKeyToChain on the key returned before it enters the keychain
+    CKey GenerateNewKeyOutsideKeychain();
+    // Add an already created key that isn't in the chain (Generated with GenerateNewKeyOutsideKeychain) into the chain - call after GenerateNewKeyOutsideKeychain.
+    bool AddNewKeyToChain(const CKey& key);
     // Adds a key to the store, and saves it to disk.
     bool AddKey(const CKey& key);
     // Adds a key to the store, without saving it to disk (used by LoadWallet)
@@ -179,13 +183,16 @@ public:
     int ScanForWalletTransaction(const uint256& hashTx);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions(bool fForce = false);
+    void GetBalanceForAddress(std::string addr, int64_t& interest,  int64_t& pending, int64_t& balance) const;
     int64_t GetBalance() const;
     int64_t GetUnconfirmedBalance() const;
+    int64_t GetUnconfirmedBalanceForAddress(std::string addr) const;
     int64_t GetImmatureBalance() const;
     int64_t GetStake() const;
+    int64_t GetStakeForAddress(std::string addrName) const;
     int64_t GetNewMint() const;
-    bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL);
-    bool CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL);
+    bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL, bool* transactionTooBig=NULL);
+    bool CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL, bool* transactionTooBig=NULL);
     bool CommitTransaction(CWalletTx& wtxNew, CReserveKey& reservekey);
 
     bool GetStakeWeight(const CKeyStore& keystore, uint64_t& nMinWeight, uint64_t& nMaxWeight, uint64_t& nWeight);
@@ -248,6 +255,7 @@ public:
         }
         return nDebit;
     }
+    int64_t GetCreditForAddress(const CTransaction& tx, std::string addr) const;
     int64_t GetCredit(const CTransaction& tx) const
     {
         int64_t nCredit = 0;
@@ -595,6 +603,9 @@ public:
         return nCreditCached;
     }
 
+
+    int64_t GetAvailableCreditForAddress(std::string addr)  const;
+
     int64_t GetAvailableCredit(bool fUseCache=true) const
     {
         // Must wait until coinbase is safely deep enough in the chain before valuing it
@@ -636,6 +647,9 @@ public:
 
     void GetAccountAmounts(const std::string& strAccount, int64_t& nReceived,
                            int64_t& nSent, int64_t& nFee) const;
+
+    // Get amounts for a 'virtual' account - a 'virtual' account is a wallet account *and* all 'user invisible' sub accounts (change) that occur 'under' the main wallet account.
+    void GetVirtualAccountAmounts(const string& strAccount, int64_t& nReceived, int64_t& nSent, int64_t& nFee) const;
 
     bool IsFromMe() const
     {

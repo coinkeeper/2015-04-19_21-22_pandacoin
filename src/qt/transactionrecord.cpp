@@ -2,6 +2,7 @@
 
 #include "wallet.h"
 #include "base58.h"
+#include <map>
 
 /* Return positive answer if transaction should be shown in list.
  */
@@ -41,6 +42,8 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
             if(wallet->IsMine(txout))
             {
                 TransactionRecord sub(hash, nTime);
+                sub.fromAddress = "";
+
                 CTxDestination address;
                 sub.idx = parts.size(); // sequence number
                 sub.credit = txout.nValue;
@@ -87,13 +90,125 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
         BOOST_FOREACH(const CTxOut& txout, wtx.vout)
             fAllToMe = fAllToMe && wallet->IsMine(txout);
 
+        TransactionRecord sub(hash, nTime);
+
         if (fAllFromMe && fAllToMe)
         {
-            // Payment to self
-            int64_t nChange = wtx.GetChange();
+            sub.address = "";
 
-            parts.append(TransactionRecord(hash, nTime, TransactionRecord::SendToSelf, "",
-                            -(nDebit - nChange), nCredit - nChange));
+            // Sender
+            CTxDestination toAddress;
+            ExtractDestination(wtx.vout[0].scriptPubKey, toAddress);
+            CTxDestination fromAddress=toAddress;
+            CTxIn txin=wtx.vin[0];
+            CWalletTx prev = wallet->mapWallet.find(txin.prevout.hash)->second;
+            ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, fromAddress);
+            int count=0;
+            while((!wallet->mapAddressBook.count(fromAddress)||!wallet->IsMine(txin))&&count++<20)
+            {
+                txin=prev.vin[0];
+                prev=wallet->mapWallet.find(txin.prevout.hash)->second;
+                ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, fromAddress);
+            }
+
+            // Maps
+            std::map<std::string, int64_t> transactionMap;
+
+            // Store all change for addresses - for multi transactions we need to subtract this from amounts as we go.
+            // For non-multi transactions we just ignore this as it is taken care of automatically.
+            std::map<std::string, int64_t> addressChangeMap;
+            BOOST_FOREACH(const CTxOut& txout, wtx.vout)
+            {
+                if(wallet->IsChange(txout))
+                {
+                    CTxDestination changeAddress;
+                    CTxIn txin;
+                    CWalletTx prev = wtx;
+                    int count=0;
+                    while((!wallet->mapAddressBook.count(changeAddress)||!wallet->IsMine(txin))&&count++<20)
+                    {
+                        txin=prev.vin[0];
+                        prev=wallet->mapWallet.find(txin.prevout.hash)->second;
+                        ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, changeAddress);
+                    }
+                    addressChangeMap[CBitcoinAddress(changeAddress).ToString()] += txout.nValue;
+                }
+            }
+
+            std::string stest = CBitcoinAddress(toAddress).ToString();
+            // Credit
+            BOOST_FOREACH(const CTxOut& txout, wtx.vout)
+            {
+                if(wallet->IsChange(txout))
+                    continue;
+
+                CTxDestination creditAddress=toAddress;
+                ExtractDestination(txout.scriptPubKey, creditAddress);
+                transactionMap[CBitcoinAddress(creditAddress).ToString()] += txout.nValue;
+            }
+
+            // Debit
+            if(wtx.vin.size()<=2)
+            {
+                transactionMap[CBitcoinAddress(fromAddress).ToString()] += -nDebit;
+            }
+            else
+            {
+                BOOST_FOREACH(CTxIn partin, wtx.vin)
+                {
+                    CTxDestination partFromAddress=fromAddress;
+                    CWalletTx partPrev = wallet->mapWallet.find(partin.prevout.hash)->second;
+                    int64_t d = -partPrev.vout[partin.prevout.n].nValue;
+                    ExtractDestination(partPrev.vout[partin.prevout.n].scriptPubKey, partFromAddress);
+                    int count=0;
+                    while((!wallet->mapAddressBook.count(partFromAddress)||!wallet->IsMine(partin))&&count++<20)
+                    {
+                        partin=partPrev.vin[0];
+                        partPrev=wallet->mapWallet.find(partin.prevout.hash)->second;
+                        ExtractDestination(partPrev.vout[partin.prevout.n].scriptPubKey, partFromAddress);
+                    }
+                    if(count == 20)
+                    {
+                        transactionMap[CBitcoinAddress(fromAddress).ToString()] += d;
+                    }
+                    else
+                    {
+                        transactionMap[CBitcoinAddress(partFromAddress).ToString()] += d;
+                    }
+                }
+            }
+
+            for(std::map<std::string, int64_t>::iterator iter = transactionMap.begin(); iter != transactionMap.end(); iter++)
+            {
+                if(addressChangeMap.find(iter->first) != addressChangeMap.end())
+                {
+                    iter->second += addressChangeMap[iter->first];
+                    addressChangeMap[iter->first] = 0;
+                    // Change has cancelled the transaction out entirely.
+                    if(iter->second == 0)
+                    {
+                        continue;
+                    }
+                }
+                // fixme: Try match the inputs and outputs.
+                if(iter->second > 0)
+                {
+                    sub.debit=0;
+                    sub.credit = iter->second;
+                    sub.type = TransactionRecord::InternalReceive;
+                    sub.fromAddress="";
+                    sub.address=iter->first;
+                }
+                else
+                {
+                    sub.credit=0;
+                    sub.debit = iter->second;
+                    sub.type = TransactionRecord::InternalSend;
+                    sub.fromAddress=iter->first;
+                }
+                parts.append(sub);
+            }
+            transactionMap.clear();
         }
         else if (fAllFromMe)
         {
@@ -102,16 +217,35 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
             //
             int64_t nTxFee = nDebit - wtx.GetValueOut();
 
+            // Store all change for addresses - for multi transactions we need to subtract this from amounts as we go.
+            // For non-multi transactions we just ignore this as it is taken care of automatically.
+            std::map<std::string, int64_t> addressChangeMap;
+            BOOST_FOREACH(const CTxOut& txout, wtx.vout)
+            {
+                if(wallet->IsChange(txout))
+                {
+                    CTxDestination changeAddress;
+                    CTxIn txin;
+                    CWalletTx prev = wtx;
+                    int count=0;
+                    while((!wallet->mapAddressBook.count(changeAddress)||!wallet->IsMine(txin))&&count++<20)
+                    {
+                        txin=prev.vin[0];
+                        prev=wallet->mapWallet.find(txin.prevout.hash)->second;
+                        ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, changeAddress);
+                    }
+                    addressChangeMap[CBitcoinAddress(changeAddress).ToString()] += txout.nValue;
+                }
+            }
+            std::vector<TransactionRecord> debitArray;
+
             for (unsigned int nOut = 0; nOut < wtx.vout.size(); nOut++)
             {
                 const CTxOut& txout = wtx.vout[nOut];
-                TransactionRecord sub(hash, nTime);
                 sub.idx = parts.size();
 
-                if(wallet->IsMine(txout))
+                if(wallet->IsChange(txout))
                 {
-                    // Ignore parts sent to self, as this is usually the change
-                    // from a transaction sent back to our own address.
                     continue;
                 }
 
@@ -121,24 +255,98 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
                     // Sent to Bitcoin Address
                     sub.type = TransactionRecord::SendToAddress;
                     sub.address = CBitcoinAddress(address).ToString();
+
+                    // Sender
+                    CTxDestination toAddress;
+                    ExtractDestination(wtx.vout[0].scriptPubKey, toAddress);
+
+                    // Single output (or two outputs where one is change) - fixme: explicitely check that one is change or is this assumption safe?
+                    if(wtx.vin.size() <= 2)
+                    {
+                        CTxDestination fromAddress=toAddress;
+                        CTxIn txin=wtx.vin[0];
+                        CWalletTx prev = wallet->mapWallet.find(txin.prevout.hash)->second;
+                        ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, fromAddress);
+                        int count=0;
+                        while((!wallet->mapAddressBook.count(fromAddress)||!wallet->IsMine(txin))&&count++<20)
+                        {
+                            txin=prev.vin[0];
+                            prev=wallet->mapWallet.find(txin.prevout.hash)->second;
+                            ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, fromAddress);
+                        }
+                        sub.fromAddress = CBitcoinAddress(fromAddress).ToString();
+                        sub.debit = -nDebit;
+
+                        debitArray.push_back(sub);
+                    }
+                    else //Multi input, have to handle this a bit differently..
+                    {
+                        std::map<std::string, int64_t> addressAmountMap;
+                        BOOST_FOREACH(CTxIn txin, wtx.vin)
+                        {
+                            CTxDestination fromAddress=toAddress;
+                            CWalletTx prev = wallet->mapWallet.find(txin.prevout.hash)->second;
+                            ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, fromAddress);
+
+                            int64_t nValue = prev.vout[txin.prevout.n].nValue;
+                            int count=0;
+                            while((!wallet->mapAddressBook.count(fromAddress)||!wallet->IsMine(txin))&&count++<20)
+                            {
+                                txin=prev.vin[0];
+                                prev=wallet->mapWallet.find(txin.prevout.hash)->second;
+                                ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, fromAddress);
+                            }
+                            addressAmountMap[CBitcoinAddress(fromAddress).ToString()] += nValue;
+                        }
+                        std::map<std::string, int64_t>::iterator iter = addressAmountMap.begin();
+                        for(; iter != addressAmountMap.end(); iter++)
+                        {
+                            sub.fromAddress = iter->first;
+                            sub.debit = -iter->second;
+                            debitArray.push_back(sub);
+                        }
+                    }
+                    for(unsigned int i = 0; i < debitArray.size(); i++)
+                    {
+                        TransactionRecord debit = debitArray[i];
+                        if(addressChangeMap.find(debit.fromAddress) != addressChangeMap.end())
+                        {
+                            debit.debit += addressChangeMap[debit.fromAddress];
+                            addressChangeMap[debit.fromAddress] = 0;
+                            // Change has cancelled the transaction out entirely.
+                            if(debit.debit == 0)
+                            {
+                                continue;
+                            }
+                            // Change has cancelled the transaction out entirely (and we still have more change left).
+                            if(debit.debit > 0)
+                            {
+                                addressChangeMap[debit.fromAddress] = debit.debit;
+                                continue;
+                            }
+                        }
+                        parts.append(debit);
+                    }
+                    debitArray.clear();
                 }
                 else
                 {
                     // Sent to IP, or other non-address transaction like OP_EVAL
                     sub.type = TransactionRecord::SendToOther;
                     sub.address = mapValue["to"];
+
+                    int64_t nValue = txout.nValue;
+                    /* Add fee to first output */
+                    if (nTxFee > 0)
+                    {
+                        nValue += nTxFee;
+                        nTxFee = 0;
+                    }
+                    sub.debit = -nValue;
+
+                    parts.append(sub);
                 }
 
-                int64_t nValue = txout.nValue;
-                /* Add fee to first output */
-                if (nTxFee > 0)
-                {
-                    nValue += nTxFee;
-                    nTxFee = 0;
-                }
-                sub.debit = -nValue;
-
-                parts.append(sub);
             }
         }
         else
@@ -155,6 +363,9 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet *
 
 void TransactionRecord::updateStatus(const CWalletTx &wtx)
 {
+    //checkme: Not sure if this is strictly necessary or overkill?
+    balanceNeedsRecalc = true;
+
     // Determine transaction status
 
     // Find the block the tx is in

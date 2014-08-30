@@ -2,6 +2,7 @@
 #include "guiconstants.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
+#include "accountmodel.h"
 #include "transactiontablemodel.h"
 
 #include "ui_interface.h"
@@ -20,8 +21,12 @@ WalletModel::WalletModel(CWallet *wallet, OptionsModel *optionsModel, QObject *p
     cachedEncryptionStatus(Unencrypted),
     cachedNumBlocks(0)
 {
-    addressTableModel = new AddressTableModel(wallet, this);
     transactionTableModel = new TransactionTableModel(wallet, this);
+
+    addressTableModel = new AddressTableModel(wallet, this);
+    externalAccountModel = new AccountModel(wallet, true, false, this);
+    myAccountModel = new AccountModel(wallet, false, true, this);
+    allAccountModel = new AccountModel(wallet, true, true, this);
 
     // This timer will be fired repeatedly to update the balance
     pollTimer = new QTimer(this);
@@ -121,10 +126,19 @@ void WalletModel::updateAddressBook(const QString &address, const QString &label
 {
     if(addressTableModel)
         addressTableModel->updateEntry(address, label, isMine, status);
+    if(externalAccountModel)
+        externalAccountModel->updateEntry(address, label, isMine, status);
+    if(myAccountModel)
+        myAccountModel->updateEntry(address, label, isMine, status);
+    if(allAccountModel)
+        allAccountModel->updateEntry(address, label, isMine, status);
+
+    emit addressBookUpdated();
 }
 
 bool WalletModel::validateAddress(const QString &address)
 {
+    LOCK(wallet->cs_wallet);
     CBitcoinAddress addressParsed(address.toStdString());
     return addressParsed.IsValid();
 }
@@ -193,7 +207,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         CWalletTx wtx;
         CReserveKey keyChange(wallet);
         int64_t nFeeRequired = 0;
-        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl);
+        bool transactionTooBig = false;
+        bool fCreated = wallet->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired, coinControl, &transactionTooBig);
 
         if(!fCreated)
         {
@@ -201,6 +216,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
             {
                 return SendCoinsReturn(AmountWithFeeExceedsBalance, nFeeRequired);
             }
+            if(transactionTooBig)
+                return TransactionTooBig;
             return TransactionCreationFailed;
         }
         if(!uiInterface.ThreadSafeAskFee(nFeeRequired, tr("Sending...").toStdString()))
@@ -241,9 +258,26 @@ OptionsModel *WalletModel::getOptionsModel()
     return optionsModel;
 }
 
+
 AddressTableModel *WalletModel::getAddressTableModel()
 {
     return addressTableModel;
+}
+
+
+AccountModel* WalletModel::getExternalAccountModel()
+{
+    return externalAccountModel;
+}
+
+AccountModel* WalletModel::getMyAccountModel()
+{
+    return myAccountModel;
+}
+
+AccountModel* WalletModel::getAllAccountModel()
+{
+    return allAccountModel;
 }
 
 TransactionTableModel *WalletModel::getTransactionTableModel()
@@ -465,4 +499,9 @@ void WalletModel::unlockCoin(COutPoint& output)
 void WalletModel::listLockedCoins(std::vector<COutPoint>& vOutpts)
 {
     return;
+}
+
+CWallet *WalletModel::getWallet()
+{
+    return wallet;
 }

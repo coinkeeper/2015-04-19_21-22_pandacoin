@@ -10,6 +10,7 @@
 class OptionsModel;
 class AddressTableModel;
 class TransactionTableModel;
+class AccountModel;
 class CWallet;
 class CKeyID;
 class CPubKey;
@@ -25,6 +26,15 @@ QT_END_NAMESPACE
 class SendCoinsRecipient
 {
 public:
+    SendCoinsRecipient(double amt, QString addr, QString lbl)
+    : address(addr)
+    , label(lbl)
+    , amount(amt)\
+    {
+    }
+    SendCoinsRecipient()
+    {
+    }
     QString address;
     QString label;
     qint64 amount;
@@ -47,6 +57,7 @@ public:
         AmountExceedsBalance,
         AmountWithFeeExceedsBalance,
         DuplicateAddress,
+        TransactionTooBig,
         TransactionCreationFailed, // Error returned when wallet is still locked
         TransactionCommitFailed,
         Aborted
@@ -61,6 +72,9 @@ public:
 
     OptionsModel *getOptionsModel();
     AddressTableModel *getAddressTableModel();
+    AccountModel* getExternalAccountModel();
+    AccountModel* getMyAccountModel();
+    AccountModel* getAllAccountModel();
     TransactionTableModel *getTransactionTableModel();
 
     qint64 getBalance() const;
@@ -125,6 +139,7 @@ public:
     void lockCoin(COutPoint& output);
     void unlockCoin(COutPoint& output);
     void listLockedCoins(std::vector<COutPoint>& vOutpts);
+    CWallet *getWallet();
 
 private:
     CWallet *wallet;
@@ -134,7 +149,12 @@ private:
     OptionsModel *optionsModel;
 
     AddressTableModel *addressTableModel;
+
     TransactionTableModel *transactionTableModel;
+
+    AccountModel* externalAccountModel;
+    AccountModel* myAccountModel;
+    AccountModel* allAccountModel;
 
     // Cache some values to be able to detect changes
     qint64 cachedBalance;
@@ -176,6 +196,9 @@ signals:
     // It is valid behaviour for listeners to keep the wallet locked after this signal;
     // this means that the unlocking failed or was cancelled.
     void requireUnlock();
+
+    // Signal emitted when address book has been updated
+    void addressBookUpdated();
 
     // Asynchronous error notification
     void error(const QString &title, const QString &message, bool modal);

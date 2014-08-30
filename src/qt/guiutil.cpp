@@ -1,9 +1,14 @@
 #include "guiutil.h"
+#include "guiconstants.h"
 #include "bitcoinaddressvalidator.h"
 #include "walletmodel.h"
+#include "optionsmodel.h"
 #include "bitcoinunits.h"
+#include "coincontrol.h"
+#include "coincontroldialog.h"
 #include "util.h"
 #include "init.h"
+
 
 #include <QString>
 #include <QDateTime>
@@ -18,6 +23,8 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QThread>
+#include <QTranslator>
+#include <QLocale>
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -42,6 +49,139 @@
 
 namespace GUIUtil {
 
+bool IsAmountStringValid(int currentUnit, const QString &amountString)
+{
+    bool valid = true;
+    if (amountString.toDouble() == 0.0)
+        valid = false;
+    if (valid && !BitcoinUnits::parse(currentUnit, amountString, 0))
+        valid = false;
+
+    return valid;
+}
+
+qint64 AmountStringToBitcoinUnits(int currentUnit, const QString &amountString)
+{
+    qint64 ret;
+    BitcoinUnits::parse(currentUnit, amountString, &ret);
+    return ret;
+}
+
+void SetControlValidity(QWidget* widget, bool valid)
+{
+    if (valid)
+        widget->setStyleSheet("");
+    else
+        widget->setStyleSheet(STYLE_INVALID);
+}
+
+bool SendCoinsHelper(QWidget* parent, const QList<SendCoinsRecipient>& recipients, WalletModel* model, const QString& sendAccountAddress, bool ignoreCoinControl)
+{
+    // Format confirmation message
+    QStringList formatted;
+    foreach(const SendCoinsRecipient &rcp, recipients)
+    {
+        formatted.append(QObject::tr("<b>%1</b> to %2 (%3)").arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, rcp.amount, true, false), Qt::escape(rcp.label), rcp.address));
+    }
+
+    QMessageBox::StandardButton retval = QMessageBox::question(parent, QObject::tr("Confirm send coins"), QObject::tr("Are you sure you want to send %1?").arg(formatted.join(QObject::tr(" and "))), QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel);
+    if(retval != QMessageBox::Yes)
+    {
+        return false;
+    }
+
+    WalletModel::UnlockContext ctx(model->requestUnlock());
+    if(!ctx.isValid())
+    {
+        // Unlock wallet was cancelled
+        return false;
+    }
+
+    WalletModel::SendCoinsReturn sendstatus;
+    if (ignoreCoinControl || !model->getOptionsModel() || !model->getOptionsModel()->getCoinControlFeatures())
+    {
+        CCoinControl control;
+
+        map<QString, vector<COutput> > mapCoins;
+        model->listCoins(mapCoins);
+        BOOST_FOREACH(PAIRTYPE(QString, vector<COutput>) coins, mapCoins)
+        {
+            QString sWalletAddress = coins.first;
+            if(sWalletAddress == sendAccountAddress)
+            {
+                BOOST_FOREACH(const COutput& out, coins.second)
+                {
+                    CTxDestination outputAddress;
+                    QString sAddress = "";
+                    if(ExtractDestination(out.tx->vout[out.i].scriptPubKey, outputAddress))
+                    {
+                        sAddress = CBitcoinAddress(outputAddress).ToString().c_str();
+                    }
+
+                    // transaction hash
+                    COutPoint outpt(out.tx->GetHash(), out.i);
+                    control.Select(outpt);
+                }
+            }
+        }
+        sendstatus = model->sendCoins(recipients, &control);
+    }
+    else
+    {
+        sendstatus = model->sendCoins(recipients, CoinControlDialog::coinControl);
+    }
+
+    switch(sendstatus.status)
+    {
+    case WalletModel::InvalidAddress:
+        QMessageBox::warning(parent, QObject::tr("Send Coins"),
+            QObject::tr("The recipient address is not valid, please recheck."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::InvalidAmount:
+        QMessageBox::warning(parent, QObject::tr("Send Coins"),
+            QObject::tr("The amount to pay must be larger than 0."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::AmountExceedsBalance:
+        QMessageBox::warning(parent, QObject::tr("Send Coins"),
+            QObject::tr("The amount exceeds your balance."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::AmountWithFeeExceedsBalance:
+        QMessageBox::warning(parent, QObject::tr("Send Coins"),
+            QObject::tr("The total exceeds your balance when the %1 transaction fee is included.").
+            arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, sendstatus.fee, true, false)),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::DuplicateAddress:
+        QMessageBox::warning(parent, QObject::tr("Send Coins"),
+            QObject::tr("Duplicate address found, can only send to each address once per send operation."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::TransactionTooBig:
+        QMessageBox::warning(parent, QObject::tr("Send Coins"),
+            QObject::tr("Error: Transaction creation failed because transaction size (in Kb) too large."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::TransactionCreationFailed:
+        QMessageBox::warning(parent, QObject::tr("Send Coins"),
+            QObject::tr("Error: Transaction creation failed."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::TransactionCommitFailed:
+        QMessageBox::warning(parent, QObject::tr("Send Coins"),
+            QObject::tr("Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here."),
+            QMessageBox::Ok, QMessageBox::Ok);
+        break;
+    case WalletModel::Aborted: // User aborted, nothing to do
+        break;
+    case WalletModel::OK:
+        return true;
+    }
+    return false;
+}
+
 QString dateTimeStr(const QDateTime &date)
 {
     return date.date().toString(Qt::SystemLocaleShortDate) + QString(" ") + date.toString("hh:mm");
@@ -49,7 +189,12 @@ QString dateTimeStr(const QDateTime &date)
 
 QString dateTimeStr(qint64 nTime)
 {
-    return dateTimeStr(QDateTime::fromTime_t((qint32)nTime));
+    return QDateTime::fromTime_t((qint32)nTime).toString("d/M/yyyy hh:mm");
+}
+
+QDateTime dateFromString(const QString &dateString)
+{
+    return QDateTime::fromString(dateString,"d/M/yyyy hh:mm");
 }
 
 QFont bitcoinAddressFont()
@@ -154,17 +299,9 @@ QString HtmlEscape(const std::string& str, bool fMultiLine)
     return HtmlEscape(QString::fromStdString(str), fMultiLine);
 }
 
-void copyEntryData(QAbstractItemView *view, int column, int role)
+void copyEntryData(QAbstractItemView *view, int row, int column, int role)
 {
-    if(!view || !view->selectionModel())
-        return;
-    QModelIndexList selection = view->selectionModel()->selectedRows(column);
-
-    if(!selection.isEmpty())
-    {
-        // Copy first item
-        QApplication::clipboard()->setText(selection.at(0).data(role).toString());
-    }
+    QApplication::clipboard()->setText(view->model()->index(row, column).data(role).toString());
 }
 
 QString getSaveFileName(QWidget *parent, const QString &caption,
@@ -182,7 +319,8 @@ QString getSaveFileName(QWidget *parent, const QString &caption,
     {
         myDir = dir;
     }
-    QString result = QFileDialog::getSaveFileName(parent, caption, myDir, filter, &selectedFilter);
+    //We purposefully don't pass a parent here to avoid stylesheet propagating - users will except a system default file dialog.
+    QString result = QFileDialog::getSaveFileName(NULL, caption, myDir, filter, &selectedFilter);
 
     /* Extract first suffix from filter pattern "Description (*.foo)" or "Description (*.foo *.bar ...) */
     QRegExp filter_re(".* \\(\\*\\.(.*)[ \\)]");

@@ -18,13 +18,19 @@
 #include <QIcon>
 #include <QDateTime>
 #include <QtAlgorithms>
+#include <map>
 
 // Amount column is right-aligned it contains numbers
+// Balance column is right-aligned it contains numbers
 static int column_alignments[] = {
         Qt::AlignLeft|Qt::AlignVCenter,
+        Qt::AlignHCenter|Qt::AlignVCenter,
+        Qt::AlignHCenter|Qt::AlignVCenter,
+        Qt::AlignHCenter|Qt::AlignVCenter,
+        Qt::AlignHCenter|Qt::AlignVCenter,
+        Qt::AlignHCenter|Qt::AlignVCenter,
         Qt::AlignLeft|Qt::AlignVCenter,
-        Qt::AlignLeft|Qt::AlignVCenter,
-        Qt::AlignLeft|Qt::AlignVCenter,
+        Qt::AlignRight|Qt::AlignVCenter,
         Qt::AlignRight|Qt::AlignVCenter
     };
 
@@ -49,9 +55,9 @@ struct TxLessThan
 class TransactionTablePriv
 {
 public:
-    TransactionTablePriv(CWallet *wallet, TransactionTableModel *parent):
-            wallet(wallet),
-            parent(parent)
+    TransactionTablePriv(CWallet *wallet, TransactionTableModel *parent)
+    : wallet(wallet)
+    , parent(parent)
     {
     }
     CWallet *wallet;
@@ -63,18 +69,29 @@ public:
      */
     QList<TransactionRecord> cachedWallet;
 
+    std::multimap<QDateTime, TransactionRecord*, std::greater<QDateTime> > dateMapCachedWallet;
+
     /* Query entire wallet anew from core.
      */
     void refreshWallet()
     {
         OutputDebugStringF("refreshWallet\n");
         cachedWallet.clear();
+        dateMapCachedWallet.clear();
         {
             LOCK(wallet->cs_wallet);
             for(std::map<uint256, CWalletTx>::iterator it = wallet->mapWallet.begin(); it != wallet->mapWallet.end(); ++it)
             {
                 if(TransactionRecord::showTransaction(it->second))
-                    cachedWallet.append(TransactionRecord::decomposeTransaction(wallet, it->second));
+                {
+
+                    QList<TransactionRecord> toInsert = TransactionRecord::decomposeTransaction(wallet, it->second);
+                    foreach(const TransactionRecord &rec, toInsert)
+                    {
+                        cachedWallet.append(rec);
+                        dateMapCachedWallet.insert(std::make_pair(QDateTime::fromTime_t(rec.time),&cachedWallet[cachedWallet.size()-1]));
+                    }
+                }
             }
         }
     }
@@ -95,10 +112,8 @@ public:
             bool inWallet = mi != wallet->mapWallet.end();
 
             // Find bounds of this transaction in model
-            QList<TransactionRecord>::iterator lower = qLowerBound(
-                cachedWallet.begin(), cachedWallet.end(), hash, TxLessThan());
-            QList<TransactionRecord>::iterator upper = qUpperBound(
-                cachedWallet.begin(), cachedWallet.end(), hash, TxLessThan());
+            QList<TransactionRecord>::iterator lower = qLowerBound(cachedWallet.begin(), cachedWallet.end(), hash, TxLessThan());
+            QList<TransactionRecord>::iterator upper = qUpperBound(cachedWallet.begin(), cachedWallet.end(), hash, TxLessThan());
             int lowerIndex = (lower - cachedWallet.begin());
             int upperIndex = (upper - cachedWallet.begin());
             bool inModel = (lower != upper);
@@ -133,8 +148,7 @@ public:
                 if(showTransaction)
                 {
                     // Added -- insert at the right position
-                    QList<TransactionRecord> toInsert =
-                            TransactionRecord::decomposeTransaction(wallet, mi->second);
+                    QList<TransactionRecord> toInsert = TransactionRecord::decomposeTransaction(wallet, mi->second);
                     if(!toInsert.isEmpty()) /* only if something to insert */
                     {
                         parent->beginInsertRows(QModelIndex(), lowerIndex, lowerIndex+toInsert.size()-1);
@@ -142,6 +156,7 @@ public:
                         foreach(const TransactionRecord &rec, toInsert)
                         {
                             cachedWallet.insert(insert_idx, rec);
+                            dateMapCachedWallet.insert(std::make_pair(QDateTime::fromTime_t(rec.time),&cachedWallet[insert_idx]));
                             insert_idx += 1;
                         }
                         parent->endInsertRows();
@@ -156,6 +171,7 @@ public:
                 }
                 // Removed -- remove entire transaction from table
                 parent->beginRemoveRows(QModelIndex(), lowerIndex, upperIndex-1);
+                dateMapCachedWallet.erase(dateMapCachedWallet.lower_bound(QDateTime::fromTime_t(lower->time)),dateMapCachedWallet.upper_bound(QDateTime::fromTime_t(lower->time)));
                 cachedWallet.erase(lower, upper);
                 parent->endRemoveRows();
                 break;
@@ -201,6 +217,83 @@ public:
         }
     }
 
+    //fixme: A bit gross for the underlying model to know about the filter account like this - in an ideal world this would be taken care of by the proxy filter model somehow, but because of the way it has to work this is a bit tricky
+    //This is the best way to do it for now, if time/budget allows at some point a more complicated but technically cleaner solution is possible.
+    void setCurrentAccountPrefix(QString prefix)
+    {
+        LOCK(wallet->cs_wallet);
+
+        balanceAccountprefix = prefix;
+        std::multimap<QDateTime, TransactionRecord*>::iterator iter = dateMapCachedWallet.begin();
+        while(iter != dateMapCachedWallet.end())
+        {
+            (*iter->second).balanceNeedsRecalc = true;
+            ++iter;
+        }
+    }
+    QString balanceAccountprefix;
+
+    qint64 getBalance(const TransactionRecord *wtx, WalletModel* walletModel)
+    {
+        LOCK(wallet->cs_wallet);
+
+        std::multimap<QDateTime, TransactionRecord*>::reverse_iterator finditer(dateMapCachedWallet.upper_bound(QDateTime::fromTime_t(wtx->time)));
+        while(finditer->second != wtx && finditer != dateMapCachedWallet.rend())
+            finditer++;
+
+        std::multimap<QDateTime, TransactionRecord*>::reverse_iterator iter = finditer;
+        if(finditer != dateMapCachedWallet.rend())
+        {
+            if((*finditer->second).balanceNeedsRecalc)
+            {
+                while(iter != dateMapCachedWallet.rbegin() && (*iter->second).balanceNeedsRecalc)
+                {
+                    --iter;
+                }
+                qint64 balance=0;
+                if(iter != dateMapCachedWallet.rbegin())
+                {
+                    balance += (*iter->second).balance;
+                    ++iter;
+                }
+                ++finditer;
+                while(iter != finditer)
+                {
+                    if((*iter->second).statusUpdateNeeded())
+                    {
+                        {
+                            LOCK(wallet->cs_wallet);
+                            std::map<uint256, CWalletTx>::iterator mi = wallet->mapWallet.find((*iter->second).hash);
+
+                            if(mi != wallet->mapWallet.end())
+                            {
+                                (*iter->second).updateStatus(mi->second);
+                            }
+                        }
+                    }
+
+                    if((*iter->second).status.countsForBalance)
+                    {
+                        if(balanceAccountprefix.isEmpty() || QString((*iter->second).address.c_str()).contains(balanceAccountprefix) || walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString((*iter->second).address)).contains(balanceAccountprefix))
+                        {
+                            balance += (*iter->second).credit;
+                        }
+                        if(balanceAccountprefix.isEmpty() || QString((*iter->second).fromAddress.c_str()).contains(balanceAccountprefix) || walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString((*iter->second).fromAddress)).contains(balanceAccountprefix))
+                        {
+                            balance += (*iter->second).debit;
+                        }
+                    }
+                    (*iter->second).balance = balance;
+                    (*iter->second).balanceNeedsRecalc=false;
+                    ++iter;
+                }
+            }
+            return (*iter->second).balance;
+        }
+        //fixme: error.
+        return 0;
+    }
+
     QString describe(TransactionRecord *rec)
     {
         {
@@ -216,14 +309,14 @@ public:
 
 };
 
-TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel *parent):
-        QAbstractTableModel(parent),
-        wallet(wallet),
-        walletModel(parent),
-        priv(new TransactionTablePriv(wallet, this)),
-        cachedNumBlocks(0)
+TransactionTableModel::TransactionTableModel(CWallet* wallet, WalletModel *parent)
+: QAbstractTableModel(parent)
+, wallet(wallet)
+, walletModel(parent)
+, priv(new TransactionTablePriv(wallet, this))
+, cachedNumBlocks(0)
 {
-    columns << QString() << tr("Date") << tr("Type") << tr("Address") << tr("Amount");
+    columns << QString() << tr("Date") << tr("Type") << tr("From account") << tr("To account") << tr("Account Name") << tr("Account Name") << tr("Amount") << tr("Balance");
 
     priv->refreshWallet();
 
@@ -258,6 +351,7 @@ void TransactionTableModel::updateConfirmations()
         //  visible rows.
         emit dataChanged(index(0, Status), index(priv->size()-1, Status));
         emit dataChanged(index(0, ToAddress), index(priv->size()-1, ToAddress));
+        emit dataChanged(index(0, FromAddress), index(priv->size()-1, FromAddress));
     }
 }
 
@@ -339,7 +433,7 @@ QString TransactionTableModel::lookupAddress(const std::string &address, bool to
     }
     if(label.isEmpty() || walletModel->getOptionsModel()->getDisplayAddresses() || tooltip)
     {
-        description += QString("(") + QString::fromStdString(address) + QString(")");
+        description += QString::fromStdString(address);
     }
     return description;
 }
@@ -349,16 +443,17 @@ QString TransactionTableModel::formatTxType(const TransactionRecord *wtx) const
     switch(wtx->type)
     {
     case TransactionRecord::RecvWithAddress:
-        return tr("Received with");
+        return tr("Received");
     case TransactionRecord::RecvFromOther:
-        return tr("Received from");
+        return tr("Received");
     case TransactionRecord::SendToAddress:
     case TransactionRecord::SendToOther:
-        return tr("Sent to");
-    case TransactionRecord::SendToSelf:
-        return tr("Payment to yourself");
+        return tr("Sent");
+    case TransactionRecord::InternalSend:
+    case TransactionRecord::InternalReceive:
+        return tr("Internal Transfer");
     case TransactionRecord::Generated:
-        return tr("Mined");
+        return tr("Interest");
     default:
         return QString();
     }
@@ -391,39 +486,305 @@ QString TransactionTableModel::formatTxToAddress(const TransactionRecord *wtx, b
     case TransactionRecord::RecvWithAddress:
     case TransactionRecord::SendToAddress:
     case TransactionRecord::Generated:
-        return lookupAddress(wtx->address, tooltip);
     case TransactionRecord::SendToOther:
-        return QString::fromStdString(wtx->address);
-    case TransactionRecord::SendToSelf:
+    case TransactionRecord::InternalSend:
+    case TransactionRecord::InternalReceive:
+        return lookupAddress(wtx->address, tooltip);
     default:
         return tr("(n/a)");
     }
 }
 
-QVariant TransactionTableModel::addressColor(const TransactionRecord *wtx) const
+
+QString TransactionTableModel::formatTxFromAddress(const TransactionRecord *wtx, bool tooltip) const
+{
+    switch(wtx->type)
+    {
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::SendToOther:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::InternalReceive:
+            return lookupAddress(wtx->fromAddress, tooltip);
+        case TransactionRecord::RecvFromOther:
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::Generated:
+        default:
+            return tr("(n/a)");
+    }
+}
+
+QString TransactionTableModel::formatTxOurAddress(const TransactionRecord *wtx, bool tooltip) const
+{
+    switch(wtx->type)
+    {
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::SendToOther:
+        case TransactionRecord::InternalSend:
+            return lookupAddress(wtx->fromAddress, tooltip);
+        case TransactionRecord::RecvFromOther:
+        case TransactionRecord::InternalReceive:
+        case TransactionRecord::Generated:
+        case TransactionRecord::RecvWithAddress:
+            return lookupAddress(wtx->address, tooltip);
+        default:
+            return tr("(n/a)");
+    }
+}
+
+QString TransactionTableModel::formatTxOtherAddress(const TransactionRecord *wtx, bool tooltip) const
+{
+    switch(wtx->type)
+    {
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::SendToOther:
+        case TransactionRecord::InternalSend:
+            return lookupAddress(wtx->address, tooltip);
+        case TransactionRecord::InternalReceive:
+            return lookupAddress(wtx->fromAddress, tooltip);
+        case TransactionRecord::RecvFromOther:
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::Generated:
+
+        default:
+            return tr("(n/a)");
+    }
+}
+
+QVariant TransactionTableModel::fromAddressColor(const TransactionRecord *wtx) const
 {
     // Show addresses without label in a less visible color
     switch(wtx->type)
     {
-    case TransactionRecord::RecvWithAddress:
-    case TransactionRecord::SendToAddress:
-    case TransactionRecord::Generated:
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::InternalReceive:
         {
-        QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->address));
-        if(label.isEmpty())
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->fromAddress));
+            if(label.isEmpty())
             return COLOR_BAREADDRESS;
-        } break;
-    case TransactionRecord::SendToSelf:
-        return COLOR_BAREADDRESS;
-    default:
+        }
         break;
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::Generated:
+            return COLOR_BAREADDRESS;
+        default:
+            break;
     }
     return QVariant();
 }
 
+QVariant TransactionTableModel::toAddressColor(const TransactionRecord *wtx) const
+{
+    // Show addresses without label in a less visible color
+    switch(wtx->type)
+    {
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::Generated:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::InternalReceive:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->address));
+            if(label.isEmpty())
+                return COLOR_BAREADDRESS;
+        }
+        break;
+        default:
+            break;
+    }
+    return QVariant();
+}
+
+
+QVariant TransactionTableModel::ourAddressColor(const TransactionRecord *wtx) const
+{
+    // Show addresses without label in a less visible color
+    switch(wtx->type)
+    {
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::SendToOther:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->fromAddress));
+            if(label.isEmpty())
+                return COLOR_BAREADDRESS;
+        }
+        break;
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::Generated:
+        case TransactionRecord::InternalReceive:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->address));
+            if(label.isEmpty())
+                return COLOR_BAREADDRESS;
+        }
+        break;
+        default:
+            break;
+    }
+    return QVariant();
+}
+
+QVariant TransactionTableModel::otherAddressColor(const TransactionRecord *wtx) const
+{
+    // Show addresses without label in a less visible color
+    switch(wtx->type)
+    {
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::SendToOther:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->address));
+            if(label.isEmpty())
+                return COLOR_BAREADDRESS;
+        }
+        break;
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::InternalReceive:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->fromAddress));
+            if(label.isEmpty())
+                return COLOR_BAREADDRESS;
+        }
+        break;
+        case TransactionRecord::RecvFromOther:
+        case TransactionRecord::Generated:
+            return COLOR_BAREADDRESS;
+        default:
+            break;
+    }
+    return QVariant();
+}
+
+QVariant TransactionTableModel::fromAddressFont(const TransactionRecord *wtx) const
+{
+    // Show addresses without label in a less visible color
+    switch(wtx->type)
+    {
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::InternalReceive:
+        case TransactionRecord::SendToOther:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->fromAddress));
+            if(!label.isEmpty())
+            {
+                QFont underlineFont;
+                underlineFont.setUnderline(true);
+                return underlineFont;
+            }
+        }
+        default:
+            break;
+    }
+    return QVariant();
+}
+
+QVariant TransactionTableModel::toAddressFont(const TransactionRecord *wtx) const
+{
+    // Show addresses without label in a less visible color
+    switch(wtx->type)
+    {
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::InternalReceive:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->address));
+            if(!label.isEmpty())
+            {
+                QFont underlineFont;
+                underlineFont.setUnderline(true);
+                return underlineFont;
+            }
+        }
+        default:
+            break;
+    }
+    return QVariant();
+}
+
+QVariant TransactionTableModel::ourAddressFont(const TransactionRecord *wtx) const
+{
+    // Show addresses without label in a less visible color
+    switch(wtx->type)
+    {
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::SendToOther:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->fromAddress));
+            if(!label.isEmpty())
+            {
+                QFont underlineFont;
+                underlineFont.setUnderline(true);
+                return underlineFont;
+            }
+        }
+        break;
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::InternalReceive:
+        case TransactionRecord::Generated:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->address));
+            if(!label.isEmpty())
+            {
+                QFont underlineFont;
+                underlineFont.setUnderline(true);
+                return underlineFont;
+            }
+        }
+        break;
+        default:
+            break;
+    }
+    return QVariant();
+}
+
+QVariant TransactionTableModel::otherAddressFont(const TransactionRecord *wtx) const
+{
+    // Show addresses without label in a less visible color
+    switch(wtx->type)
+    {
+        case TransactionRecord::SendToAddress:
+        case TransactionRecord::InternalSend:
+        case TransactionRecord::SendToOther:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->address));
+            if(!label.isEmpty())
+            {
+                QFont underlineFont;
+                underlineFont.setUnderline(true);
+                return underlineFont;
+            }
+        }
+        break;
+        case TransactionRecord::RecvWithAddress:
+        case TransactionRecord::InternalReceive:
+        {
+            QString label = walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(wtx->fromAddress));
+            if(!label.isEmpty())
+            {
+                QFont underlineFont;
+                underlineFont.setUnderline(true);
+                return underlineFont;
+            }
+        }
+        break;
+        case TransactionRecord::Generated:
+        default:
+            break;
+    }
+    return QVariant();
+}
+
+
 QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool showUnconfirmed) const
 {
-    QString str = BitcoinUnits::format(walletModel->getOptionsModel()->getDisplayUnit(), wtx->credit + wtx->debit);
+    int unit = walletModel->getOptionsModel()->getDisplayUnit();
+
+    QString str;
+
+    str = BitcoinUnits::formatWithUnit(unit, wtx->credit + wtx->debit, true, false);
     if(showUnconfirmed)
     {
         if(!wtx->status.countsForBalance)
@@ -431,6 +792,15 @@ QString TransactionTableModel::formatTxAmount(const TransactionRecord *wtx, bool
             str = QString("[") + str + QString("]");
         }
     }
+    return QString(str);
+}
+
+
+
+QString TransactionTableModel::formatTxBalance(const TransactionRecord *wtx, int row, bool showUnconfirmed) const
+{
+    int unit = walletModel->getOptionsModel()->getDisplayUnit();
+    QString str = BitcoinUnits::formatWithUnit(unit, priv->getBalance(wtx, walletModel), true, false);
     return QString(str);
 }
 
@@ -494,7 +864,7 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         {
         case Status:
             return txStatusDecoration(rec);
-        case ToAddress:
+        case Type:
             return txAddressDecoration(rec);
         }
         break;
@@ -507,8 +877,16 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
             return formatTxType(rec);
         case ToAddress:
             return formatTxToAddress(rec, false);
+        case FromAddress:
+            return formatTxFromAddress(rec, false);
+        case OurAddress:
+            return formatTxOurAddress(rec, false);
+        case OtherAddress:
+            return formatTxOtherAddress(rec, false);
         case Amount:
             return formatTxAmount(rec);
+        case Balance:
+            return formatTxBalance(rec, index.row());
         }
         break;
     case Qt::EditRole:
@@ -523,8 +901,16 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
             return formatTxType(rec);
         case ToAddress:
             return formatTxToAddress(rec, true);
+        case FromAddress:
+            return formatTxFromAddress(rec, true);
+        case OurAddress:
+            return formatTxOurAddress(rec, true);
+        case OtherAddress:
+            return formatTxOtherAddress(rec, true);
         case Amount:
             return rec->credit + rec->debit;
+        case Balance:
+            return priv->getBalance(rec, walletModel);
         }
         break;
     case Qt::ToolTipRole:
@@ -537,13 +923,25 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         {
             return COLOR_UNCONFIRMED;
         }
-        if(index.column() == Amount && (rec->credit+rec->debit) < 0)
+        else if(index.column() == Amount && (rec->credit+rec->debit) < 0)
         {
             return COLOR_NEGATIVE;
         }
-        if(index.column() == ToAddress)
+        else if(index.column() == ToAddress)
         {
-            return addressColor(rec);
+            return toAddressColor(rec);
+        }
+        else if(index.column() == FromAddress)
+        {
+            return fromAddressColor(rec);
+        }
+        else if(index.column() == OurAddress)
+        {
+            return ourAddressColor(rec);
+        }
+        else if(index.column() == OtherAddress)
+        {
+            return otherAddressColor(rec);
         }
         break;
     case TypeRole:
@@ -554,8 +952,12 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         return priv->describe(rec);
     case AddressRole:
         return QString::fromStdString(rec->address);
+    case FromAddressRole:
+        return QString::fromStdString(rec->fromAddress);
     case LabelRole:
         return walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(rec->address));
+    case FromLabelRole:
+        return walletModel->getAddressTableModel()->labelForAddress(QString::fromStdString(rec->fromAddress));
     case AmountRole:
         return rec->credit + rec->debit;
     case TxIDRole:
@@ -566,12 +968,27 @@ QVariant TransactionTableModel::data(const QModelIndex &index, int role) const
         return formatTxAmount(rec, false);
     case StatusRole:
         return rec->status.status;
+    case Qt::FontRole:
+        switch(index.column())
+        {
+            case FromAddress:
+                return fromAddressFont(rec);
+            case ToAddress:
+                return toAddressFont(rec);
+            case OurAddress:
+                return ourAddressFont(rec);
+            case OtherAddress:
+                return otherAddressFont(rec);
+        }
     }
     return QVariant();
 }
 
 QVariant TransactionTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
+    if(section < 0)
+        return QVariant();
+
     if(orientation == Qt::Horizontal)
     {
         if(role == Qt::DisplayRole)
@@ -581,7 +998,8 @@ QVariant TransactionTableModel::headerData(int section, Qt::Orientation orientat
         else if (role == Qt::TextAlignmentRole)
         {
             return column_alignments[section];
-        } else if (role == Qt::ToolTipRole)
+        }
+        else if (role == Qt::ToolTipRole)
         {
             switch(section)
             {
@@ -592,9 +1010,17 @@ QVariant TransactionTableModel::headerData(int section, Qt::Orientation orientat
             case Type:
                 return tr("Type of transaction.");
             case ToAddress:
-                return tr("Destination address of transaction.");
+                return tr("Destination account of transaction.");
+            case FromAddress:
+                return tr("Source account of transaction.");
+            case OurAddress:
+                return tr("Account for transaction.");
+            case OtherAddress:
+                return tr("Other account for transaction.");
             case Amount:
                 return tr("Amount removed from or added to balance.");
+            case Balance:
+                return tr("Account balance at end of transaction.");
             }
         }
     }
@@ -613,6 +1039,33 @@ QModelIndex TransactionTableModel::index(int row, int column, const QModelIndex 
     {
         return QModelIndex();
     }
+}
+
+void TransactionTableModel::setCurrentAccountPrefix(QString prefix)
+{
+    priv->setCurrentAccountPrefix(prefix);
+}
+
+int64_t TransactionTableModel::getInterestGenerated(QString forAddress)
+{
+    //checkme: Paranoid? Not sure if entirely necessary.
+    LOCK(wallet->cs_wallet);
+
+    int64_t ret = 0;
+    for(int i=0; i < priv->size(); i++)
+    {
+        if(priv->cachedWallet[i].type == TransactionRecord::Generated)
+        {
+            if(priv->cachedWallet[i].status.status == TransactionStatus::Confirmed)
+            {
+                if(forAddress.isEmpty() || forAddress == priv->cachedWallet[i].address.c_str())
+                {
+                    ret += priv->cachedWallet[i].credit - priv->cachedWallet[i].debit;
+                }
+            }
+        }
+    }
+    return ret;
 }
 
 void TransactionTableModel::updateDisplayUnit()

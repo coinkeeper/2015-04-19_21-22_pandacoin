@@ -1,10 +1,12 @@
 #include "bitcoinunits.h"
 
 #include <QStringList>
+#include <QLocale>
 
-BitcoinUnits::BitcoinUnits(QObject *parent):
+BitcoinUnits::BitcoinUnits(QObject *parent, int padUnits_):
         QAbstractListModel(parent),
-        unitlist(availableUnits())
+        unitlist(availableUnits()),
+        padUnits(padUnits_)
 {
 }
 
@@ -85,18 +87,27 @@ int BitcoinUnits::decimals(int unit)
     }
 }
 
-QString BitcoinUnits::format(int unit, qint64 n, bool fPlus)
+QString BitcoinUnits::format(int unit, qint64 n, bool fPlus, bool addCommas)
 {
     // Note: not using straight sprintf here because we do NOT want
     // localized number formatting.
     if(!valid(unit))
         return QString(); // Refuse to format invalid unit
     qint64 coin = factor(unit);
-    int num_decimals = decimals(unit);
+    //fixme: hardcoded
+    int num_decimals = 2;
     qint64 n_abs = (n > 0 ? n : -n);
     qint64 quotient = n_abs / coin;
     qint64 remainder = n_abs % coin;
-    QString quotient_str = QString::number(quotient);
+    QString quotient_str;
+    if(addCommas)
+    {
+        quotient_str = QLocale(QLocale::English).toString((double)quotient,'f',0);
+    }
+    else
+    {
+        quotient_str = QString::number(quotient);
+    }
     QString remainder_str = QString::number(remainder).rightJustified(num_decimals, '0');
 
     // Right-trim excess zeros after the decimal point
@@ -104,6 +115,8 @@ QString BitcoinUnits::format(int unit, qint64 n, bool fPlus)
     for (int i = remainder_str.size()-1; i>=2 && (remainder_str.at(i) == '0'); --i)
         ++nTrim;
     remainder_str.chop(nTrim);
+    //fixme: hardcoded
+    remainder_str.truncate(2);
 
     if (n < 0)
         quotient_str.insert(0, '-');
@@ -112,9 +125,9 @@ QString BitcoinUnits::format(int unit, qint64 n, bool fPlus)
     return quotient_str + QString(".") + remainder_str;
 }
 
-QString BitcoinUnits::formatWithUnit(int unit, qint64 amount, bool plussign)
+QString BitcoinUnits::formatWithUnit(int unit, qint64 amount, bool addCommas, bool plusSign)
 {
-    return format(unit, amount, plussign) + QString(" ") + name(unit);
+    return format(unit, amount, plusSign, addCommas) + QString(" ") + name(unit);
 }
 
 bool BitcoinUnits::parse(int unit, const QString &value, qint64 *val_out)
@@ -129,18 +142,24 @@ bool BitcoinUnits::parse(int unit, const QString &value, qint64 *val_out)
         return false; // More than one dot
     }
     QString whole = parts[0];
+    whole.replace(',',"");
+    whole.replace(' ',"");
+    whole.replace(name(unit),"");
     QString decimals;
-
     if(parts.size() > 1)
     {
         decimals = parts[1];
     }
+    decimals.replace(',',"");
+    decimals.replace(' ',"");
+    decimals.replace(name(unit),"");
     if(decimals.size() > num_decimals)
     {
         return false; // Exceeds max precision
     }
     bool ok = false;
     QString str = whole + decimals.leftJustified(num_decimals, '0');
+
 
     if(str.size() > 18)
     {
@@ -168,13 +187,20 @@ QVariant BitcoinUnits::data(const QModelIndex &index, int role) const
         Unit unit = unitlist.at(row);
         switch(role)
         {
-        case Qt::EditRole:
-        case Qt::DisplayRole:
-            return QVariant(name(unit));
-        case Qt::ToolTipRole:
-            return QVariant(description(unit));
-        case UnitRole:
-            return QVariant(static_cast<int>(unit));
+            case Qt::EditRole:
+            case Qt::DisplayRole:
+            {
+                QString units = name(unit);
+                if(padUnits != -1)
+                {
+                    units = units.rightJustified(4, ' ', false);
+                }
+                return QVariant(units);
+            }
+            case Qt::ToolTipRole:
+                return QVariant(description(unit));
+            case UnitRole:
+                return QVariant(static_cast<int>(unit));
         }
     }
     return QVariant();

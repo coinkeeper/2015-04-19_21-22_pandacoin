@@ -7,12 +7,13 @@ QT_BEGIN_NAMESPACE
 class QModelIndex;
 QT_END_NAMESPACE
 
-namespace Ui {
+namespace Ui
+{
     class OverviewPage;
 }
 class WalletModel;
-class TxViewDelegate;
-class TransactionFilterProxy;
+//class TxViewDelegate;
+
 
 /** Overview ("home") page widget */
 class OverviewPage : public QWidget
@@ -30,7 +31,8 @@ public slots:
     void setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBalance, qint64 immatureBalance);
 
 signals:
-    void transactionClicked(const QModelIndex &index);
+    void accountClicked(const QString &accountName);
+    void requestGotoTransactionPage();
 
 private:
     Ui::OverviewPage *ui;
@@ -40,12 +42,12 @@ private:
     qint64 currentUnconfirmedBalance;
     qint64 currentImmatureBalance;
 
-    TxViewDelegate *txdelegate;
-    TransactionFilterProxy *filter;
+    //TxViewDelegate *txdelegate;
 
 private slots:
     void updateDisplayUnit();
-    void handleTransactionClicked(const QModelIndex &index);
+    void handleAccountClicked(const QModelIndex &index);
+    void on_quick_transfer_next_button_clicked();
 };
 
 #endif // OVERVIEWPAGE_H

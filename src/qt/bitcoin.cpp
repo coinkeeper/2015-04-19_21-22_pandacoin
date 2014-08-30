@@ -19,6 +19,7 @@
 #include <QTranslator>
 #include <QSplashScreen>
 #include <QLibraryInfo>
+#include <QDesktopWidget>
 
 #if defined(BITCOIN_NEED_QT_PLUGINS) && !defined(_BITCOIN_QT_PLUGINS_INCLUDED)
 #define _BITCOIN_QT_PLUGINS_INCLUDED
@@ -232,27 +233,36 @@ int main(int argc, char *argv[])
                 WalletModel walletModel(pwalletMain, &optionsModel);
 
                 window.setClientModel(&clientModel);
-                window.setWalletModel(&walletModel);
-
-                // If -min option passed, start window minimized.
-                if(GetBoolArg("-min"))
+                if(window.setWalletModel(&walletModel))
                 {
-                    window.showMinimized();
+                    // Default size.
+                    QDesktopWidget dw;
+                    QRect screenSize = dw.availableGeometry();
+                    int width = std::min((int)(screenSize.width() * 0.9f),1024);
+                    int height = std::min((int)(screenSize.height() * 0.9f),750);
+                    window.resize(QSize(width,height));
+
+
+                    // If -min option passed, start window minimized.
+                    if(GetBoolArg("-min"))
+                    {
+                        window.showMinimized();
+                    }
+                    else
+                    {
+                        window.show();
+                    }
+
+                    // Place this here as guiref has to be defined if we don't want to lose URIs
+                    ipcInit(argc, argv);
+
+                    app.exec();
+
+                    window.hide();
+                    window.setClientModel(0);
+                    window.setWalletModel(0);
+                    guiref = 0;
                 }
-                else
-                {
-                    window.show();
-                }
-
-                // Place this here as guiref has to be defined if we don't want to lose URIs
-                ipcInit(argc, argv);
-
-                app.exec();
-
-                window.hide();
-                window.setClientModel(0);
-                window.setWalletModel(0);
-                guiref = 0;
             }
             // Shutdown the core and its threads, but don't exit Bitcoin-Qt here
             Shutdown(NULL);

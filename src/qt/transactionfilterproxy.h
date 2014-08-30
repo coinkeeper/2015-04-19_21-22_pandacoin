@@ -4,12 +4,14 @@
 #include <QSortFilterProxyModel>
 #include <QDateTime>
 
+class WalletModel;
+
 /** Filter the transaction list according to pre-specified rules. */
 class TransactionFilterProxy : public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
-    explicit TransactionFilterProxy(QObject *parent = 0);
+    explicit TransactionFilterProxy(WalletModel* walletModel, QObject *parent = 0);
 
     /** Earliest date that can be represented (far in the past) */
     static const QDateTime MIN_DATE;
@@ -35,8 +37,13 @@ public:
     void setShowInactive(bool showInactive);
 
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
+    int columnCount(const QModelIndex &parent = QModelIndex()) const;
+
+    void getLast30DaysInOut(qint64& in, qint64& out);
+
 protected:
     bool filterAcceptsRow(int source_row, const QModelIndex & source_parent) const;
+    bool filterAcceptsColumn(int source_column, const QModelIndex & source_parent) const;
 
 private:
     QDateTime dateFrom;
@@ -46,6 +53,7 @@ private:
     qint64 minAmount;
     int limitRows;
     bool showInactive;
+    WalletModel* walletModel;
 
 signals:
 

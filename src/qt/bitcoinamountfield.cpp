@@ -12,25 +12,33 @@
 #include <QDoubleSpinBox>
 #include <QComboBox>
 #include <QApplication>
+#include <QListView>
 #include <qmath.h>
 
-BitcoinAmountField::BitcoinAmountField(QWidget *parent):
-        QWidget(parent), amount(0), currentUnit(-1)
+BitcoinAmountField::BitcoinAmountField(QWidget *parent)
+: QWidget(parent)
+, amount(0)
+, currentUnit(-1)
 {
     amount = new QDoubleSpinBox(this);
     amount->setLocale(QLocale::c());
-    amount->setDecimals(8);
+    amount->setDecimals(2);
     amount->installEventFilter(this);
-    amount->setMaximumWidth(170);
-    amount->setSingleStep(0.001);
+    amount->setSingleStep(1);
+    amount->setAlignment(Qt::AlignRight);
+
+
 
     QHBoxLayout *layout = new QHBoxLayout(this);
     layout->addWidget(amount);
     unit = new QValueComboBox(this);
-    unit->setModel(new BitcoinUnits(this));
+    unit->setModel(new BitcoinUnits(this, 4));
+    unit->setView(new QListView(this));
+
     layout->addWidget(unit);
-    layout->addStretch(1);
+    layout->setSpacing(0);
     layout->setContentsMargins(0,0,0,0);
+    layout->setStretch(0, 1);
 
     setLayout(layout);
 
@@ -59,12 +67,15 @@ void BitcoinAmountField::clear()
     unit->setCurrentIndex(0);
 }
 
-bool BitcoinAmountField::validate()
+bool BitcoinAmountField::validate(bool zeroIsValid)
 {
     bool valid = true;
     if (amount->value() == 0.0)
-        valid = false;
-    if (valid && !BitcoinUnits::parse(currentUnit, text(), 0))
+    {
+         if(!zeroIsValid)
+            valid = false;
+    }
+    else if (valid && !BitcoinUnits::parse(currentUnit, text(), 0))
         valid = false;
 
     setValid(valid);
@@ -128,7 +139,7 @@ qint64 BitcoinAmountField::value(bool *valid_out) const
 
 void BitcoinAmountField::setValue(qint64 value)
 {
-    setText(BitcoinUnits::format(currentUnit, value));
+    setText(BitcoinUnits::format(currentUnit, value, false, false));
 }
 
 void BitcoinAmountField::unitChanged(int idx)
@@ -146,7 +157,7 @@ void BitcoinAmountField::unitChanged(int idx)
     currentUnit = newUnit;
 
     // Set max length after retrieving the value, to prevent truncation
-    amount->setDecimals(BitcoinUnits::decimals(currentUnit));
+    amount->setDecimals(2);
     amount->setMaximum(qPow(10, BitcoinUnits::amountDigits(currentUnit)) - qPow(10, -amount->decimals()));
 
     if(valid)

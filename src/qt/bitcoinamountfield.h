@@ -23,7 +23,7 @@ public:
     /** Mark current value as invalid in UI. */
     void setValid(bool valid);
     /** Perform input validation, mark field as invalid if entered value is not valid. */
-    bool validate();
+    bool validate(bool zeroIsValid=false);
 
     /** Change unit used to display amount. */
     void setDisplayUnit(int unit);

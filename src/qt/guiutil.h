@@ -14,14 +14,42 @@ class QUrl;
 class QAbstractItemView;
 QT_END_NAMESPACE
 class SendCoinsRecipient;
+class WalletModel;
 
 /** Utility functions used by the Bitcoin Qt UI.
  */
 namespace GUIUtil
 {
+    // Helper for making payments.
+    bool SendCoinsHelper(QWidget* parent, const QList<SendCoinsRecipient>& recipients, WalletModel* model, const QString& sendAccountAddress, bool ignoreCoinControl);
+
+    // Helper class to lock flags safely.
+    class flagLocker
+    {
+    public:
+        flagLocker(bool &flag_)
+        : flag(flag_)
+        {
+            flag=!flag;
+        }
+        ~flagLocker()
+        {
+            flag=!flag;
+        }
+    private:
+        bool &flag;
+    };
+
+    bool IsAmountStringValid(int currentUnit, const QString &amountString);
+    qint64 AmountStringToBitcoinUnits(int currentUnit, const QString &amountString);
+
+    void SetControlValidity(QWidget* widget, bool valid);
+
     // Create human-readable string from date
     QString dateTimeStr(const QDateTime &datetime);
     QString dateTimeStr(qint64 nTime);
+    // Get date from guman-readable string
+    QDateTime dateFromString(const QString &dateString);
 
     // Render Bitcoin addresses in monospace font
     QFont bitcoinAddressFont();
@@ -41,11 +69,12 @@ namespace GUIUtil
 
     /** Copy a field of the currently selected entry of a view to the clipboard. Does nothing if nothing
         is selected.
+       @param[in] column  Data row to extract from the model
        @param[in] column  Data column to extract from the model
        @param[in] role    Data role to extract from the model
        @see  TransactionView::copyLabel, TransactionView::copyAmount, TransactionView::copyAddress
      */
-    void copyEntryData(QAbstractItemView *view, int column, int role=Qt::EditRole);
+    void copyEntryData(QAbstractItemView *view, int row, int column, int role=Qt::EditRole);
 
     /** Get save filename, mimics QFileDialog::getSaveFileName, except that it appends a default suffix
         when no suffix is provided by the user.
