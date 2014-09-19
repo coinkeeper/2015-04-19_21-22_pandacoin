@@ -56,7 +56,7 @@
            <number>34</number>
           </property>
           <property name="placeholderText">
-           <string>Enter a PandaBank address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</string>
+           <string>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</string>
           </property>
          </widget>
         </item>

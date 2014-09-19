@@ -1,10 +1,17 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sv" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="sv">
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About Pandacoin</source>
-        <translation>Vad du behöver veta om Pandacoin</translation>
+        <translation type="obsolete">Vad du behöver veta om Pandacoin</translation>
+    </message>
+    <message>
+        <location filename="../forms/aboutdialog.ui" line="+14"/>
+        <source>About PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+39"/>
@@ -35,6 +42,165 @@ Detta är experimentell mjukvara.
 Distribuerad under mjukvarulicensen MIT/X11, se den medföljande filen COPYING eller http://www.opensource.org/licenses/mit-license.php.
 
 Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användning i OpenSSL Toolkit (http://www.openssl.org/) och kryptografisk mjukvara utvecklad av Eric Young (eay@cryptsoft.com) samt UPnP-mjukvara skriven av Thomas Bernard.</translation>
+    </message>
+</context>
+<context>
+    <name>AccountModel</name>
+    <message>
+        <location filename="../accountmodel.cpp" line="+24"/>
+        <source>Account Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AccountPage</name>
+    <message>
+        <location filename="../forms/accountpage.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>View transactions for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>Copy Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Show QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Sign message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+132"/>
+        <source>Last 30 Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <location line="+10"/>
+        <location line="+140"/>
+        <source>PND</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-128"/>
+        <source>Interest Gained</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+115"/>
+        <source>Total interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <location line="+25"/>
+        <source>Create Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/accountpage.cpp" line="+152"/>
+        <source>All Accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <location line="+4"/>
+        <source>transaction found</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AccountSummaryHeaderWidget</name>
+    <message>
+        <location filename="../forms/accountsummaryheaderwidget.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Earning interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Total balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+153"/>
+        <source>Edit account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Accept new account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Cancel editing of account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-156"/>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+37"/>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/accountsummaryheaderwidget.cpp" line="+63"/>
+        <location line="+9"/>
+        <source>Error</source>
+        <translation type="unfinished">Fel</translation>
+    </message>
+    <message>
+        <location line="-9"/>
+        <source>An account with this name already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Error could not change name of PandaBank account.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -141,9 +307,127 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
     </message>
 </context>
 <context>
+    <name>AddressBookPage_new</name>
+    <message>
+        <location filename="../forms/addressbookpage_new.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>Address Book</source>
+        <translation type="unfinished">Adressbok</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Create a new address</source>
+        <translation type="unfinished">Skapa ny adress</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;New Address</source>
+        <translation type="unfinished">Ny adress</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Copy the currently selected address to the system clipboard</source>
+        <translation type="unfinished">Kopiera den markerade adressen till systemets Urklipp</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Copy Address</source>
+        <translation type="unfinished">&amp;Kopiera adress</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Show &amp;QR Code</source>
+        <translation type="unfinished">Visa &amp;QR kod</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Verify a message to ensure it was signed with a specified Pandacoin address</source>
+        <translation type="unfinished">Verifiera ett meddelande för att försäkra dig över att det var signerat av en specifik Pandacoin adress</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Verify Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Delete the currently selected address from the list</source>
+        <translation type="unfinished">Ta bort den valda adressen från listan</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Radera</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Search address book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>label</source>
+        <translation type="obsolete">etikett</translation>
+    </message>
+    <message>
+        <location line="+80"/>
+        <location line="+245"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Send Pandacoins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>From</source>
+        <translation type="unfinished">Från</translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>Amount</source>
+        <translation type="unfinished">Mängd</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+67"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddressTableModel</name>
     <message>
-        <location filename="../addresstablemodel.cpp" line="+144"/>
+        <location filename="../addresstablemodel.cpp" line="+25"/>
         <source>Label</source>
         <translation>Etikett</translation>
     </message>
@@ -167,172 +451,304 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
     </message>
     <message>
         <location line="+21"/>
+        <location filename="../askpassphrasedialog.cpp" line="+42"/>
+        <source>Enter password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>New password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Repeat new password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>For earning interest only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter passphrase</source>
-        <translation>Ange lösenord</translation>
+        <translation type="obsolete">Ange lösenord</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>New passphrase</source>
-        <translation>Nytt lösenord</translation>
+        <translation type="obsolete">Nytt lösenord</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Repeat new passphrase</source>
-        <translation>Upprepa nytt lösenord</translation>
+        <translation type="obsolete">Upprepa nytt lösenord</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="-3"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
         <translation>Avaktiverar &quot;sendmoney&quot; om ditt operativsystem har blivit äventyrat. ger ingen verklig säkerhet.</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>For staking only</source>
-        <translation>Endast för &quot;staking&quot;</translation>
+        <translation type="obsolete">Endast för &quot;staking&quot;</translation>
     </message>
     <message>
-        <location filename="../askpassphrasedialog.cpp" line="+35"/>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Ange plånbokens nya lösenord. &lt;br/&gt; Använd ett lösenord på &lt;b&gt;10 eller fler slumpmässiga tecken,&lt;/b&gt; eller &lt;b&gt;åtta eller fler ord.&lt;/b&gt;</translation>
+        <translation type="obsolete">Ange plånbokens nya lösenord. &lt;br/&gt; Använd ett lösenord på &lt;b&gt;10 eller fler slumpmässiga tecken,&lt;/b&gt; eller &lt;b&gt;åtta eller fler ord.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Encrypt wallet</source>
-        <translation>Kryptera plånbok</translation>
+        <translation type="obsolete">Kryptera plånbok</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
-        <translation>Denna operation behöver din plånboks lösenord för att låsa upp plånboken.</translation>
+        <translation type="obsolete">Denna operation behöver din plånboks lösenord för att låsa upp plånboken.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Unlock wallet</source>
-        <translation>Lås upp plånbok</translation>
+        <translation type="obsolete">Lås upp plånbok</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>This operation needs your wallet passphrase to decrypt the wallet.</source>
-        <translation>Denna operation behöver din plånboks lösenord för att dekryptera plånboken.</translation>
+        <translation type="obsolete">Denna operation behöver din plånboks lösenord för att dekryptera plånboken.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Decrypt wallet</source>
-        <translation>Dekryptera plånbok</translation>
+        <translation type="obsolete">Dekryptera plånbok</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Change passphrase</source>
-        <translation>Ändra lösenord</translation>
+        <translation type="obsolete">Ändra lösenord</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Enter the old and new passphrase to the wallet.</source>
-        <translation>Ange plånbokens gamla och nya lösenord.</translation>
+        <translation type="obsolete">Ange plånbokens gamla och nya lösenord.</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>Confirm wallet encryption</source>
-        <translation>Bekräfta kryptering av plånbok</translation>
+        <translation type="obsolete">Bekräfta kryptering av plånbok</translation>
+    </message>
+    <message>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
+        <translation type="obsolete">Varning: Om du krypterar plånboken och glömmer lösenordet, kommer du att &lt;b&gt;FÖRLORA ALLA COINS&lt;/b&gt;!</translation>
+    </message>
+    <message>
+        <source>Are you sure you wish to encrypt your wallet?</source>
+        <translation type="obsolete">Är du säker på att du vill kryptera din plånbok?</translation>
+    </message>
+    <message>
+        <location filename="../askpassphrasedialog.cpp" line="-7"/>
+        <source>Enter the new password to the wallet.&lt;br/&gt;Please use a password of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation>Varning: Om du krypterar plånboken och glömmer lösenordet, kommer du att &lt;b&gt;FÖRLORA ALLA COINS&lt;/b&gt;!</translation>
+        <source>Encrypt PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Are you sure you wish to encrypt your wallet?</source>
-        <translation>Är du säker på att du vill kryptera din plånbok?</translation>
+        <location line="+4"/>
+        <source>Log on to PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter your PandaBank password to log on to PandaBank.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+15"/>
+        <source>This operation needs your PandaBank password to unlock PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Unlock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>This operation needs your PandaBank password to decrypt PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Decrypt PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Change password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enter the old and new password to PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
+        <source>Confirm PandaBank encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Warning: If you encrypt your PandaBank and lose your password, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Are you sure you wish to encrypt your PandaBank?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+61"/>
+        <source>PandaBank encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-59"/>
+        <source>PandaBank will close now to finish the encryption process. Remember that encrypting your PandaBank cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
         <translation>VIKTIGT: Alla tidigare säkerhetskopior du har gjort av plånbokens fil ska ersättas med den nya genererade, krypterade plånboks filen. Av säkerhetsskäl kommer tidigare säkerhetskopior av den okrypterade plånboks filen blir oanvändbara när du börjar använda en ny, krypterad plånbok.</translation>
     </message>
     <message>
-        <location line="+103"/>
-        <location line="+24"/>
-        <source>Warning: The Caps Lock key is on!</source>
-        <translation>Varning: Caps Lock är påslaget!</translation>
-    </message>
-    <message>
-        <location line="-133"/>
-        <location line="+60"/>
-        <source>Wallet encrypted</source>
-        <translation>Plånboken är krypterad</translation>
-    </message>
-    <message>
-        <location line="-58"/>
-        <source>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>Pandacoin plånboken kommer nu att stängas för att slutföra krypteringen: Kom ihåg att även en krypterad plånboks säkerhet kan äventyras genom keyloggers eller dylika malwares.</translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="+9"/>
         <location line="+7"/>
-        <location line="+44"/>
+        <location line="+45"/>
         <location line="+6"/>
-        <source>Wallet encryption failed</source>
-        <translation>Kryptering av plånbok misslyckades</translation>
+        <source>PandaBank encryption failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
-        <translation>Kryptering av plånbok misslyckades på grund av ett internt fel. Din plånbok blev inte krypterad.</translation>
+        <location line="-57"/>
+        <source>PandaBank encryption failed due to an internal error. Your PandaBank was not encrypted.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+50"/>
-        <source>The supplied passphrases do not match.</source>
-        <translation>De angivna lösenorden överensstämmer inte.</translation>
+        <location line="+51"/>
+        <source>The supplied passwords do not match.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-38"/>
-        <source>Wallet unlock failed</source>
-        <translation>Upplåsning av plånbok misslyckades</translation>
+        <source>PandaBank unlock failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+12"/>
         <location line="+19"/>
-        <source>The passphrase entered for the wallet decryption was incorrect.</source>
-        <translation>Lösenordet för dekryptering av plånbok var felaktig.</translation>
+        <source>The password entered for your PandaBank was incorrect.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-20"/>
-        <source>Wallet decryption failed</source>
-        <translation>Dekryptering av plånbok misslyckades</translation>
+        <source>PandaBank decryption failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
+        <source>Wallet password was successfully changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
+        <location line="+24"/>
+        <source>Warning: The Caps Lock key is on!</source>
+        <translation>Varning: Caps Lock är påslaget!</translation>
+    </message>
+    <message>
+        <source>Wallet encrypted</source>
+        <translation type="obsolete">Plånboken är krypterad</translation>
+    </message>
+    <message>
+        <source>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation type="obsolete">Pandacoin plånboken kommer nu att stängas för att slutföra krypteringen: Kom ihåg att även en krypterad plånboks säkerhet kan äventyras genom keyloggers eller dylika malwares.</translation>
+    </message>
+    <message>
+        <source>Wallet encryption failed</source>
+        <translation type="obsolete">Kryptering av plånbok misslyckades</translation>
+    </message>
+    <message>
+        <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
+        <translation type="obsolete">Kryptering av plånbok misslyckades på grund av ett internt fel. Din plånbok blev inte krypterad.</translation>
+    </message>
+    <message>
+        <source>The supplied passphrases do not match.</source>
+        <translation type="obsolete">De angivna lösenorden överensstämmer inte.</translation>
+    </message>
+    <message>
+        <source>Wallet unlock failed</source>
+        <translation type="obsolete">Upplåsning av plånbok misslyckades</translation>
+    </message>
+    <message>
+        <source>The passphrase entered for the wallet decryption was incorrect.</source>
+        <translation type="obsolete">Lösenordet för dekryptering av plånbok var felaktig.</translation>
+    </message>
+    <message>
+        <source>Wallet decryption failed</source>
+        <translation type="obsolete">Dekryptering av plånbok misslyckades</translation>
+    </message>
+    <message>
         <source>Wallet passphrase was successfully changed.</source>
-        <translation>Plånbokens lösenord har ändrats.</translation>
+        <translation type="obsolete">Plånbokens lösenord har ändrats.</translation>
     </message>
 </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+282"/>
+        <location filename="../bitcoingui.cpp" line="+311"/>
         <source>Sign &amp;message...</source>
         <translation>Signera &amp;meddelande...</translation>
     </message>
     <message>
-        <location line="+251"/>
+        <location line="+244"/>
         <source>Synchronizing with network...</source>
         <translation>Synkroniserar med nätverk...</translation>
     </message>
     <message>
-        <location line="-319"/>
+        <location line="-310"/>
         <source>&amp;Overview</source>
         <translation>&amp;Översikt</translation>
     </message>
     <message>
+        <location line="-157"/>
+        <source>PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
+        <source>My Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+1"/>
+        <source>View Accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Transfers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+100"/>
         <source>Show general overview of wallet</source>
         <translation>Visa översiktsvy av plånbok</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+6"/>
+        <source>Send coins to a PandaBank address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>&amp;Transactions</source>
         <translation>&amp;Transaktioner</translation>
     </message>
@@ -377,12 +793,11 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Avsluta programmet</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Show information about Pandacoin</source>
-        <translation>Visa information om Pandacoin</translation>
+        <translation type="obsolete">Visa information om Pandacoin</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>About &amp;Qt</source>
         <translation>Om &amp;Qt</translation>
     </message>
@@ -397,24 +812,24 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>&amp;Alternativ...</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>&amp;Encrypt Wallet...</source>
-        <translation>&amp;Kryptera plånbok...</translation>
+        <translation type="obsolete">&amp;Kryptera plånbok...</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Backup Wallet...</source>
-        <translation>&amp;Säkerhetskopiera plånbok...</translation>
+        <translation type="obsolete">&amp;Säkerhetskopiera plånbok...</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Change Passphrase...</source>
-        <translation>&amp;Byt Lösenord...</translation>
+        <translation type="obsolete">&amp;Byt Lösenord...</translation>
     </message>
     <message numerus="yes">
-        <location line="+259"/>
+        <location line="+261"/>
         <source>~%n block(s) remaining</source>
-        <translation><numerusform>~%n block remaining</numerusform><numerusform>~%n block kvar</numerusform></translation>
+        <translation>
+            <numerusform>~%n block remaining</numerusform>
+            <numerusform>~%n block kvar</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -422,42 +837,37 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>Laddat ner %1 av %2 block av transaktions-historiken (%3% klart)</translation>
     </message>
     <message>
-        <location line="-256"/>
+        <location line="-249"/>
         <source>&amp;Export...</source>
         <translation>&amp;Exportera...</translation>
     </message>
     <message>
-        <location line="-64"/>
         <source>Send coins to a Pandacoin address</source>
-        <translation>Skicka coins till en Pandacoin adress</translation>
+        <translation type="obsolete">Skicka coins till en Pandacoin adress</translation>
     </message>
     <message>
-        <location line="+47"/>
         <source>Modify configuration options for Pandacoin</source>
-        <translation>Modifiera konfigurations-alternativ för Pandacoin</translation>
+        <translation type="obsolete">Modifiera konfigurations-alternativ för Pandacoin</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+1"/>
         <source>Export the data in the current tab to a file</source>
         <translation>Exportera datan i tabben till en fil</translation>
     </message>
     <message>
-        <location line="-14"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation>Kryptera eller avkryptera plånbok</translation>
+        <translation type="obsolete">Kryptera eller avkryptera plånbok</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Backup wallet to another location</source>
-        <translation>Säkerhetskopiera plånboken till en annan plats</translation>
+        <translation type="obsolete">Säkerhetskopiera plånboken till en annan plats</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Change the passphrase used for wallet encryption</source>
-        <translation>Byt lösenord för kryptering av plånbok</translation>
+        <translation type="obsolete">Byt lösenord för kryptering av plånbok</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+1"/>
         <source>&amp;Debug window</source>
         <translation>&amp;Debug fönster</translation>
     </message>
@@ -472,146 +882,225 @@ Denna produkten innehåller mjukvara utvecklad av OpenSSL Project för användni
         <translation>&amp;Verifiera meddelande...</translation>
     </message>
     <message>
-        <location line="-202"/>
         <source>Pandacoin</source>
-        <translation>Pandacoin</translation>
+        <translation type="obsolete">Pandacoin</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Wallet</source>
-        <translation>Plånbok</translation>
+        <translation type="obsolete">Plånbok</translation>
     </message>
     <message>
-        <location line="+180"/>
         <source>&amp;About Pandacoin</source>
-        <translation>&amp;Om Pandacoin</translation>
+        <translation type="obsolete">&amp;Om Pandacoin</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="-13"/>
         <source>&amp;Show / Hide</source>
         <translation>&amp;Visa / Göm</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Unlock wallet</source>
-        <translation>Lås upp plånbok</translation>
+        <translation type="obsolete">Lås upp plånbok</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;Lock Wallet</source>
-        <translation>&amp;Lås plånbok</translation>
+        <translation type="obsolete">&amp;Lås plånbok</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Lock wallet</source>
-        <translation>Lås plånbok</translation>
+        <translation type="obsolete">Lås plånbok</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>&amp;File</source>
-        <translation>&amp;Arkiv</translation>
+        <translation type="obsolete">&amp;Arkiv</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Inställningar</translation>
+        <translation type="obsolete">&amp;Inställningar</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>&amp;Help</source>
-        <translation>&amp;Hjälp</translation>
+        <translation type="obsolete">&amp;Hjälp</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Tabs toolbar</source>
-        <translation>Verktygsfält för Tabbar</translation>
+        <translation type="obsolete">Verktygsfält för Tabbar</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Actions toolbar</source>
-        <translation>Verktygsfält för handlingar</translation>
+        <translation type="obsolete">Verktygsfält för handlingar</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+80"/>
         <location line="+9"/>
         <source>[testnet]</source>
         <translation>[testnet]</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+60"/>
         <source>Pandacoin client</source>
-        <translation>Pandacoin klient</translation>
+        <translation type="obsolete">Pandacoin klient</translation>
     </message>
     <message numerus="yes">
-        <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n aktiv anslutning till Pandacoin nätverket</numerusform><numerusform>%n aktiva anslutning till Pandacoin nätverket</numerusform></translation>
+        <translation type="obsolete">
+            <numerusform>%n aktiv anslutning till Pandacoin nätverket</numerusform>
+            <numerusform>%n aktiva anslutning till Pandacoin nätverket</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+183"/>
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation>Laddade ner %1 block av transaktionshistoriken.</translation>
     </message>
     <message>
-        <location line="+413"/>
+        <location line="+255"/>
+        <location line="+15"/>
+        <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+164"/>
         <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
         <translation>Staking.&lt;br&gt;Din vikt är %1&lt;br&gt;Nätverkets vikt är %2&lt;br&gt;Uppskattad tid för att få belöning är %3</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Not staking because wallet is locked</source>
-        <translation>Ingen staking för att plånboken är låst</translation>
+        <translation type="obsolete">Ingen staking för att plånboken är låst</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because wallet is offline</source>
-        <translation>Ingen staking för att plånboken är offline</translation>
+        <translation type="obsolete">Ingen staking för att plånboken är offline</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because wallet is syncing</source>
-        <translation>Ingen staking för att plånboken synkroniseras</translation>
+        <translation type="obsolete">Ingen staking för att plånboken synkroniseras</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation>Ingen staking för att dina coins är ännu inte föråldrade</translation>
+        <translation type="obsolete">Ingen staking för att dina coins är ännu inte föråldrade</translation>
     </message>
     <message numerus="yes">
-        <location line="-403"/>
+        <location line="-412"/>
         <source>%n second(s) ago</source>
-        <translation><numerusform>%n sekund sen</numerusform><numerusform>%n sekunder sen</numerusform></translation>
+        <translation>
+            <numerusform>%n sekund sen</numerusform>
+            <numerusform>%n sekunder sen</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="-312"/>
         <source>About Pandacoin card</source>
-        <translation>Om Pandacoin kortet</translation>
+        <translation type="obsolete">Om Pandacoin kortet</translation>
+    </message>
+    <message>
+        <source>Show information about Pandacoin card</source>
+        <translation type="obsolete">Via information om Pandacoin kortet</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock Wallet...</source>
+        <translation type="obsolete">Lås &amp;Upp plånboken</translation>
+    </message>
+    <message>
+        <location line="-303"/>
+        <source>&amp;About PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about Pandacoin card</source>
-        <translation>Via information om Pandacoin kortet</translation>
+        <source>Show information about PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
-        <source>&amp;Unlock Wallet...</source>
-        <translation>Lås &amp;Upp plånboken</translation>
+        <location line="+6"/>
+        <source>Modify configuration options for PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Encrypt PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Encrypt or decrypt PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Backup PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Backup PandaBank to another location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Change Password...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Change the password used for wallet encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Unlock PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unlock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Lock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+78"/>
+        <location line="+73"/>
+        <source>PandaBank client</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+297"/>
+        <location line="+70"/>
+        <source>%n active connection(s) to PandaBank network</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+66"/>
         <source>%n minute(s) ago</source>
-        <translation><numerusform>%n minut sen</numerusform><numerusform>%n minuter sen</numerusform></translation>
+        <translation>
+            <numerusform>%n minut sen</numerusform>
+            <numerusform>%n minuter sen</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s) ago</source>
-        <translation><numerusform>%n timme sen</numerusform><numerusform>%n timmar sen</numerusform></translation>
+        <translation>
+            <numerusform>%n timme sen</numerusform>
+            <numerusform>%n timmar sen</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s) ago</source>
-        <translation><numerusform>%n dag sen</numerusform><numerusform>%n dagar sen</numerusform></translation>
+        <translation>
+            <numerusform>%n dag sen</numerusform>
+            <numerusform>%n dagar sen</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -662,19 +1151,42 @@ Adress: %4
 </translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+105"/>
         <location line="+15"/>
         <source>URI handling</source>
         <translation>URI hantering</translation>
     </message>
     <message>
-        <location line="-15"/>
-        <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
-        <translation>URI:n kan inte tolkas! Detta kan bero på en ogiltig Pandacoin adress eller felaktiga URI parametrar.</translation>
+        <location line="+170"/>
+        <source>Not earning interest because wallet is locked</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+2"/>
+        <source>Not earning interest because wallet is offline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest because wallet is syncing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest because you don&apos;t have mature coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
+        <translation type="obsolete">URI:n kan inte tolkas! Detta kan bero på en ogiltig Pandacoin adress eller felaktiga URI parametrar.</translation>
+    </message>
+    <message>
+        <location line="-160"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Denna plånbok är &lt;b&gt;krypterad&lt;/b&gt; och för närvarande &lt;b&gt;olåst&lt;/b&gt;</translation>
     </message>
@@ -684,7 +1196,7 @@ Adress: %4
         <translation>Denna plånbok är &lt;b&gt;krypterad&lt;/b&gt; och för närvarande &lt;b&gt;låst&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+26"/>
         <source>Backup Wallet</source>
         <translation>Säkerhetskopiera plånbok</translation>
     </message>
@@ -704,32 +1216,43 @@ Adress: %4
         <translation>Ett fel uppstod vid sparandet av plånboken till den nya platsen.</translation>
     </message>
     <message numerus="yes">
-        <location line="+76"/>
+        <location line="+91"/>
         <source>%n second(s)</source>
-        <translation><numerusform>%n sekund</numerusform><numerusform>%n sekunder</numerusform></translation>
+        <translation>
+            <numerusform>%n sekund</numerusform>
+            <numerusform>%n sekunder</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation><numerusform>%n minut</numerusform><numerusform>%n minuter</numerusform></translation>
+        <translation>
+            <numerusform>%n minut</numerusform>
+            <numerusform>%n minuter</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s)</source>
-        <translation><numerusform>%n timme</numerusform><numerusform>%n timmar</numerusform></translation>
+        <translation>
+            <numerusform>%n timme</numerusform>
+            <numerusform>%n timmar</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s)</source>
-        <translation><numerusform>%n dag</numerusform><numerusform>%n dagar</numerusform></translation>
+        <translation>
+            <numerusform>%n dag</numerusform>
+            <numerusform>%n dagar</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+18"/>
         <source>Not staking</source>
-        <translation>Ingen staking</translation>
+        <translation type="obsolete">Ingen staking</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+109"/>
+        <location filename="../bitcoin.cpp" line="+110"/>
         <source>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</source>
         <translation>Ett fatalt fel uppstod. Pandacoin kan inte fortsätta och stänger programmet.</translation>
     </message>
@@ -1011,6 +1534,65 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     </message>
 </context>
 <context>
+    <name>CreateAccountWidget</name>
+    <message>
+        <location filename="../forms/createaccountwidget.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+53"/>
+        <source>Creating a new PandaBank account is easy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/createaccountwidget.cpp" line="+55"/>
+        <location line="+19"/>
+        <source>Error</source>
+        <translation type="unfinished">Fel</translation>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>An account with this name already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>PandaBank account created</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Your PandaBank Account has been created.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Error creating PandaBank account.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditAddressDialog</name>
     <message>
         <location filename="../forms/editaddressdialog.ui" line="+14"/>
@@ -1038,7 +1620,7 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Adressen är kopplad till detta inlägg i adressboken. Denna kan endast ändras för skickande adresser.</translation>
     </message>
     <message>
-        <location filename="../editaddressdialog.cpp" line="+20"/>
+        <location filename="../editaddressdialog.cpp" line="+23"/>
         <source>New receiving address</source>
         <translation>Ny mottagaradress</translation>
     </message>
@@ -1081,7 +1663,7 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+420"/>
+        <location filename="../guiutil.cpp" line="+562"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
         <translation>Pandacoin-Qt</translation>
@@ -1123,6 +1705,55 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     </message>
 </context>
 <context>
+    <name>LockBar</name>
+    <message>
+        <location filename="../forms/lockbar.ui" line="+69"/>
+        <source>Lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/lockbar.cpp" line="+39"/>
+        <source>Wallet is &lt;b&gt;not encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to encrypt and lock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to lock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt; click to unlock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MainFrame</name>
+    <message>
+        <location filename="../forms/mainframe.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MenuBar</name>
+    <message>
+        <location filename="../forms/menubar.ui" line="+55"/>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OptionsDialog</name>
     <message>
         <location filename="../forms/optionsdialog.ui" line="+14"/>
@@ -1140,7 +1771,7 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Valfri transaktionsavgift per kB som försäkrar att transaktionen behandlas snabbt. De flesta transaktionerna är 1 kB. En avgift på 0,01 är rekommenderad.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+21"/>
         <source>Pay transaction &amp;fee</source>
         <translation>Betala överförings&amp;avgift</translation>
     </message>
@@ -1150,7 +1781,7 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Reserverad mängd deltar inte i stake-processen och kan därför spenderas när som helst.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+21"/>
         <source>Reserve</source>
         <translation>Reservera</translation>
     </message>
@@ -1160,9 +1791,13 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Starta Pandacoin automatiskt vid inloggning.</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Start Pandacoin on system login</source>
-        <translation>&amp;Starta Pandacoin vid inloggning</translation>
+        <translation type="obsolete">&amp;Starta Pandacoin vid inloggning</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Start PandaBank on system login</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1315,12 +1950,12 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>&amp;Verkställ</translation>
     </message>
     <message>
-        <location filename="../optionsdialog.cpp" line="+55"/>
+        <location filename="../optionsdialog.cpp" line="+58"/>
         <source>default</source>
         <translation>standard</translation>
     </message>
     <message>
-        <location line="+149"/>
+        <location line="+152"/>
         <location line="+9"/>
         <source>Warning</source>
         <translation>Varning</translation>
@@ -1345,76 +1980,230 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Formulär</translation>
     </message>
     <message>
-        <location line="+33"/>
-        <location line="+231"/>
+        <location line="+26"/>
+        <source>Welcome to your PandaBank, You last logged on at &lt;TIME&gt; on &lt;DATE&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>My Portfolio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+58"/>
+        <source>Portfolio Summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Earning Interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Total Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: &lt;span style=&quot; font-weight:600;&quot;&gt;Available&lt;/span&gt; is the amount of PND that is available for you to spend or transfer. &lt;span style=&quot; font-weight:600;&quot;&gt;Earning Interest&lt;/span&gt; is the amount of PND that is currently being used to generate interest. &lt;span style=&quot; font-weight:600;&quot;&gt;Pending&lt;/span&gt; is the amount of recent incoming PND from another account address waiting to be transferred to your account. &lt;span style=&quot; font-weight:600;&quot;&gt;Total Balance&lt;/span&gt; is the sum total of PND of all your account balances. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+89"/>
+        <source>Quick Transfer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>To</source>
+        <translation type="unfinished">Till</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Amount</source>
+        <translation type="unfinished">Mängd</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>From</source>
+        <translation type="unfinished">Från</translation>
+    </message>
+    <message>
+        <location line="+71"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Pandacoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Den visade informationen kan vara gammal. Din plånbok synkroniseras automatiskt med Pandacoin nätverket efter att en anslutning skapats, men denna process är inte klar än.</translation>
+        <translation type="obsolete">Den visade informationen kan vara gammal. Din plånbok synkroniseras automatiskt med Pandacoin nätverket efter att en anslutning skapats, men denna process är inte klar än.</translation>
     </message>
     <message>
-        <location line="-160"/>
         <source>Stake:</source>
-        <translation>Stake:</translation>
+        <translation type="obsolete">Stake:</translation>
     </message>
     <message>
-        <location line="+29"/>
         <source>Unconfirmed:</source>
-        <translation>Obekräftat:</translation>
+        <translation type="obsolete">Obekräftat:</translation>
     </message>
     <message>
-        <location line="-107"/>
         <source>Wallet</source>
-        <translation>Plånbok</translation>
+        <translation type="obsolete">Plånbok</translation>
     </message>
     <message>
-        <location line="+49"/>
         <source>Spendable:</source>
-        <translation>Spenderbart:</translation>
+        <translation type="obsolete">Spenderbart:</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-365"/>
         <source>Your current spendable balance</source>
         <translation>Ditt tillgängliga saldo</translation>
     </message>
     <message>
-        <location line="+71"/>
         <source>Immature:</source>
-        <translation>Omogen:</translation>
+        <translation type="obsolete">Omogen:</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Mined balance that has not yet matured</source>
-        <translation>Den genererade balansen som ännu inte har mognat</translation>
+        <translation type="obsolete">Den genererade balansen som ännu inte har mognat</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Total:</source>
-        <translation>Totalt:</translation>
+        <translation type="obsolete">Totalt:</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+132"/>
         <source>Your current total balance</source>
         <translation>Ditt nuvarande totala saldo</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Nyligen genomförda transaktioner&lt;/b&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;Nyligen genomförda transaktioner&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="-108"/>
+        <location line="-45"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
         <translation>Totala antalet transaktioner inte har blivit bekräftade än och därför inte räknas mot det totala saldot</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-42"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
         <translation>Antal coins som var i stake-processen, och räknas ännu inte till nuvarande saldo</translation>
     </message>
     <message>
-        <location filename="../overviewpage.cpp" line="+113"/>
-        <location line="+1"/>
         <source>out of sync</source>
-        <translation>osynkroniserad</translation>
+        <translation type="obsolete">osynkroniserad</translation>
+    </message>
+    <message>
+        <location filename="../overviewpage.cpp" line="+40"/>
+        <source>Copy account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy account balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+73"/>
+        <location line="+7"/>
+        <source>Select account</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../guiutil.cpp" line="-488"/>
+        <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
+        <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; till %2 (%3)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirm send coins</source>
+        <translation type="unfinished">Bekräfta skickade mynt</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Are you sure you want to send %1?</source>
+        <translation type="unfinished">Är du säker att du vill skicka %1?</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source> and </source>
+        <translation type="unfinished">och</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+6"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <source>Send Coins</source>
+        <translation type="unfinished">Skicka pengar</translation>
+    </message>
+    <message>
+        <location line="-35"/>
+        <source>The recipient address is not valid, please recheck.</source>
+        <translation type="unfinished">Mottagarens adress är inte giltig, vänligen kontrollera igen.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The amount to pay must be larger than 0.</source>
+        <translation type="unfinished">Det betalade beloppet måste vara större än 0.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The amount exceeds your balance.</source>
+        <translation type="unfinished">Värdet överstiger ditt saldo.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
+        <translation type="unfinished">Totalvärdet överstiger ditt saldo när transaktionsavgiften %1 är pålagd.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Duplicate address found, can only send to each address once per send operation.</source>
+        <translation type="unfinished">Dubblett av adress funnen, kan bara skicka till varje adress en gång per sändning.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: Transaction creation failed because transaction size (in Kb) too large.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: Transaction creation failed.</source>
+        <translation type="unfinished">Fel: Transaktionen kunde inte skapas.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+        <translation type="unfinished">Fel: Transaktionen nekades. Detta kan hända om vissa av mynten i din plånbok redan är använda, t.ex om du använder en kopia av wallet.dat och mynten redan var använda i kopia men inte markerade som använda här.</translation>
     </message>
 </context>
 <context>
@@ -1625,260 +2414,200 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
 <context>
     <name>SendCoinsDialog</name>
     <message>
-        <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+182"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+6"/>
-        <location line="+5"/>
-        <location line="+5"/>
         <source>Send Coins</source>
-        <translation>Skicka pengar</translation>
+        <translation type="obsolete">Skicka pengar</translation>
     </message>
     <message>
-        <location line="+76"/>
         <source>Coin Control Features</source>
-        <translation>Coin kontrollinställningar</translation>
+        <translation type="obsolete">Coin kontrollinställningar</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Inputs...</source>
-        <translation>Ingångar...</translation>
+        <translation type="obsolete">Ingångar...</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>automatically selected</source>
-        <translation>automatiskt vald</translation>
+        <translation type="obsolete">automatiskt vald</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>Insufficient funds!</source>
-        <translation>Otillräckligt saldo!</translation>
+        <translation type="obsolete">Otillräckligt saldo!</translation>
     </message>
     <message>
-        <location line="+77"/>
         <source>Quantity:</source>
-        <translation>Antal:</translation>
+        <translation type="obsolete">Antal:</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <location line="+35"/>
         <source>0</source>
-        <translation>0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
-        <location line="-19"/>
         <source>Bytes:</source>
-        <translation>Bytes:</translation>
+        <translation type="obsolete">Bytes:</translation>
     </message>
     <message>
-        <location line="+51"/>
         <source>Amount:</source>
-        <translation>Belopp:</translation>
+        <translation type="obsolete">Belopp:</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <location line="+86"/>
-        <location line="+86"/>
-        <location line="+32"/>
         <source>0.00 PND</source>
-        <translation>123.456 PND {0.00 ?}</translation>
+        <translation type="obsolete">123.456 PND {0.00 ?}</translation>
     </message>
     <message>
-        <location line="-191"/>
         <source>Priority:</source>
-        <translation>Prioritet:</translation>
+        <translation type="obsolete">Prioritet:</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>medium</source>
-        <translation>mellan</translation>
+        <translation type="obsolete">mellan</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>Fee:</source>
-        <translation>Avgift:</translation>
+        <translation type="obsolete">Avgift:</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>Low Output:</source>
-        <translation>Låg utmatning:</translation>
+        <translation type="obsolete">Låg utmatning:</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>no</source>
-        <translation>nej</translation>
+        <translation type="obsolete">nej</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>After Fee:</source>
-        <translation>Efter avgift:</translation>
+        <translation type="obsolete">Efter avgift:</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>Change</source>
-        <translation>Ändra</translation>
+        <translation type="obsolete">Ändra</translation>
     </message>
     <message>
-        <location line="+50"/>
         <source>custom change address</source>
-        <translation>egen ändringsadress</translation>
+        <translation type="obsolete">egen ändringsadress</translation>
     </message>
     <message>
-        <location line="+106"/>
         <source>Send to multiple recipients at once</source>
-        <translation>Skicka till flera mottagare samtidigt</translation>
+        <translation type="obsolete">Skicka till flera mottagare samtidigt</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Add &amp;Recipient</source>
-        <translation>Lägg till &amp;mottagare</translation>
+        <translation type="obsolete">Lägg till &amp;mottagare</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Remove all transaction fields</source>
-        <translation>Ta bort alla transaktionsfält</translation>
+        <translation type="obsolete">Ta bort alla transaktionsfält</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Clear &amp;All</source>
-        <translation>Rensa &amp;alla</translation>
+        <translation type="obsolete">Rensa &amp;alla</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Balance:</source>
-        <translation>Balans:</translation>
+        <translation type="obsolete">Balans:</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>123.456 PND</source>
-        <translation>123.456 PND</translation>
+        <translation type="obsolete">123.456 PND</translation>
     </message>
     <message>
-        <location line="+31"/>
         <source>Confirm the send action</source>
-        <translation>Bekräfta sändordern</translation>
+        <translation type="obsolete">Bekräfta sändordern</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>S&amp;end</source>
-        <translation>&amp;Skicka</translation>
+        <translation type="obsolete">&amp;Skicka</translation>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-173"/>
         <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>Fyll i en Pandacoin adress (t.ex. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <translation type="obsolete">Fyll i en Pandacoin adress (t.ex. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
-        <location line="+15"/>
         <source>Copy quantity</source>
-        <translation>Kopiera antal</translation>
+        <translation type="obsolete">Kopiera antal</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy amount</source>
-        <translation>Kopiera belopp</translation>
+        <translation type="obsolete">Kopiera belopp</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy fee</source>
-        <translation>Kopiera avgift</translation>
+        <translation type="obsolete">Kopiera avgift</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy after fee</source>
-        <translation>Kopiera efter avgift</translation>
+        <translation type="obsolete">Kopiera efter avgift</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy bytes</source>
-        <translation>Kopiera bytes</translation>
+        <translation type="obsolete">Kopiera bytes</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy priority</source>
-        <translation>Kopiera prioritet</translation>
+        <translation type="obsolete">Kopiera prioritet</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy low output</source>
-        <translation>Kopiera låg utmatning</translation>
+        <translation type="obsolete">Kopiera låg utmatning</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy change</source>
-        <translation>Kopiera ändring</translation>
+        <translation type="obsolete">Kopiera ändring</translation>
     </message>
     <message>
-        <location line="+86"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; till %2 (%3)</translation>
+        <translation type="obsolete">&lt;b&gt;%1&lt;/b&gt; till %2 (%3)</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Confirm send coins</source>
-        <translation>Bekräfta skickade mynt</translation>
+        <translation type="obsolete">Bekräfta skickade mynt</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Are you sure you want to send %1?</source>
-        <translation>Är du säker att du vill skicka %1?</translation>
+        <translation type="obsolete">Är du säker att du vill skicka %1?</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source> and </source>
-        <translation>och</translation>
+        <translation type="obsolete">och</translation>
     </message>
     <message>
-        <location line="+29"/>
         <source>The recipient address is not valid, please recheck.</source>
-        <translation>Mottagarens adress är inte giltig, vänligen kontrollera igen.</translation>
+        <translation type="obsolete">Mottagarens adress är inte giltig, vänligen kontrollera igen.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The amount to pay must be larger than 0.</source>
-        <translation>Det betalade beloppet måste vara större än 0.</translation>
+        <translation type="obsolete">Det betalade beloppet måste vara större än 0.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The amount exceeds your balance.</source>
-        <translation>Värdet överstiger ditt saldo.</translation>
+        <translation type="obsolete">Värdet överstiger ditt saldo.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>Totalvärdet överstiger ditt saldo när transaktionsavgiften %1 är pålagd.</translation>
+        <translation type="obsolete">Totalvärdet överstiger ditt saldo när transaktionsavgiften %1 är pålagd.</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
-        <translation>Dubblett av adress funnen, kan bara skicka till varje adress en gång per sändning.</translation>
+        <translation type="obsolete">Dubblett av adress funnen, kan bara skicka till varje adress en gång per sändning.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Error: Transaction creation failed.</source>
-        <translation>Fel: Transaktionen kunde inte skapas.</translation>
+        <translation type="obsolete">Fel: Transaktionen kunde inte skapas.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Fel: Transaktionen nekades. Detta kan hända om vissa av mynten i din plånbok redan är använda, t.ex om du använder en kopia av wallet.dat och mynten redan var använda i kopia men inte markerade som använda här.</translation>
+        <translation type="obsolete">Fel: Transaktionen nekades. Detta kan hända om vissa av mynten i din plånbok redan är använda, t.ex om du använder en kopia av wallet.dat och mynten redan var använda i kopia men inte markerade som använda här.</translation>
     </message>
     <message>
-        <location line="+251"/>
         <source>WARNING: Invalid Pandacoin address</source>
-        <translation>VARNING: Ogiltig Pandacoin adress</translation>
+        <translation type="obsolete">VARNING: Ogiltig Pandacoin adress</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>(no label)</source>
-        <translation>(Ingen etikett)</translation>
+        <translation type="obsolete">(Ingen etikett)</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>WARNING: unknown change address</source>
-        <translation>VARNING: okänd ändringsadress</translation>
+        <translation type="obsolete">VARNING: okänd ändringsadress</translation>
     </message>
 </context>
 <context>
@@ -1889,60 +2618,315 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Formulär</translation>
     </message>
     <message>
+        <location line="+59"/>
+        <source>Send Pandacoins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+74"/>
+        <source>Coin Control Features</source>
+        <translation type="unfinished">Coin kontrollinställningar</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Inputs...</source>
+        <translation type="unfinished">Ingångar...</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>automatically selected</source>
+        <translation type="unfinished">automatiskt vald</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Insufficient funds!</source>
+        <translation type="unfinished">Otillräckligt saldo!</translation>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>Quantity:</source>
+        <translation type="unfinished">Antal:</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+35"/>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>Bytes:</source>
+        <translation type="unfinished">Bytes:</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Amount:</source>
+        <translation type="unfinished">Belopp:</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+86"/>
+        <location line="+86"/>
+        <location line="+32"/>
+        <source>0.00 PND</source>
+        <translation type="unfinished">123.456 PND {0.00 ?}</translation>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Priority:</source>
+        <translation type="unfinished">Prioritet:</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Fee:</source>
+        <translation type="unfinished">Avgift:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>no</source>
+        <translation type="unfinished">nej</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>After Fee:</source>
+        <translation type="unfinished">Efter avgift:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change</source>
+        <translation type="unfinished">Ändra</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>custom change address</source>
+        <translation type="unfinished">egen ändringsadress</translation>
+    </message>
+    <message>
+        <location line="+67"/>
+        <source>From</source>
+        <translation type="unfinished">Från</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>To</source>
+        <translation type="unfinished">Till</translation>
+    </message>
+    <message>
         <location line="+15"/>
-        <source>A&amp;mount:</source>
-        <translation>&amp;Belopp:</translation>
+        <source>Or</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Amount</source>
+        <translation type="unfinished">Mängd</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>▾ Send To My Own Accounts</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;mount:</source>
+        <translation type="obsolete">&amp;Belopp:</translation>
+    </message>
+    <message>
         <source>Pay &amp;To:</source>
-        <translation>Betala &amp;Till:</translation>
+        <translation type="obsolete">Betala &amp;Till:</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <location filename="../sendcoinsentry.cpp" line="+25"/>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation>Ange ett namn för den här adressen och lägg till den i din adressbok</translation>
+        <translation type="obsolete">Ange ett namn för den här adressen och lägg till den i din adressbok</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>&amp;Label:</source>
-        <translation>&amp;Etikett:</translation>
+        <translation type="obsolete">&amp;Etikett:</translation>
     </message>
     <message>
-        <location line="+18"/>
         <source>The address to send the payment to  (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>Adressen att skicka betalningen till  (t.ex. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <translation type="obsolete">Adressen att skicka betalningen till  (t.ex. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Choose address from address book</source>
-        <translation>Välj adress från adressbok</translation>
+        <translation type="obsolete">Välj adress från adressbok</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="obsolete">Alt+A</translation>
+    </message>
+    <message>
+        <source>Paste address from clipboard</source>
+        <translation type="obsolete">Klistra in adress från Urklipp</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="obsolete">Alt+P</translation>
+    </message>
+    <message>
+        <source>Remove this recipient</source>
+        <translation type="obsolete">Ta bort denna mottagare</translation>
+    </message>
+    <message>
+        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation type="obsolete">Fyll i en Pandacoin adress (t.ex. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+    </message>
+    <message>
+        <location filename="../sendcoinsentry.cpp" line="+108"/>
+        <source>Copy quantity</source>
+        <translation type="unfinished">Kopiera antal</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy amount</source>
+        <translation type="unfinished">Kopiera belopp</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy fee</source>
+        <translation type="unfinished">Kopiera avgift</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation type="unfinished">Kopiera efter avgift</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation type="unfinished">Kopiera bytes</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation type="unfinished">Kopiera prioritet</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+271"/>
+        <source>Search your accounts list...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+224"/>
+        <source>WARNING: Invalid Pandacoin address</source>
+        <translation type="unfinished">VARNING: Ogiltig Pandacoin adress</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>(no label)</source>
+        <translation type="unfinished">(Ingen etikett)</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>WARNING: unknown change address</source>
+        <translation type="unfinished">VARNING: okänd ändringsadress</translation>
+    </message>
+</context>
+<context>
+    <name>SendCoinsTargetWidget</name>
+    <message>
+        <location filename="../forms/sendcoinstargetwidget.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>The address to send the payment to  (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation type="unfinished">Adressen att skicka betalningen till  (t.ex. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation type="unfinished">Fyll i en Pandacoin adress (t.ex. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Choose address from address book</source>
+        <translation type="unfinished">Välj adress från adressbok</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Paste address from clipboard</source>
-        <translation>Klistra in adress från Urklipp</translation>
+        <translation type="unfinished">Klistra in adress från Urklipp</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+P</source>
-        <translation>Alt+P</translation>
+        <translation type="unfinished">Alt+P</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation>Ta bort denna mottagare</translation>
+        <translation type="unfinished">Ta bort denna mottagare</translation>
     </message>
     <message>
-        <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>Fyll i en Pandacoin adress (t.ex. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <location line="+16"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Add another</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>▾</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Amount</source>
+        <translation type="unfinished">Mängd</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>New accounts will automatically be added to your address book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Enter an account name for this account address to add it to your address book</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2126,6 +3110,14 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     </message>
 </context>
 <context>
+    <name>TabbedDateWidget</name>
+    <message>
+        <location filename="../forms/tabbeddatewidget.ui" line="+20"/>
+        <source>TabWidget</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TransactionDesc</name>
     <message>
         <location filename="../transactiondesc.cpp" line="+19"/>
@@ -2135,7 +3127,10 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     <message numerus="yes">
         <location line="-2"/>
         <source>Open for %n block(s)</source>
-        <translation><numerusform>Öppen för %n block</numerusform><numerusform>Öppen för %n block</numerusform></translation>
+        <translation>
+            <numerusform>Öppen för %n block</numerusform>
+            <numerusform>Öppen för %n block</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2165,7 +3160,10 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     <message numerus="yes">
         <location line="+7"/>
         <source>, broadcast through %n node(s)</source>
-        <translation><numerusform>, sänd genom %n nod</numerusform><numerusform>, sänd genom %n noder</numerusform></translation>
+        <translation>
+            <numerusform>, sänd genom %n nod</numerusform>
+            <numerusform>, sänd genom %n noder</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2218,7 +3216,10 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     <message numerus="yes">
         <location line="-102"/>
         <source>matures in %n more block(s)</source>
-        <translation><numerusform>mognar om %n block</numerusform><numerusform>mognar om %n fler block</numerusform></translation>
+        <translation>
+            <numerusform>mognar om %n block</numerusform>
+            <numerusform>mognar om %n fler block</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2318,9 +3319,47 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     </message>
 </context>
 <context>
+    <name>TransactionFilterWidget</name>
+    <message>
+        <location filename="../forms/transactionfilterwidget.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source> or jump to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Recent Transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Search by keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+226"/>
+        <location filename="../transactiontablemodel.cpp" line="+323"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
@@ -2330,9 +3369,8 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Typ</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Address</source>
-        <translation>Adress</translation>
+        <translation type="obsolete">Adress</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2340,7 +3378,7 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Mängd</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+61"/>
         <source>Open until %1</source>
         <translation>Öppet till %1</translation>
     </message>
@@ -2352,10 +3390,33 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     <message numerus="yes">
         <location line="-15"/>
         <source>Open for %n more block(s)</source>
-        <translation><numerusform>Öppet för %n mer block</numerusform><numerusform>Öppet för %n mer block</numerusform></translation>
+        <translation>
+            <numerusform>Öppet för %n mer block</numerusform>
+            <numerusform>Öppet för %n mer block</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-58"/>
+        <source>From account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>To account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+64"/>
         <source>Offline</source>
         <translation>Nerkopplad</translation>
     </message>
@@ -2391,36 +3452,85 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
     </message>
     <message>
         <location line="+42"/>
-        <source>Received with</source>
-        <translation>Mottagen med</translation>
-    </message>
-    <message>
         <location line="+2"/>
-        <source>Received from</source>
-        <translation>Mottaget från</translation>
+        <source>Received</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
+        <source>Sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Internal Transfer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Fee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+569"/>
+        <source>Destination account of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Source account of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Account for transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Other account for transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Account balance at end of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Received with</source>
+        <translation type="obsolete">Mottagen med</translation>
+    </message>
+    <message>
+        <source>Received from</source>
+        <translation type="obsolete">Mottaget från</translation>
+    </message>
+    <message>
         <source>Sent to</source>
-        <translation>Skickad till</translation>
+        <translation type="obsolete">Skickad till</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Payment to yourself</source>
-        <translation>Betalning till dig själv</translation>
+        <translation type="obsolete">Betalning till dig själv</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Mined</source>
-        <translation>Genererade</translation>
+        <translation type="obsolete">Genererade</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="-539"/>
+        <location line="+19"/>
+        <location line="+19"/>
+        <location line="+19"/>
         <source>(n/a)</source>
         <translation>(n/a)</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+466"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
         <translation>Transaktionsstatus. Håll muspekaren över för att se antal bekräftelser.</translation>
     </message>
@@ -2435,12 +3545,11 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Transaktionstyp.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Destination address of transaction.</source>
-        <translation>Transaktionens destinationsadress.</translation>
+        <translation type="obsolete">Transaktionens destinationsadress.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+10"/>
         <source>Amount removed from or added to balance.</source>
         <translation>Belopp draget eller tillagt till balans.</translation>
     </message>
@@ -2448,78 +3557,63 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
 <context>
     <name>TransactionView</name>
     <message>
-        <location filename="../transactionview.cpp" line="+55"/>
-        <location line="+16"/>
         <source>All</source>
-        <translation>Alla</translation>
+        <translation type="obsolete">Alla</translation>
     </message>
     <message>
-        <location line="-15"/>
         <source>Today</source>
-        <translation>Idag</translation>
+        <translation type="obsolete">Idag</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This week</source>
-        <translation>Denna vecka</translation>
+        <translation type="obsolete">Denna vecka</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This month</source>
-        <translation>Denna månad</translation>
+        <translation type="obsolete">Denna månad</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Last month</source>
-        <translation>Föregående månad</translation>
+        <translation type="obsolete">Föregående månad</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This year</source>
-        <translation>Det här året</translation>
+        <translation type="obsolete">Det här året</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Range...</source>
-        <translation>Period...</translation>
+        <translation type="obsolete">Period...</translation>
     </message>
     <message>
-        <location line="+11"/>
         <source>Received with</source>
-        <translation>Mottagen med</translation>
+        <translation type="obsolete">Mottagen med</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Sent to</source>
-        <translation>Skickad till</translation>
+        <translation type="obsolete">Skickad till</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>To yourself</source>
-        <translation>Till dig själv</translation>
+        <translation type="obsolete">Till dig själv</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Mined</source>
-        <translation>Genererade</translation>
+        <translation type="obsolete">Genererade</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Other</source>
-        <translation>Övriga</translation>
+        <translation type="obsolete">Övriga</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Enter address or label to search</source>
-        <translation>Sök efter adress eller etikett </translation>
+        <translation type="obsolete">Sök efter adress eller etikett </translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Min amount</source>
-        <translation>Minsta mängd</translation>
+        <translation type="obsolete">Minsta mängd</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location filename="../transactionview.cpp" line="+65"/>
         <source>Copy address</source>
         <translation>Kopiera adress</translation>
     </message>
@@ -2549,7 +3643,12 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Visa transaktionsdetaljer</translation>
     </message>
     <message>
-        <location line="+144"/>
+        <location line="+1"/>
+        <source>Show transaction on Pandachain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
         <source>Export Transaction Data</source>
         <translation>Exportera transaktionsdata</translation>
     </message>
@@ -2604,20 +3703,36 @@ Detta betyder att en avgift på minst %2 krävs.</translation>
         <translation>Kan inte skriva till fil %1.</translation>
     </message>
     <message>
-        <location line="+100"/>
         <source>Range:</source>
-        <translation>Intervall:</translation>
+        <translation type="obsolete">Intervall:</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>to</source>
-        <translation>till</translation>
+        <translation type="obsolete">till</translation>
+    </message>
+</context>
+<context>
+    <name>TransferPage</name>
+    <message>
+        <location filename="../forms/transferpage.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Transfers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Address Book</source>
+        <translation type="unfinished">Adressbok</translation>
     </message>
 </context>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+206"/>
+        <location filename="../walletmodel.cpp" line="+223"/>
         <source>Sending...</source>
         <translation>Skickar...</translation>
     </message>

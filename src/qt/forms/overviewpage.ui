@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>659</width>
-    <height>443</height>
+    <height>475</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,7 @@
         <number>0</number>
        </property>
        <item>
-        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0,0,0,0">
+        <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,1,0,0,0,0">
          <property name="spacing">
           <number>0</number>
          </property>
@@ -74,6 +74,12 @@
          </item>
          <item>
           <widget class="PortfolioOverviewTable" name="PortfolioTable">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="frameShape">
             <enum>QFrame::NoFrame</enum>
            </property>
@@ -123,7 +129,10 @@
           </widget>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="1,1,1,1">
+           <property name="spacing">
+            <number>0</number>
+           </property>
            <item>
             <layout class="QVBoxLayout" name="verticalLayout_7">
              <property name="spacing">
@@ -267,7 +276,7 @@
              <item>
               <widget class="QLabel" name="portfolio_total_heading">
                <property name="text">
-                <string>Total</string>
+                <string>Total Balance</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -331,10 +340,26 @@
            </property>
           </widget>
          </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
         </layout>
        </item>
        <item>
         <layout class="QVBoxLayout" name="verticalLayout" stretch="0,1">
+         <property name="sizeConstraint">
+          <enum>QLayout::SetDefaultConstraint</enum>
+         </property>
          <property name="leftMargin">
           <number>12</number>
          </property>
@@ -353,6 +378,12 @@
             <size>
              <width>220</width>
              <height>220</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
             </size>
            </property>
            <property name="frameShape">

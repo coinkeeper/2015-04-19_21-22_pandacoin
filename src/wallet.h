@@ -81,6 +81,8 @@ private:
     // the maximum wallet format version: memory-only variable that specifies to what version this wallet may be upgraded
     int nWalletMaxVersion;
 
+    // Store relationship between 'sub address' (change) - and primary address (actual address user cares about)
+    mutable std::map<std::string, std::string> primaryAddressMap;
 public:
     mutable CCriticalSection cs_wallet;
 
@@ -133,10 +135,6 @@ public:
     // keystore implementation
     // Generate a new key
     CPubKey GenerateNewKey();
-    // Generate a new key - must manually call AddNewKeyToChain on the key returned before it enters the keychain
-    CKey GenerateNewKeyOutsideKeychain();
-    // Add an already created key that isn't in the chain (Generated with GenerateNewKeyOutsideKeychain) into the chain - call after GenerateNewKeyOutsideKeychain.
-    bool AddNewKeyToChain(const CKey& key);
     // Adds a key to the store, and saves it to disk.
     bool AddKey(const CKey& key);
     // Adds a key to the store, without saving it to disk (used by LoadWallet)
@@ -186,10 +184,14 @@ public:
     void GetBalanceForAddress(std::string addr, int64_t& interest,  int64_t& pending, int64_t& balance) const;
     int64_t GetBalance() const;
     int64_t GetUnconfirmedBalance() const;
-    int64_t GetUnconfirmedBalanceForAddress(std::string addr) const;
+    int64_t GetUnconfirmedBalanceForAddress(std::string addr, bool fUseCache=true) const;
     int64_t GetImmatureBalance() const;
     int64_t GetStake() const;
-    int64_t GetStakeForAddress(std::string addrName) const;
+    int64_t GetStakeForAddress(std::string addrName, bool fUseCache=false) const;
+    int64_t GetCreditForAddress(const CTransaction& tx, std::string addr, bool fUseCache=true) const;
+    mutable std::map<std::string, int64_t> addressStakeCache;
+    mutable std::map<std::string, int64_t> addressUnconfirmedBalanceCache;
+    mutable std::map<std::string, int64_t> addressCreditCache;
     int64_t GetNewMint() const;
     bool CreateTransaction(const std::vector<std::pair<CScript, int64_t> >& vecSend, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL, bool* transactionTooBig=NULL);
     bool CreateTransaction(CScript scriptPubKey, int64_t nValue, CWalletTx& wtxNew, CReserveKey& reservekey, int64_t& nFeeRet, const CCoinControl *coinControl=NULL, bool* transactionTooBig=NULL);
@@ -214,6 +216,10 @@ public:
     std::set< std::set<CTxDestination> > GetAddressGroupings();
     std::map<CTxDestination, int64_t> GetAddressBalances();
 
+    bool IsMine(std::string address) const
+    {
+        return ::IsMine(*this, CBitcoinAddress(address).Get());
+    }
     bool IsMine(const CTxIn& txin) const;
     int64_t GetDebit(const CTxIn& txin) const;
     bool IsMine(const CTxOut& txout) const
@@ -255,7 +261,7 @@ public:
         }
         return nDebit;
     }
-    int64_t GetCreditForAddress(const CTransaction& tx, std::string addr) const;
+
     int64_t GetCredit(const CTransaction& tx) const
     {
         int64_t nCredit = 0;
@@ -283,8 +289,11 @@ public:
     DBErrors LoadWallet(bool& fFirstRunRet);
 
     bool SetAddressBookName(const CTxDestination& address, const std::string& strName);
-
     bool DelAddressBookName(const CTxDestination& address);
+
+    // Helpers to get a main 'wallet' address from a 'sub' change address.
+    std::string GetPrimaryAddress(CTxOut txout ,CTransaction tx) const;
+    std::string GetPrimaryAddress(CTxIn txin) const;
 
     void UpdatedTransaction(const uint256 &hashTx);
 
@@ -525,6 +534,10 @@ public:
                 vfSpent[i] = true;
                 fReturn = true;
                 fAvailableCreditCached = false;
+                addressAvailableCreditCache.clear();
+                pwallet->addressStakeCache.clear();
+                pwallet->addressUnconfirmedBalanceCache.clear();
+                pwallet->addressCreditCache.clear();
             }
         }
         return fReturn;
@@ -537,6 +550,10 @@ public:
         fAvailableCreditCached = false;
         fDebitCached = false;
         fChangeCached = false;
+        addressAvailableCreditCache.clear();
+        pwallet->addressStakeCache.clear();
+        pwallet->addressUnconfirmedBalanceCache.clear();
+        pwallet->addressCreditCache.clear();
     }
 
     void BindWallet(CWallet *pwalletIn)
@@ -554,6 +571,10 @@ public:
         {
             vfSpent[nOut] = true;
             fAvailableCreditCached = false;
+            addressAvailableCreditCache.clear();
+            pwallet->addressStakeCache.clear();
+            pwallet->addressUnconfirmedBalanceCache.clear();
+            pwallet->addressCreditCache.clear();
         }
     }
 
@@ -566,6 +587,10 @@ public:
         {
             vfSpent[nOut] = false;
             fAvailableCreditCached = false;
+            addressAvailableCreditCache.clear();
+            pwallet->addressStakeCache.clear();
+            pwallet->addressUnconfirmedBalanceCache.clear();
+            pwallet->addressCreditCache.clear();
         }
     }
 
@@ -604,7 +629,7 @@ public:
     }
 
 
-    int64_t GetAvailableCreditForAddress(std::string addr)  const;
+    int64_t GetAvailableCreditForAddress(std::string addr, bool fUseCache=true)  const;
 
     int64_t GetAvailableCredit(bool fUseCache=true) const
     {
@@ -632,6 +657,8 @@ public:
         return nCredit;
     }
 
+    mutable std::map<std::string, int64_t> addressAvailableCreditCache;
+
 
     int64_t GetChange() const
     {
@@ -647,9 +674,6 @@ public:
 
     void GetAccountAmounts(const std::string& strAccount, int64_t& nReceived,
                            int64_t& nSent, int64_t& nFee) const;
-
-    // Get amounts for a 'virtual' account - a 'virtual' account is a wallet account *and* all 'user invisible' sub accounts (change) that occur 'under' the main wallet account.
-    void GetVirtualAccountAmounts(const string& strAccount, int64_t& nReceived, int64_t& nSent, int64_t& nFee) const;
 
     bool IsFromMe() const
     {

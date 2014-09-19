@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>829</width>
+    <width>663</width>
     <height>491</height>
    </rect>
   </property>
@@ -98,6 +98,12 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="maximumSize">
+            <size>
+             <width>350</width>
+             <height>16777215</height>
+            </size>
+           </property>
           </widget>
          </item>
          <item>
@@ -107,7 +113,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>0</width>
              <height>20</height>
             </size>
            </property>
@@ -194,7 +200,7 @@
              <item>
               <widget class="AccountSummaryHeaderWidget" name="account_summary_header">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -229,7 +235,7 @@
              <item>
               <widget class="QLabel" name="num_transactions_found_footer">
                <property name="text">
-                <string># transactions found</string>
+                <string notr="true"># transactions found</string>
                </property>
               </widget>
              </item>

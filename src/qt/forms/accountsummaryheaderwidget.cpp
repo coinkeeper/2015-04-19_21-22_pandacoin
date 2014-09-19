@@ -88,6 +88,23 @@ void AccountSummaryHeaderWidget::setModel(WalletModel *model_)
     model = model_;
 }
 
+void AccountSummaryHeaderWidget::setColumnWidths(int pendingWidth, int interestWidth, int availableWidth)
+{
+    if(pendingWidth < 0 || interestWidth < 0 || availableWidth < 0)
+        return;
+
+    ui->pending_balance->setFixedWidth(pendingWidth);
+    ui->pending_balance_header->setFixedWidth(pendingWidth);
+
+    ui->interest_balance_header->setFixedWidth(interestWidth);
+    ui->interest_balance->setFixedWidth(interestWidth);
+
+    ui->available_balance_header->setFixedWidth(availableWidth);
+    ui->available_balance->setFixedWidth(availableWidth);
+    ui->account_balance_header->setFixedWidth(availableWidth);
+    ui->account_balance->setFixedWidth(availableWidth);
+}
+
 void AccountSummaryHeaderWidget::on_edit_account_label_button_pressed()
 {
     ui->account_header_line_edit->setText(ui->account_header_label->text());

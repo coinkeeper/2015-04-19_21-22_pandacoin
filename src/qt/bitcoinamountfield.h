@@ -19,6 +19,7 @@ public:
 
     qint64 value(bool *valid=0) const;
     void setValue(qint64 value);
+    void setMaximumValue(double maximumValue);
 
     /** Mark current value as invalid in UI. */
     void setValid(bool valid);
@@ -47,6 +48,7 @@ private:
     QDoubleSpinBox *amount;
     QValueComboBox *unit;
     int currentUnit;
+    qint64 maximumValue;
 
     void setText(const QString &text);
     QString text() const;

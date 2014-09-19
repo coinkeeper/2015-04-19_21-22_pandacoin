@@ -1,10 +1,13 @@
 #include "optionsmodel.h"
 #include "bitcoinunits.h"
 #include <QSettings>
+#include <QFile>
 
+#include <boost/filesystem.hpp>
 #include "init.h"
 #include "walletdb.h"
 #include "guiutil.h"
+
 
 OptionsModel::OptionsModel(QObject *parent) :
     QAbstractListModel(parent)
@@ -71,6 +74,13 @@ bool OptionsModel::Upgrade()
     if (settings.contains("bImportFinished"))
         return false; // Already upgraded
 
+    if(strWalletFileName.empty())
+        return false;
+
+    if(!boost::filesystem::exists(GetDataDir() / strWalletFileName))
+        return false; // Nothing to upgrade
+
+    //fixme: (BUGBUG) It is not clear to me if this code is ever actually executed - from what I can tell strWalletFileName is always empty at this point.
     settings.setValue("bImportFinished", true);
 
     // Move settings from old wallet.dat (if any):

@@ -1,10 +1,17 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="sl_SI" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="sl_SI">
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About Pandacoin</source>
-        <translation>O Pandacoin</translation>
+        <translation type="obsolete">O Pandacoin</translation>
+    </message>
+    <message>
+        <location filename="../forms/aboutdialog.ui" line="+14"/>
+        <source>About PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+39"/>
@@ -16,7 +23,7 @@
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
 Copyright © 2014 The Pandacoin developers</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+15"/>
@@ -32,6 +39,165 @@ To je poizkusen softver.
 Distribuiran pod MIT/X11 softversko licenco, glej priloženo datoteko COPYING ali http://www.opensource.org/licenses/mit-license.php.
 
 Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v OpenSSL Toolkit (http://www.openssl.org/) in kriptografski softver, ki ga je napisal Eric Young (eay@cryptsoft.com), ter UPnP softver, ki ga je napisal Thomas Bernard.</translation>
+    </message>
+</context>
+<context>
+    <name>AccountModel</name>
+    <message>
+        <location filename="../accountmodel.cpp" line="+24"/>
+        <source>Account Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AccountPage</name>
+    <message>
+        <location filename="../forms/accountpage.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>View transactions for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>Copy Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Show QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Sign message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+132"/>
+        <source>Last 30 Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <location line="+10"/>
+        <location line="+140"/>
+        <source>PND</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-128"/>
+        <source>Interest Gained</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+115"/>
+        <source>Total interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <location line="+25"/>
+        <source>Create Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/accountpage.cpp" line="+152"/>
+        <source>All Accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <location line="+4"/>
+        <source>transaction found</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AccountSummaryHeaderWidget</name>
+    <message>
+        <location filename="../forms/accountsummaryheaderwidget.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Earning interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Total balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+153"/>
+        <source>Edit account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Accept new account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Cancel editing of account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-156"/>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+37"/>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/accountsummaryheaderwidget.cpp" line="+63"/>
+        <location line="+9"/>
+        <source>Error</source>
+        <translation type="unfinished">Napaka</translation>
+    </message>
+    <message>
+        <location line="-9"/>
+        <source>An account with this name already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Error could not change name of PandaBank account.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -138,9 +304,127 @@ Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v Ope
     </message>
 </context>
 <context>
+    <name>AddressBookPage_new</name>
+    <message>
+        <location filename="../forms/addressbookpage_new.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>Address Book</source>
+        <translation type="unfinished">Imenik</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Create a new address</source>
+        <translation type="unfinished">Ustvari nov naslov</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;New Address</source>
+        <translation type="unfinished">&amp;Nov naslov</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Copy the currently selected address to the system clipboard</source>
+        <translation type="unfinished">Kopiraj trenutno izbrani naslov v odložišče</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Copy Address</source>
+        <translation type="unfinished">&amp;Kopiraj naslov</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Show &amp;QR Code</source>
+        <translation type="unfinished">Prikaži &amp;QR kodo</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Verify a message to ensure it was signed with a specified Pandacoin address</source>
+        <translation type="unfinished">Potrdi sporočilo, da zagotovite, da je bilo podpisano z izbranim Pandacoin naslovom</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Verify Message</source>
+        <translation type="unfinished">&amp;Potrdi sporočilo</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Delete the currently selected address from the list</source>
+        <translation type="unfinished">Izbriši izbran naslov iz seznama</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Izbriši</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Search address book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>label</source>
+        <translation type="obsolete">oznaka</translation>
+    </message>
+    <message>
+        <location line="+80"/>
+        <location line="+245"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Send Pandacoins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>From</source>
+        <translation type="unfinished">Pošiljatelj</translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>Amount</source>
+        <translation type="unfinished">Količina</translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+67"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddressTableModel</name>
     <message>
-        <location filename="../addresstablemodel.cpp" line="+144"/>
+        <location filename="../addresstablemodel.cpp" line="+25"/>
         <source>Label</source>
         <translation>Oznaka</translation>
     </message>
@@ -164,172 +448,304 @@ Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v Ope
     </message>
     <message>
         <location line="+21"/>
+        <location filename="../askpassphrasedialog.cpp" line="+42"/>
+        <source>Enter password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>New password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Repeat new password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>For earning interest only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter passphrase</source>
-        <translation>Vnesite geslo</translation>
+        <translation type="obsolete">Vnesite geslo</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>New passphrase</source>
-        <translation>Novo geslo</translation>
+        <translation type="obsolete">Novo geslo</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Repeat new passphrase</source>
-        <translation>Ponovite novo geslo</translation>
+        <translation type="obsolete">Ponovite novo geslo</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="-3"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
         <translation>Služi kot onemogočenje pošiljanja prostega denarja, v primerih okužbe operacijskega sistema. Ne ponuja prave zaščite.</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>For staking only</source>
-        <translation>Samo za staking.</translation>
+        <translation type="obsolete">Samo za staking.</translation>
     </message>
     <message>
-        <location filename="../askpassphrasedialog.cpp" line="+35"/>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Vnesite novo geslo za vstop v denarnico.&lt;br/&gt;Prosimo, da geslo sestavite iz &lt;b&gt; 10 ali več naključnih znakov&lt;/b&gt; oz. &lt;b&gt;osem ali več besed&lt;/b&gt;.</translation>
+        <translation type="obsolete">Vnesite novo geslo za vstop v denarnico.&lt;br/&gt;Prosimo, da geslo sestavite iz &lt;b&gt; 10 ali več naključnih znakov&lt;/b&gt; oz. &lt;b&gt;osem ali več besed&lt;/b&gt;.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Encrypt wallet</source>
-        <translation>Šifriraj denarnico</translation>
+        <translation type="obsolete">Šifriraj denarnico</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
-        <translation>To dejanje zahteva geslo za odklepanje vaše denarnice.</translation>
+        <translation type="obsolete">To dejanje zahteva geslo za odklepanje vaše denarnice.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Unlock wallet</source>
-        <translation>Odkleni denarnico</translation>
+        <translation type="obsolete">Odkleni denarnico</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>This operation needs your wallet passphrase to decrypt the wallet.</source>
-        <translation>To dejanje zahteva geslo za dešifriranje vaše denarnice.</translation>
+        <translation type="obsolete">To dejanje zahteva geslo za dešifriranje vaše denarnice.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Decrypt wallet</source>
-        <translation>Dešifriraj denarnico</translation>
+        <translation type="obsolete">Dešifriraj denarnico</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Change passphrase</source>
-        <translation>Zamenjaj geslo</translation>
+        <translation type="obsolete">Zamenjaj geslo</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Enter the old and new passphrase to the wallet.</source>
-        <translation>Vnesite staro in novo geslo denarnice.</translation>
+        <translation type="obsolete">Vnesite staro in novo geslo denarnice.</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>Confirm wallet encryption</source>
-        <translation>Potrdi šifriranje denarnice</translation>
+        <translation type="obsolete">Potrdi šifriranje denarnice</translation>
+    </message>
+    <message>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
+        <translation type="obsolete">Opozorilo: Če šifrirate svojo denarnico in izgubite svoje geslo, boste &lt;b&gt; IZGUBILI VSE SVOJE KOVANCE&lt;/b&gt;!</translation>
+    </message>
+    <message>
+        <source>Are you sure you wish to encrypt your wallet?</source>
+        <translation type="obsolete">Ali ste prepričani, da želite šifrirati vašo denarnico?</translation>
+    </message>
+    <message>
+        <location filename="../askpassphrasedialog.cpp" line="-7"/>
+        <source>Enter the new password to the wallet.&lt;br/&gt;Please use a password of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation>Opozorilo: Če šifrirate svojo denarnico in izgubite svoje geslo, boste &lt;b&gt; IZGUBILI VSE SVOJE KOVANCE&lt;/b&gt;!</translation>
+        <source>Encrypt PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Are you sure you wish to encrypt your wallet?</source>
-        <translation>Ali ste prepričani, da želite šifrirati vašo denarnico?</translation>
+        <location line="+4"/>
+        <source>Log on to PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter your PandaBank password to log on to PandaBank.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+15"/>
+        <source>This operation needs your PandaBank password to unlock PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Unlock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>This operation needs your PandaBank password to decrypt PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Decrypt PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Change password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enter the old and new password to PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
+        <source>Confirm PandaBank encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Warning: If you encrypt your PandaBank and lose your password, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Are you sure you wish to encrypt your PandaBank?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+61"/>
+        <source>PandaBank encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-59"/>
+        <source>PandaBank will close now to finish the encryption process. Remember that encrypting your PandaBank cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
         <translation>POMEMBNO: Vsaka predhodna varnostna kopija datoteke denarnice mora biti nadomeščena z novo datoteko šifrirane denarnice. Zaradi varnostnih razlogov bodo namreč prejšnje varnostne kopije datoteke nešifrirane denarnice postale neuporabne takoj ko boste pričeli uporabljati novo, šifrirano denarnico.</translation>
     </message>
     <message>
-        <location line="+103"/>
-        <location line="+24"/>
-        <source>Warning: The Caps Lock key is on!</source>
-        <translation>Opozorilo: imate prižgan Cap Lock</translation>
-    </message>
-    <message>
-        <location line="-133"/>
-        <location line="+60"/>
-        <source>Wallet encrypted</source>
-        <translation>Denarnica šifrirana</translation>
-    </message>
-    <message>
-        <location line="-58"/>
-        <source>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>Pandacoin se bo sedaj zaprl, da dokonča proces šifriranje. Pomnite, da tudi šifriranje vaše denarnice ne more v celoti zaščititi vaših kovancev pred krajo z zlonamernimi programi in računalniškimi virusi, če ti okužijo vaš računalnik.</translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="+9"/>
         <location line="+7"/>
-        <location line="+44"/>
+        <location line="+45"/>
         <location line="+6"/>
-        <source>Wallet encryption failed</source>
-        <translation>Šifriranje denarnice je spodletelo</translation>
+        <source>PandaBank encryption failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
-        <translation>Šifriranje denarnice spodletelo je zaradi notranje napake. Vaša denarnica ni šifrirana.</translation>
+        <location line="-57"/>
+        <source>PandaBank encryption failed due to an internal error. Your PandaBank was not encrypted.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+50"/>
-        <source>The supplied passphrases do not match.</source>
-        <translation>Vnešeno geslo se ne ujema</translation>
+        <location line="+51"/>
+        <source>The supplied passwords do not match.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-38"/>
-        <source>Wallet unlock failed</source>
-        <translation>Odklep denarnice spodletel</translation>
+        <source>PandaBank unlock failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+12"/>
         <location line="+19"/>
-        <source>The passphrase entered for the wallet decryption was incorrect.</source>
-        <translation>Geslo za dešifriranje denarnice, ki ste ga vnesli, ni pravilno.</translation>
+        <source>The password entered for your PandaBank was incorrect.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-20"/>
-        <source>Wallet decryption failed</source>
-        <translation>Dešifriranje denarnice je spodletelo</translation>
+        <source>PandaBank decryption failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
+        <source>Wallet password was successfully changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
+        <location line="+24"/>
+        <source>Warning: The Caps Lock key is on!</source>
+        <translation>Opozorilo: imate prižgan Cap Lock</translation>
+    </message>
+    <message>
+        <source>Wallet encrypted</source>
+        <translation type="obsolete">Denarnica šifrirana</translation>
+    </message>
+    <message>
+        <source>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation type="obsolete">Pandacoin se bo sedaj zaprl, da dokonča proces šifriranje. Pomnite, da tudi šifriranje vaše denarnice ne more v celoti zaščititi vaših kovancev pred krajo z zlonamernimi programi in računalniškimi virusi, če ti okužijo vaš računalnik.</translation>
+    </message>
+    <message>
+        <source>Wallet encryption failed</source>
+        <translation type="obsolete">Šifriranje denarnice je spodletelo</translation>
+    </message>
+    <message>
+        <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
+        <translation type="obsolete">Šifriranje denarnice spodletelo je zaradi notranje napake. Vaša denarnica ni šifrirana.</translation>
+    </message>
+    <message>
+        <source>The supplied passphrases do not match.</source>
+        <translation type="obsolete">Vnešeno geslo se ne ujema</translation>
+    </message>
+    <message>
+        <source>Wallet unlock failed</source>
+        <translation type="obsolete">Odklep denarnice spodletel</translation>
+    </message>
+    <message>
+        <source>The passphrase entered for the wallet decryption was incorrect.</source>
+        <translation type="obsolete">Geslo za dešifriranje denarnice, ki ste ga vnesli, ni pravilno.</translation>
+    </message>
+    <message>
+        <source>Wallet decryption failed</source>
+        <translation type="obsolete">Dešifriranje denarnice je spodletelo</translation>
+    </message>
+    <message>
         <source>Wallet passphrase was successfully changed.</source>
-        <translation>Geslo denarnice je bilo uspešno spremenjeno.</translation>
+        <translation type="obsolete">Geslo denarnice je bilo uspešno spremenjeno.</translation>
     </message>
 </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+282"/>
+        <location filename="../bitcoingui.cpp" line="+311"/>
         <source>Sign &amp;message...</source>
         <translation>Podpiši &amp;sporočilo ...</translation>
     </message>
     <message>
-        <location line="+251"/>
+        <location line="+244"/>
         <source>Synchronizing with network...</source>
         <translation>Sinhroniziranje z omrežjem ...</translation>
     </message>
     <message>
-        <location line="-319"/>
+        <location line="-310"/>
         <source>&amp;Overview</source>
         <translation>&amp;Pregled</translation>
     </message>
     <message>
+        <location line="-157"/>
+        <source>PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
+        <source>My Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+1"/>
+        <source>View Accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Transfers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+100"/>
         <source>Show general overview of wallet</source>
         <translation>Pokaži splošen pregled denarnice</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+6"/>
+        <source>Send coins to a PandaBank address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>&amp;Transactions</source>
         <translation>&amp;Transakcije</translation>
     </message>
@@ -374,12 +790,11 @@ Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v Ope
         <translation>Izhod iz aplikacije</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Show information about Pandacoin</source>
-        <translation>Pokaži informacije o Pandacoin</translation>
+        <translation type="obsolete">Pokaži informacije o Pandacoin</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>About &amp;Qt</source>
         <translation>O &amp;Qt</translation>
     </message>
@@ -394,24 +809,26 @@ Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v Ope
         <translation>&amp;Možnosti ...</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>&amp;Encrypt Wallet...</source>
-        <translation>&amp;Šifriraj denarnico ...</translation>
+        <translation type="obsolete">&amp;Šifriraj denarnico ...</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Backup Wallet...</source>
-        <translation>&amp;Ustvari varnostno kopijo denarnice ...</translation>
+        <translation type="obsolete">&amp;Ustvari varnostno kopijo denarnice ...</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Change Passphrase...</source>
-        <translation>&amp;Spremeni geslo ...</translation>
+        <translation type="obsolete">&amp;Spremeni geslo ...</translation>
     </message>
     <message numerus="yes">
-        <location line="+259"/>
+        <location line="+261"/>
         <source>~%n block(s) remaining</source>
-        <translation><numerusform>Ostaja ~%n bloka </numerusform><numerusform>Ostaja ~%n blokov</numerusform><numerusform>Ostaja ~%n blokov</numerusform><numerusform>Ostaja ~%n blokov </numerusform></translation>
+        <translation>
+            <numerusform>Ostaja ~%n bloka </numerusform>
+            <numerusform>Ostaja ~%n blokov</numerusform>
+            <numerusform>Ostaja ~%n blokov</numerusform>
+            <numerusform>Ostaja ~%n blokov </numerusform>
+        </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -419,42 +836,37 @@ Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v Ope
         <translation>Prenešen %1 od %2 blokov transakcijske zgodovine (%3% opravljeno).</translation>
     </message>
     <message>
-        <location line="-256"/>
+        <location line="-249"/>
         <source>&amp;Export...</source>
         <translation>&amp;Izvozi...</translation>
     </message>
     <message>
-        <location line="-64"/>
         <source>Send coins to a Pandacoin address</source>
-        <translation>Pošlji kovance na Pandacoin naslov</translation>
+        <translation type="obsolete">Pošlji kovance na Pandacoin naslov</translation>
     </message>
     <message>
-        <location line="+47"/>
         <source>Modify configuration options for Pandacoin</source>
-        <translation>Spremeni nastavitve za Pandacoin</translation>
+        <translation type="obsolete">Spremeni nastavitve za Pandacoin</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+1"/>
         <source>Export the data in the current tab to a file</source>
         <translation>Izvozi podatke v izbranem zavihku v datoteko</translation>
     </message>
     <message>
-        <location line="-14"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation>Šifriraj ali dešifriraj denarnico</translation>
+        <translation type="obsolete">Šifriraj ali dešifriraj denarnico</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Backup wallet to another location</source>
-        <translation>Napravi varnostno kopijo denarnice na drugo lokacijo</translation>
+        <translation type="obsolete">Napravi varnostno kopijo denarnice na drugo lokacijo</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Change the passphrase used for wallet encryption</source>
-        <translation>Spremeni šifrirno geslo denarnice</translation>
+        <translation type="obsolete">Spremeni šifrirno geslo denarnice</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+1"/>
         <source>&amp;Debug window</source>
         <translation>&amp;Razhroščevalno okno</translation>
     </message>
@@ -469,146 +881,229 @@ Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v Ope
         <translation>%Potrdi sporočilo ...</translation>
     </message>
     <message>
-        <location line="-202"/>
         <source>Pandacoin</source>
-        <translation>Pandacoin</translation>
+        <translation type="obsolete">Pandacoin</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Wallet</source>
-        <translation>Denarnica</translation>
+        <translation type="obsolete">Denarnica</translation>
     </message>
     <message>
-        <location line="+180"/>
         <source>&amp;About Pandacoin</source>
-        <translation>&amp;O Pandacoin</translation>
+        <translation type="obsolete">&amp;O Pandacoin</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="-13"/>
         <source>&amp;Show / Hide</source>
         <translation>&amp;Prikaži / Skrij</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Unlock wallet</source>
-        <translation>Odkleni denarnico</translation>
+        <translation type="obsolete">Odkleni denarnico</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;Lock Wallet</source>
-        <translation>&amp;Zakleni denarnico</translation>
+        <translation type="obsolete">&amp;Zakleni denarnico</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Lock wallet</source>
-        <translation>Zakleni denarnico</translation>
+        <translation type="obsolete">Zakleni denarnico</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>&amp;File</source>
-        <translation>&amp;Datoteka</translation>
+        <translation type="obsolete">&amp;Datoteka</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Nastavitve</translation>
+        <translation type="obsolete">&amp;Nastavitve</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>&amp;Help</source>
-        <translation>&amp;Pomoč</translation>
+        <translation type="obsolete">&amp;Pomoč</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Tabs toolbar</source>
-        <translation>Orodna vrstica zavihkov</translation>
+        <translation type="obsolete">Orodna vrstica zavihkov</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Actions toolbar</source>
-        <translation>Orodna vrsticai</translation>
+        <translation type="obsolete">Orodna vrsticai</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+80"/>
         <location line="+9"/>
         <source>[testnet]</source>
         <translation>[testnet]</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+60"/>
         <source>Pandacoin client</source>
-        <translation>Pandacoin program</translation>
+        <translation type="obsolete">Pandacoin program</translation>
     </message>
     <message numerus="yes">
-        <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>%n aktivne povezave na Pandacoin omrežje</numerusform><numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform><numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform><numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform></translation>
+        <translation type="obsolete">
+            <numerusform>%n aktivne povezave na Pandacoin omrežje</numerusform>
+            <numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform>
+            <numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform>
+            <numerusform>%n aktivnih povezav na Pandacoin omrežje</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+183"/>
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation>Prenešenih %1 blokov transakcijske zgodovine.</translation>
     </message>
     <message>
-        <location line="+413"/>
+        <location line="+255"/>
+        <location line="+15"/>
+        <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+164"/>
         <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
         <translation>Deležeje [Staking].&lt;br&gt;Teža vašega deleženja je %1&lt;br&gt;Teža celotne mreže deleženja je %2&lt;br&gt;Pričakovan čas do prejema nagrade %3</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Not staking because wallet is locked</source>
-        <translation>Ne deležite ker je denarnica zakljenjena</translation>
+        <translation type="obsolete">Ne deležite ker je denarnica zakljenjena</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because wallet is offline</source>
-        <translation>Ne deležite ker denarnica ni povezana</translation>
+        <translation type="obsolete">Ne deležite ker denarnica ni povezana</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because wallet is syncing</source>
-        <translation>Ne deležite ker se denarnica sinhronizira z omrežjem</translation>
+        <translation type="obsolete">Ne deležite ker se denarnica sinhronizira z omrežjem</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation>Ne deležite ker nimate zrelih kovancev. </translation>
+        <translation type="obsolete">Ne deležite ker nimate zrelih kovancev. </translation>
     </message>
     <message numerus="yes">
-        <location line="-403"/>
+        <location line="-412"/>
         <source>%n second(s) ago</source>
-        <translation><numerusform>pred %n sekundo</numerusform><numerusform>pred %n sekundama</numerusform><numerusform>pred %n sekundami</numerusform><numerusform>pred %n sekundami </numerusform></translation>
+        <translation>
+            <numerusform>pred %n sekundo</numerusform>
+            <numerusform>pred %n sekundama</numerusform>
+            <numerusform>pred %n sekundami</numerusform>
+            <numerusform>pred %n sekundami </numerusform>
+        </translation>
     </message>
     <message>
-        <location line="-312"/>
-        <source>About Pandacoin card</source>
-        <translation type="unfinished"/>
+        <source>&amp;Unlock Wallet...</source>
+        <translation type="obsolete">&amp;Odkleni denarnico...</translation>
+    </message>
+    <message>
+        <location line="-303"/>
+        <source>&amp;About PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about Pandacoin card</source>
-        <translation type="unfinished"/>
+        <source>Show information about PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
-        <source>&amp;Unlock Wallet...</source>
-        <translation>&amp;Odkleni denarnico...</translation>
+        <location line="+6"/>
+        <source>Modify configuration options for PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Encrypt PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Encrypt or decrypt PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Backup PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Backup PandaBank to another location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Change Password...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Change the password used for wallet encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Unlock PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unlock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Lock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+78"/>
+        <location line="+73"/>
+        <source>PandaBank client</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+297"/>
+        <location line="+70"/>
+        <source>%n active connection(s) to PandaBank network</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+66"/>
         <source>%n minute(s) ago</source>
-        <translation><numerusform>Pred %n minuto</numerusform><numerusform>Pred %n minutama</numerusform><numerusform>Pred %n minutami</numerusform><numerusform>Pred %n minutami</numerusform></translation>
+        <translation>
+            <numerusform>Pred %n minuto</numerusform>
+            <numerusform>Pred %n minutama</numerusform>
+            <numerusform>Pred %n minutami</numerusform>
+            <numerusform>Pred %n minutami</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s) ago</source>
-        <translation><numerusform>Pred %n uro.</numerusform><numerusform>Pred %n urama.</numerusform><numerusform>Pred %n urami.</numerusform><numerusform>Pred %n urami.</numerusform></translation>
+        <translation>
+            <numerusform>Pred %n uro.</numerusform>
+            <numerusform>Pred %n urama.</numerusform>
+            <numerusform>Pred %n urami.</numerusform>
+            <numerusform>Pred %n urami.</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s) ago</source>
-        <translation><numerusform>Pred %n dnevom.</numerusform><numerusform>Pred %n dnevoma.</numerusform><numerusform>Pred %n dnevi.</numerusform><numerusform>Pred %n dnevi.</numerusform></translation>
+        <translation>
+            <numerusform>Pred %n dnevom.</numerusform>
+            <numerusform>Pred %n dnevoma.</numerusform>
+            <numerusform>Pred %n dnevi.</numerusform>
+            <numerusform>Pred %n dnevi.</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -659,19 +1154,42 @@ Naslov: %4
 </translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+105"/>
         <location line="+15"/>
         <source>URI handling</source>
         <translation>Rokovanje z URI</translation>
     </message>
     <message>
-        <location line="-15"/>
-        <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
-        <translation>URI ne more biti razčlenjen! To se lahko zgodi zaradi neveljavnega Pandacoin naslova ali slabih parametrov URI.</translation>
+        <location line="+170"/>
+        <source>Not earning interest because wallet is locked</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+2"/>
+        <source>Not earning interest because wallet is offline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest because wallet is syncing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest because you don&apos;t have mature coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
+        <translation type="obsolete">URI ne more biti razčlenjen! To se lahko zgodi zaradi neveljavnega Pandacoin naslova ali slabih parametrov URI.</translation>
+    </message>
+    <message>
+        <location line="-160"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Denarnica je &lt;b&gt;šifrirana&lt;/b&gt; in trenutno &lt;b&gt;odklenjena&lt;/b&gt;</translation>
     </message>
@@ -681,7 +1199,7 @@ Naslov: %4
         <translation>Denarnica je &lt;b&gt;šifrirana&lt;/b&gt; in trenutno &lt;b&gt;zaklenjena&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+26"/>
         <source>Backup Wallet</source>
         <translation>Napravi varnostno kopijo denarnice</translation>
     </message>
@@ -701,32 +1219,51 @@ Naslov: %4
         <translation>Prišlo je do napake ob poskušanju shranjevanja datoteke denarnice na novo lokacijo.</translation>
     </message>
     <message numerus="yes">
-        <location line="+76"/>
+        <location line="+91"/>
         <source>%n second(s)</source>
-        <translation><numerusform>%n sekundo</numerusform><numerusform>%n sekundama</numerusform><numerusform>%n sekund</numerusform><numerusform>%n sekund</numerusform></translation>
+        <translation>
+            <numerusform>%n sekundo</numerusform>
+            <numerusform>%n sekundama</numerusform>
+            <numerusform>%n sekund</numerusform>
+            <numerusform>%n sekund</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation><numerusform>%n minuto</numerusform><numerusform>%n minutama</numerusform><numerusform>%n minut</numerusform><numerusform>%n minut</numerusform></translation>
+        <translation>
+            <numerusform>%n minuto</numerusform>
+            <numerusform>%n minutama</numerusform>
+            <numerusform>%n minut</numerusform>
+            <numerusform>%n minut</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s)</source>
-        <translation><numerusform>%n ura</numerusform><numerusform>%n uri</numerusform><numerusform>%n ure</numerusform><numerusform>%n ura</numerusform></translation>
+        <translation>
+            <numerusform>%n ura</numerusform>
+            <numerusform>%n uri</numerusform>
+            <numerusform>%n ure</numerusform>
+            <numerusform>%n ura</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s)</source>
-        <translation><numerusform>%n dan</numerusform><numerusform>%n dneva</numerusform><numerusform>%n dnevi</numerusform><numerusform>%n dni</numerusform></translation>
+        <translation>
+            <numerusform>%n dan</numerusform>
+            <numerusform>%n dneva</numerusform>
+            <numerusform>%n dnevi</numerusform>
+            <numerusform>%n dni</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+18"/>
         <source>Not staking</source>
-        <translation>Ne deležite</translation>
+        <translation type="obsolete">Ne deležite</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+109"/>
+        <location filename="../bitcoin.cpp" line="+110"/>
         <source>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</source>
         <translation>Prišlo je do usodne napake. Program Pandacoin se ne more več varno nadaljevati in se bo zato zaprl. </translation>
     </message>
@@ -1008,6 +1545,65 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     </message>
 </context>
 <context>
+    <name>CreateAccountWidget</name>
+    <message>
+        <location filename="../forms/createaccountwidget.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+53"/>
+        <source>Creating a new PandaBank account is easy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/createaccountwidget.cpp" line="+55"/>
+        <location line="+19"/>
+        <source>Error</source>
+        <translation type="unfinished">Napaka</translation>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>An account with this name already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>PandaBank account created</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Your PandaBank Account has been created.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Error creating PandaBank account.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditAddressDialog</name>
     <message>
         <location filename="../forms/editaddressdialog.ui" line="+14"/>
@@ -1035,7 +1631,7 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Naslov povezan s tem vnosom v imeniku. Spremenite ga lahko le za naslove odlivov.</translation>
     </message>
     <message>
-        <location filename="../editaddressdialog.cpp" line="+20"/>
+        <location filename="../editaddressdialog.cpp" line="+23"/>
         <source>New receiving address</source>
         <translation>Nov naslov za prilive</translation>
     </message>
@@ -1078,7 +1674,7 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+420"/>
+        <location filename="../guiutil.cpp" line="+562"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
         <translation>Pandacoin-Qt</translation>
@@ -1120,6 +1716,55 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     </message>
 </context>
 <context>
+    <name>LockBar</name>
+    <message>
+        <location filename="../forms/lockbar.ui" line="+69"/>
+        <source>Lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/lockbar.cpp" line="+39"/>
+        <source>Wallet is &lt;b&gt;not encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to encrypt and lock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to lock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt; click to unlock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MainFrame</name>
+    <message>
+        <location filename="../forms/mainframe.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MenuBar</name>
+    <message>
+        <location filename="../forms/menubar.ui" line="+55"/>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OptionsDialog</name>
     <message>
         <location filename="../forms/optionsdialog.ui" line="+14"/>
@@ -1137,7 +1782,7 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Izbirne transakcijske provizije za kB, ki pomagajo pri tem, da so vaše transakcije procesirane hitreje. Večina transakcij je velikih 1 kB. Priporočena je provizija 0.01.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+21"/>
         <source>Pay transaction &amp;fee</source>
         <translation>Nakazilo plačila &amp; provizija</translation>
     </message>
@@ -1147,7 +1792,7 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Rezervirana količina ne deleži in je tako na voljo za potrošnjo.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+21"/>
         <source>Reserve</source>
         <translation>Rezerva</translation>
     </message>
@@ -1157,9 +1802,13 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Avtomatično zaženi Pandacoin ob zagonu sistema.</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Start Pandacoin on system login</source>
-        <translation>&amp;Zaženi Pandacoin ob prijavi v sistem</translation>
+        <translation type="obsolete">&amp;Zaženi Pandacoin ob prijavi v sistem</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Start PandaBank on system login</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1312,12 +1961,12 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>&amp;Uporabi</translation>
     </message>
     <message>
-        <location filename="../optionsdialog.cpp" line="+55"/>
+        <location filename="../optionsdialog.cpp" line="+58"/>
         <source>default</source>
         <translation>privzeto</translation>
     </message>
     <message>
-        <location line="+149"/>
+        <location line="+152"/>
         <location line="+9"/>
         <source>Warning</source>
         <translation>Opozorilo</translation>
@@ -1342,76 +1991,230 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Oblika</translation>
     </message>
     <message>
-        <location line="+33"/>
-        <location line="+231"/>
+        <location line="+26"/>
+        <source>Welcome to your PandaBank, You last logged on at &lt;TIME&gt; on &lt;DATE&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>My Portfolio</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>More</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+58"/>
+        <source>Portfolio Summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Earning Interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Total Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: &lt;span style=&quot; font-weight:600;&quot;&gt;Available&lt;/span&gt; is the amount of PND that is available for you to spend or transfer. &lt;span style=&quot; font-weight:600;&quot;&gt;Earning Interest&lt;/span&gt; is the amount of PND that is currently being used to generate interest. &lt;span style=&quot; font-weight:600;&quot;&gt;Pending&lt;/span&gt; is the amount of recent incoming PND from another account address waiting to be transferred to your account. &lt;span style=&quot; font-weight:600;&quot;&gt;Total Balance&lt;/span&gt; is the sum total of PND of all your account balances. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+89"/>
+        <source>Quick Transfer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>To</source>
+        <translation type="unfinished">Prejemnik</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Amount</source>
+        <translation type="unfinished">Količina</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>From</source>
+        <translation type="unfinished">Pošiljatelj</translation>
+    </message>
+    <message>
+        <location line="+71"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Pandacoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Prikazane informacije so morda zastarele. Vaša denarnica se avtomatično sinhronizira z Pandacoin omrežjem, ko je vzpostavljena povezava, toda ta proces še ni bil zaključen.</translation>
+        <translation type="obsolete">Prikazane informacije so morda zastarele. Vaša denarnica se avtomatično sinhronizira z Pandacoin omrežjem, ko je vzpostavljena povezava, toda ta proces še ni bil zaključen.</translation>
     </message>
     <message>
-        <location line="-160"/>
         <source>Stake:</source>
-        <translation>Deleženje:</translation>
+        <translation type="obsolete">Deleženje:</translation>
     </message>
     <message>
-        <location line="+29"/>
         <source>Unconfirmed:</source>
-        <translation>Nepotrjeni:</translation>
+        <translation type="obsolete">Nepotrjeni:</translation>
     </message>
     <message>
-        <location line="-107"/>
         <source>Wallet</source>
-        <translation>Denarnica</translation>
+        <translation type="obsolete">Denarnica</translation>
     </message>
     <message>
-        <location line="+49"/>
         <source>Spendable:</source>
-        <translation>Razpoložljivi:</translation>
+        <translation type="obsolete">Razpoložljivi:</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="-365"/>
         <source>Your current spendable balance</source>
         <translation>Vaše trenutno razpoložljivo stanje</translation>
     </message>
     <message>
-        <location line="+71"/>
         <source>Immature:</source>
-        <translation>Nezreli:</translation>
+        <translation type="obsolete">Nezreli:</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Mined balance that has not yet matured</source>
-        <translation>Z deleženjem pridobljeni kovanci, ki še niso dozoreli.</translation>
+        <translation type="obsolete">Z deleženjem pridobljeni kovanci, ki še niso dozoreli.</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Total:</source>
-        <translation>Skupaj:</translation>
+        <translation type="obsolete">Skupaj:</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+132"/>
         <source>Your current total balance</source>
         <translation>Vaše trenutno skupno stanje</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Pogoste transakcije&lt;/&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;Pogoste transakcije&lt;/&gt;</translation>
     </message>
     <message>
-        <location line="-108"/>
+        <location line="-45"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
         <translation>Znesek transakcij, ki še niso bile potrjene in se še ne upoštevajo v trenutnem stanju na računu.</translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-42"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
         <translation>Znesek kovancev, ki so bili v deleženju in se še ne upoštevajo v trenutnem stanju na računu.</translation>
     </message>
     <message>
-        <location filename="../overviewpage.cpp" line="+113"/>
-        <location line="+1"/>
         <source>out of sync</source>
-        <translation>nesinhronizirano</translation>
+        <translation type="obsolete">nesinhronizirano</translation>
+    </message>
+    <message>
+        <location filename="../overviewpage.cpp" line="+40"/>
+        <source>Copy account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy account balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+73"/>
+        <location line="+7"/>
+        <source>Select account</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../guiutil.cpp" line="-488"/>
+        <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
+        <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirm send coins</source>
+        <translation type="unfinished">Potrdi odliv kovancev </translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Are you sure you want to send %1?</source>
+        <translation type="unfinished">Ali ste prepričani, da želite poslati %1?</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source> and </source>
+        <translation type="unfinished">in</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+6"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <source>Send Coins</source>
+        <translation type="unfinished">Pošlji kovance</translation>
+    </message>
+    <message>
+        <location line="-35"/>
+        <source>The recipient address is not valid, please recheck.</source>
+        <translation type="unfinished">Prejemnikov naslov ni veljaven, prosimo če ga ponovno preverite.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The amount to pay must be larger than 0.</source>
+        <translation type="unfinished">Količina za plačilo mora biti večja od 0.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The amount exceeds your balance.</source>
+        <translation type="unfinished">Količina presega vaše dobroimetje</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
+        <translation type="unfinished">Seštevek presega vaše stanje na računu ko je vključen %1 provizije na transakcijo. </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Duplicate address found, can only send to each address once per send operation.</source>
+        <translation type="unfinished">Najdena kopija naslova, možnost pošiljanja na vsakega izmed naslov le enkrat ob pošiljanju.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: Transaction creation failed because transaction size (in Kb) too large.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: Transaction creation failed.</source>
+        <translation type="unfinished">Napaka: Ustvarjanje transakcije spodletelo</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+        <translation type="unfinished">Napaka: Transakcija je bila zavrnjena. To se je lahko zgodilo, če so bili kovanci v vaši denarnici že zapravljeni, na primer če ste uporabili kopijo wallet.dat in so bili kovanci zapravljeni v kopiji, a tu še niso bili označeni kot zapravljeni.</translation>
     </message>
 </context>
 <context>
@@ -1622,260 +2425,200 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
 <context>
     <name>SendCoinsDialog</name>
     <message>
-        <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+182"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+6"/>
-        <location line="+5"/>
-        <location line="+5"/>
         <source>Send Coins</source>
-        <translation>Pošlji kovance</translation>
+        <translation type="obsolete">Pošlji kovance</translation>
     </message>
     <message>
-        <location line="+76"/>
         <source>Coin Control Features</source>
-        <translation>Funkcije kontrole kovancev</translation>
+        <translation type="obsolete">Funkcije kontrole kovancev</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Inputs...</source>
-        <translation>Vnosi...</translation>
+        <translation type="obsolete">Vnosi...</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>automatically selected</source>
-        <translation>samodejno izbran</translation>
+        <translation type="obsolete">samodejno izbran</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>Insufficient funds!</source>
-        <translation>Premalo sredstev!</translation>
+        <translation type="obsolete">Premalo sredstev!</translation>
     </message>
     <message>
-        <location line="+77"/>
         <source>Quantity:</source>
-        <translation>Količina:</translation>
+        <translation type="obsolete">Količina:</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <location line="+35"/>
         <source>0</source>
-        <translation>0</translation>
+        <translation type="obsolete">0</translation>
     </message>
     <message>
-        <location line="-19"/>
         <source>Bytes:</source>
-        <translation>Biti:</translation>
+        <translation type="obsolete">Biti:</translation>
     </message>
     <message>
-        <location line="+51"/>
         <source>Amount:</source>
-        <translation>Znesek:</translation>
+        <translation type="obsolete">Znesek:</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <location line="+86"/>
-        <location line="+86"/>
-        <location line="+32"/>
         <source>0.00 PND</source>
-        <translation>123.456 PND {0.00 ?}</translation>
+        <translation type="obsolete">123.456 PND {0.00 ?}</translation>
     </message>
     <message>
-        <location line="-191"/>
         <source>Priority:</source>
-        <translation>Prednostno mesto:</translation>
+        <translation type="obsolete">Prednostno mesto:</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>medium</source>
-        <translation>srednje</translation>
+        <translation type="obsolete">srednje</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>Fee:</source>
-        <translation>Provizija:</translation>
+        <translation type="obsolete">Provizija:</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>Low Output:</source>
-        <translation>Nizek output:</translation>
+        <translation type="obsolete">Nizek output:</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>no</source>
-        <translation>ne</translation>
+        <translation type="obsolete">ne</translation>
     </message>
     <message>
-        <location line="+32"/>
         <source>After Fee:</source>
-        <translation>Po proviziji:</translation>
+        <translation type="obsolete">Po proviziji:</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>Change</source>
-        <translation>Sprememba</translation>
+        <translation type="obsolete">Sprememba</translation>
     </message>
     <message>
-        <location line="+50"/>
         <source>custom change address</source>
-        <translation>izbira spremembe naslova</translation>
+        <translation type="obsolete">izbira spremembe naslova</translation>
     </message>
     <message>
-        <location line="+106"/>
         <source>Send to multiple recipients at once</source>
-        <translation>Pošlji več prejemnikom hkrati</translation>
+        <translation type="obsolete">Pošlji več prejemnikom hkrati</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Add &amp;Recipient</source>
-        <translation>Dodaj &amp;prejemnika</translation>
+        <translation type="obsolete">Dodaj &amp;prejemnika</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Remove all transaction fields</source>
-        <translation>Odstrani vsa polja transakcij</translation>
+        <translation type="obsolete">Odstrani vsa polja transakcij</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Clear &amp;All</source>
-        <translation>Počisti &amp;vse</translation>
+        <translation type="obsolete">Počisti &amp;vse</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Balance:</source>
-        <translation>Dobroimetje:</translation>
+        <translation type="obsolete">Dobroimetje:</translation>
     </message>
     <message>
-        <location line="+16"/>
         <source>123.456 PND</source>
-        <translation>123.456 PND</translation>
+        <translation type="obsolete">123.456 PND</translation>
     </message>
     <message>
-        <location line="+31"/>
         <source>Confirm the send action</source>
-        <translation>Potrdi odlivno dejanje</translation>
+        <translation type="obsolete">Potrdi odlivno dejanje</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>S&amp;end</source>
-        <translation>P&amp;ošlji</translation>
+        <translation type="obsolete">P&amp;ošlji</translation>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-173"/>
         <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>Vnesite Pandacoin naslov (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <translation type="obsolete">Vnesite Pandacoin naslov (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
-        <location line="+15"/>
         <source>Copy quantity</source>
-        <translation>Kopiraj količino</translation>
+        <translation type="obsolete">Kopiraj količino</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy amount</source>
-        <translation>Kopiraj količino</translation>
+        <translation type="obsolete">Kopiraj količino</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy fee</source>
-        <translation>Kopiraj provizijo</translation>
+        <translation type="obsolete">Kopiraj provizijo</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy after fee</source>
-        <translation>Kopiraj po proviziji</translation>
+        <translation type="obsolete">Kopiraj po proviziji</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy bytes</source>
-        <translation>Kopiraj bite</translation>
+        <translation type="obsolete">Kopiraj bite</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy priority</source>
-        <translation>Kopiraj prednostno mesto</translation>
+        <translation type="obsolete">Kopiraj prednostno mesto</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy low output</source>
-        <translation>Kopiraj nizek output</translation>
+        <translation type="obsolete">Kopiraj nizek output</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy change</source>
-        <translation>Kopiraj spremembo</translation>
+        <translation type="obsolete">Kopiraj spremembo</translation>
     </message>
     <message>
-        <location line="+86"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</translation>
+        <translation type="obsolete">&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Confirm send coins</source>
-        <translation>Potrdi odliv kovancev </translation>
+        <translation type="obsolete">Potrdi odliv kovancev </translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Are you sure you want to send %1?</source>
-        <translation>Ali ste prepričani, da želite poslati %1?</translation>
+        <translation type="obsolete">Ali ste prepričani, da želite poslati %1?</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source> and </source>
-        <translation>in</translation>
+        <translation type="obsolete">in</translation>
     </message>
     <message>
-        <location line="+29"/>
         <source>The recipient address is not valid, please recheck.</source>
-        <translation>Prejemnikov naslov ni veljaven, prosimo če ga ponovno preverite.</translation>
+        <translation type="obsolete">Prejemnikov naslov ni veljaven, prosimo če ga ponovno preverite.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The amount to pay must be larger than 0.</source>
-        <translation>Količina za plačilo mora biti večja od 0.</translation>
+        <translation type="obsolete">Količina za plačilo mora biti večja od 0.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The amount exceeds your balance.</source>
-        <translation>Količina presega vaše dobroimetje</translation>
+        <translation type="obsolete">Količina presega vaše dobroimetje</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>Seštevek presega vaše stanje na računu ko je vključen %1 provizije na transakcijo. </translation>
+        <translation type="obsolete">Seštevek presega vaše stanje na računu ko je vključen %1 provizije na transakcijo. </translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
-        <translation>Najdena kopija naslova, možnost pošiljanja na vsakega izmed naslov le enkrat ob pošiljanju.</translation>
+        <translation type="obsolete">Najdena kopija naslova, možnost pošiljanja na vsakega izmed naslov le enkrat ob pošiljanju.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Error: Transaction creation failed.</source>
-        <translation>Napaka: Ustvarjanje transakcije spodletelo</translation>
+        <translation type="obsolete">Napaka: Ustvarjanje transakcije spodletelo</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>Napaka: Transakcija je bila zavrnjena. To se je lahko zgodilo, če so bili kovanci v vaši denarnici že zapravljeni, na primer če ste uporabili kopijo wallet.dat in so bili kovanci zapravljeni v kopiji, a tu še niso bili označeni kot zapravljeni.</translation>
+        <translation type="obsolete">Napaka: Transakcija je bila zavrnjena. To se je lahko zgodilo, če so bili kovanci v vaši denarnici že zapravljeni, na primer če ste uporabili kopijo wallet.dat in so bili kovanci zapravljeni v kopiji, a tu še niso bili označeni kot zapravljeni.</translation>
     </message>
     <message>
-        <location line="+251"/>
         <source>WARNING: Invalid Pandacoin address</source>
-        <translation>OPOZORILO: Neveljaven Pandacoin naslov</translation>
+        <translation type="obsolete">OPOZORILO: Neveljaven Pandacoin naslov</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>(no label)</source>
-        <translation>(ni oznake)</translation>
+        <translation type="obsolete">(ni oznake)</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>WARNING: unknown change address</source>
-        <translation>OPOZORILO: neznana sprememba naslova</translation>
+        <translation type="obsolete">OPOZORILO: neznana sprememba naslova</translation>
     </message>
 </context>
 <context>
@@ -1886,60 +2629,315 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Oblika</translation>
     </message>
     <message>
+        <location line="+59"/>
+        <source>Send Pandacoins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+74"/>
+        <source>Coin Control Features</source>
+        <translation type="unfinished">Funkcije kontrole kovancev</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Inputs...</source>
+        <translation type="unfinished">Vnosi...</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>automatically selected</source>
+        <translation type="unfinished">samodejno izbran</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Insufficient funds!</source>
+        <translation type="unfinished">Premalo sredstev!</translation>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>Quantity:</source>
+        <translation type="unfinished">Količina:</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+35"/>
+        <source>0</source>
+        <translation type="unfinished">0</translation>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>Bytes:</source>
+        <translation type="unfinished">Biti:</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Amount:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+86"/>
+        <location line="+86"/>
+        <location line="+32"/>
+        <source>0.00 PND</source>
+        <translation type="unfinished">123.456 PND {0.00 ?}</translation>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Priority:</source>
+        <translation type="unfinished">Prednostno mesto:</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>medium</source>
+        <translation type="unfinished">srednje</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Fee:</source>
+        <translation type="unfinished">Provizija:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation type="unfinished">Nizek output:</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>no</source>
+        <translation type="unfinished">ne</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>After Fee:</source>
+        <translation type="unfinished">Po proviziji:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change</source>
+        <translation type="unfinished">Sprememba</translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>custom change address</source>
+        <translation type="unfinished">izbira spremembe naslova</translation>
+    </message>
+    <message>
+        <location line="+67"/>
+        <source>From</source>
+        <translation type="unfinished">Pošiljatelj</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>To</source>
+        <translation type="unfinished">Prejemnik</translation>
+    </message>
+    <message>
         <location line="+15"/>
-        <source>A&amp;mount:</source>
-        <translation>K&amp;oličina:</translation>
+        <source>Or</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Amount</source>
+        <translation type="unfinished">Količina</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>▾ Send To My Own Accounts</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;mount:</source>
+        <translation type="obsolete">K&amp;oličina:</translation>
+    </message>
+    <message>
         <source>Pay &amp;To:</source>
-        <translation>Prejemnik &amp;plačila:</translation>
+        <translation type="obsolete">Prejemnik &amp;plačila:</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <location filename="../sendcoinsentry.cpp" line="+25"/>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation>Vnesite oznako za ta naslov, ki bo shranjena v imenik</translation>
+        <translation type="obsolete">Vnesite oznako za ta naslov, ki bo shranjena v imenik</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>&amp;Label:</source>
-        <translation>&amp;Oznaka:</translation>
+        <translation type="obsolete">&amp;Oznaka:</translation>
     </message>
     <message>
-        <location line="+18"/>
         <source>The address to send the payment to  (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>Naslov kamor želite poslati plačilo (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <translation type="obsolete">Naslov kamor želite poslati plačilo (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
-        <location line="+10"/>
         <source>Choose address from address book</source>
-        <translation>Izberite naslov iz imenika</translation>
+        <translation type="obsolete">Izberite naslov iz imenika</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="obsolete">Alt+A</translation>
+    </message>
+    <message>
+        <source>Paste address from clipboard</source>
+        <translation type="obsolete">Prilepi naslov iz odložišča</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="obsolete">Alt+P</translation>
+    </message>
+    <message>
+        <source>Remove this recipient</source>
+        <translation type="obsolete">Odstrani tega prejemnika</translation>
+    </message>
+    <message>
+        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation type="obsolete">Vnesite Pandacoin naslov (npr. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+    </message>
+    <message>
+        <location filename="../sendcoinsentry.cpp" line="+108"/>
+        <source>Copy quantity</source>
+        <translation type="unfinished">Kopiraj količino</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy amount</source>
+        <translation type="unfinished">Kopiraj količino</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy fee</source>
+        <translation type="unfinished">Kopiraj provizijo</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation type="unfinished">Kopiraj po proviziji</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation type="unfinished">Kopiraj bite</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation type="unfinished">Kopiraj prednostno mesto</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation type="unfinished">Kopiraj spremembo</translation>
+    </message>
+    <message>
+        <location line="+271"/>
+        <source>Search your accounts list...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+224"/>
+        <source>WARNING: Invalid Pandacoin address</source>
+        <translation type="unfinished">OPOZORILO: Neveljaven Pandacoin naslov</translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>(no label)</source>
+        <translation type="unfinished">(ni oznake)</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>WARNING: unknown change address</source>
+        <translation type="unfinished">OPOZORILO: neznana sprememba naslova</translation>
+    </message>
+</context>
+<context>
+    <name>SendCoinsTargetWidget</name>
+    <message>
+        <location filename="../forms/sendcoinstargetwidget.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
+        <source>The address to send the payment to  (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation type="unfinished">Naslov kamor želite poslati plačilo (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Choose address from address book</source>
+        <translation type="unfinished">Izberite naslov iz imenika</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Paste address from clipboard</source>
-        <translation>Prilepi naslov iz odložišča</translation>
+        <translation type="unfinished">Prilepi naslov iz odložišča</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+P</source>
-        <translation>Alt+P</translation>
+        <translation type="unfinished">Alt+P</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation>Odstrani tega prejemnika</translation>
+        <translation type="unfinished">Odstrani tega prejemnika</translation>
     </message>
     <message>
-        <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation>Vnesite Pandacoin naslov (npr. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
+        <location line="+16"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Add another</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>▾</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Amount</source>
+        <translation type="unfinished">Količina</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>New accounts will automatically be added to your address book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Enter an account name for this account address to add it to your address book</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2123,6 +3121,14 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     </message>
 </context>
 <context>
+    <name>TabbedDateWidget</name>
+    <message>
+        <location filename="../forms/tabbeddatewidget.ui" line="+20"/>
+        <source>TabWidget</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TransactionDesc</name>
     <message>
         <location filename="../transactiondesc.cpp" line="+19"/>
@@ -2132,7 +3138,12 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     <message numerus="yes">
         <location line="-2"/>
         <source>Open for %n block(s)</source>
-        <translation><numerusform>Odprt za %n blok</numerusform><numerusform>Odprt za %n bloka</numerusform><numerusform>Odprt za %n blokov</numerusform><numerusform>Odprt za %n blokov</numerusform></translation>
+        <translation>
+            <numerusform>Odprt za %n blok</numerusform>
+            <numerusform>Odprt za %n bloka</numerusform>
+            <numerusform>Odprt za %n blokov</numerusform>
+            <numerusform>Odprt za %n blokov</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2162,7 +3173,12 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     <message numerus="yes">
         <location line="+7"/>
         <source>, broadcast through %n node(s)</source>
-        <translation><numerusform>, predvajanje skozi %n vozlišče</numerusform><numerusform>, predvajanje skozi %n vozlišči</numerusform><numerusform>, predvajanje skozi %n vozlišč</numerusform><numerusform>, predvajanje skozi %n vozlišč</numerusform></translation>
+        <translation>
+            <numerusform>, predvajanje skozi %n vozlišče</numerusform>
+            <numerusform>, predvajanje skozi %n vozlišči</numerusform>
+            <numerusform>, predvajanje skozi %n vozlišč</numerusform>
+            <numerusform>, predvajanje skozi %n vozlišč</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2215,7 +3231,12 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     <message numerus="yes">
         <location line="-102"/>
         <source>matures in %n more block(s)</source>
-        <translation><numerusform>dozori čez %n blok</numerusform><numerusform>dozori čez %n bloka</numerusform><numerusform>dozori čez %n blokov</numerusform><numerusform>dozori čez %n blokov</numerusform></translation>
+        <translation>
+            <numerusform>dozori čez %n blok</numerusform>
+            <numerusform>dozori čez %n bloka</numerusform>
+            <numerusform>dozori čez %n blokov</numerusform>
+            <numerusform>dozori čez %n blokov</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2315,9 +3336,47 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     </message>
 </context>
 <context>
+    <name>TransactionFilterWidget</name>
+    <message>
+        <location filename="../forms/transactionfilterwidget.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source> or jump to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Recent Transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Search by keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+226"/>
+        <location filename="../transactiontablemodel.cpp" line="+323"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
@@ -2327,9 +3386,8 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Vrsta</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Address</source>
-        <translation>Naslov</translation>
+        <translation type="obsolete">Naslov</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2337,7 +3395,7 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Količina</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+61"/>
         <source>Open until %1</source>
         <translation>Odpri enoto %1</translation>
     </message>
@@ -2349,10 +3407,35 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     <message numerus="yes">
         <location line="-15"/>
         <source>Open for %n more block(s)</source>
-        <translation><numerusform>Odprt še  %n blok</numerusform><numerusform>Odprt še  %n bloka</numerusform><numerusform>Odprt še  %n blokov</numerusform><numerusform>Odprt še  %n blokov</numerusform></translation>
+        <translation>
+            <numerusform>Odprt še  %n blok</numerusform>
+            <numerusform>Odprt še  %n bloka</numerusform>
+            <numerusform>Odprt še  %n blokov</numerusform>
+            <numerusform>Odprt še  %n blokov</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-58"/>
+        <source>From account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>To account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+64"/>
         <source>Offline</source>
         <translation>Nepovezan</translation>
     </message>
@@ -2388,36 +3471,85 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
     </message>
     <message>
         <location line="+42"/>
-        <source>Received with</source>
-        <translation>Prejeto z</translation>
-    </message>
-    <message>
         <location line="+2"/>
-        <source>Received from</source>
-        <translation>Prejeto od</translation>
+        <source>Received</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
+        <source>Sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Internal Transfer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Fee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+569"/>
+        <source>Destination account of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Source account of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Account for transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Other account for transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Account balance at end of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Received with</source>
+        <translation type="obsolete">Prejeto z</translation>
+    </message>
+    <message>
+        <source>Received from</source>
+        <translation type="obsolete">Prejeto od</translation>
+    </message>
+    <message>
         <source>Sent to</source>
-        <translation>Poslano</translation>
+        <translation type="obsolete">Poslano</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Payment to yourself</source>
-        <translation>Izplačilo sebi</translation>
+        <translation type="obsolete">Izplačilo sebi</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Mined</source>
-        <translation>Minirano</translation>
+        <translation type="obsolete">Minirano</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="-539"/>
+        <location line="+19"/>
+        <location line="+19"/>
+        <location line="+19"/>
         <source>(n/a)</source>
         <translation>(ni na voljo)</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+466"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
         <translation>Stanje transakcije. Zapeljite z miško čez to polje za prikaz števila potrdil. </translation>
     </message>
@@ -2432,12 +3564,11 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Vrsta transakcije.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Destination address of transaction.</source>
-        <translation>Naslov prejemnika transakcije.</translation>
+        <translation type="obsolete">Naslov prejemnika transakcije.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+10"/>
         <source>Amount removed from or added to balance.</source>
         <translation>Količina odlita ali prilita dobroimetju.</translation>
     </message>
@@ -2445,78 +3576,63 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
 <context>
     <name>TransactionView</name>
     <message>
-        <location filename="../transactionview.cpp" line="+55"/>
-        <location line="+16"/>
         <source>All</source>
-        <translation>Vse</translation>
+        <translation type="obsolete">Vse</translation>
     </message>
     <message>
-        <location line="-15"/>
         <source>Today</source>
-        <translation>Danes</translation>
+        <translation type="obsolete">Danes</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This week</source>
-        <translation>Ta teden</translation>
+        <translation type="obsolete">Ta teden</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This month</source>
-        <translation>Ta mesec</translation>
+        <translation type="obsolete">Ta mesec</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Last month</source>
-        <translation>Prejšnji mesec</translation>
+        <translation type="obsolete">Prejšnji mesec</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This year</source>
-        <translation>To leto</translation>
+        <translation type="obsolete">To leto</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Range...</source>
-        <translation>Območje ...</translation>
+        <translation type="obsolete">Območje ...</translation>
     </message>
     <message>
-        <location line="+11"/>
         <source>Received with</source>
-        <translation>Prejeto z</translation>
+        <translation type="obsolete">Prejeto z</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Sent to</source>
-        <translation>Poslano</translation>
+        <translation type="obsolete">Poslano</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>To yourself</source>
-        <translation>Samemu sebi</translation>
+        <translation type="obsolete">Samemu sebi</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Mined</source>
-        <translation>Minirano</translation>
+        <translation type="obsolete">Minirano</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Other</source>
-        <translation>Drugo</translation>
+        <translation type="obsolete">Drugo</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Enter address or label to search</source>
-        <translation>Vnesite naslov ali oznako za iskanje</translation>
+        <translation type="obsolete">Vnesite naslov ali oznako za iskanje</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Min amount</source>
-        <translation>Minimalna količina</translation>
+        <translation type="obsolete">Minimalna količina</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location filename="../transactionview.cpp" line="+65"/>
         <source>Copy address</source>
         <translation>Kopiraj naslov</translation>
     </message>
@@ -2546,7 +3662,12 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Prikaži podrobnosti transakcije</translation>
     </message>
     <message>
-        <location line="+144"/>
+        <location line="+1"/>
+        <source>Show transaction on Pandachain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
         <source>Export Transaction Data</source>
         <translation>Izvozi podatke transakcij</translation>
     </message>
@@ -2601,20 +3722,36 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <translation>Napaka pri pisanju na datoteko %1.</translation>
     </message>
     <message>
-        <location line="+100"/>
         <source>Range:</source>
-        <translation>Območje:</translation>
+        <translation type="obsolete">Območje:</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>to</source>
-        <translation>za</translation>
+        <translation type="obsolete">za</translation>
+    </message>
+</context>
+<context>
+    <name>TransferPage</name>
+    <message>
+        <location filename="../forms/transferpage.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Transfers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Address Book</source>
+        <translation type="unfinished">Imenik</translation>
     </message>
 </context>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+206"/>
+        <location filename="../walletmodel.cpp" line="+223"/>
         <source>Sending...</source>
         <translation>Pošiljanje...</translation>
     </message>
@@ -3121,7 +4258,7 @@ na primer: alertnotify=echo %%s | mail -s &quot;Pandacoin Alarm&quot; admin@foo.
     <message>
         <location line="+53"/>
         <source>Error: Wallet unlocked for staking only, unable to create transaction.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+18"/>

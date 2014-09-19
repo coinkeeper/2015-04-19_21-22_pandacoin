@@ -249,3 +249,19 @@ void TransactionView::focusTransaction(const QModelIndex &idx)
 }
 
 
+int TransactionView::getBalanceColumnWidth()
+{
+    return transactionView->columnWidth(5);
+}
+
+int TransactionView::getAmountColumnWidth()
+{
+    return transactionView->columnWidth(4);
+}
+
+int TransactionView::getAccountColumnWidth()
+{
+    return transactionView->columnWidth(3);
+}
+
+

@@ -57,38 +57,6 @@ CPubKey CWallet::GenerateNewKey()
     return key.GetPubKey();
 }
 
-
-CKey CWallet::GenerateNewKeyOutsideKeychain()
-{
-    bool fCompressed = CanSupportFeature(FEATURE_COMPRPUBKEY); // default to compressed public keys if we want 0.6.0 wallets
-
-    RandAddSeedPerfmon();
-    CKey key;
-    key.MakeNewKey(fCompressed);
-
-    // Compressed public keys were introduced in version 0.6.0
-    if (fCompressed)
-        SetMinVersion(FEATURE_COMPRPUBKEY);
-
-    return key;
-}
-
-bool CWallet::AddNewKeyToChain(const CKey& key)
-{
-    CPubKey pubkey = key.GetPubKey();
-
-    // Create new metadata
-    int64_t nCreationTime = GetTime();
-    mapKeyMetadata[pubkey.GetID()] = CKeyMetadata(nCreationTime);
-    if (!nTimeFirstKey || nCreationTime < nTimeFirstKey)
-        nTimeFirstKey = nCreationTime;
-
-    if (!AddKey(key))
-        return false;
-
-    return true;
-}
-
 bool CWallet::AddKey(const CKey& key)
 {
     CPubKey pubkey = key.GetPubKey();
@@ -445,6 +413,9 @@ void CWallet::MarkDirty()
         BOOST_FOREACH(PAIRTYPE(const uint256, CWalletTx)& item, mapWallet)
             item.second.MarkDirty();
     }
+    addressStakeCache.clear();
+    addressUnconfirmedBalanceCache.clear();
+    addressCreditCache.clear();
 }
 
 bool CWallet::AddToWallet(const CWalletTx& wtxIn)
@@ -719,7 +690,6 @@ void CWalletTx::GetAmounts(list<pair<CTxDestination, int64_t> >& listReceived,
     listSent.clear();
     strSentAccount = strFromAccount;
 
-
     // Compute fee:
     int64_t nDebit = GetDebit();
     if (nDebit > 0) // debit>0 means we signed/sent this transaction
@@ -750,34 +720,21 @@ void CWalletTx::GetAmounts(list<pair<CTxDestination, int64_t> >& listReceived,
             continue;
 
         // In either case, we need to get the destination address
-        CTxDestination toAddress;
-        if (!ExtractDestination(txout.scriptPubKey, toAddress))
+        CTxDestination address;
+        if (!ExtractDestination(txout.scriptPubKey, address))
         {
             printf("CWalletTx::GetAmounts: Unknown transaction type found, txid %s\n",
                    this->GetHash().ToString().c_str());
-            toAddress = CNoDestination();
+            address = CNoDestination();
         }
 
         // If we are debited by the transaction, add the output as a "sent" entry
         if (nDebit > 0)
-        {
-            CTxDestination fromAddress=toAddress;
-
-            CTxIn txin=vin[0];
-            CWalletTx prev = pwallet->mapWallet.find(txin.prevout.hash)->second;
-            ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, fromAddress);
-            while(!pwallet->mapAddressBook.count(fromAddress)||!pwallet->IsMine(txin))
-            {
-                txin=prev.vin[0];
-                prev=pwallet->mapWallet.find(txin.prevout.hash)->second;
-                ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey, fromAddress);
-            }
-            listSent.push_back(make_pair(fromAddress, txout.nValue));
-        }
+            listSent.push_back(make_pair(address, txout.nValue));
 
         // If we are receiving the output, add it as a "received" entry
         if (fIsMine)
-            listReceived.push_back(make_pair(toAddress, txout.nValue));
+            listReceived.push_back(make_pair(address, txout.nValue));
     }
 
 }
@@ -793,20 +750,11 @@ void CWalletTx::GetAccountAmounts(const string& strAccount, int64_t& nReceived,
     list<pair<CTxDestination, int64_t> > listSent;
     GetAmounts(listReceived, listSent, allFee, strSentAccount);
 
-    //if (strAccount=="" /*strAccount == strSentAccount*/)
+    if (strAccount == strSentAccount)
     {
         BOOST_FOREACH(const PAIRTYPE(CTxDestination,int64_t)& s, listSent)
-        {
-            if (pwallet->mapAddressBook.count(s.first))
-            {
-                map<CTxDestination, string>::const_iterator mi = pwallet->mapAddressBook.find(s.first);
-                if (mi != pwallet->mapAddressBook.end() && (*mi).second == strAccount)
-                {
-                    nSent += s.second;
-                }
-            }
-        }
-        //nFee = allFee;
+            nSent += s.second;
+        nFee = allFee;
     }
     {
         LOCK(pwallet->cs_wallet);
@@ -816,9 +764,11 @@ void CWalletTx::GetAccountAmounts(const string& strAccount, int64_t& nReceived,
             {
                 map<CTxDestination, string>::const_iterator mi = pwallet->mapAddressBook.find(r.first);
                 if (mi != pwallet->mapAddressBook.end() && (*mi).second == strAccount)
-                {
                     nReceived += r.second;
-                }
+            }
+            else if (strAccount.empty())
+            {
+                nReceived += r.second;
             }
         }
     }
@@ -1065,81 +1015,31 @@ void CWallet::ResendWalletTransactions(bool fForce)
 }
 
 
-
-void CWalletTx::GetVirtualAccountAmounts(const string& strAccount, int64_t& nReceived, int64_t& nSent, int64_t& nFee) const
-{
-    nReceived = nSent = nFee = 0;
-
-    int64_t allFee;
-    string strSentAccount;
-    list<pair<CTxDestination, int64_t> > listReceived;
-    list<pair<CTxDestination, int64_t> > listSent;
-    GetAmounts(listReceived, listSent, allFee, strSentAccount);
-
-    //Sent
-    {
-        BOOST_FOREACH(const PAIRTYPE(CTxDestination,int64_t)& s, listSent)
-        {
-            if (pwallet->mapAddressBook.count(s.first))
-            {
-                map<CTxDestination, string>::const_iterator mi = pwallet->mapAddressBook.find(s.first);
-                if (mi != pwallet->mapAddressBook.end() && (*mi).second == strAccount)
-                {
-                    nSent += s.second;
-                    nFee = allFee;
-                }
-            }
-        }
-    }
-    //Received
-    {
-        LOCK(pwallet->cs_wallet);
-        BOOST_FOREACH(const PAIRTYPE(CTxDestination,int64_t)& r, listReceived)
-        {
-            if (pwallet->mapAddressBook.count(r.first))
-            {
-                map<CTxDestination, string>::const_iterator mi = pwallet->mapAddressBook.find(r.first);
-                if (mi != pwallet->mapAddressBook.end() && (*mi).second == strAccount)
-                {
-                    nReceived += r.second;
-                }
-            }
-        }
-    }
-}
-
-
 //////////////////////////////////////////////////////////////////////////////
 //
 // Actions
 //
 
-int64_t CWallet::GetCreditForAddress(const CTransaction& tx, std::string addr) const
+int64_t CWallet::GetCreditForAddress(const CTransaction& tx, std::string addr, bool fUseCache) const
 {
+    if(fUseCache)
+    {
+        std::map<std::string, int64_t>::const_iterator iter = addressCreditCache.find(addr);
+        if(iter != addressCreditCache.end())
+        {
+            return iter->second;
+        }
+    }
+
     int64_t nCredit = 0;
     try
     {
         BOOST_FOREACH(const CTxOut& txout, tx.vout)
         {
-            CTxDestination compAddress;
-            if(ExtractDestination(txout.scriptPubKey, compAddress))
+            std::string compAddress = GetPrimaryAddress(txout, tx);
+            if(addr == compAddress)
             {
-                CTxOut txoutcopy = txout;
-                CTxIn txin = tx.vin[0];
-                int count=0;
-                while(IsChange(txoutcopy) && count < 20)
-                {
-                    count++;
-                    CWalletTx prev = mapWallet.find(txin.prevout.hash)->second;
-                    ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey,compAddress);
-                    txin = prev.vin[0];
-                    txoutcopy = prev.vout[0];
-                }
-
-                if(addr == CBitcoinAddress(compAddress).ToString().c_str())
-                {
-                    nCredit += GetCredit(txout);
-                }
+                nCredit += GetCredit(txout);
             }
         }
     }
@@ -1147,49 +1047,39 @@ int64_t CWallet::GetCreditForAddress(const CTransaction& tx, std::string addr) c
     {
     }
 
+    addressCreditCache[addr] = nCredit;
     return nCredit;
 }
 
-int64_t CWalletTx::GetAvailableCreditForAddress(std::string addr) const
+int64_t CWalletTx::GetAvailableCreditForAddress(std::string addr, bool fUseCache) const
 {
 
     // Must wait until coinbase is safely deep enough in the chain before valuing it
-    if ((IsCoinBase() || IsCoinStake()) && GetBlocksToMaturity() > 0)
+    if((IsCoinBase() || IsCoinStake()) && GetBlocksToMaturity() > 0)
         return 0;
 
-    int64_t nCredit = 0;
-
-    try
+    if(fUseCache)
     {
-        for(unsigned int i = 0; i < vout.size(); i++)
+        std::map<std::string, int64_t>::const_iterator iter = addressAvailableCreditCache.find(addr);
+        if(iter != addressAvailableCreditCache.end())
         {
-            if(!IsSpent(i))
+            return iter->second;
+        }
+    }
+
+    int64_t nCredit = 0;
+    for(unsigned int i = 0; i < vout.size(); i++)
+    {
+        if(!IsSpent(i))
+        {
+            std::string compAddress = pwallet->GetPrimaryAddress(vout[i], *this);
+            if(addr == compAddress)
             {
-                CTxDestination compAddress;
-                if(ExtractDestination(vout[i].scriptPubKey, compAddress))
-                {
-                    CTxOut txout = vout[i];
-                    CTxIn txin = vin[0];
-                    int count=0;
-                    while(pwallet->IsChange(txout) && count < 20)
-                    {
-                        count++;
-                        CWalletTx prev = pwallet->mapWallet.find(txin.prevout.hash)->second;
-                        ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey,compAddress);
-                        txin = prev.vin[0];
-                        txout = prev.vout[0];
-                    }
-                    if(addr == CBitcoinAddress(compAddress).ToString().c_str())
-                    {
-                        nCredit += pwallet->GetCredit(vout[i]);
-                    }
-                }
+                nCredit += pwallet->GetCredit(vout[i]);
             }
         }
     }
-    catch(...)
-    {
-    }
+    addressAvailableCreditCache[addr] = nCredit;
     return nCredit;
 }
 
@@ -1247,8 +1137,17 @@ int64_t CWallet::GetUnconfirmedBalance() const
 }
 
 
-int64_t CWallet::GetUnconfirmedBalanceForAddress(std::string addr) const
+int64_t CWallet::GetUnconfirmedBalanceForAddress(std::string addr, bool fUseCache) const
 {
+    if(fUseCache)
+    {
+        std::map<std::string, int64_t>::const_iterator iter = addressUnconfirmedBalanceCache.find(addr);
+        if(iter != addressUnconfirmedBalanceCache.end())
+        {
+            return iter->second;
+        }
+    }
+
     int64_t nTotal = 0;
     {
         LOCK(cs_wallet);
@@ -1259,6 +1158,7 @@ int64_t CWallet::GetUnconfirmedBalanceForAddress(std::string addr) const
                 nTotal += pcoin->GetAvailableCreditForAddress(addr);
         }
     }
+    addressUnconfirmedBalanceCache[addr] = nTotal;
     return nTotal;
 }
 
@@ -1389,16 +1289,29 @@ int64_t CWallet::GetStake() const
     return nTotal;
 }
 
-int64_t CWallet::GetStakeForAddress(std::string addrName) const
+int64_t CWallet::GetStakeForAddress(std::string addrName, bool fUseCache) const
 {
+    if(fUseCache)
+    {
+        std::map<std::string, int64_t>::const_iterator iter = addressStakeCache.find(addrName);
+        if(iter != addressStakeCache.end())
+        {
+            return iter->second;
+        }
+    }
+
     int64_t nTotal = 0;
     LOCK(cs_wallet);
     for (map<uint256, CWalletTx>::const_iterator it = mapWallet.begin(); it != mapWallet.end(); ++it)
     {
         const CWalletTx* pcoin = &(*it).second;
         if (pcoin->IsCoinStake() && pcoin->GetBlocksToMaturity() > 0 && pcoin->GetDepthInMainChain() > 0)
-            nTotal += CWallet::GetCreditForAddress(*pcoin,addrName);
+        {
+            //fixme: Temporarily disable cache here - it is calculating wrong when it comes to stake for some reason
+            nTotal += CWallet::GetCreditForAddress(*pcoin, addrName, false);
+        }
     }
+    addressStakeCache[addrName]=nTotal;
     return nTotal;
 }
 
@@ -2168,6 +2081,72 @@ bool CWallet::DelAddressBookName(const CTxDestination& address)
     return CWalletDB(strWalletFile).EraseName(CBitcoinAddress(address).ToString());
 }
 
+
+
+
+std::string CWallet::GetPrimaryAddress(CTxOut txout, CTransaction tx) const
+{
+    try
+    {
+        CTxDestination compAddress;
+        if(ExtractDestination(txout.scriptPubKey, compAddress))
+        {
+            std::string subAddress = CBitcoinAddress(compAddress).ToString();
+            //fixme: CBSU - We can probably pre-fill this map when loading the wallet instead of calculating it on the fly constantly.
+            if(primaryAddressMap.find(subAddress) != primaryAddressMap.end())
+                return primaryAddressMap[subAddress];
+
+            CTxIn txin = tx.vin[0];
+            int count=0;
+            std::vector<std::string> addressStack;
+            addressStack.reserve(20);
+            addressStack.push_back(subAddress);
+            //fixme: Traversing this deep is a hack to avoid issues for now - we need to fix this in a better way.
+            while((!mapAddressBook.count(compAddress)) && count < 200)
+            {
+                count++;
+                std::map<uint256, CWalletTx>::const_iterator iter = mapWallet.find(txin.prevout.hash);
+                if(iter != mapWallet.end())
+                {
+                    CWalletTx prev = iter->second;
+                    ExtractDestination(prev.vout[txin.prevout.n].scriptPubKey,compAddress);
+                    txin = prev.vin[0];
+                    std::string parentAddress = CBitcoinAddress(compAddress).ToString();
+                    if(primaryAddressMap.find(parentAddress) != primaryAddressMap.end())
+                    {
+                        std::string primaryAddress = primaryAddressMap[parentAddress];
+                        BOOST_FOREACH(std::string addAddress, addressStack)
+                        {
+                            primaryAddressMap[addAddress] = primaryAddress;
+                        }
+                        return primaryAddress;
+                    }
+                    addressStack.push_back(parentAddress);
+                }
+            }
+            if(count < 200)
+            {
+                std::string primaryAddress = CBitcoinAddress(compAddress).ToString();
+                BOOST_FOREACH(std::string addAddress, addressStack)
+                {
+                    primaryAddressMap[addAddress] = primaryAddress;
+                }
+                return primaryAddress;
+            }
+        }
+    }
+    catch(...)
+    {
+    }
+
+    return "";
+}
+
+
+std::string CWallet::GetPrimaryAddress(CTxIn txin) const
+{
+    return GetPrimaryAddress(mapWallet.find(txin.prevout.hash)->second.vout[txin.prevout.n],mapWallet.find(txin.prevout.hash)->second);
+}
 
 void CWallet::PrintWallet(const CBlock& block)
 {

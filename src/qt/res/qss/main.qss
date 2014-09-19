@@ -1,6 +1,7 @@
 *
 {
     font-size: BODY_FONT_SIZE;
+    color: black;
 }
 
 /* Generic whole app styles */
@@ -19,7 +20,10 @@ QToolButton:pressed, QPushButton:pressed
     background-color: yellow2;
 }
 
-
+QToolTip
+{
+    background-color: white;
+}
 
 
 QMenu, QContextMenu, QComboBox QAbstractItemView
@@ -142,6 +146,11 @@ QTabBar::tab:selected, QTabBar::tab:focus
     padding-right: 30px;
     height:50px;
     border-left: 1px solid gray1;
+    color: #444444;
+}
+
+#main_tab_nav_bar QTabWidget > QTabBar::tab
+{
     color: #444444;
 }
 
@@ -283,7 +292,6 @@ QHeaderView::section
     border: 0px;
     height:35px;
     text-decoration: underline;
-    padding-right: 12px;
     padding-left: 10px;
 }
 
@@ -292,18 +300,11 @@ View
     margin-top: 0px;
 }
 
-TransactionViewTable::item
-{
-    padding-left: 0px;
-    padding-right: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
 QTableView::item
 {
+    color: black;
     border:0px;
-    padding-left: 7px;
+    padding-left: 0px;
 }
 
 
@@ -375,7 +376,7 @@ QHeaderView::up-arrow
     margin-bottom: 4px;
 }
 
-#portfolio_total_heading, #labelTotal, #account_header_addess, #recent_transaction_label_show, #from_label, #to_label, #or_label, #address_book_edit_heading
+#portfolio_total_heading, #labelTotal, #account_header_addess, #recent_transaction_label_show, #from_label, #to_label, #or_label, #address_book_edit_heading, #account_balance_header, #account_balance
 {
     font-size: TOTAL_FONT_SIZE;
     font-weight: bold;
@@ -486,6 +487,7 @@ QToolButton
     background-position: center;
 }
 
+
 #account_summary_line
 {
     width: 100%;
@@ -500,6 +502,11 @@ QToolButton
 #transaction_table
 {
     border: 0px;
+}
+
+#transaction_table QHeaderView
+{
+    background-color: white;
 }
 
 #transaction_table QHeaderView::section
@@ -772,6 +779,7 @@ LockBar QToolButton
 {
     border: 2px solid #D3D4D6;
     border-radius: 5px;
+    background-color: white;
 }
 
 QLineEdit
@@ -781,6 +789,7 @@ QLineEdit
     min-height: 20px;
     border: 2px solid #D3D4D6;
     border-radius: 5px;
+    background-color: white;
 }
 
 RichTextCombo
@@ -790,6 +799,7 @@ RichTextCombo
     min-height: 20px;
     border: 2px solid gray5;
     border-radius: 5px;
+    background-color: white;
 }
 
 BitcoinAmountField > QDoubleSpinBox
@@ -802,6 +812,7 @@ BitcoinAmountField > QDoubleSpinBox
     border-bottom-left-radius: 5px;
     border-right: 0px;
     font-size: CURRENCY_FONT_SIZE;
+    background-color: white;
 }
 
 BitcoinAmountField > QDoubleSpinBox::up-button, BitcoinAmountField > QDoubleSpinBox::down-button, BitcoinAmountField > QValueComboBox::drop-down, BitcoinAmountField > QComboBox::down-arrow
@@ -811,7 +822,8 @@ BitcoinAmountField > QDoubleSpinBox::up-button, BitcoinAmountField > QDoubleSpin
     width:0px;
     max-width:0px;
     border-image: url(noimg);
-    border-width: 0px;   
+    border-width: 0px;
+    background-color: white;
 }
 
 BitcoinAmountField > QValueComboBox
@@ -827,6 +839,7 @@ BitcoinAmountField > QValueComboBox
     padding: 0px;
     margin: 0px;
     font-size: CURRENCY_DECIMAL_FONT_SIZE;
+    background-color: white;
 }
 
 
@@ -843,6 +856,7 @@ RichTextCombo::drop-down
     background-image: url(':/icons/down_arrow2');
     background-repeat: no-repeat;
     background-position: center;
+    background-color: white;
 }
 
 #edit_account_label_button

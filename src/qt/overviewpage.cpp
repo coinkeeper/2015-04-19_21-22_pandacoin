@@ -16,82 +16,10 @@
 #include <QDateTime>
 #include <QSortFilterProxyModel>
 #include <QListView>
+#include <QMenu>
 
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 3
-class TxViewDelegate : public QAbstractItemDelegate
-{
-    Q_OBJECT
-public:
-    TxViewDelegate(): QAbstractItemDelegate(), unit(BitcoinUnits::BTC)
-    {
-
-    }
-
-    inline void paint(QPainter *painter, const QStyleOptionViewItem &option,
-                      const QModelIndex &index ) const
-    {
-        painter->save();
-
-        QIcon icon = qvariant_cast<QIcon>(index.data(Qt::DecorationRole));
-        QRect mainRect = option.rect;
-        QRect decorationRect(mainRect.topLeft(), QSize(DECORATION_SIZE, DECORATION_SIZE));
-        int xspace = DECORATION_SIZE + 8;
-        int ypad = 6;
-        int halfheight = (mainRect.height() - 2*ypad)/2;
-        QRect amountRect(mainRect.left() + xspace, mainRect.top()+ypad, mainRect.width() - xspace, halfheight);
-        QRect addressRect(mainRect.left() + xspace, mainRect.top()+ypad+halfheight, mainRect.width() - xspace, halfheight);
-        icon.paint(painter, decorationRect);
-
-        QDateTime date = index.data(TransactionTableModel::DateRole).toDateTime();
-        QString address = index.data(Qt::DisplayRole).toString();
-        qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
-        bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
-        QVariant value = index.data(Qt::ForegroundRole);
-        QColor foreground = option.palette.color(QPalette::Text);
-        if(qVariantCanConvert<QColor>(value))
-        {
-            foreground = qvariant_cast<QColor>(value);
-        }
-
-        painter->setPen(foreground);
-        painter->drawText(addressRect, Qt::AlignLeft|Qt::AlignVCenter, address);
-
-        if(amount < 0)
-        {
-            foreground = COLOR_NEGATIVE;
-        }
-        else if(!confirmed)
-        {
-            foreground = COLOR_UNCONFIRMED;
-        }
-        else
-        {
-            foreground = option.palette.color(QPalette::Text);
-        }
-        painter->setPen(foreground);
-        QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true, true);
-        if(!confirmed)
-        {
-            amountText = QString("[") + amountText + QString("]");
-        }
-        painter->drawText(amountRect, Qt::AlignRight|Qt::AlignVCenter, amountText);
-
-        painter->setPen(option.palette.color(QPalette::Text));
-        painter->drawText(amountRect, Qt::AlignLeft|Qt::AlignVCenter, GUIUtil::dateTimeStr(date));
-
-        painter->restore();
-    }
-
-    inline QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
-    {
-        return QSize(DECORATION_SIZE, DECORATION_SIZE);
-    }
-
-    int unit;
-
-};
-
 
 
 OverviewPage::OverviewPage(QWidget *parent)
@@ -100,15 +28,31 @@ OverviewPage::OverviewPage(QWidget *parent)
 , currentBalance(-1)
 , currentStake(0)
 , currentUnconfirmedBalance(-1)
-//, txdelegate(new TxViewDelegate())
+, contextMenu(NULL)
 {
     ui->setupUi(this);
 
     connect(ui->portfolio_heading_more, SIGNAL(pressed()), this, SIGNAL(requestGotoTransactionPage()));
-    connect(ui->PortfolioTable, SIGNAL(clicked(QModelIndex)), this, SLOT(handleAccountClicked(QModelIndex)));
+    connect(ui->PortfolioTable, SIGNAL(activated(QModelIndex)), this, SLOT(handleAccountClicked(QModelIndex)));
+    ui->PortfolioTable->setContextMenuPolicy(Qt::CustomContextMenu);
+
+    // Actions
+    QAction *copyAddressAction = new QAction(tr("Copy account address"), this);
+    QAction *copyLabelAction = new QAction(tr("Copy account name"), this);
+    QAction *copyAmountAction = new QAction(tr("Copy account balance"), this);
+    connect(copyAddressAction, SIGNAL(triggered()), this, SLOT(copyAddress()));
+    connect(copyLabelAction, SIGNAL(triggered()), this, SLOT(copyLabel()));
+    connect(copyAmountAction, SIGNAL(triggered()), this, SLOT(copyAmount()));
+    connect(ui->PortfolioTable, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(contextualMenu(QPoint)));
+
+    // Menu
+    contextMenu = new QMenu(this);
+    contextMenu->addAction(copyLabelAction);
+    contextMenu->addAction(copyAddressAction);
+    contextMenu->addAction(copyAmountAction);
 
     //fixme: hardcoded
-    ui->welcome_heading->setText("Welcome to your PandaBank, You last logged on at " + QDateTime::currentDateTime().time().toString() + " on "+ QDateTime::currentDateTime().date().toString());
+    ui->welcome_heading->setText(tr("Welcome to your PandaBank, You last logged on at") + " " + QDateTime::currentDateTime().time().toString() + " " + tr("on") + " " + QDateTime::currentDateTime().date().toString());
 
     //Hide for now (apparently this will only be visible in later versions of UI).
     ui->portfolio_overview_description->setVisible(false);
@@ -118,7 +62,7 @@ void OverviewPage::handleAccountClicked(const QModelIndex &index)
 {
     if(model)
     {
-        if(index.column() == AccountModel::Address || index.column() == AccountModel::Label)
+        if(index.column() == AccountModel::Label)
         {
             emit accountClicked(ui->PortfolioTable->model()->data(index).toString());
         }
@@ -143,6 +87,37 @@ void OverviewPage::setBalance(qint64 balance, qint64 stake, qint64 unconfirmedBa
     ui->labelTotal->setText(formatBitcoinAmountAsRichString(BitcoinUnits::formatWithUnit(unit, balance + stake + unconfirmedBalance, true, false)));
 }
 
+class OverViewModel: public QSortFilterProxyModel
+{
+public:
+    OverViewModel(QObject* parent=NULL)
+    : QSortFilterProxyModel(parent)
+    {
+
+    }
+    bool filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+    {
+        return true;
+    }
+    bool filterAcceptsColumn(int sourceColumn, const QModelIndex &sourceParent) const
+    {
+        return true;
+    }
+    QVariant data(const QModelIndex &index, int role) const
+    {
+        if(index.column() == AccountModel::Label)
+        {
+            if (role == Qt::DisplayRole || role ==  Qt::EditRole)
+            {
+                return QSortFilterProxyModel::data(index, role).toString() + "<span style='text-decoration: none;'>&nbsp;&nbsp;</span><img src=':/icons/right_arrow'/>";
+            }
+        }
+
+        return QSortFilterProxyModel::data(index, role);
+    }
+private:
+    QString filterString;
+};
 
 void OverviewPage::setModel(WalletModel *model)
 {
@@ -150,29 +125,39 @@ void OverviewPage::setModel(WalletModel *model)
     if(model && model->getOptionsModel())
     {
         //LEAKLEAK
-        RichTextDelegate* richDelegate = new RichTextDelegate(this);
+        RichTextDelegate* richDelegateCurrency = new RichTextDelegate(this);
+        RichTextDelegate* richDelegate = new RichTextDelegate(this, false);
+        richDelegate->setLeftPadding(8);
 
         //LEAKLEAK
-        QSortFilterProxyModel* sortableAccountModel = new QSortFilterProxyModel(this);
+        QSortFilterProxyModel* sortableAccountModel = new OverViewModel(this);
         sortableAccountModel->setSortRole(Qt::UserRole);
         sortableAccountModel->setSourceModel(model->getMyAccountModel());
         ui->PortfolioTable->setModel(sortableAccountModel);
-        ui->PortfolioTable->setItemDelegateForColumn(AccountModel::Balance ,richDelegate);
+        ui->PortfolioTable->setItemDelegateForColumn(AccountModel::Balance ,richDelegateCurrency);
+        ui->PortfolioTable->setItemDelegateForColumn(AccountModel::Label ,richDelegate);
+        ui->PortfolioTable->setItemDelegateForColumn(AccountModel::Address ,richDelegate);
+
         ui->PortfolioTable->setSortingEnabled(true);
         ui->PortfolioTable->sortByColumn(0);
         ui->PortfolioTable->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
+        // Allow table to change its size hints when rows added or removed.
+        connect(sortableAccountModel, SIGNAL(rowsInserted(QModelIndex, int, int)), ui->PortfolioTable, SLOT(layoutChanged()));
+        connect(sortableAccountModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), ui->PortfolioTable, SLOT(layoutChanged()));
+        ui->PortfolioTable->layoutChanged();
+
         //LEAKLEAK
         SingleColumnAccountModel* listModel=new SingleColumnAccountModel(model->getMyAccountModel(), true, false, tr("Select account"));
         ui->quick_transfer_from_combobox->setModel(listModel);
-        ui->quick_transfer_from_combobox->setItemDelegate(richDelegate);
+        ui->quick_transfer_from_combobox->setItemDelegate(richDelegateCurrency);
         // Sadly the below is necessary in order to be able to style QComboBox pull down lists properly.
         ui->quick_transfer_from_combobox->setView(new QListView(this));
 
         //LEAKLEAK
         SingleColumnAccountModel* listModel2=new SingleColumnAccountModel(model->getExternalAccountModel(), false, false, tr("Select account"));
         ui->quick_transfer_to_combobox->setModel(listModel2);
-        ui->quick_transfer_to_combobox->setItemDelegate(richDelegate);
+        ui->quick_transfer_to_combobox->setItemDelegate(richDelegateCurrency);
         // Sadly the below is necessary in order to be able to style QComboBox pull down lists properly.
         ui->quick_transfer_to_combobox->setView(new QListView(this));
 
@@ -247,8 +232,8 @@ void OverviewPage::on_quick_transfer_next_button_clicked()
 
     int toIndex = ui->quick_transfer_to_combobox->currentIndex() - 1;
     int fromIndex = ui->quick_transfer_from_combobox->currentIndex() - 1;
-    QString toAddress = model->getAllAccountModel()->data(AccountModel::Address, toIndex).toString().trimmed();
-    QString toLabel = model->getAllAccountModel()->data(AccountModel::Label, toIndex).toString().trimmed();
+    QString toAddress = model->getExternalAccountModel()->data(AccountModel::Address, toIndex).toString().trimmed();
+    QString toLabel = model->getExternalAccountModel()->data(AccountModel::Label, toIndex).toString().trimmed();
     QString fromAccountAddress = model->getMyAccountModel()->data(AccountModel::Address, fromIndex).toString().trimmed();
 
     qint64 amt=ui->quick_transfer_amount->value();
@@ -263,3 +248,26 @@ void OverviewPage::on_quick_transfer_next_button_clicked()
     }
 }
 
+void OverviewPage::contextualMenu(const QPoint &point)
+{
+    contextMenuTriggerIndex = ui->PortfolioTable->indexAt(point);
+    if(contextMenuTriggerIndex.isValid())
+    {
+        contextMenu->exec(QCursor::pos());
+    }
+}
+
+void OverviewPage::copyAddress()
+{
+    GUIUtil::copyEntryData(ui->PortfolioTable, contextMenuTriggerIndex.row(), 1, Qt::UserRole);
+}
+
+void OverviewPage::copyLabel()
+{
+    GUIUtil::copyEntryData(ui->PortfolioTable, contextMenuTriggerIndex.row(), 0, Qt::UserRole);
+}
+
+void OverviewPage::copyAmount()
+{
+    GUIUtil::copyEntryData(ui->PortfolioTable, contextMenuTriggerIndex.row(), 2, Qt::DisplayRole);
+}

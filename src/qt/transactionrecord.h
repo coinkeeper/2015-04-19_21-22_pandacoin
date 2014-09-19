@@ -8,6 +8,8 @@
 #include <stdint.h>
 #endif
 
+#include <map>
+
 class CWallet;
 class CWalletTx;
 
@@ -72,7 +74,8 @@ public:
         RecvWithAddress,
         RecvFromOther,
         InternalSend,
-        InternalReceive
+        InternalReceive,
+        Fee
     };
 
     /** Number of confirmation recommended for accepting a transaction */
@@ -85,8 +88,6 @@ public:
     , address("")
     , debit(0)
     , credit(0)
-    , balance(0)
-    , balanceNeedsRecalc(true)
     , idx(0)
     {
     }
@@ -98,8 +99,6 @@ public:
     , address("")
     , debit(0)
     , credit(0)
-    , balance(0)
-    , balanceNeedsRecalc(true)
     , idx(0)
     {
     }
@@ -111,8 +110,6 @@ public:
     , address(address)
     , debit(debit)
     , credit(credit)
-    , balance(0)
-    , balanceNeedsRecalc(true)
     , idx(0)
     {
     }
@@ -138,8 +135,8 @@ public:
     qint64 credit;
     /**@}*/
 
-    qint64 balance;
-    bool balanceNeedsRecalc;
+
+
 
     /** Subtransaction index, for sort key */
     int idx;
@@ -157,6 +154,11 @@ public:
     /** Return whether a status update is needed.
      */
     bool statusUpdateNeeded();
+
+    int64_t getCachedBalance(std::string accountAddress) const;
+    void setCachedBalance(std::string accountAddress, int64_t amount);
+    private:
+    std::map<std::string, int64_t> cachedBalance;
 };
 
 #endif // TRANSACTIONRECORD_H

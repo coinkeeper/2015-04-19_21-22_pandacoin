@@ -62,6 +62,7 @@
         <file alias="up_arrow3">res/icons/up_arrow3.png</file>
         <file alias="unlock2">res/icons/unlock2.png</file>
         <file alias="add_12px">res/icons/add_12px.png</file>
+        <file alias="right_arrow">res/icons/right_arrow.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>

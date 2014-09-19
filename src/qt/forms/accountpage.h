@@ -43,6 +43,9 @@ signals:
 
 private:
     void setSelectedAccountFromName(const QString &accountName);
+    void resizeEvent(QResizeEvent *);
+    void showEvent(QShowEvent *);
+    void updateHeaderWidths();
     Ui::AccountPage *ui;
     WalletModel *model;
     CWallet *wallet;

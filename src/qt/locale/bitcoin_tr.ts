@@ -1,10 +1,17 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS language="tr" version="2.1">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0" language="tr">
+<defaultcodec>UTF-8</defaultcodec>
 <context>
     <name>AboutDialog</name>
     <message>
-        <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About Pandacoin</source>
-        <translation>Pandacoin Hakkında</translation>
+        <translation type="obsolete">Pandacoin Hakkında</translation>
+    </message>
+    <message>
+        <location filename="../forms/aboutdialog.ui" line="+14"/>
+        <source>About PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+39"/>
@@ -16,7 +23,7 @@
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
 Copyright © 2014 The Pandacoin developers</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+15"/>
@@ -32,6 +39,165 @@ This product includes software developed by the OpenSSL Project for use in the O
  MIT/X11 yazılım lisansı kapsamında yayınlanmıştır, beraberindeki COPYING dosyasına ya da http://www.opensource.org/licenses/mit-license.php sayfasına bakınız.
 
  Bu ürün, OpenSSL Araç Takımı&apos;nda (http://www.openssl.org/) kullanılmak üzere OpenSSL projesi tarafından geliştirilen yazılımı, Eric Young (eay@cryptsoft.com) tarafından hazırlanmış kriptografik yazılımı ve Thomas Bernard tarafından yazılmış UPnP yazılımı içerir.</translation>
+    </message>
+</context>
+<context>
+    <name>AccountModel</name>
+    <message>
+        <location filename="../accountmodel.cpp" line="+24"/>
+        <source>Account Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AccountPage</name>
+    <message>
+        <location filename="../forms/accountpage.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+38"/>
+        <source>View transactions for</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>Copy Address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Show QR Code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Sign message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+132"/>
+        <source>Last 30 Days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Out</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <source>In</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+23"/>
+        <location line="+10"/>
+        <location line="+140"/>
+        <source>PND</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-128"/>
+        <source>Interest Gained</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+115"/>
+        <source>Total interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <location line="+25"/>
+        <source>Create Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/accountpage.cpp" line="+152"/>
+        <source>All Accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+28"/>
+        <location line="+4"/>
+        <source>transaction found</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AccountSummaryHeaderWidget</name>
+    <message>
+        <location filename="../forms/accountsummaryheaderwidget.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Earning interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+31"/>
+        <source>Total balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+153"/>
+        <source>Edit account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Accept new account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Cancel editing of account name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-156"/>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+37"/>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/accountsummaryheaderwidget.cpp" line="+63"/>
+        <location line="+9"/>
+        <source>Error</source>
+        <translation type="unfinished">Hata</translation>
+    </message>
+    <message>
+        <location line="-9"/>
+        <source>An account with this name already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <source>Error could not change name of PandaBank account.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -138,9 +304,127 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
 </context>
 <context>
+    <name>AddressBookPage_new</name>
+    <message>
+        <location filename="../forms/addressbookpage_new.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+34"/>
+        <source>Address Book</source>
+        <translation type="unfinished">Adres Defteri</translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Create a new address</source>
+        <translation type="unfinished">Yeni bir adres oluştur</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;New Address</source>
+        <translation type="unfinished">&amp;Yeni Adres</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Copy the currently selected address to the system clipboard</source>
+        <translation type="unfinished">Seçili adresi sistem panosuna kopyala</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Copy Address</source>
+        <translation type="unfinished">Adresi &amp;Kopyala</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Show &amp;QR Code</source>
+        <translation type="unfinished">&amp;QR Kodunu Göster</translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Verify a message to ensure it was signed with a specified Pandacoin address</source>
+        <translation type="unfinished">Mesajın, belirli bir Pandacoin adresiyle imzalandığından emin olmak için onu doğrula</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Verify Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Delete the currently selected address from the list</source>
+        <translation type="unfinished">Seçili adresi listeden sil</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Sil</translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Search address book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>label</source>
+        <translation type="obsolete">etiket</translation>
+    </message>
+    <message>
+        <location line="+80"/>
+        <location line="+245"/>
+        <source>Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Send Pandacoins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+40"/>
+        <source>From</source>
+        <translation type="unfinished">Gönderen</translation>
+    </message>
+    <message>
+        <location line="+36"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+67"/>
+        <source>Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
+        <source>Delete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>AddressTableModel</name>
     <message>
-        <location filename="../addresstablemodel.cpp" line="+144"/>
+        <location filename="../addresstablemodel.cpp" line="+25"/>
         <source>Label</source>
         <translation>Etiket</translation>
     </message>
@@ -164,172 +448,304 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+21"/>
+        <location filename="../askpassphrasedialog.cpp" line="+42"/>
+        <source>Enter password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>New password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Repeat new password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+39"/>
+        <source>For earning interest only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Enter passphrase</source>
-        <translation>Parolayı giriniz</translation>
+        <translation type="obsolete">Parolayı giriniz</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>New passphrase</source>
-        <translation>Yeni parola</translation>
+        <translation type="obsolete">Yeni parola</translation>
     </message>
     <message>
-        <location line="+14"/>
         <source>Repeat new passphrase</source>
-        <translation>Yeni parolayı tekrarlayınız</translation>
+        <translation type="obsolete">Yeni parolayı tekrarlayınız</translation>
     </message>
     <message>
-        <location line="+33"/>
+        <location line="-3"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
         <translation>OS hesabı tehlike girdiğinde önemsiz para gönderme özelliğini devre dışı bırakmayı sağlar. Gerçek anlamda bir güvenlik sağlamaz.</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>For staking only</source>
-        <translation>Sadece pay almak için</translation>
+        <translation type="obsolete">Sadece pay almak için</translation>
     </message>
     <message>
-        <location filename="../askpassphrasedialog.cpp" line="+35"/>
         <source>Enter the new passphrase to the wallet.&lt;br/&gt;Please use a passphrase of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation>Cüzdanınız için yeni parolayı giriniz.&lt;br/&gt;Lütfen &lt;b&gt;10 ya da daha fazla rastgele karakter&lt;/b&gt; veya &lt;b&gt;sekiz ya da daha fazla kelime&lt;/b&gt; içeren bir parola seçiniz.</translation>
+        <translation type="obsolete">Cüzdanınız için yeni parolayı giriniz.&lt;br/&gt;Lütfen &lt;b&gt;10 ya da daha fazla rastgele karakter&lt;/b&gt; veya &lt;b&gt;sekiz ya da daha fazla kelime&lt;/b&gt; içeren bir parola seçiniz.</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Encrypt wallet</source>
-        <translation>Cüzdanı şifrele</translation>
+        <translation type="obsolete">Cüzdanı şifrele</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>This operation needs your wallet passphrase to unlock the wallet.</source>
-        <translation>Bu işlem cüzdan kilidini açmak için cüzdan parolanızı gerektirir.</translation>
+        <translation type="obsolete">Bu işlem cüzdan kilidini açmak için cüzdan parolanızı gerektirir.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Unlock wallet</source>
-        <translation>Cüzdan kilidini aç</translation>
+        <translation type="obsolete">Cüzdan kilidini aç</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>This operation needs your wallet passphrase to decrypt the wallet.</source>
-        <translation>Bu işlem, cüzdan şifresini açmak için cüzdan parolasını gerektirir.</translation>
+        <translation type="obsolete">Bu işlem, cüzdan şifresini açmak için cüzdan parolasını gerektirir.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>Decrypt wallet</source>
-        <translation>Cüzdan şifresini aç</translation>
+        <translation type="obsolete">Cüzdan şifresini aç</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Change passphrase</source>
-        <translation>Parolayı değiştir</translation>
+        <translation type="obsolete">Parolayı değiştir</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Enter the old and new passphrase to the wallet.</source>
-        <translation>Cüzdan için eski ve yeni parolaları giriniz.</translation>
+        <translation type="obsolete">Cüzdan için eski ve yeni parolaları giriniz.</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>Confirm wallet encryption</source>
-        <translation>Cüzdan şifrelenmesini teyit eder</translation>
+        <translation type="obsolete">Cüzdan şifrelenmesini teyit eder</translation>
+    </message>
+    <message>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
+        <translation type="obsolete">Uyarı: Eğer cüzdanınızı şifreleyip parolanızı kaybederseniz, &lt;b&gt; TÜM COINLERİNİZİ KAYBEDECEKSİNİZ&lt;/b&gt;!</translation>
+    </message>
+    <message>
+        <source>Are you sure you wish to encrypt your wallet?</source>
+        <translation type="obsolete">Cüzdanınızı şifrelemek istediğinizden emin misiniz?</translation>
+    </message>
+    <message>
+        <location filename="../askpassphrasedialog.cpp" line="-7"/>
+        <source>Enter the new password to the wallet.&lt;br/&gt;Please use a password of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation>Uyarı: Eğer cüzdanınızı şifreleyip parolanızı kaybederseniz, &lt;b&gt; TÜM COINLERİNİZİ KAYBEDECEKSİNİZ&lt;/b&gt;!</translation>
+        <source>Encrypt PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+0"/>
-        <source>Are you sure you wish to encrypt your wallet?</source>
-        <translation>Cüzdanınızı şifrelemek istediğinizden emin misiniz?</translation>
+        <location line="+4"/>
+        <source>Log on to PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Please enter your PandaBank password to log on to PandaBank.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+15"/>
+        <source>This operation needs your PandaBank password to unlock PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Unlock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>This operation needs your PandaBank password to decrypt PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Decrypt PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Change password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Enter the old and new password to PandaBank.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+46"/>
+        <source>Confirm PandaBank encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Warning: If you encrypt your PandaBank and lose your password, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Are you sure you wish to encrypt your PandaBank?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+61"/>
+        <source>PandaBank encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-59"/>
+        <source>PandaBank will close now to finish the encryption process. Remember that encrypting your PandaBank cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
         <source>IMPORTANT: Any previous backups you have made of your wallet file should be replaced with the newly generated, encrypted wallet file. For security reasons, previous backups of the unencrypted wallet file will become useless as soon as you start using the new, encrypted wallet.</source>
         <translation>ÖNEMLİ: Önceden yapmış olduğunuz cüzdan dosyası yedeklemelerinin yeni oluşturulan, şifrelenmiş cüzdan dosyası ile değiştirilmeleri gerekmektedir. Güvenlik nedenleriyle yeni, şifrelenmiş cüzdanı kullanmaya başladığınızda, şifrelenmemiş cüzdan dosyasının önceki yedekleri işe yaramaz hale gelecektir.</translation>
     </message>
     <message>
-        <location line="+103"/>
-        <location line="+24"/>
-        <source>Warning: The Caps Lock key is on!</source>
-        <translation>Uyarı: Caps Lock tuşu faal durumda!</translation>
-    </message>
-    <message>
-        <location line="-133"/>
-        <location line="+60"/>
-        <source>Wallet encrypted</source>
-        <translation>Cüzdan şifrelendi</translation>
-    </message>
-    <message>
-        <location line="-58"/>
-        <source>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>Pandacoin, şifreleme işlemini tamamlamak için şimdi kapatılacak. Cüzdanınızı şifrelemenin; coinlerinizin, bilgisayarınızı etkileyen zararlı yazılımlar tarafından çalınmasını bütünüyle engelleyemeyebileceğini unutmayınız.</translation>
-    </message>
-    <message>
-        <location line="+13"/>
+        <location line="+9"/>
         <location line="+7"/>
-        <location line="+44"/>
+        <location line="+45"/>
         <location line="+6"/>
-        <source>Wallet encryption failed</source>
-        <translation>Cüzdan şifrelemesi başarısız oldu</translation>
+        <source>PandaBank encryption failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-56"/>
-        <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
-        <translation>Dahili bir hata sebebiyle cüzdan şifrelemesi başarısız oldu. Cüzdanınız şifrelenmedi.</translation>
+        <location line="-57"/>
+        <source>PandaBank encryption failed due to an internal error. Your PandaBank was not encrypted.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
-        <location line="+50"/>
-        <source>The supplied passphrases do not match.</source>
-        <translation>Girilen parolalar birbirleriyle eşleşmiyor.</translation>
+        <location line="+51"/>
+        <source>The supplied passwords do not match.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-38"/>
-        <source>Wallet unlock failed</source>
-        <translation>Cüzdan kilidinin açılması başarısız oldu</translation>
+        <source>PandaBank unlock failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+12"/>
         <location line="+19"/>
-        <source>The passphrase entered for the wallet decryption was incorrect.</source>
-        <translation>Cüzdan şifresinin açılması için girilen parola yanlıştı.</translation>
+        <source>The password entered for your PandaBank was incorrect.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-20"/>
-        <source>Wallet decryption failed</source>
-        <translation>Cüzdan şifresinin açılması başarısız oldu</translation>
+        <source>PandaBank decryption failed</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+14"/>
+        <source>Wallet password was successfully changed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+49"/>
+        <location line="+24"/>
+        <source>Warning: The Caps Lock key is on!</source>
+        <translation>Uyarı: Caps Lock tuşu faal durumda!</translation>
+    </message>
+    <message>
+        <source>Wallet encrypted</source>
+        <translation type="obsolete">Cüzdan şifrelendi</translation>
+    </message>
+    <message>
+        <source>Pandacoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation type="obsolete">Pandacoin, şifreleme işlemini tamamlamak için şimdi kapatılacak. Cüzdanınızı şifrelemenin; coinlerinizin, bilgisayarınızı etkileyen zararlı yazılımlar tarafından çalınmasını bütünüyle engelleyemeyebileceğini unutmayınız.</translation>
+    </message>
+    <message>
+        <source>Wallet encryption failed</source>
+        <translation type="obsolete">Cüzdan şifrelemesi başarısız oldu</translation>
+    </message>
+    <message>
+        <source>Wallet encryption failed due to an internal error. Your wallet was not encrypted.</source>
+        <translation type="obsolete">Dahili bir hata sebebiyle cüzdan şifrelemesi başarısız oldu. Cüzdanınız şifrelenmedi.</translation>
+    </message>
+    <message>
+        <source>The supplied passphrases do not match.</source>
+        <translation type="obsolete">Girilen parolalar birbirleriyle eşleşmiyor.</translation>
+    </message>
+    <message>
+        <source>Wallet unlock failed</source>
+        <translation type="obsolete">Cüzdan kilidinin açılması başarısız oldu</translation>
+    </message>
+    <message>
+        <source>The passphrase entered for the wallet decryption was incorrect.</source>
+        <translation type="obsolete">Cüzdan şifresinin açılması için girilen parola yanlıştı.</translation>
+    </message>
+    <message>
+        <source>Wallet decryption failed</source>
+        <translation type="obsolete">Cüzdan şifresinin açılması başarısız oldu</translation>
+    </message>
+    <message>
         <source>Wallet passphrase was successfully changed.</source>
-        <translation>Cüzdan parolası başarılı bir şekilde değiştirildi.</translation>
+        <translation type="obsolete">Cüzdan parolası başarılı bir şekilde değiştirildi.</translation>
     </message>
 </context>
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+282"/>
+        <location filename="../bitcoingui.cpp" line="+311"/>
         <source>Sign &amp;message...</source>
         <translation>&amp;Mesaj imzala...</translation>
     </message>
     <message>
-        <location line="+251"/>
+        <location line="+244"/>
         <source>Synchronizing with network...</source>
         <translation>Ağ ile senkronizasyon...</translation>
     </message>
     <message>
-        <location line="-319"/>
+        <location line="-310"/>
         <source>&amp;Overview</source>
         <translation>&amp;Genel bakış</translation>
     </message>
     <message>
+        <location line="-157"/>
+        <source>PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+55"/>
+        <source>My Home</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location line="+1"/>
+        <source>View Accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Transfers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+100"/>
         <source>Show general overview of wallet</source>
         <translation>Cüzdana genel bakışı göster</translation>
     </message>
     <message>
-        <location line="+17"/>
+        <location line="+6"/>
+        <source>Send coins to a PandaBank address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>&amp;Transactions</source>
         <translation>&amp;İşlemler</translation>
     </message>
@@ -374,12 +790,11 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Uygulamadan çık</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Show information about Pandacoin</source>
-        <translation>Pandacoin hakkındaki bilgiyi göster</translation>
+        <translation type="obsolete">Pandacoin hakkındaki bilgiyi göster</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+6"/>
         <source>About &amp;Qt</source>
         <translation>&amp;Qt hakkında</translation>
     </message>
@@ -394,24 +809,23 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>&amp;Seçenekler...</translation>
     </message>
     <message>
-        <location line="+4"/>
         <source>&amp;Encrypt Wallet...</source>
-        <translation>Cüzdanı &amp;Şifrele...</translation>
+        <translation type="obsolete">Cüzdanı &amp;Şifrele...</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Backup Wallet...</source>
-        <translation>Cüzdanı &amp;Yedekle...</translation>
+        <translation type="obsolete">Cüzdanı &amp;Yedekle...</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>&amp;Change Passphrase...</source>
-        <translation>Parolayı &amp;Değiştir...</translation>
+        <translation type="obsolete">Parolayı &amp;Değiştir...</translation>
     </message>
     <message numerus="yes">
-        <location line="+259"/>
+        <location line="+261"/>
         <source>~%n block(s) remaining</source>
-        <translation><numerusform>~%n blok kaldı</numerusform><numerusform>~%n blok kaldı</numerusform></translation>
+        <translation>
+            <numerusform>~%n blok kaldı</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -419,42 +833,37 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>İşlem geçmişindeki %2 bloğun %1&apos;i indirildi (%3% tamamlandı).</translation>
     </message>
     <message>
-        <location line="-256"/>
+        <location line="-249"/>
         <source>&amp;Export...</source>
         <translation>&amp;Dışarı aktar...</translation>
     </message>
     <message>
-        <location line="-64"/>
         <source>Send coins to a Pandacoin address</source>
-        <translation>Bir Pandacoin adresine coin gönder</translation>
+        <translation type="obsolete">Bir Pandacoin adresine coin gönder</translation>
     </message>
     <message>
-        <location line="+47"/>
         <source>Modify configuration options for Pandacoin</source>
-        <translation>Pandacoin yapılandırma seçeneklerini değiştir</translation>
+        <translation type="obsolete">Pandacoin yapılandırma seçeneklerini değiştir</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+1"/>
         <source>Export the data in the current tab to a file</source>
         <translation>Mevcut sekmedeki veriyi bir dosyaya aktar</translation>
     </message>
     <message>
-        <location line="-14"/>
         <source>Encrypt or decrypt wallet</source>
-        <translation>Cüzdanı şifrele veya cüzdanın şifresini aç</translation>
+        <translation type="obsolete">Cüzdanı şifrele veya cüzdanın şifresini aç</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Backup wallet to another location</source>
-        <translation>Cüzdanı başka bir konuma yedekle</translation>
+        <translation type="obsolete">Cüzdanı başka bir konuma yedekle</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Change the passphrase used for wallet encryption</source>
-        <translation>Cüzdan şifrelemesi için kullanılan parolayı değiştir</translation>
+        <translation type="obsolete">Cüzdan şifrelemesi için kullanılan parolayı değiştir</translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+1"/>
         <source>&amp;Debug window</source>
         <translation>&amp;Hata ayıklama penceresi</translation>
     </message>
@@ -469,146 +878,211 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Mesajı &amp;doğrula...</translation>
     </message>
     <message>
-        <location line="-202"/>
         <source>Pandacoin</source>
-        <translation>Pandacoin</translation>
+        <translation type="obsolete">Pandacoin</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Wallet</source>
-        <translation>Cüzdan</translation>
+        <translation type="obsolete">Cüzdan</translation>
     </message>
     <message>
-        <location line="+180"/>
         <source>&amp;About Pandacoin</source>
-        <translation>Pandacoin &amp;Hakkında</translation>
+        <translation type="obsolete">Pandacoin &amp;Hakkında</translation>
     </message>
     <message>
-        <location line="+9"/>
+        <location line="-13"/>
         <source>&amp;Show / Hide</source>
         <translation>&amp;Göster / Gizle</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>Unlock wallet</source>
-        <translation>Cüzdanın kilidini aç</translation>
+        <translation type="obsolete">Cüzdanın kilidini aç</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>&amp;Lock Wallet</source>
-        <translation>Cüzdanı &amp;Kilitle</translation>
+        <translation type="obsolete">Cüzdanı &amp;Kilitle</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Lock wallet</source>
-        <translation>Cüzdanı kilitle</translation>
+        <translation type="obsolete">Cüzdanı kilitle</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>&amp;File</source>
-        <translation>&amp;Dosya</translation>
+        <translation type="obsolete">&amp;Dosya</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>&amp;Settings</source>
-        <translation>&amp;Ayarlar</translation>
+        <translation type="obsolete">&amp;Ayarlar</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>&amp;Help</source>
-        <translation>&amp;Yardım</translation>
+        <translation type="obsolete">&amp;Yardım</translation>
     </message>
     <message>
-        <location line="+12"/>
         <source>Tabs toolbar</source>
-        <translation>Sekme araç çubuğu</translation>
+        <translation type="obsolete">Sekme araç çubuğu</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>Actions toolbar</source>
-        <translation>Eylem araç çubuğu</translation>
+        <translation type="obsolete">Eylem araç çubuğu</translation>
     </message>
     <message>
-        <location line="+13"/>
+        <location line="+80"/>
         <location line="+9"/>
         <source>[testnet]</source>
         <translation>[testnet]</translation>
     </message>
     <message>
-        <location line="+0"/>
-        <location line="+60"/>
         <source>Pandacoin client</source>
-        <translation>Pandacoin istemcisi</translation>
+        <translation type="obsolete">Pandacoin istemcisi</translation>
     </message>
     <message numerus="yes">
-        <location line="+75"/>
         <source>%n active connection(s) to Pandacoin network</source>
-        <translation><numerusform>Pandacoin ağına %n etkin bağlantı</numerusform><numerusform>BlackCoin ağına %n etkin bağlantı</numerusform></translation>
+        <translation type="obsolete">
+            <numerusform>Pandacoin ağına %n etkin bağlantı</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+40"/>
+        <location line="+183"/>
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation>İşlem geçmişinin %1 bloğu indirildi.</translation>
     </message>
     <message>
-        <location line="+413"/>
+        <location line="+255"/>
+        <location line="+15"/>
+        <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+164"/>
         <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
         <translation>Pay alınıyor.&lt;br&gt;Sizin ağırlığınız %1&lt;br&gt;Ağın ağırlığı %2&lt;br&gt;Ödül almak için tahmini süre %3</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Not staking because wallet is locked</source>
-        <translation>Pay alınmıyor çünkü cüzdan kilitlidir</translation>
+        <translation type="obsolete">Pay alınmıyor çünkü cüzdan kilitlidir</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because wallet is offline</source>
-        <translation>Pay alınmıyor çünkü cüzdan çevrimdışıdır</translation>
+        <translation type="obsolete">Pay alınmıyor çünkü cüzdan çevrimdışıdır</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because wallet is syncing</source>
-        <translation>Pay alınmıyor çünkü cüzdan senkronize ediliyor</translation>
+        <translation type="obsolete">Pay alınmıyor çünkü cüzdan senkronize ediliyor</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Not staking because you don&apos;t have mature coins</source>
-        <translation>Pay alınmıyor çünkü olgunlaşmış coininiz yoktur</translation>
+        <translation type="obsolete">Pay alınmıyor çünkü olgunlaşmış coininiz yoktur</translation>
     </message>
     <message numerus="yes">
-        <location line="-403"/>
+        <location line="-412"/>
         <source>%n second(s) ago</source>
-        <translation><numerusform>%n saniye önce</numerusform><numerusform>%n saniye önce</numerusform></translation>
+        <translation>
+            <numerusform>%n saniye önce</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="-312"/>
-        <source>About Pandacoin card</source>
-        <translation type="unfinished"/>
+        <source>&amp;Unlock Wallet...</source>
+        <translation type="obsolete">Cüzdanı &amp;Kilitle...</translation>
+    </message>
+    <message>
+        <location line="-303"/>
+        <source>&amp;About PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about Pandacoin card</source>
-        <translation type="unfinished"/>
+        <source>Show information about PandaBank</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
-        <source>&amp;Unlock Wallet...</source>
-        <translation>Cüzdanı &amp;Kilitle...</translation>
+        <location line="+6"/>
+        <source>Modify configuration options for PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Encrypt PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Encrypt or decrypt PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>&amp;Backup PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Backup PandaBank to another location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Change Password...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Change the password used for wallet encryption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Unlock PandaBank...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Unlock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>&amp;Lock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Lock PandaBank</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+78"/>
+        <location line="+73"/>
+        <source>PandaBank client</source>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
-        <location line="+297"/>
+        <location line="+70"/>
+        <source>%n active connection(s) to PandaBank network</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message numerus="yes">
+        <location line="+66"/>
         <source>%n minute(s) ago</source>
-        <translation><numerusform>%n dakika önce</numerusform><numerusform>%n dakika önce</numerusform></translation>
+        <translation>
+            <numerusform>%n dakika önce</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s) ago</source>
-        <translation><numerusform>%n saat önce</numerusform><numerusform>%n saat önce</numerusform></translation>
+        <translation>
+            <numerusform>%n saat önce</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s) ago</source>
-        <translation><numerusform>%n gün önce</numerusform><numerusform>%n gün önce</numerusform></translation>
+        <translation>
+            <numerusform>%n gün önce</numerusform>
+        </translation>
     </message>
     <message>
         <location line="+6"/>
@@ -623,7 +1097,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+10"/>
         <source>Last received block was generated %1.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+59"/>
@@ -659,19 +1133,42 @@ Adres: %4
 </translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+105"/>
         <location line="+15"/>
         <source>URI handling</source>
         <translation>URI işleme</translation>
     </message>
     <message>
-        <location line="-15"/>
-        <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
-        <translation>URI ayrıştırılamadı! Bu, geçersiz bir Pandacoin adresi veya hatalı URI parametreleri nedeniyle olabilir.</translation>
+        <location line="+170"/>
+        <source>Not earning interest because wallet is locked</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+18"/>
+        <location line="+2"/>
+        <source>Not earning interest because wallet is offline</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest because wallet is syncing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest because you don&apos;t have mature coins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Not earning interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
+        <translation type="obsolete">URI ayrıştırılamadı! Bu, geçersiz bir Pandacoin adresi veya hatalı URI parametreleri nedeniyle olabilir.</translation>
+    </message>
+    <message>
+        <location line="-160"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Cüzdan &lt;b&gt;şifrelenmiştir&lt;/b&gt; ve şu anda &lt;b&gt;kilidi açıktır&lt;/b&gt;</translation>
     </message>
@@ -681,7 +1178,7 @@ Adres: %4
         <translation>Cüzdan &lt;b&gt;şifrelenmiştir&lt;/b&gt; ve şu anda &lt;b&gt;kilitlidir&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="+25"/>
+        <location line="+26"/>
         <source>Backup Wallet</source>
         <translation>Cüzdanı Yedekle</translation>
     </message>
@@ -701,32 +1198,39 @@ Adres: %4
         <translation>Cüzdan verisi, yeni bir konuma kaydedilmeye çalışılırken bir hata oluştu.</translation>
     </message>
     <message numerus="yes">
-        <location line="+76"/>
+        <location line="+91"/>
         <source>%n second(s)</source>
-        <translation><numerusform>%n saniye</numerusform><numerusform>%n saniye</numerusform></translation>
+        <translation>
+            <numerusform>%n saniye</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation><numerusform>%n dakika</numerusform><numerusform>%n dakika</numerusform></translation>
+        <translation>
+            <numerusform>%n dakika</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n hour(s)</source>
-        <translation><numerusform>%n saat</numerusform><numerusform>%n saat</numerusform></translation>
+        <translation>
+            <numerusform>%n saat</numerusform>
+        </translation>
     </message>
     <message numerus="yes">
         <location line="+4"/>
         <source>%n day(s)</source>
-        <translation><numerusform>%n gün</numerusform><numerusform>%n gün</numerusform></translation>
+        <translation>
+            <numerusform>%n gün</numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+18"/>
         <source>Not staking</source>
-        <translation>Pay alınmıyor</translation>
+        <translation type="obsolete">Pay alınmıyor</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+109"/>
+        <location filename="../bitcoin.cpp" line="+110"/>
         <source>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</source>
         <translation>Önemli bir hata oluştu. Pandacoin artık güvenli bir şekilde devam edemez ve şimdi kapatılacak.</translation>
     </message>
@@ -1008,6 +1512,65 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>CreateAccountWidget</name>
+    <message>
+        <location filename="../forms/createaccountwidget.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+53"/>
+        <source>Creating a new PandaBank account is easy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Create</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/createaccountwidget.cpp" line="+55"/>
+        <location line="+19"/>
+        <source>Error</source>
+        <translation type="unfinished">Hata</translation>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>An account with this name already exists.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
+        <source>PandaBank account created</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Your PandaBank Account has been created.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Error creating PandaBank account.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>EditAddressDialog</name>
     <message>
         <location filename="../forms/editaddressdialog.ui" line="+14"/>
@@ -1035,7 +1598,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Bu adres defteri kaydıyla ilişkili etiket. Bu, sadece gönderi adresleri için değiştirilebilir.</translation>
     </message>
     <message>
-        <location filename="../editaddressdialog.cpp" line="+20"/>
+        <location filename="../editaddressdialog.cpp" line="+23"/>
         <source>New receiving address</source>
         <translation>Yeni alım adresi</translation>
     </message>
@@ -1078,7 +1641,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+420"/>
+        <location filename="../guiutil.cpp" line="+562"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
         <translation>Pandacoin-Qt</translation>
@@ -1120,6 +1683,55 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>LockBar</name>
+    <message>
+        <location filename="../forms/lockbar.ui" line="+69"/>
+        <source>Lock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../forms/lockbar.cpp" line="+39"/>
+        <source>Wallet is &lt;b&gt;not encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to encrypt and lock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to lock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt; click to unlock.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MainFrame</name>
+    <message>
+        <location filename="../forms/mainframe.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MenuBar</name>
+    <message>
+        <location filename="../forms/menubar.ui" line="+55"/>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
+        <source>Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>OptionsDialog</name>
     <message>
         <location filename="../forms/optionsdialog.ui" line="+14"/>
@@ -1137,19 +1749,19 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>İşlemlerinizin hızlıca gerçekleştirilmesini sağlayan kB başına opsiyonel işlem ücreti. Birçok işlem 1 kB&apos;tır. Tavsiye edilen ücret 0.01&apos;dir.</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+21"/>
         <source>Pay transaction &amp;fee</source>
         <translation>Muamele ücreti &amp;öde</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Reserved amount does not participate in staking and is therefore spendable at any time.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+21"/>
         <source>Reserve</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+31"/>
@@ -1157,9 +1769,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Sisteme giriş yaptıktan sonra Pandacoin&apos;i otomatik olarak başlat</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>&amp;Start Pandacoin on system login</source>
-        <translation>Sisteme girişte Pandacoin&apos;i &amp;başlat</translation>
+        <translation type="obsolete">Sisteme girişte Pandacoin&apos;i &amp;başlat</translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>&amp;Start PandaBank on system login</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1279,7 +1895,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+9"/>
         <source>Whether to show Pandacoin addresses in the transaction list or not.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1294,7 +1910,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Display coin &amp;control features (experts only!)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+71"/>
@@ -1309,24 +1925,24 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+10"/>
         <source>&amp;Apply</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optionsdialog.cpp" line="+55"/>
+        <location filename="../optionsdialog.cpp" line="+58"/>
         <source>default</source>
         <translation>varsayılan</translation>
     </message>
     <message>
-        <location line="+149"/>
+        <location line="+152"/>
         <location line="+9"/>
         <source>Warning</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-9"/>
         <location line="+9"/>
         <source>This setting will take effect after restarting Pandacoin.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1342,76 +1958,214 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Form</translation>
     </message>
     <message>
-        <location line="+33"/>
-        <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Pandacoin network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished"/>
+        <location line="+26"/>
+        <source>Welcome to your PandaBank, You last logged on at &lt;TIME&gt; on &lt;DATE&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-160"/>
-        <source>Stake:</source>
-        <translation type="unfinished"/>
+        <location line="+22"/>
+        <source>My Portfolio</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+29"/>
-        <source>Unconfirmed:</source>
-        <translation type="unfinished"/>
+        <location line="+7"/>
+        <source>More</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-107"/>
+        <location line="+58"/>
+        <source>Portfolio Summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Available</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Earning Interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+45"/>
+        <source>Total Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+48"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: &lt;span style=&quot; font-weight:600;&quot;&gt;Available&lt;/span&gt; is the amount of PND that is available for you to spend or transfer. &lt;span style=&quot; font-weight:600;&quot;&gt;Earning Interest&lt;/span&gt; is the amount of PND that is currently being used to generate interest. &lt;span style=&quot; font-weight:600;&quot;&gt;Pending&lt;/span&gt; is the amount of recent incoming PND from another account address waiting to be transferred to your account. &lt;span style=&quot; font-weight:600;&quot;&gt;Total Balance&lt;/span&gt; is the sum total of PND of all your account balances. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+89"/>
+        <source>Quick Transfer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>To</source>
+        <translation type="unfinished">Alıcı</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>From</source>
+        <translation type="unfinished">Gönderen</translation>
+    </message>
+    <message>
+        <location line="+71"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <source>Wallet</source>
-        <translation>Cüzdan</translation>
+        <translation type="obsolete">Cüzdan</translation>
     </message>
     <message>
-        <location line="+49"/>
-        <source>Spendable:</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+16"/>
+        <location line="-365"/>
         <source>Your current spendable balance</source>
         <translation>Güncel harcanabilir bakiyeniz</translation>
     </message>
     <message>
-        <location line="+71"/>
         <source>Immature:</source>
-        <translation>Olgunlaşmamış:</translation>
+        <translation type="obsolete">Olgunlaşmamış:</translation>
     </message>
     <message>
-        <location line="+13"/>
         <source>Mined balance that has not yet matured</source>
-        <translation>Oluşturulan bakiye henüz olgunlaşmamıştır</translation>
+        <translation type="obsolete">Oluşturulan bakiye henüz olgunlaşmamıştır</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Total:</source>
-        <translation>Toplam:</translation>
+        <translation type="obsolete">Toplam:</translation>
     </message>
     <message>
-        <location line="+16"/>
+        <location line="+132"/>
         <source>Your current total balance</source>
         <translation>Güncel toplam bakiyeniz</translation>
     </message>
     <message>
-        <location line="+46"/>
         <source>&lt;b&gt;Recent transactions&lt;/b&gt;</source>
-        <translation>&lt;b&gt;Son muameleler&lt;/b&gt;</translation>
+        <translation type="obsolete">&lt;b&gt;Son muameleler&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="-108"/>
+        <location line="-45"/>
         <source>Total of transactions that have yet to be confirmed, and do not yet count toward the current balance</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-29"/>
+        <location line="-42"/>
         <source>Total of coins that was staked, and do not yet count toward the current balance</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../overviewpage.cpp" line="+113"/>
-        <location line="+1"/>
         <source>out of sync</source>
-        <translation>eşleşme dışı</translation>
+        <translation type="obsolete">eşleşme dışı</translation>
+    </message>
+    <message>
+        <location filename="../overviewpage.cpp" line="+40"/>
+        <source>Copy account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy account balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+73"/>
+        <location line="+7"/>
+        <source>Select account</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>QObject</name>
+    <message>
+        <location filename="../guiutil.cpp" line="-488"/>
+        <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Confirm send coins</source>
+        <translation type="unfinished">Gönderiyi teyit ediniz</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Are you sure you want to send %1?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source> and </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+6"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <location line="+5"/>
+        <source>Send Coins</source>
+        <translation type="unfinished">Bitcoin yolla</translation>
+    </message>
+    <message>
+        <location line="-35"/>
+        <source>The recipient address is not valid, please recheck.</source>
+        <translation type="unfinished">Alıcı adresi geçerli değildir, lütfen denetleyiniz.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The amount to pay must be larger than 0.</source>
+        <translation type="unfinished">Ödeyeceğiniz tutarın sıfırdan yüksek olması gerekir.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The amount exceeds your balance.</source>
+        <translation type="unfinished">Tutar bakiyenizden yüksektir.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>The total exceeds your balance when the %1 transaction fee is included.</source>
+        <translation type="unfinished">Toplam, %1 muamele ücreti ilâve edildiğinde bakiyenizi geçmektedir.</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Duplicate address found, can only send to each address once per send operation.</source>
+        <translation type="unfinished">Çift adres bulundu, belli bir gönderi sırasında her adrese sadece tek bir gönderide bulunulabilir.</translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: Transaction creation failed because transaction size (in Kb) too large.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: Transaction creation failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1419,57 +2173,57 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../forms/qrcodedialog.ui" line="+14"/>
         <source>QR Code Dialog</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+59"/>
         <source>Request Payment</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+56"/>
         <source>Amount:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-44"/>
         <source>Label:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Message:</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+71"/>
         <source>&amp;Save As...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qrcodedialog.cpp" line="+62"/>
         <source>Error encoding URI into QR Code.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+40"/>
         <source>The entered amount is invalid, please check.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+23"/>
         <source>Resulting URI too long, try to reduce the text for label / message.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Save QR Code</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+0"/>
         <source>PNG Images (*.png)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1526,7 +2280,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+23"/>
         <source>On testnet</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+23"/>
@@ -1556,17 +2310,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+16"/>
         <source>Command-line options</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Show the Pandacoin-Qt help message to get a list with possible Pandacoin command-line options.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Show</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+24"/>
@@ -1581,12 +2335,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-104"/>
         <source>Pandacoin - Debug window</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Pandacoin Core</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1596,7 +2350,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+7"/>
         <source>Open the Pandacoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1606,7 +2360,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
         <source>Welcome to the Pandacoin RPC console.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1622,260 +2376,136 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>SendCoinsDialog</name>
     <message>
-        <location filename="../forms/sendcoinsdialog.ui" line="+14"/>
-        <location filename="../sendcoinsdialog.cpp" line="+182"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+6"/>
-        <location line="+5"/>
-        <location line="+5"/>
         <source>Send Coins</source>
-        <translation>Bitcoin yolla</translation>
+        <translation type="obsolete">Bitcoin yolla</translation>
     </message>
     <message>
-        <location line="+76"/>
         <source>Coin Control Features</source>
-        <translation>Para kontrolü özellikleri</translation>
+        <translation type="obsolete">Para kontrolü özellikleri</translation>
     </message>
     <message>
-        <location line="+20"/>
         <source>Inputs...</source>
-        <translation>Girdiler...</translation>
+        <translation type="obsolete">Girdiler...</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>automatically selected</source>
-        <translation>otomatik seçilmiş</translation>
+        <translation type="obsolete">otomatik seçilmiş</translation>
     </message>
     <message>
-        <location line="+19"/>
         <source>Insufficient funds!</source>
-        <translation>Yetersiz fon!</translation>
+        <translation type="obsolete">Yetersiz fon!</translation>
     </message>
     <message>
-        <location line="+77"/>
         <source>Quantity:</source>
-        <translation>Miktar:</translation>
+        <translation type="obsolete">Miktar:</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <location line="+35"/>
-        <source>0</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-19"/>
         <source>Bytes:</source>
-        <translation>Bayt:</translation>
+        <translation type="obsolete">Bayt:</translation>
     </message>
     <message>
-        <location line="+51"/>
         <source>Amount:</source>
-        <translation>Meblağ:</translation>
+        <translation type="obsolete">Meblağ:</translation>
     </message>
     <message>
-        <location line="+22"/>
-        <location line="+86"/>
-        <location line="+86"/>
-        <location line="+32"/>
-        <source>0.00 PND</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-191"/>
         <source>Priority:</source>
-        <translation>Öncelik:</translation>
+        <translation type="obsolete">Öncelik:</translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>medium</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+32"/>
         <source>Fee:</source>
-        <translation>Ücret:</translation>
+        <translation type="obsolete">Ücret:</translation>
     </message>
     <message>
-        <location line="+35"/>
         <source>Low Output:</source>
-        <translation>Düşük çıktı:</translation>
+        <translation type="obsolete">Düşük çıktı:</translation>
     </message>
     <message>
-        <location line="+19"/>
-        <source>no</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+32"/>
         <source>After Fee:</source>
-        <translation>Ücretten sonra:</translation>
+        <translation type="obsolete">Ücretten sonra:</translation>
     </message>
     <message>
-        <location line="+35"/>
-        <source>Change</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+50"/>
-        <source>custom change address</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+106"/>
         <source>Send to multiple recipients at once</source>
-        <translation>Birçok alıcıya aynı anda gönder</translation>
+        <translation type="obsolete">Birçok alıcıya aynı anda gönder</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>Add &amp;Recipient</source>
-        <translation>&amp;Alıcı ekle</translation>
+        <translation type="obsolete">&amp;Alıcı ekle</translation>
     </message>
     <message>
-        <location line="+20"/>
-        <source>Remove all transaction fields</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
         <source>Clear &amp;All</source>
-        <translation>Tümünü &amp;temizle</translation>
+        <translation type="obsolete">Tümünü &amp;temizle</translation>
     </message>
     <message>
-        <location line="+28"/>
         <source>Balance:</source>
-        <translation>Bakiye:</translation>
+        <translation type="obsolete">Bakiye:</translation>
     </message>
     <message>
-        <location line="+16"/>
-        <source>123.456 PND</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+31"/>
         <source>Confirm the send action</source>
-        <translation>Yollama etkinliğini teyit ediniz</translation>
+        <translation type="obsolete">Yollama etkinliğini teyit ediniz</translation>
     </message>
     <message>
-        <location line="+3"/>
         <source>S&amp;end</source>
-        <translation>G&amp;önder</translation>
+        <translation type="obsolete">G&amp;önder</translation>
     </message>
     <message>
-        <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+15"/>
         <source>Copy quantity</source>
-        <translation>Miktarı kopyala</translation>
+        <translation type="obsolete">Miktarı kopyala</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy amount</source>
-        <translation>Meblağı kopyala</translation>
+        <translation type="obsolete">Meblağı kopyala</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy fee</source>
-        <translation>Ücreti kopyala</translation>
+        <translation type="obsolete">Ücreti kopyala</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy after fee</source>
-        <translation>Ücretten sonrakini kopyala</translation>
+        <translation type="obsolete">Ücretten sonrakini kopyala</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy bytes</source>
-        <translation>Baytları kopyala</translation>
+        <translation type="obsolete">Baytları kopyala</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy priority</source>
-        <translation>Önceliği kopyala</translation>
+        <translation type="obsolete">Önceliği kopyala</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy low output</source>
-        <translation>Düşük çıktıyı kopyala</translation>
+        <translation type="obsolete">Düşük çıktıyı kopyala</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Copy change</source>
-        <translation>Para üstünü kopyala</translation>
+        <translation type="obsolete">Para üstünü kopyala</translation>
     </message>
     <message>
-        <location line="+86"/>
-        <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+5"/>
         <source>Confirm send coins</source>
-        <translation>Gönderiyi teyit ediniz</translation>
+        <translation type="obsolete">Gönderiyi teyit ediniz</translation>
     </message>
     <message>
-        <location line="+1"/>
-        <source>Are you sure you want to send %1?</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+0"/>
-        <source> and </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+29"/>
         <source>The recipient address is not valid, please recheck.</source>
-        <translation>Alıcı adresi geçerli değildir, lütfen denetleyiniz.</translation>
+        <translation type="obsolete">Alıcı adresi geçerli değildir, lütfen denetleyiniz.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The amount to pay must be larger than 0.</source>
-        <translation>Ödeyeceğiniz tutarın sıfırdan yüksek olması gerekir.</translation>
+        <translation type="obsolete">Ödeyeceğiniz tutarın sıfırdan yüksek olması gerekir.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The amount exceeds your balance.</source>
-        <translation>Tutar bakiyenizden yüksektir.</translation>
+        <translation type="obsolete">Tutar bakiyenizden yüksektir.</translation>
     </message>
     <message>
-        <location line="+5"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
-        <translation>Toplam, %1 muamele ücreti ilâve edildiğinde bakiyenizi geçmektedir.</translation>
+        <translation type="obsolete">Toplam, %1 muamele ücreti ilâve edildiğinde bakiyenizi geçmektedir.</translation>
     </message>
     <message>
-        <location line="+6"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
-        <translation>Çift adres bulundu, belli bir gönderi sırasında her adrese sadece tek bir gönderide bulunulabilir.</translation>
+        <translation type="obsolete">Çift adres bulundu, belli bir gönderi sırasında her adrese sadece tek bir gönderide bulunulabilir.</translation>
     </message>
     <message>
-        <location line="+5"/>
-        <source>Error: Transaction creation failed.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+5"/>
-        <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+251"/>
-        <source>WARNING: Invalid Pandacoin address</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+13"/>
         <source>(no label)</source>
-        <translation>(boş etiket)</translation>
-    </message>
-    <message>
-        <location line="+4"/>
-        <source>WARNING: unknown change address</source>
-        <translation type="unfinished"/>
+        <translation type="obsolete">(boş etiket)</translation>
     </message>
 </context>
 <context>
@@ -1883,63 +2513,302 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../forms/sendcoinsentry.ui" line="+14"/>
         <source>Form</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Form</translation>
+    </message>
+    <message>
+        <location line="+59"/>
+        <source>Send Pandacoins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+74"/>
+        <source>Coin Control Features</source>
+        <translation type="unfinished">Para kontrolü özellikleri</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Inputs...</source>
+        <translation type="unfinished">Girdiler...</translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>automatically selected</source>
+        <translation type="unfinished">otomatik seçilmiş</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Insufficient funds!</source>
+        <translation type="unfinished">Yetersiz fon!</translation>
+    </message>
+    <message>
+        <location line="+77"/>
+        <source>Quantity:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+35"/>
+        <source>0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-19"/>
+        <source>Bytes:</source>
+        <translation type="unfinished">Bayt:</translation>
+    </message>
+    <message>
+        <location line="+51"/>
+        <source>Amount:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+86"/>
+        <location line="+86"/>
+        <location line="+32"/>
+        <source>0.00 PND</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-191"/>
+        <source>Priority:</source>
+        <translation type="unfinished">Öncelik:</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>medium</source>
+        <translation type="unfinished">orta</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>Fee:</source>
+        <translation type="unfinished">Ücret:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Low Output:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>no</source>
+        <translation type="unfinished">hayır</translation>
+    </message>
+    <message>
+        <location line="+32"/>
+        <source>After Fee:</source>
+        <translation type="unfinished">Ücretten sonra:</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>Change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+50"/>
+        <source>custom change address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+67"/>
+        <source>From</source>
+        <translation type="unfinished">Gönderen</translation>
+    </message>
+    <message>
+        <location line="+35"/>
+        <source>To</source>
+        <translation type="unfinished">Alıcı</translation>
     </message>
     <message>
         <location line="+15"/>
-        <source>A&amp;mount:</source>
-        <translation>Mebla&amp;ğ:</translation>
+        <source>Or</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+25"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>▾ Send To My Own Accounts</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+13"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;mount:</source>
+        <translation type="obsolete">Mebla&amp;ğ:</translation>
+    </message>
+    <message>
         <source>Pay &amp;To:</source>
-        <translation>&amp;Şu adrese öde:</translation>
+        <translation type="obsolete">&amp;Şu adrese öde:</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <location filename="../sendcoinsentry.cpp" line="+25"/>
         <source>Enter a label for this address to add it to your address book</source>
-        <translation>Adres defterinize eklemek için bu adrese ilişik bir etiket giriniz</translation>
+        <translation type="obsolete">Adres defterinize eklemek için bu adrese ilişik bir etiket giriniz</translation>
     </message>
     <message>
-        <location line="+9"/>
         <source>&amp;Label:</source>
-        <translation>&amp;Etiket:</translation>
+        <translation type="obsolete">&amp;Etiket:</translation>
     </message>
     <message>
-        <location line="+18"/>
+        <source>Alt+A</source>
+        <translation type="obsolete">Alt+A</translation>
+    </message>
+    <message>
+        <source>Paste address from clipboard</source>
+        <translation type="obsolete">Panodan adres yapıştır</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="obsolete">Alt+P</translation>
+    </message>
+    <message>
+        <location filename="../sendcoinsentry.cpp" line="+108"/>
+        <source>Copy quantity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy fee</source>
+        <translation type="unfinished">Ücreti kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy after fee</source>
+        <translation type="unfinished">Ücretten sonrakini kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy bytes</source>
+        <translation type="unfinished">Baytları kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy priority</source>
+        <translation type="unfinished">Önceliği kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy low output</source>
+        <translation type="unfinished">Düşük çıktıyı kopyala</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Copy change</source>
+        <translation type="unfinished">Para üstünü kopyala</translation>
+    </message>
+    <message>
+        <location line="+271"/>
+        <source>Search your accounts list...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+224"/>
+        <source>WARNING: Invalid Pandacoin address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>(no label)</source>
+        <translation type="unfinished">(boş etiket)</translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>WARNING: unknown change address</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SendCoinsTargetWidget</name>
+    <message>
+        <location filename="../forms/sendcoinstargetwidget.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+27"/>
+        <source>Account name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+12"/>
         <source>The address to send the payment to  (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+10"/>
+        <location line="+6"/>
+        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
         <source>Choose address from address book</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Paste address from clipboard</source>
-        <translation>Panodan adres yapıştır</translation>
+        <translation type="unfinished">Panodan adres yapıştır</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Alt+P</source>
-        <translation>Alt+P</translation>
+        <translation type="unfinished">Alt+P</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Remove this recipient</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation type="unfinished"/>
+        <location line="+16"/>
+        <source>Account address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Next</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
+        <source>Add another</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>▾</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Amount</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>New accounts will automatically be added to your address book</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Enter an account name for this account address to add it to your address book</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1963,13 +2832,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+18"/>
         <source>The address to sign the message with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+10"/>
         <location line="+203"/>
         <source>Choose an address from the address book</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-193"/>
@@ -2000,7 +2869,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>Sign the message to prove you own this Pandacoin address</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2027,12 +2896,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source>The address the message was signed with (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Verify the message to ensure it was signed with the specified Pandacoin address</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2043,7 +2912,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
         <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2053,7 +2922,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Enter Pandacoin signature</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2123,6 +2992,14 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>TabbedDateWidget</name>
+    <message>
+        <location filename="../forms/tabbeddatewidget.ui" line="+20"/>
+        <source>TabWidget</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TransactionDesc</name>
     <message>
         <location filename="../transactiondesc.cpp" line="+19"/>
@@ -2132,7 +3009,9 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message numerus="yes">
         <location line="-2"/>
         <source>Open for %n block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location line="+8"/>
@@ -2162,7 +3041,9 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message numerus="yes">
         <location line="+7"/>
         <source>, broadcast through %n node(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location line="+4"/>
@@ -2215,7 +3096,9 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message numerus="yes">
         <location line="-102"/>
         <source>matures in %n more block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2258,7 +3141,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>Generated coins must mature 510 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to &quot;not accepted&quot; and it won&apos;t be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2315,9 +3198,47 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>TransactionFilterWidget</name>
+    <message>
+        <location filename="../forms/transactionfilterwidget.ui" line="+20"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source> or jump to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Recent Transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Export</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Search by keyword</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+226"/>
+        <location filename="../transactiontablemodel.cpp" line="+323"/>
         <source>Date</source>
         <translation>Tarih</translation>
     </message>
@@ -2327,9 +3248,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Tür</translation>
     </message>
     <message>
-        <location line="+0"/>
         <source>Address</source>
-        <translation>Adres</translation>
+        <translation type="obsolete">Adres</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -2337,7 +3257,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Meblağ</translation>
     </message>
     <message>
-        <location line="+60"/>
+        <location line="+61"/>
         <source>Open until %1</source>
         <translation>%1 değerine dek açık</translation>
     </message>
@@ -2349,10 +3269,32 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message numerus="yes">
         <location line="-15"/>
         <source>Open for %n more block(s)</source>
-        <translation type="unfinished"><numerusform></numerusform><numerusform></numerusform></translation>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="-58"/>
+        <source>From account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>To account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Account Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Balance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+64"/>
         <source>Offline</source>
         <translation>Çevrim dışı</translation>
     </message>
@@ -2388,36 +3330,85 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+42"/>
-        <source>Received with</source>
-        <translation>Şununla alındı</translation>
-    </message>
-    <message>
         <location line="+2"/>
-        <source>Received from</source>
-        <translation>Alındığı kişi</translation>
+        <source>Received</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
+        <source>Sent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+3"/>
+        <source>Internal Transfer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Interest</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Fee</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+569"/>
+        <source>Destination account of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Source account of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Account for transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>Other account for transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+4"/>
+        <source>Account balance at end of transaction.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Received with</source>
+        <translation type="obsolete">Şununla alındı</translation>
+    </message>
+    <message>
+        <source>Received from</source>
+        <translation type="obsolete">Alındığı kişi</translation>
+    </message>
+    <message>
         <source>Sent to</source>
-        <translation>Gönderildiği adres</translation>
+        <translation type="obsolete">Gönderildiği adres</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Payment to yourself</source>
-        <translation>Kendinize ödeme</translation>
+        <translation type="obsolete">Kendinize ödeme</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Mined</source>
-        <translation>Madenden çıkarılan</translation>
+        <translation type="obsolete">Madenden çıkarılan</translation>
     </message>
     <message>
-        <location line="+38"/>
+        <location line="-539"/>
+        <location line="+19"/>
+        <location line="+19"/>
+        <location line="+19"/>
         <source>(n/a)</source>
         <translation>(mevcut değil)</translation>
     </message>
     <message>
-        <location line="+190"/>
+        <location line="+466"/>
         <source>Transaction status. Hover over this field to show number of confirmations.</source>
         <translation>Muamele durumu. Doğrulama sayısını görüntülemek için imleci bu alanda tutunuz.</translation>
     </message>
@@ -2432,12 +3423,11 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Muamele türü.</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Destination address of transaction.</source>
-        <translation>Muamelenin alıcı adresi.</translation>
+        <translation type="obsolete">Muamelenin alıcı adresi.</translation>
     </message>
     <message>
-        <location line="+2"/>
+        <location line="+10"/>
         <source>Amount removed from or added to balance.</source>
         <translation>Bakiyeden alınan ya da bakiyeye eklenen meblağ.</translation>
     </message>
@@ -2445,78 +3435,63 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>TransactionView</name>
     <message>
-        <location filename="../transactionview.cpp" line="+55"/>
-        <location line="+16"/>
         <source>All</source>
-        <translation>Hepsi</translation>
+        <translation type="obsolete">Hepsi</translation>
     </message>
     <message>
-        <location line="-15"/>
         <source>Today</source>
-        <translation>Bugün</translation>
+        <translation type="obsolete">Bugün</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This week</source>
-        <translation>Bu hafta</translation>
+        <translation type="obsolete">Bu hafta</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This month</source>
-        <translation>Bu ay</translation>
+        <translation type="obsolete">Bu ay</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Last month</source>
-        <translation>Geçen ay</translation>
+        <translation type="obsolete">Geçen ay</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>This year</source>
-        <translation>Bu sene</translation>
+        <translation type="obsolete">Bu sene</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Range...</source>
-        <translation>Aralık...</translation>
+        <translation type="obsolete">Aralık...</translation>
     </message>
     <message>
-        <location line="+11"/>
         <source>Received with</source>
-        <translation>Şununla alınan</translation>
+        <translation type="obsolete">Şununla alınan</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>Sent to</source>
-        <translation>Gönderildiği adres</translation>
+        <translation type="obsolete">Gönderildiği adres</translation>
     </message>
     <message>
-        <location line="+2"/>
         <source>To yourself</source>
-        <translation>Kendinize</translation>
+        <translation type="obsolete">Kendinize</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Mined</source>
-        <translation>Oluşturulan</translation>
+        <translation type="obsolete">Oluşturulan</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Other</source>
-        <translation>Diğer</translation>
+        <translation type="obsolete">Diğer</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Enter address or label to search</source>
-        <translation>Aranacak adres ya da etiket giriniz</translation>
+        <translation type="obsolete">Aranacak adres ya da etiket giriniz</translation>
     </message>
     <message>
-        <location line="+7"/>
         <source>Min amount</source>
-        <translation>Asgari meblağ</translation>
+        <translation type="obsolete">Asgari meblağ</translation>
     </message>
     <message>
-        <location line="+34"/>
+        <location filename="../transactionview.cpp" line="+65"/>
         <source>Copy address</source>
         <translation>Adresi kopyala</translation>
     </message>
@@ -2546,9 +3521,14 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>Muamele detaylarını göster</translation>
     </message>
     <message>
-        <location line="+144"/>
+        <location line="+1"/>
+        <source>Show transaction on Pandachain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+57"/>
         <source>Export Transaction Data</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2593,30 +3573,46 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+4"/>
         <source>Error exporting</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Dışarı aktarım hatası</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Could not write to file %1.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">%1 dosyasına yazılamadı.</translation>
     </message>
     <message>
-        <location line="+100"/>
         <source>Range:</source>
-        <translation>Aralık:</translation>
+        <translation type="obsolete">Aralık:</translation>
     </message>
     <message>
-        <location line="+8"/>
         <source>to</source>
-        <translation>ilâ</translation>
+        <translation type="obsolete">ilâ</translation>
+    </message>
+</context>
+<context>
+    <name>TransferPage</name>
+    <message>
+        <location filename="../forms/transferpage.ui" line="+14"/>
+        <source>Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <source>Transfers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Address Book</source>
+        <translation type="unfinished">Adres Defteri</translation>
     </message>
 </context>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+206"/>
+        <location filename="../walletmodel.cpp" line="+223"/>
         <source>Sending...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2624,7 +3620,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
         <source>Pandacoin version</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2634,7 +3630,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+1"/>
         <source>Send command to -server or pandacoind</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2654,12 +3650,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+2"/>
         <source>Specify configuration file (default: pandacoin.conf)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Specify pid file (default: pandacoind.pid)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2679,12 +3675,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+1"/>
         <source>Set database disk log size in megabytes (default: 100)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Listen for connections on &lt;port&gt; (default: 15714 or testnet: 25714)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2704,12 +3700,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+5"/>
         <source>Bind to given address. Use [host]:port notation for IPv6</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Stake your coins to support network and gain reward (default: 1)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
@@ -2729,22 +3725,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+51"/>
         <source>Detach block and address databases. Increases shutdown time (default: 0)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+109"/>
         <source>Error: The transaction was rejected.  This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds  </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-87"/>
         <source>Listen for JSON-RPC connections on &lt;port&gt; (default: 22444 or testnet: 25715)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-11"/>
@@ -2754,22 +3750,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+101"/>
         <source>Error: Transaction creation failed  </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-5"/>
         <source>Error: Wallet locked, unable to create transaction  </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-8"/>
         <source>Importing blockchain data file.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Importing bootstrap blockchain data file.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-88"/>
@@ -2794,12 +3790,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+117"/>
         <source>Error initializing database environment %s! To recover, BACKUP THAT DIRECTORY, then remove everything from it except for wallet.dat.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-20"/>
         <source>Set maximum size of high-priority/low-fee transactions in bytes (default: 27000)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+11"/>
@@ -2809,7 +3805,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+61"/>
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Pandacoin will not work properly.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-31"/>
@@ -2849,22 +3845,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-90"/>
         <source>Find peers using DNS lookup (default: 1)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Sync checkpoints policy (default: strict)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+83"/>
         <source>Invalid -tor address: &apos;%s&apos;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Invalid amount for -reservebalance=&lt;amount&gt;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-82"/>
@@ -2884,17 +3880,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+28"/>
         <source>Output extra debugging information. Implies all other -debug* options</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Output extra network debugging information</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Prepend debug output with timestamp</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+35"/>
@@ -2904,7 +3900,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-74"/>
         <source>Select the version of socks proxy to use (4-5, default: 5)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+41"/>
@@ -2914,12 +3910,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+1"/>
         <source>Send trace/debug info to debugger</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+28"/>
         <source>Set maximum block size in bytes (default: 250000)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-1"/>
@@ -2940,7 +3936,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+109"/>
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-80"/>
@@ -2955,7 +3951,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-25"/>
         <source>Use proxy to reach tor hidden services (default: same as -proxy)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+42"/>
@@ -2965,17 +3961,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+47"/>
         <source>Verifying database integrity...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+57"/>
         <source>WARNING: syncronized checkpoint violation detected, but skipped!</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Warning: Disk space is low!</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-2"/>
@@ -3005,22 +4001,22 @@ If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
 for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@foo.com
 </source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+51"/>
         <source>Find peers using internet relay chat (default: 0)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Sync time with other nodes. Disable if time on your system is precise e.g. syncing with NTP (default: 1)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+15"/>
         <source>When creating transactions, ignore inputs with value less than this (default: 0.01)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+16"/>
@@ -3045,17 +4041,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="+3"/>
         <source>Require a confirmations for change (default: 0)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Enforce transaction scripts to use canonical PUSH operators (default: 1)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Execute command when a relevant alert is received (%s in cmd is replaced by message)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3075,17 +4071,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="+2"/>
         <source>How many blocks to check at startup (default: 2500, 0 = all)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>How thorough the block verification is (0-6, default: 1)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Imports blocks from external blk000?.dat file</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+8"/>
@@ -3105,17 +4101,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="+1"/>
         <source>Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+53"/>
         <source>Error: Wallet unlocked for staking only, unable to create transaction.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+18"/>
         <source>WARNING: Invalid checkpoint found! Displayed transactions may not be correct! You may need to upgrade, or notify developers.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-158"/>
@@ -3125,17 +4121,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="+95"/>
         <source>Wallet %s resides outside data directory %s.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Cannot obtain a lock on data directory %s.  Pandacoin is probably already running.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-98"/>
         <source>Pandacoin</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished">Pandacoin</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3145,7 +4141,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="-130"/>
         <source>Connect through socks proxy</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3160,7 +4156,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="-15"/>
         <source>Error loading blkindex.dat</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3170,12 +4166,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="+4"/>
         <source>Error loading wallet.dat: Wallet requires newer version of Pandacoin</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Wallet needed to be rewritten: restart Pandacoin to complete</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3215,12 +4211,12 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="+44"/>
         <source>Error: could not start node</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+11"/>
         <source>Sending...</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3245,17 +4241,17 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="+122"/>
         <source>Unable to bind to %s on this computer. Pandacoin is probably already running.</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="-97"/>
         <source>Fee per KB to add to transactions you send</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+55"/>
         <source>Invalid amount for -mininput=&lt;amount&gt;: &apos;%s&apos;</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+25"/>
@@ -3270,7 +4266,7 @@ for example: alertnotify=echo %%s | mail -s &quot;Pandacoin Alert&quot; admin@fo
     <message>
         <location line="+1"/>
         <source>Cannot initialize keypool</source>
-        <translation type="unfinished"/>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+1"/>

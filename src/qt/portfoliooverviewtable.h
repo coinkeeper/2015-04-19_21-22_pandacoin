@@ -14,7 +14,7 @@ public:
 signals:
 
 public slots:
-
+    void layoutChanged();
 };
 
 #endif // PORTFOLIOOVERVIEWTABLE_H

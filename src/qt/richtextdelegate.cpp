@@ -19,15 +19,22 @@ QString formatBitcoinAmountAsRichString(QString stringIn)
     return "<span style='font-size:"+CURRENCY_FONT_SIZE+";'>"+stringIn+"</span>";
 }
 
-RichTextDelegate::RichTextDelegate(QObject *parent)
+RichTextDelegate::RichTextDelegate(QObject *parent, bool formatCurrency_)
 : QStyledItemDelegate(parent)
 , renderControl(new QLabel())
+, formatCurrency(formatCurrency_)
+, leftPadding(0)
 {
 }
 
 RichTextDelegate::~RichTextDelegate()
 {
     renderControl->deleteLater();
+}
+
+void RichTextDelegate::setLeftPadding(int leftPadding_)
+{
+    leftPadding = leftPadding_;
 }
 
 void RichTextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -48,11 +55,6 @@ void RichTextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
     QStyledItemDelegate::paint(painter, option, index);
 
 
-    // Now paint rich text over.
-    painter->save();
-    painter->translate(textRect.topLeft());
-    painter->setClipRect(textRect.translated(-textRect.topLeft()));
-
     QVariant foregroundColor = index.data(Qt::ForegroundRole);
     if(foregroundColor.isValid() && foregroundColor.type() == QVariant::Color)
     {
@@ -64,13 +66,32 @@ void RichTextDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
         optionV4.palette.setColor(QPalette::Background, backgroundColor.value<QColor>());
     }
 
+    // Now paint rich text over.
+    painter->save();
+    painter->translate(textRect.topLeft());
+    painter->setClipRect(textRect.translated(-textRect.topLeft()));
+
+    // Blank out text with background color.
+    painter->setBrush(QBrush(optionV4.palette.color(QPalette::Background)));
+    painter->setPen(Qt::NoPen);
+    painter->drawRect(0,0,textRect.width(),textRect.height());
+
+    // Finally draw the actual text.
     renderControl->setPalette(optionV4.palette);
     renderControl->setAlignment(optionV4.displayAlignment);
     renderControl->setFont(optionV4.font);
-    QString text = formatBitcoinAmountAsRichString(index.data().toString());
+    QString text;
+    if(formatCurrency)
+    {
+        text = formatBitcoinAmountAsRichString(index.data().toString());
+    }
+    else
+    {
+        text = "<span style='font-size:"+CURRENCY_FONT_SIZE+";'>" + index.data().toString() + "</span>";
+    }
     renderControl->setText(text);
     renderControl->setFixedSize(textRect.size());
-    renderControl->render(painter, QPoint(), QRegion());
+    renderControl->render(painter, QPoint(leftPadding ,-1), QRegion());
 
     painter->restore();
 }

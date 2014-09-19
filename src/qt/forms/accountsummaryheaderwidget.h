@@ -19,6 +19,7 @@ public:
     void update(QString accountLabel, QString accountAddress, QString Balance, QString Available, QString Interest, QString Pending, bool editable);
     void setModel(WalletModel *model);
 
+    void setColumnWidths(int pendingWidth, int interestWidth, int availableWidth);
 private slots:
     void on_edit_account_label_button_pressed();
     void on_cancel_edit_account_label_button_pressed();

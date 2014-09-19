@@ -19,6 +19,7 @@ BitcoinAmountField::BitcoinAmountField(QWidget *parent)
 : QWidget(parent)
 , amount(0)
 , currentUnit(-1)
+, maximumValue(0)
 {
     amount = new QDoubleSpinBox(this);
     amount->setLocale(QLocale::c());
@@ -142,6 +143,15 @@ void BitcoinAmountField::setValue(qint64 value)
     setText(BitcoinUnits::format(currentUnit, value, false, false));
 }
 
+void BitcoinAmountField::setMaximumValue(double maximumValue_)
+{
+    maximumValue = maximumValue_;
+
+    qint64 val_out = 0;
+    BitcoinUnits::parse(BitcoinUnits::BTC, QString::number(maximumValue), &val_out);
+    amount->setMaximum(val_out / BitcoinUnits::factor(currentUnit));
+}
+
 void BitcoinAmountField::unitChanged(int idx)
 {
     // Use description tooltip for current unit for the combobox
@@ -149,6 +159,8 @@ void BitcoinAmountField::unitChanged(int idx)
 
     // Determine new unit ID
     int newUnit = unit->itemData(idx, BitcoinUnits::UnitRole).toInt();
+    int oldUnit = currentUnit;
+
 
     // Parse current value and convert to new unit
     bool valid = false;
@@ -158,7 +170,16 @@ void BitcoinAmountField::unitChanged(int idx)
 
     // Set max length after retrieving the value, to prevent truncation
     amount->setDecimals(2);
-    amount->setMaximum(qPow(10, BitcoinUnits::amountDigits(currentUnit)) - qPow(10, -amount->decimals()));
+    if(maximumValue == 0)
+    {
+        amount->setMaximum(qPow(10, BitcoinUnits::amountDigits(newUnit)) - qPow(10, -amount->decimals()));
+    }
+    else
+    {
+        qint64 val_out = 0;
+        BitcoinUnits::parse(BitcoinUnits::BTC, QString::number(maximumValue), &val_out);
+        amount->setMaximum(val_out * (BitcoinUnits::factor(BitcoinUnits::BTC)) / BitcoinUnits::factor(newUnit));
+    }
 
     if(valid)
     {

@@ -325,3 +325,31 @@ void AccountPage::cancelAccountCreation()
     ui->TransactionTabAccountSelection->setCurrentIndex(0);
     ui->tabWidget->setCurrentIndex(0);
 }
+
+void AccountPage::resizeEvent(QResizeEvent * e)
+{
+    setUpdatesEnabled(false);
+    updateHeaderWidths();
+    QFrame::resizeEvent(e);
+    setUpdatesEnabled(true);
+}
+
+void AccountPage::showEvent(QShowEvent *e)
+{
+    QFrame::showEvent(e);
+    updateHeaderWidths();
+}
+
+int countu=0;
+// Link the width of the columns in out 'summary header' to the columns in the 'transaction table'.
+void AccountPage::updateHeaderWidths()
+{
+    if(countu<2)
+    {
+        ++countu;
+        int balanceWidth = ui->transaction_table->getBalanceColumnWidth();
+        int amountWidth = ui->transaction_table->getAmountColumnWidth();
+        int accountWidth = ui->transaction_table->getAccountColumnWidth();
+        ui->account_summary_header->setColumnWidths(accountWidth, amountWidth, balanceWidth);
+    }
+}

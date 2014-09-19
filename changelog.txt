@@ -1,0 +1,20 @@
+2.2.2
+
+Wallet no longer loses its staking status when doing an action that requires a full unlock, 'unlock for staking' is preserved across actions.
+Add a right click context menu to portfolio overview so that account address can be easily copied.
+Fix color issues on systems with 'non standard' color themes.
+Cap the 'transaction fee' setting in options dialog at 100PND to prevent users accidentally setting it to high.
+Fixes to transaction history in some problem cases where transaction history was incorrect.
+Show fee transactions seperately so th at transaction history is less confusing and more like a regular bank account.
+Fix problem on rare machines where transaction view table would expand to infinite width.
+
+2.1.1
+
+Fixed error that was displaying when running for the first time on a new machine.
+Visual improvements to transactions grid and transactions summary.
+Various minor visual usability improvements.
+Fix some stability issues that were affecting users with older/larger wallets.
+Large speed improvements for people with bigger/older wallets.
+Improvements to the display of transaction history and fix some errors in transaction history display
+Fix an issue with quick transfer account selection.
+Sending to an account with no label no longer adds the account to your address book.

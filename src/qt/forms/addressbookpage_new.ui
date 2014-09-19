@@ -232,7 +232,7 @@
                 </sizepolicy>
                </property>
                <property name="text">
-                <string>label</string>
+                <string notr="true">label</string>
                </property>
               </widget>
              </item>
@@ -281,14 +281,14 @@
            <item>
             <widget class="QLabel" name="addressbook_account_address_heading">
              <property name="text">
-              <string>Account address</string>
+              <string notr="true">Account address</string>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QLabel" name="addressbook_account_address_value">
              <property name="text">
-              <string>address</string>
+              <string notr="true">address</string>
              </property>
             </widget>
            </item>

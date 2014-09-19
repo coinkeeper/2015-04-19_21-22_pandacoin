@@ -2,18 +2,14 @@
 #define OVERVIEWPAGE_H
 
 #include <QWidget>
-
-QT_BEGIN_NAMESPACE
-class QModelIndex;
-QT_END_NAMESPACE
+#include <QModelIndex>
 
 namespace Ui
 {
     class OverviewPage;
 }
 class WalletModel;
-//class TxViewDelegate;
-
+class QMenu;
 
 /** Overview ("home") page widget */
 class OverviewPage : public QWidget
@@ -41,13 +37,17 @@ private:
     qint64 currentStake;
     qint64 currentUnconfirmedBalance;
     qint64 currentImmatureBalance;
-
-    //TxViewDelegate *txdelegate;
+    QMenu *contextMenu;
+    QModelIndex contextMenuTriggerIndex;
 
 private slots:
     void updateDisplayUnit();
     void handleAccountClicked(const QModelIndex &index);
     void on_quick_transfer_next_button_clicked();
+    void contextualMenu(const QPoint &point);
+    void copyAddress();
+    void copyLabel();
+    void copyAmount();
 };
 
 #endif // OVERVIEWPAGE_H

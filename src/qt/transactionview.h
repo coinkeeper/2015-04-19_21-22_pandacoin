@@ -25,6 +25,9 @@ public:
     explicit TransactionView(QWidget *parent = 0);
     void setModel(WalletModel *model);
 
+    int getBalanceColumnWidth();
+    int getAmountColumnWidth();
+    int getAccountColumnWidth();
 private:
     WalletModel *model;
     TransactionFilterProxy *transactionProxyModel;

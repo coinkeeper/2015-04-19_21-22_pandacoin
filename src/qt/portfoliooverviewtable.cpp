@@ -14,8 +14,8 @@ PortfolioOverviewTable::PortfolioOverviewTable(QWidget *parent)
 
 void PortfolioOverviewTable::resizeEvent(QResizeEvent *event)
 {
-    //fixme: hardcoded
-    int totalWidthToFill = event->size().width()-12;
+    int marginRight = 8;
+    int totalWidthToFill = viewport()->width() - marginRight;
 
     // Split the width equally in three
     int width1, width2, width3;
@@ -38,4 +38,11 @@ void PortfolioOverviewTable::resizeEvent(QResizeEvent *event)
     setColumnWidth(0, width1);
     setColumnWidth(1, width2);
     setColumnWidth(2, width3);
+}
+
+// 'Shrink to fit' vertical data.
+void PortfolioOverviewTable::layoutChanged()
+{
+    int bestHeight = (model()->rowCount()+1) * horizontalHeader()->height();
+    setMaximumHeight(bestHeight);
 }

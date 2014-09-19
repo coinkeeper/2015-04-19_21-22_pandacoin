@@ -237,6 +237,8 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const QList<SendCoinsRecipie
         std::string strAddress = rcp.address.toStdString();
         CTxDestination dest = CBitcoinAddress(strAddress).Get();
         std::string strLabel = rcp.label.toStdString();
+
+        if(!strLabel.empty())
         {
             LOCK(wallet->cs_wallet);
 
@@ -391,13 +393,13 @@ WalletModel::UnlockContext WalletModel::requestUnlock()
 {
     bool was_locked = getEncryptionStatus() == Locked;
     
+    bool unlockedStakingOnly = fWalletUnlockStakingOnly;
     if ((!was_locked) && fWalletUnlockStakingOnly)
     {
        setWalletLocked(true);
        was_locked = getEncryptionStatus() == Locked;
-
     }
-    if(was_locked)
+    if(was_locked || fWalletUnlockStakingOnly)
     {
         // Request UI to unlock wallet
         emit requireUnlock();
@@ -405,13 +407,14 @@ WalletModel::UnlockContext WalletModel::requestUnlock()
     // If wallet is still locked, unlock was failed or cancelled, mark context as invalid
     bool valid = getEncryptionStatus() != Locked;
 
-    return UnlockContext(this, valid, was_locked && !fWalletUnlockStakingOnly);
+    return UnlockContext(this, valid, was_locked, unlockedStakingOnly);
 }
 
-WalletModel::UnlockContext::UnlockContext(WalletModel *wallet, bool valid, bool relock):
-        wallet(wallet),
-        valid(valid),
-        relock(relock)
+WalletModel::UnlockContext::UnlockContext(WalletModel *wallet, bool valid, bool relock, bool wasUnlockedForStaking)
+: wallet(wallet)
+, valid(valid)
+, relock(relock)
+, wasUnlockedForStaking(wasUnlockedForStaking)
 {
 }
 
@@ -419,7 +422,14 @@ WalletModel::UnlockContext::~UnlockContext()
 {
     if(valid && relock)
     {
-        wallet->setWalletLocked(true);
+        if(wasUnlockedForStaking)
+        {
+            fWalletUnlockStakingOnly = true;
+        }
+        else
+        {
+            wallet->setWalletLocked(true);
+        }
     }
 }
 
