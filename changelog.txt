@@ -1,4 +1,4 @@
-2.2.2
+2.1.2
 
 Wallet no longer loses its staking status when doing an action that requires a full unlock, 'unlock for staking' is preserved across actions.
 Add a right click context menu to portfolio overview so that account address can be easily copied.
