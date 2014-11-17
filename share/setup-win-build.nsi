@@ -5,9 +5,9 @@ SetCompressor /SOLID lzma
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION "2.1.2.0"
+!define VERSION "3.0.0.0"
 !define COMPANY "PandaCoin"
-!define URL http://thepandacoin.org
+!define URL http://pandacoinpnd.org
 
 # MUI Symbol Definitions
 !define MUI_ICON "pixmaps\bitcoin.ico"
