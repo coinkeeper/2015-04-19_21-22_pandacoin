@@ -72,8 +72,8 @@ SendCoinsRecipient MyAccountEntry::getValue()
 {
     SendCoinsRecipient rv;
 
-    rv.address = accountAddress->text();
-    rv.label = accountLabel->text();
+    rv.address = accountAddress->text().toStdString();
+    rv.label = accountLabel->text().toStdString();
     rv.amount = amt->value();
 
     return rv;
@@ -233,7 +233,7 @@ void SendCoinsEntry::confirmButtonPressed()
 
     GUIUtil::flagLocker locker(newRecipientAllowed);
 
-    QList<SendCoinsRecipient> recipients;
+    std::vector<SendCoinsRecipient> recipients;
     bool valid = true;
 
     if(!model)
@@ -243,7 +243,7 @@ void SendCoinsEntry::confirmButtonPressed()
     {
         if(mapTargetWidgets[i]->validate(model))
         {
-            recipients.append(mapTargetWidgets[i]->getValue());
+            recipients.push_back(mapTargetWidgets[i]->getValue());
         }
         else
         {
@@ -251,13 +251,14 @@ void SendCoinsEntry::confirmButtonPressed()
         }
     }
 
-    if(!valid || recipients.isEmpty())
+    if(!valid || recipients.empty())
     {
         return;
     }
 
-    QString sendAccountAddress=model->getMyAccountModel()->data(1,ui->from_account_list->currentIndex() - 1).toString().trimmed();
-    if(GUIUtil::SendCoinsHelper(this, recipients, model, sendAccountAddress, false))
+    std::string sendAccountAddress=model->getMyAccountModel()->data(1,ui->from_account_list->currentIndex() - 1).toString().trimmed().toStdString();
+    std::string transactionHash;
+    if(GUIUtil::SendCoinsHelper(this, recipients, model, sendAccountAddress, false, transactionHash))
     {
         clearTargetWidgets();
         CoinControlDialog::coinControl->UnSelectAll();
@@ -277,7 +278,7 @@ void SendCoinsEntry::myAccountNextButtonPressed()
 
     GUIUtil::flagLocker locker(newRecipientAllowed);
 
-    QList<SendCoinsRecipient> recipients;
+    std::vector<SendCoinsRecipient> recipients;
     bool valid = true;
 
     if(!model)
@@ -289,7 +290,7 @@ void SendCoinsEntry::myAccountNextButtonPressed()
         {
             if(mapMyAccounts[i]->getAmount() > 0)
             {
-                recipients.append(mapMyAccounts[i]->getValue());
+                recipients.push_back(mapMyAccounts[i]->getValue());
             }
         }
         else
@@ -298,13 +299,14 @@ void SendCoinsEntry::myAccountNextButtonPressed()
         }
     }
 
-    if(!valid || recipients.isEmpty())
+    if(!valid || recipients.empty())
     {
         return;
     }
 
-    QString sendAccountAddress=model->getMyAccountModel()->data(1,ui->from_account_list->currentIndex() - 1).toString().trimmed();
-    if(GUIUtil::SendCoinsHelper(this, recipients, model, sendAccountAddress, false))
+    std::string sendAccountAddress=model->getMyAccountModel()->data(1,ui->from_account_list->currentIndex() - 1).toString().trimmed().toStdString();
+    std::string transactionHash;
+    if(GUIUtil::SendCoinsHelper(this, recipients, model, sendAccountAddress, false, transactionHash))
     {
         for(int i = 0; i < mapMyAccounts.size(); ++i)
         {
@@ -490,7 +492,7 @@ bool SendCoinsEntry::handleURI(const QString &uri)
     // URI has to be valid
     if (GUIUtil::parseBitcoinURI(uri, &rv))
     {
-        CBitcoinAddress address(rv.address.toStdString());
+        CBitcoinAddress address(rv.address);
         if (!address.IsValid())
             return false;
         pasteEntry(rv);

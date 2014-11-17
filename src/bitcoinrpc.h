@@ -9,6 +9,7 @@
 #include <string>
 #include <list>
 #include <map>
+#include "qt/walletmodel.h"
 
 class CBlockIndex;
 
@@ -67,6 +68,9 @@ enum RPCErrorCode
 };
 
 json_spirit::Object JSONRPCError(int code, const std::string& message);
+
+void setRPCWalletModel(WalletModel* model);
+WalletModel* getRPCWalletModel();
 
 void ThreadRPCServer(void* parg);
 int CommandLineRPC(int argc, char *argv[]);

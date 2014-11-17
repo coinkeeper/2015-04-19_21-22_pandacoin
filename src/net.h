@@ -24,8 +24,6 @@ class CNode;
 class CBlockIndex;
 extern int nBestHeight;
 
-
-
 inline unsigned int ReceiveBufferSize() { return 1000*GetArg("-maxreceivebuffer", 5*1000); }
 inline unsigned int SendBufferSize() { return 1000*GetArg("-maxsendbuffer", 1*1000); }
 
@@ -155,6 +153,8 @@ public:
     CCriticalSection cs_vRecv;
     int64_t nLastSend;
     int64_t nLastRecv;
+    int64_t nLastRecvBlock;
+    int64_t nLastRecvHeader;
     int64_t nLastSendEmpty;
     int64_t nTimeConnected;
     int nHeaderStart;
@@ -172,6 +172,14 @@ public:
     bool fDisconnect;
     CSemaphoreGrant grantOutbound;
     int nRefCount;
+
+    static std::deque<std::pair<uint256,uint256> > RangesToSync;
+    static CCriticalSection cs_alterSyncRanges;
+    static int NumRangesToSync;
+    uint256 syncFrom;
+    uint256 syncTo;
+    bool isSyncing;
+
 protected:
 
     // Denial-of-service detection/prevention
@@ -207,6 +215,8 @@ public:
         hSocket = hSocketIn;
         nLastSend = 0;
         nLastRecv = 0;
+        nLastRecvBlock = 0;
+        nLastRecvHeader = 0;
         nLastSendEmpty = GetTime();
         nTimeConnected = GetTime();
         nHeaderStart = -1;
@@ -234,6 +244,10 @@ public:
         // Be shy and don't send version until we hear
         if (hSocket != INVALID_SOCKET && !fInbound)
             PushVersion();
+
+        syncFrom = uint256(0);
+        syncTo = uint256(0);
+        isSyncing = false;
     }
 
     ~CNode()

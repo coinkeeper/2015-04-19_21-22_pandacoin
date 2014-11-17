@@ -25,13 +25,41 @@ namespace Checkpoints
     //    timestamp before)
     // + Contains no strange transactions
     //
+
+    // Pandacoin
+    // Checkpoints evenly and frequently dispersed as hybrid/light mode use them to fetch from multiple peers.
+    // i.e. We fetch one range (gap between two checkpoints) per peer simeltaneously.
+    // Note that these are queued from back to front i.e. newest blocks are fetched first.
+    // We delibritely use very small gaps for the first six or so checkpoints to avoid a situation where the last 'range' to be synced goes to a slow node while all others sit idle.
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0,      hashGenesisBlock )
-        (  1000, uint256("0x95069fa83e4e5ce590ec6ce4d904ef4441b2c271b37724328dbb51dfbaae4d97"))
-        ( 63505, uint256("0xfc3fa63af056c025221a4a8cd137cf392b4c16c763b0c7939e0d6daf49a4f210"))
-        ( 66965, uint256("0xe5e27953427def08705caa5195f273d9e92893359537a19cd73413da78b83210"))
-        ( 71000, uint256("0x836b8b1a328528ef5d837186f46d2522603c2188f6d41ca4127261791a90963d"))
+        ( 0      , hashGenesisBlock )
+        ( 2000   , uint256("0xfbe01f6aafd2744636c9fbd93914f3748c9c9f8a02b728c31b7872729a918e36"))
+        ( 4000   , uint256("0x011f4d8c682d8e733041598a2d2fe4e912aa7341e7eb1ed15f3a0a19f0ed3dc9"))
+        ( 8000   , uint256("0x69490b5c69632ce6873104fbb629b6ce424686fde794a8545761be96c549e52a"))
+        ( 12000  , uint256("0x9b6bca69d584e03bd33667084f3c9dd14041feda021f6a5a191588797e8fb887"))
+        ( 16000  , uint256("0x9fd1c8e0edf22d227a91762e2b280a22015aa0c6b297fbae4065e844265f2e29"))
+        ( 20000  , uint256("0xc38a1c0f26528b59e515fb7b231ee34f9bbc9320ca02eef098fb67f6697a66f9"))
+        ( 25000  , uint256("0xa32dd6449e324b8fa976f2b5cbc9982fdccfd70d72c13029f0f1056d136ba0ed"))
+        ( 30000  , uint256("0x28bcb59e7fc81bf47757ca582e1e40c39bfb03cbe927118eb96f081634e7546e"))
+        ( 35000  , uint256("0x533425cb2b0782fed9dee9b9afcf0e058b5d0349df8f41094dbdd4cd8cb195f4"))
+        ( 40000  , uint256("0x9aa904e4b2e60a8e8831f81eb5bb1573bde1e0bfb68c1ab7e1d19fada98a9125"))
+        ( 50000  , uint256("0x57ce013451cc3d863961e1e92d1f8b0bfc239b58d0f6bb4a7be4aff6fee839e3"))
+        ( 75000  , uint256("0x1b13fa665f6939e0f44adb25b5731102fb2f6623bfb3f5c03185b36d20982a7c"))
+        ( 100000 , uint256("0x5a9d2be35519126617341153f915ebca6cb0a1652b1cc17b8eac8789846fed1e"))
+        ( 125000 , uint256("0x4221da6c38fc9e677ffb811ae81f1162cb792e2f6bc5baa04b77f6cc9130606b"))
+        ( 150000 , uint256("0xc2cf4286f1a826d790ac58d8fa81f894dc3c46ef219db6e44347e611725bb269"))
+        ( 175000 , uint256("0x5f6e3878ce9b04a3dcb2a1e8cd69ac766c0c98f8da3afa363d4451ba787891b5"))
+        ( 200000 , uint256("0x4c2a371e1711c8514551a78af9a2b1747e24bc92982d0bb1065accd04bfe134e"))
+        ( 225000 , uint256("0x9c879a56429cc8052176f299d4de4ab43b9a3df0129c1ca465b934e31ff51eb5"))
+        ( 250000 , uint256("0x1c3a4b56916aeaa7d5ea24cf8d2ffaff610ccf07e8a3bf1fd662b431b8b854b9"))
+        ( 275000 , uint256("0x643199f1a124662c344cadbc5cd67614b7155e4024fa7070ec705df52fedc2b7"))
+        ( 300000 , uint256("0x2dda276404bd738a95c05961e77721a5b79896c614375361bd7d6857577f4b82"))
+        ( 325000 , uint256("0xf6bfec312bf55226574eafc329c18056ac8c94277d7e33ca06592fbb4fd71f27"))
+        ( 350000 , uint256("0xcb43cae668d5efe204daa278cf313fb5cb09d57089939aa845fc1085ba1be89b"))
+        ( 375000 , uint256("0xf70679d589e481e6d4c05bbfb2ae67c604135e63fa80973c1f5671769cb4a4e4"))
+        ( 400000 , uint256("0x27fbc9e87af89407c4419ceabcd1a7bfae2f90cf7b0521401171ab420a48a61b"))
+        ( 420000 , uint256("0xd5b538f1fb095d6c4bad89f1b887ac3faa9bfa3b37dc3a11a0f4eaf9f5724e4c"))
     ;
 
     // TestNet has no checkpoints
@@ -56,6 +84,91 @@ namespace Checkpoints
         return checkpoints.rbegin()->first;
     }
 
+    bool IsCheckpoint(uint256 hash)
+    {
+        MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
+
+        BOOST_REVERSE_FOREACH(const MapCheckpoints::value_type& i, checkpoints)
+        {
+            if(i.second == hash)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void LoadCheckpoints(CNode* pfrom)
+    {
+        MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
+
+        BOOST_FOREACH(const MapCheckpoints::value_type& i, checkpoints)
+        {
+            if(i.second != hashGenesisBlock)
+            {
+                if( !mapOrphanBlocks.count(i.second) && !mapBlockIndex.count(i.second) )
+                {
+                    pfrom->AskFor(CInv(MSG_BLOCK, i.second));
+                }
+            }
+        }
+    }
+
+    int GetNumCheckpoints()
+    {
+        MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
+
+        return checkpoints.size();
+    }
+
+    int GetNumLoadedCheckpoints()
+    {
+        MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
+
+        int Ret=0;
+        MapCheckpoints::const_iterator i = checkpoints.begin();
+        for(;i != checkpoints.end();i++)
+        {
+            if( mapOrphanBlocks.count(i->second) || mapBlockIndex.count(i->second) )
+            {
+                Ret++;
+            }
+        }
+        return Ret;
+    }
+
+    void InsertPlaceHoldersBetweenCheckpoints()
+    {
+        MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
+
+        MapCheckpoints::const_iterator i = checkpoints.begin();
+        int64_t prevIndex=0;
+        uint256 prevHash;
+        while(i != checkpoints.end())
+        {
+            if (mapOrphanBlocks.count(i->second))
+            {
+                CBlock placeHolderBlock;
+                placeHolderBlock.hashOverride = mapOrphanBlocks[i->second]->hashPrevBlock;
+                placeHolderBlock.hashPrevBlock = prevHash;
+                placeHolderBlock.numPlacesHeld = i->first - prevIndex;
+                placeHolderBlock.headerOnly = true;
+                placeHolderBlock.placeHolderBlock = true;
+                ProcessBlock(NULL, &placeHolderBlock);
+            }
+            prevHash = i->second;
+            prevIndex = i->first;
+            // Check if already in tree - when loading an existing block index this may be the case.
+            if (mapBlockIndex.count(prevHash))
+            {
+                prevHash = pindexBest->GetBlockHash();
+                prevIndex = pindexBest->nHeight;
+            }
+
+            i++;
+        }
+    }
+
     CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex)
     {
         MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
@@ -68,6 +181,28 @@ namespace Checkpoints
                 return t->second;
         }
         return NULL;
+    }
+
+    uint256 GetEpochHash(int64_t datetime)
+    {
+        MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
+
+        BOOST_REVERSE_FOREACH(const MapCheckpoints::value_type& i, checkpoints)
+        {
+            if(mapBlockIndex.count(i.second) && mapBlockIndex[i.second]->nTime < datetime)
+            {
+                CBlockIndex* pEpochBlock = mapBlockIndex[i.second];
+                if (epochCheckpointDepth == 0)
+                {
+                    while(pEpochBlock->pnext && !pEpochBlock->pnext->IsHeaderOnly())
+                        pEpochBlock = pEpochBlock->pnext;
+                    epochCheckpointDepth = pEpochBlock->nHeight;
+                }
+                return i.second;
+            }
+        }
+        // This should never be reached as we should always have checkpoints.
+        return uint256(0);
     }
 
     // ppcoin: synchronized checkpoint (centrally broadcasted)
@@ -153,7 +288,7 @@ namespace Checkpoints
         LOCK(cs_hashSyncCheckpoint);
         if (hashPendingCheckpoint != 0 && mapBlockIndex.count(hashPendingCheckpoint))
         {
-            if (!ValidateSyncCheckpoint(hashPendingCheckpoint))
+            if (!mapBlockIndex.count(hashPendingCheckpoint) || !ValidateSyncCheckpoint(hashPendingCheckpoint))
             {
                 hashPendingCheckpoint = 0;
                 checkpointMessagePending.SetNull();
@@ -386,13 +521,16 @@ bool CSyncCheckpoint::ProcessSyncCheckpoint(CNode* pfrom)
         Checkpoints::hashPendingCheckpoint = hashCheckpoint;
         Checkpoints::checkpointMessagePending = *this;
         printf("ProcessSyncCheckpoint: pending for sync-checkpoint %s\n", hashCheckpoint.ToString().c_str());
-        // Ask this guy to fill in what we're missing
-        if (pfrom)
+        if(currentClientMode == ClientFull || currentLoadState == LoadState_AcceptingNewBlocks)
         {
-            pfrom->PushGetBlocks(pindexBest, hashCheckpoint);
-            // ask directly as well in case rejected earlier by duplicate
-            // proof-of-stake because getblocks may not get it this time
-            pfrom->AskFor(CInv(MSG_BLOCK, mapOrphanBlocks.count(hashCheckpoint)? WantedByOrphan(mapOrphanBlocks[hashCheckpoint]) : hashCheckpoint));
+            // Ask this guy to fill in what we're missing
+            if (pfrom)
+            {
+                pfrom->PushGetBlocks(pindexBest, hashCheckpoint);
+                // ask directly as well in case rejected earlier by duplicate
+                // proof-of-stake because getblocks may not get it this time
+                pfrom->AskFor(CInv(MSG_BLOCK, mapOrphanBlocks.count(hashCheckpoint)? WantedByOrphan(mapOrphanBlocks[hashCheckpoint]) : hashCheckpoint));
+            }
         }
         return false;
     }

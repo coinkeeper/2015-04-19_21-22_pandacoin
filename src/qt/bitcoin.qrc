@@ -63,12 +63,21 @@
         <file alias="unlock2">res/icons/unlock2.png</file>
         <file alias="add_12px">res/icons/add_12px.png</file>
         <file alias="right_arrow">res/icons/right_arrow.png</file>
+        <file alias="mode_hybrid">res/icons/mode_hybrid.png</file>
+        <file alias="mode_full">res/icons/mode_full.png</file>
+        <file alias="mode_light">res/icons/mode_light.png</file>
+        <file alias="staking_disabled">res/icons/staking_disabled.png</file>
+        <file alias="mode_full_35">res/icons/mode_full_35.png</file>
+        <file alias="mode_hybrid_35">res/icons/mode_hybrid_35.png</file>
+        <file alias="mode_light_35">res/icons/mode_light_35.png</file>
     </qresource>
     <qresource prefix="/images">
         <file alias="about">res/images/about.png</file>
         <file alias="splash">res/images/splash3.png</file>
         <file alias="wallet_bgcoin">res/images/wallet_bgcoin.png</file>
         <file alias="toolbar_banner">res/images/toolbar_banner.png</file>
+        <file alias="toolbar_banner_light">res/images/toolbar_banner_light.png</file>
+        <file alias="toolbar_banner_hybrid">res/images/toolbar_banner_hybrid.png</file>
     </qresource>
     <qresource prefix="/movies">
         <file alias="update_spinner">res/movies/update_spinner.mng</file>

@@ -5,15 +5,28 @@
 
 #include "wallet.h"
 #include "walletdb.h"
+#include "qt/walletmodel.h"
 #include "bitcoinrpc.h"
 #include "init.h"
 #include "base58.h"
+#include "qt/guiutil.h"
 
 using namespace json_spirit;
 using namespace std;
 
 int64_t nWalletUnlockTime;
 static CCriticalSection cs_nWalletUnlockTime;
+
+WalletModel* walletModel;
+void setRPCWalletModel(WalletModel* model)
+{
+    walletModel = model;
+}
+
+WalletModel* getRPCWalletModel()
+{
+    return walletModel;
+}
 
 extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, json_spirit::Object& entry);
 
@@ -502,12 +515,12 @@ Value getreceivedbyaccount(const Array& params, bool fHelp)
 }
 
 
-int64_t GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMinDepth)
+int64_t GetAccountBalance(CWallet* wallet, const string& strAccount, int nMinDepth)
 {
     int64_t nBalance = 0;
 
     // Tally wallet transactions
-    for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
+    /*for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
         if (!wtx.IsFinal() || wtx.GetDepthInMainChain() < 0)
@@ -522,15 +535,21 @@ int64_t GetAccountBalance(CWalletDB& walletdb, const string& strAccount, int nMi
     }
 
     // Tally internal accounting entries
-    nBalance += walletdb.GetAccountCreditDebit(strAccount);
+    nBalance += walletdb.GetAccountCreditDebit(strAccount);*/
 
+    int64_t accountInterest = 0;
+    int64_t accountBalance = 0;
+    int64_t accountPending = 0;
+    wallet->GetBalanceForAddress(strAccount, accountInterest, accountPending, accountBalance);
+
+
+    nBalance = accountInterest + accountBalance + accountPending;
     return nBalance;
 }
 
 int64_t GetAccountBalance(const string& strAccount, int nMinDepth)
 {
-    CWalletDB walletdb(pwalletMain->strWalletFile);
-    return GetAccountBalance(walletdb, strAccount, nMinDepth);
+    return GetAccountBalance(pwalletMain, strAccount, nMinDepth);
 }
 
 
@@ -639,41 +658,55 @@ Value movecmd(const Array& params, bool fHelp)
 Value sendfrom(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 6)
-        throw runtime_error(
-            "sendfrom <fromaccount> <topandacoinaddress> <amount> [minconf=1] [comment] [comment-to]\n"
+        throw runtime_error("sendfrom <frompandacoinaddress> <topandacoinaddress> <amount> [minconf=1] [comment] [comment-to]\n"
             "<amount> is a real and is rounded to the nearest 0.000001"
             + HelpRequiringPassphrase());
 
-    string strAccount = AccountFromValue(params[0]);
-    CBitcoinAddress address(params[1].get_str());
-    if (!address.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Pandacoin address");
+    string fromAccount = AccountFromValue(params[0]);
+    CBitcoinAddress fromAddress(params[0].get_str());
+    if (!fromAddress.IsValid())
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid sender Pandacoin address");
+
+    string toAccount = AccountFromValue(params[1]);
+    CBitcoinAddress toAddress(params[1].get_str());
+    if (!toAddress.IsValid())
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid receiver Pandacoin address");
+
     int64_t nAmount = AmountFromValue(params[2]);
 
     int nMinDepth = 1;
     if (params.size() > 3)
         nMinDepth = params[3].get_int();
 
-    CWalletTx wtx;
-    wtx.strFromAccount = strAccount;
-    if (params.size() > 4 && params[4].type() != null_type && !params[4].get_str().empty())
-        wtx.mapValue["comment"] = params[4].get_str();
-    if (params.size() > 5 && params[5].type() != null_type && !params[5].get_str().empty())
-        wtx.mapValue["to"]      = params[5].get_str();
+    std::vector<SendCoinsRecipient> recipients;
+    recipients.push_back(SendCoinsRecipient(nAmount, toAccount.c_str(), ""));
+
+    //fixme: add comments back in.
+    //if (params.size() > 4 && params[4].type() != null_type && !params[4].get_str().empty())
+    //wtx.mapValue["comment"] = params[4].get_str();
+    //if (params.size() > 5 && params[5].type() != null_type && !params[5].get_str().empty())
+    //wtx.mapValue["to"]      = params[5].get_str();
 
     EnsureWalletIsUnlocked();
 
     // Check funds
-    int64_t nBalance = GetAccountBalance(strAccount, nMinDepth);
+    int64_t nBalance = GetAccountBalance(fromAccount, nMinDepth);
     if (nAmount > nBalance)
         throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Account has insufficient funds");
 
+    //fixme: Take minDepth into account.
     // Send
-    string strError = pwalletMain->SendMoneyToDestination(address.Get(), nAmount, wtx);
-    if (strError != "")
-        throw JSONRPCError(RPC_WALLET_ERROR, strError);
+    std::string transactionHash;
+#ifdef HEADLESS
+    if(!GUIUtil::SendCoinsHelper(recipients, walletModel, fromAccount.c_str(), true, transactionHash))
+#else
+    if(!GUIUtil::SendCoinsHelper(NULL, recipients, walletModel, fromAccount.c_str(), true, transactionHash))
+#endif
+    {
+        throw JSONRPCError(RPC_WALLET_ERROR, "Send transaction failed for unspecified reasons.");
+    }
 
-    return wtx.GetHash().GetHex();
+    return transactionHash;
 }
 
 
@@ -681,24 +714,28 @@ Value sendmany(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
-            "sendmany <fromaccount> {address:amount,...} [minconf=1] [comment]\n"
+            "sendmany <frompandacoinaddress> {topandacoinaddress:amount,...} [minconf=1] [comment]\n"
             "amounts are double-precision floating point numbers"
             + HelpRequiringPassphrase());
 
-    string strAccount = AccountFromValue(params[0]);
+    string fromAccount = AccountFromValue(params[0]);
+    CBitcoinAddress fromAddress(params[0].get_str());
+    if (!fromAddress.IsValid())
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid sender Pandacoin address");
+
     Object sendTo = params[1].get_obj();
     int nMinDepth = 1;
     if (params.size() > 2)
         nMinDepth = params[2].get_int();
 
-    CWalletTx wtx;
-    wtx.strFromAccount = strAccount;
-    if (params.size() > 3 && params[3].type() != null_type && !params[3].get_str().empty())
-        wtx.mapValue["comment"] = params[3].get_str();
+    //fixme: add comments back in.
+    //if (params.size() > 3 && params[3].type() != null_type && !params[3].get_str().empty())
+    //    wtx.mapValue["comment"] = params[3].get_str();
 
     set<CBitcoinAddress> setAddress;
     vector<pair<CScript, int64_t> > vecSend;
 
+    std::vector<SendCoinsRecipient> recipients;
     int64_t totalAmount = 0;
     BOOST_FOREACH(const Pair& s, sendTo)
     {
@@ -717,29 +754,29 @@ Value sendmany(const Array& params, bool fHelp)
         totalAmount += nAmount;
 
         vecSend.push_back(make_pair(scriptPubKey, nAmount));
+        recipients.push_back(SendCoinsRecipient(nAmount, s.name_.c_str(), ""));
     }
 
     EnsureWalletIsUnlocked();
 
     // Check funds
-    int64_t nBalance = GetAccountBalance(strAccount, nMinDepth);
+    int64_t nBalance = GetAccountBalance(fromAccount, nMinDepth);
     if (totalAmount > nBalance)
         throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Account has insufficient funds");
 
+    //fixme: Take minDepth into account.
     // Send
-    CReserveKey keyChange(pwalletMain);
-    int64_t nFeeRequired = 0;
-    bool fCreated = pwalletMain->CreateTransaction(vecSend, wtx, keyChange, nFeeRequired);
-    if (!fCreated)
+    std::string transactionHash;
+#ifdef HEADLESS
+    if(!GUIUtil::SendCoinsHelper(recipients, walletModel, fromAccount.c_str(), true, transactionHash))
+#else
+    if(!GUIUtil::SendCoinsHelper(NULL, recipients, walletModel, fromAccount.c_str(), true, transactionHash))
+#endif
     {
-        if (totalAmount + nFeeRequired > pwalletMain->GetBalance())
-            throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Insufficient funds");
-        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction creation failed");
+        throw JSONRPCError(RPC_WALLET_ERROR, "Send transaction failed for unspecified reasons.");
     }
-    if (!pwalletMain->CommitTransaction(wtx, keyChange))
-        throw JSONRPCError(RPC_WALLET_ERROR, "Transaction commit failed");
 
-    return wtx.GetHash().GetHex();
+    return transactionHash;
 }
 
 Value addmultisigaddress(const Array& params, bool fHelp)

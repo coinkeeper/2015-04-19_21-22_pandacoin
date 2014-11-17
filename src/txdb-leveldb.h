@@ -9,11 +9,20 @@
 #include "main.h"
 
 #include <map>
+#include <boost/unordered_map.hpp>
 #include <string>
 #include <vector>
 
 #include <leveldb/db.h>
 #include <leveldb/write_batch.h>
+
+struct BlockHasher
+{
+    size_t operator()(const uint256& hash) const { return hash.Get64(); }
+};
+
+// Wipe block index and re-initialise.
+void reinit_blockindex();
 
 // Class that provides access to a LevelDB. Note that this class is frequently
 // instantiated on the stack and then destroyed again, so instantiation has to
@@ -47,6 +56,9 @@ private:
     // field is non-NULL, writes/deletes go there instead of directly to disk.
     leveldb::WriteBatch *activeBatch;
     leveldb::Options options;
+    //fixme: Faster to use unordered_map?
+    boost::unordered_map<uint256, CTxIndex, BlockHasher> *TXReadWritePool;
+    boost::unordered_map<uint256, CDiskBlockIndex, BlockHasher> *TXReadWritePoolBlocks;
     bool fReadOnly;
     int nVersion;
 
@@ -163,6 +175,10 @@ protected:
 
 
 public:
+    // Helper functions to peform faster validation - pool everything in memory until validation complete and only then write it alla t once towards end.
+    bool TxnBeginTxPool();
+    bool TxnEndTxPool();
+
     bool TxnBegin();
     bool TxnCommit();
     bool TxnAbort()
@@ -192,7 +208,7 @@ public:
     bool ReadDiskTx(uint256 hash, CTransaction& tx);
     bool ReadDiskTx(COutPoint outpoint, CTransaction& tx, CTxIndex& txindex);
     bool ReadDiskTx(COutPoint outpoint, CTransaction& tx);
-    bool WriteBlockIndex(const CDiskBlockIndex& blockindex);
+    bool WriteBlockIndex(const uint256& blockHash, const CDiskBlockIndex& blockindex);
     bool ReadHashBestChain(uint256& hashBestChain);
     bool WriteHashBestChain(uint256 hashBestChain);
     bool ReadBestInvalidTrust(CBigNum& bnBestInvalidTrust);

@@ -8,7 +8,7 @@
 #include "bignum.h"
 #include "sync.h"
 #include "net.h"
-#include "script.h"
+#include "script/script.h"
 #include "scrypt.h"
 #include "zerocoin/Zerocoin.h"
 
@@ -45,6 +45,8 @@ static const int64_t MAX_MONEY = 50000000000 * COIN;
 static const int64_t COIN_YEAR_REWARD = 2.5 * CENT;
 inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
+static const unsigned int MAX_BLOCKS_PER_INV = 500;
+static const unsigned int MAX_HEADERS_PER_REQUEST = 2000;
 
 #ifdef USE_UPNP
 static const int fHaveUPnP = true;
@@ -99,6 +101,9 @@ extern bool fEnforceCanonical;
 // Minimum disk space required - used in CheckDiskSpace()
 static const uint64_t nMinDiskSpace = 52428800;
 
+extern CCriticalSection cs_IO;
+extern CCriticalSection cs_Accept;
+
 class CReserveKey;
 class CTxDB;
 class CTxIndex;
@@ -110,7 +115,10 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock);
 bool CheckDiskSpace(uint64_t nAdditionalBytes=0);
 FILE* OpenBlockFile(unsigned int nFile, unsigned int nBlockPos, const char* pszMode="rb");
 FILE* AppendBlockFile(unsigned int& nFileRet);
+void FlushBlockFile();
 bool LoadBlockIndex(bool fAllowNew=true);
+void DeleteBlockFile();
+bool CreateGenesisBlock(bool fAllowNew=true);
 void PrintBlockTree();
 CBlockIndex* FindBlockByHeight(int nHeight);
 bool ProcessMessages(CNode* pfrom);
@@ -135,9 +143,66 @@ void ResendWalletTransactions(bool fForce = false);
 
 
 
+extern CCriticalSection cs_VerifyAllBlocks;
+extern int numEpochTransactionsScanned;
+extern int numEpochTransactionsToScan;
+// Where we are in the load process
+enum LoadState
+{
+    LoadState_OldBlockIndex,
+    LoadState_Begin = 0,
+    LoadState_Connect,
+    LoadState_CheckPoint,
+    LoadState_SyncHeadersFromEpoch,
+    LoadState_SyncBlocksFromEpoch,
+    LoadState_ScanningTransactionsFromEpoch,
+    LoadState_SyncAllHeaders,
+    LoadState_SyncAllBlocks,
+    LoadState_VerifyAllBlocks,
+    LoadState_AcceptingNewBlocks,
+    LoadState_Exiting
+};
 
+extern CCriticalSection cs_ChangeLoadState;
+bool TransitionLoadState(CNode* pfrom);
 
+enum ClientMode
+{
+    ClientFull,     // Original standard client, always sync all blocks.
+    ClientLight,    // Light client, only sync headers (and blocks for tx's that include us.
+    ClientHybrid    // New improved standard client, fetch headers first and only afterwards detch full blocks.
+};
 
+void TransitionClientMode(ClientMode oldMode, ClientMode newMode);
+
+// What mode the client is in i.e. Is it in light or full mode?
+extern ClientMode currentClientMode;
+// What load state the client is in i.e. Is it still busy synchronising the block chain.
+extern LoadState currentLoadState;
+// What load state the client was in for previous run if we had an existing block chain from a previous run.
+extern LoadState prevLoadState;
+// If syncing from checkpoint what depth is checkpoint at? (Used for status text)
+extern int epochCheckpointDepth;
+// Is this the first run of program (No prior block index)
+extern bool fNewBlockChain;
+
+void PushWork(CNode* pfrom);
+
+// How many headers we have synced
+extern int64_t numSyncedHeaders;
+// How many blocks we have synced
+extern int64_t numSyncedBlocks;
+extern int64_t numSyncedEpochBlocks;
+// List of blocks that came in during header sync
+extern std::set<uint256> AdditionalBlocksToFetch;
+
+extern int numBlocksToVerify;
+extern int numBlocksVerified;
+
+//fixme: Not 100% sure if the tx time is always going to be right if e.g. wallet.dat regenerated months after first creation
+//Check if it is and if not rather just save actual account creation dates to wallet.dat...
+// When loading from an existing wallet.dat track the tx times - light client will use these in order to determine the epoch checkpoint.
+extern unsigned int firstWalletTxTime;
 
 
 
@@ -604,6 +669,9 @@ public:
 
     bool ReadFromDisk(CDiskTxPos pos, FILE** pfileRet=NULL)
     {
+        LOCK(cs_IO);
+        FlushBlockFile();
+
         CAutoFile filein = CAutoFile(OpenBlockFile(pos.nFile, 0, pfileRet ? "rb+" : "rb"), SER_DISK, CLIENT_VERSION);
         if (!filein)
             return error("CTransaction::ReadFromDisk() : OpenBlockFile failed");
@@ -616,7 +684,7 @@ public:
             filein >> *this;
         }
         catch (std::exception &e) {
-            return error("%s() : deserialize or I/O error", __PRETTY_FUNCTION__);
+            return error("%s (%s) : deserialize or I/O error", __PRETTY_FUNCTION__, e.what());
         }
 
         // Return file pointer
@@ -832,8 +900,6 @@ public:
 
 
 
-
-
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work
  * requirements.  When they solve the proof-of-work, they broadcast the block
@@ -849,6 +915,17 @@ class CBlock
 public:
     // header
     static const int CURRENT_VERSION=3;
+
+
+    // Only the header has been loaded (so that we know not to try validate the whole block)
+    bool headerOnly;
+    // Special 'placeholder' block for light/hybrid clients - fill in gaps between checkpoints in place of the real chain.
+    bool placeHolderBlock;
+    mutable uint256 hashOverride;
+    // How many blocks we are acting in place of.
+    int numPlacesHeld;
+
+    // NB!!!! IMPORTANT! The code uses the address of nVersion in order to compute pow hash - therefore we must not add any member variables after nVersion
     int nVersion;
     uint256 hashPrevBlock;
     uint256 hashMerkleRoot;
@@ -914,6 +991,10 @@ public:
         vchBlockSig.clear();
         vMerkleTree.clear();
         nDoS = 0;
+        headerOnly = false;
+        placeHolderBlock = false;
+        numPlacesHeld = 0;
+        hashOverride = 0;
     }
 
     bool IsNull() const
@@ -923,8 +1004,10 @@ public:
 
     uint256 GetHash() const
     {
-//        return GetPoWHash();
-        return Hash(BEGIN(nVersion), END(nNonce));
+        if(hashOverride != 0)
+            return hashOverride;
+        hashOverride = Hash(BEGIN(nVersion), END(nNonce));
+        return hashOverride;
     }
 
     uint256 GetPoWHash() const
@@ -1027,10 +1110,15 @@ public:
     }
 
 
+
     bool WriteToDisk(unsigned int& nFileRet, unsigned int& nBlockPosRet)
     {
+        LOCK(cs_IO);
+
         // Open history file to append
         CAutoFile fileout = CAutoFile(AppendBlockFile(nFileRet), SER_DISK, CLIENT_VERSION);
+        if( currentClientMode != ClientFull && IsInitialBlockDownload() )
+            fileout.SetNoClose();
         if (!fileout)
             return error("CBlock::WriteToDisk() : AppendBlockFile failed");
 
@@ -1045,16 +1133,22 @@ public:
         nBlockPosRet = fileOutPos;
         fileout << *this;
 
-        // Flush stdio buffers and commit to disk before returning
-        fflush(fileout);
-        if (!IsInitialBlockDownload() || (nBestHeight+1) % 500 == 0)
+        // Flush stdio buffers and commit to disk before returning - during initial block load we don't do this every time to avoid unnecessary slow down and/or to be kinder to SSD life etc.
+        static int count=0;
+        if ( currentClientMode == ClientFull || !IsInitialBlockDownload() || ( ++count % 1000 == 0) )
+        {
+            fflush(fileout);
             FileCommit(fileout);
+        }
 
         return true;
     }
 
     bool ReadFromDisk(unsigned int nFile, unsigned int nBlockPos, bool fReadTransactions=true)
     {
+        LOCK(cs_IO);
+        FlushBlockFile();
+
         SetNull();
 
         // Open history file to read
@@ -1069,12 +1163,15 @@ public:
             filein >> *this;
         }
         catch (std::exception &e) {
-            return error("%s() : deserialize or I/O error", __PRETTY_FUNCTION__);
+            return error("%s (%s) (%s) : deserialize or I/O error", __PRETTY_FUNCTION__, GetHash().ToString().c_str(), e.what());
         }
 
-        // Check the header
-        if (fReadTransactions && IsProofOfWork() && !CheckProofOfWork(GetPoWHash(), nBits))
-            return error("CBlock::ReadFromDisk() : errors in block header");
+        if ( currentClientMode == ClientFull || ( currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks ) )
+        {
+            // Check the header
+            if (fReadTransactions && IsProofOfWork() && !CheckProofOfWork(GetPoWHash(), nBits))
+                return error("CBlock::ReadFromDisk() : errors in block header %s", GetHash().ToString().c_str());
+        }
 
         return true;
     }
@@ -1107,7 +1204,7 @@ public:
     bool ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck=false);
     bool ReadFromDisk(const CBlockIndex* pindex, bool fReadTransactions=true);
     bool SetBestChain(CTxDB& txdb, CBlockIndex* pindexNew);
-    bool AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos, const uint256& hashProof);
+    bool AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos, const uint256& hashProof, bool replacingHeader, bool replacingPlaceholder);
     bool CheckBlock(bool fCheckPOW=true, bool fCheckMerkleRoot=true, bool fCheckSig=true) const;
     bool AcceptBlock();
     bool GetCoinAge(uint64_t& nCoinAge) const; // ppcoin: calculate total coin age spent in block
@@ -1150,10 +1247,13 @@ public:
         BLOCK_PROOF_OF_STAKE = (1 << 0), // is proof-of-stake block
         BLOCK_STAKE_ENTROPY  = (1 << 1), // entropy bit for stake modifier
         BLOCK_STAKE_MODIFIER = (1 << 2), // regenerated stake modifier
+        BLOCK_HEADER_ONLY    = (1 << 3), // header only block (don't have body yet - used in hybrid/light modes)
+        BLOCK_PLACEHOLDER    = (1 << 4), // placeholder (represents a block range - only used in hybrid/light mode - only exists during initial sync)
+        BLOCK_VERIFIED       = (1 << 5) // verified - block has been accepted and added to chain - in full mode set instantly on accept block in hybrid/light mode set only during verifyblocks (initial sync) after initial sync same as full mode.
     };
 
     uint64_t nStakeModifier; // hash modifier for proof-of-stake
-    unsigned int nStakeModifierChecksum; // checksum of index; in-memeory only
+    unsigned int nStakeModifierChecksum; // checksum of index; in-memory only
 
     // proof-of-stake specific fields
     COutPoint prevoutStake;
@@ -1167,6 +1267,9 @@ public:
     unsigned int nTime;
     unsigned int nBits;
     unsigned int nNonce;
+
+    // How many blocks we are acting in place of.
+    int numPlacesHeld;
 
     CBlockIndex()
     {
@@ -1226,6 +1329,47 @@ public:
         nTime          = block.nTime;
         nBits          = block.nBits;
         nNonce         = block.nNonce;
+
+        SetHeaderOnly(block.headerOnly);
+        SetPlaceHolderBlock(block.placeHolderBlock);
+        numPlacesHeld = block.numPlacesHeld;
+    }
+
+    void Overwrite(unsigned int nFileIn, unsigned int nBlockPosIn, CBlock& block)
+    {
+        phashBlock = NULL;
+        nFile = nFileIn;
+        nBlockPos = nBlockPosIn;
+        nHeight = 0;
+        nChainTrust = 0;
+        nMint = 0;
+        nMoneySupply = 0;
+        nFlags = 0;
+        nStakeModifier = 0;
+        nStakeModifierChecksum = 0;
+        hashProof = 0;
+
+        if (block.IsProofOfStake())
+        {
+            SetProofOfStake();
+            prevoutStake = block.vtx[1].vin[0].prevout;
+            nStakeTime = block.nTime;
+        }
+        else
+        {
+            prevoutStake.SetNull();
+            nStakeTime = 0;
+        }
+
+        nVersion       = block.nVersion;
+        hashMerkleRoot = block.hashMerkleRoot;
+        nTime          = block.nTime;
+        nBits          = block.nBits;
+        nNonce         = block.nNonce;
+
+        SetHeaderOnly(block.headerOnly);
+        SetPlaceHolderBlock(block.placeHolderBlock);
+        numPlacesHeld = block.numPlacesHeld;
     }
 
     CBlock GetBlockHeader() const
@@ -1319,6 +1463,45 @@ public:
         nFlags |= BLOCK_PROOF_OF_STAKE;
     }
 
+    void SetHeaderOnly(bool headerOnly)
+    {
+        if (headerOnly)
+            nFlags |= BLOCK_HEADER_ONLY;
+        else
+            nFlags &= ~BLOCK_HEADER_ONLY;
+    }
+
+    bool IsHeaderOnly() const
+    {
+        return (nFlags & BLOCK_HEADER_ONLY) != 0;
+    }
+
+    void SetPlaceHolderBlock(bool placeholderBlock)
+    {
+        if (placeholderBlock)
+            nFlags |= BLOCK_PLACEHOLDER;
+        else
+            nFlags &= ~BLOCK_PLACEHOLDER;
+    }
+
+    bool IsPlaceHolderBlock() const
+    {
+        return (nFlags & BLOCK_PLACEHOLDER) != 0;
+    }
+
+    void SetVerified(bool verified)
+    {
+        if (verified)
+            nFlags |= BLOCK_VERIFIED;
+        else
+            nFlags &= ~BLOCK_VERIFIED;
+    }
+
+    bool IsVerified() const
+    {
+        return nFlags & BLOCK_VERIFIED;
+    }
+
     unsigned int GetStakeEntropyBit() const
     {
         return ((nFlags & BLOCK_STAKE_ENTROPY) >> 1);
@@ -1386,6 +1569,7 @@ public:
     {
         hashPrev = (pprev ? pprev->GetBlockHash() : 0);
         hashNext = (pnext ? pnext->GetBlockHash() : 0);
+        blockHash = pindex->GetBlockHash();
     }
 
     IMPLEMENT_SERIALIZE
@@ -1421,11 +1605,18 @@ public:
         READWRITE(nBits);
         READWRITE(nNonce);
         READWRITE(blockHash);
+        if (IsPlaceHolderBlock())
+        {
+            READWRITE(numPlacesHeld);
+        }
     )
 
     uint256 GetBlockHash() const
     {
         if (fUseFastIndex && (nTime < GetAdjustedTime() - 24 * 60 * 60) && blockHash != 0)
+            return blockHash;
+        //fixme: LIGHTHYBRID - Double check why this is necessary.
+        if(currentClientMode == ClientHybrid && blockHash != 0)
             return blockHash;
 
         CBlock block;

@@ -40,6 +40,25 @@ namespace Checkpoints
     // Return conservative estimate of total number of blocks, 0 if unknown
     int GetTotalBlocksEstimate();
 
+    // Check if a hash is in our checkpoint list.
+    bool IsCheckpoint(uint256 hash);
+
+    // Send a "getblocks" message for the checkpoints in checkpoint list.
+    void LoadCheckpoints(CNode* pfrom);
+
+    // Get number of hardcoded checkpoints.
+    int GetNumCheckpoints();
+
+    // Get number of hardcoded checkpoints that have been loaded.
+    int GetNumLoadedCheckpoints();
+
+    // Find the first hardcoded checkpoint that comes before datetime - or return last hardcoded checkpoint if datetime is INT64_MAX.
+    uint256 GetEpochHash(int64_t datetime);
+
+    // Insert special 'placeholder' blocks to fill the gaps between our checkpoints so that we have an actual chain and not orphans.
+    // Needed for light/hybrid clients
+    void InsertPlaceHoldersBetweenCheckpoints();
+
     // Returns last CBlockIndex* in mapBlockIndex that is a checkpoint
     CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex);
 

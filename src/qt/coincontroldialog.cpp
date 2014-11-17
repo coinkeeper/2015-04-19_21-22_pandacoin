@@ -587,13 +587,13 @@ void CoinControlDialog::updateView()
     if (model && model->getOptionsModel())
         nDisplayUnit = model->getOptionsModel()->getDisplayUnit();
         
-    map<QString, vector<COutput> > mapCoins;
+    map<std::string, vector<COutput> > mapCoins;
     model->listCoins(mapCoins);
 
-    BOOST_FOREACH(PAIRTYPE(QString, vector<COutput>) coins, mapCoins)
+    BOOST_FOREACH(PAIRTYPE(std::string, vector<COutput>) coins, mapCoins)
     {
         QTreeWidgetItem *itemWalletAddress = new QTreeWidgetItem();
-        QString sWalletAddress = coins.first;
+        QString sWalletAddress = coins.first.c_str();
         QString sWalletLabel = "";
         if (model->getAddressTableModel())
             sWalletLabel = model->getAddressTableModel()->labelForAddress(sWalletAddress);

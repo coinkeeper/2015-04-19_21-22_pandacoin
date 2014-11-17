@@ -1041,11 +1041,13 @@ public:
         nVersion = nVersionIn;
         state = 0;
         exceptmask = std::ios::badbit | std::ios::failbit;
+        noClose=false;
     }
 
     ~CAutoFile()
     {
-        fclose();
+        if(!noClose)
+            fclose();
     }
 
     void fclose()
@@ -1063,7 +1065,8 @@ public:
     FILE* operator=(FILE* pnew) { return file = pnew; }
     bool operator!()            { return (file == NULL); }
 
-
+    void SetNoClose()           { noClose=true; }
+    bool noClose;
     //
     // Stream subset
     //

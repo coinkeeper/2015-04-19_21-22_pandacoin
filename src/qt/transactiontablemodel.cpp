@@ -115,6 +115,9 @@ public:
      */
     void updateWallet(const uint256 &hash, int status)
     {
+        if(currentLoadState == LoadState_SyncHeadersFromEpoch)
+            return;
+
         OutputDebugStringF("updateWallet %s %i\n", hash.ToString().c_str(), status);
         {
             LOCK(wallet->cs_wallet);
@@ -338,6 +341,9 @@ TransactionTableModel::~TransactionTableModel()
 
 void TransactionTableModel::updateTransaction(const QString &hash, int status)
 {
+    if(currentLoadState == LoadState_SyncHeadersFromEpoch)
+        return;
+
     uint256 updated;
     updated.SetHex(hash.toStdString());
 
@@ -346,16 +352,19 @@ void TransactionTableModel::updateTransaction(const QString &hash, int status)
 
 void TransactionTableModel::updateConfirmations()
 {
-    if(nBestHeight != cachedNumBlocks)
+    if (currentClientMode == ClientFull || currentLoadState > LoadState_SyncBlocksFromEpoch)
     {
-        cachedNumBlocks = nBestHeight;
-        // Blocks came in since last poll.
-        // Invalidate status (number of confirmations) and (possibly) description
-        //  for all rows. Qt is smart enough to only actually request the data for the
-        //  visible rows.
-        emit dataChanged(index(0, Status), index(priv->size()-1, Status));
-        emit dataChanged(index(0, ToAddress), index(priv->size()-1, ToAddress));
-        emit dataChanged(index(0, FromAddress), index(priv->size()-1, FromAddress));
+        if(nBestHeight != cachedNumBlocks)
+        {
+            cachedNumBlocks = nBestHeight;
+            // Blocks came in since last poll.
+            // Invalidate status (number of confirmations) and (possibly) description
+            //  for all rows. Qt is smart enough to only actually request the data for the
+            //  visible rows.
+            emit dataChanged(index(0, Status), index(priv->size()-1, Status));
+            emit dataChanged(index(0, ToAddress), index(priv->size()-1, ToAddress));
+            emit dataChanged(index(0, FromAddress), index(priv->size()-1, FromAddress));
+        }
     }
 }
 

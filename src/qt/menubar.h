@@ -2,8 +2,10 @@
 #define MENUBAR_H
 
 #include <QFrame>
+#include "main.h" // For ClientMode
 
-namespace Ui {
+namespace Ui
+{
     class MenuBar;
 }
 
@@ -16,20 +18,23 @@ public:
     explicit MenuBar(QWidget *parent = 0);
     ~MenuBar();
 
-public slots:
-
 signals:
+    void showModeMenu(QPoint);
     void showFileMenu(QPoint);
     void showSettingsMenu(QPoint);
     void showHelpMenu(QPoint);
 
+public slots:
+    void clientModeChanged(ClientMode);
+
 private slots:
+    void on_ModeButton_clicked();
     void on_FileButton_clicked();
     void on_SettingsButton_clicked();
     void on_HelpButton_clicked();
 
 private:
-	Ui::MenuBar* ui;
+    Ui::MenuBar* ui;
 };
 
 #endif

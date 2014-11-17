@@ -22,14 +22,19 @@ void MainFrame::addTab(QWidget* widget,QString name)
     ui->main_tab_nav_bar->addTab(widget,name);
 }
 
-MenuBar* MainFrame::getMenuBar()
-{
-    return m_menuBar;
-}
-
 void MainFrame::setActiveTab(QWidget* widget)
 {
     ui->main_tab_nav_bar->setCurrentWidget(widget);
+}
+
+TabBar* MainFrame::getTabBar()
+{
+    return ui->main_tab_nav_bar;
+}
+
+MenuBar* MainFrame::getMenuBar()
+{
+    return m_menuBar;
 }
 
 LockBar* MainFrame::getLockBar()

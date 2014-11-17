@@ -1,15 +1,16 @@
 #include "guiutil.h"
 #include "guiconstants.h"
-#include "bitcoinaddressvalidator.h"
 #include "walletmodel.h"
-#include "optionsmodel.h"
-#include "bitcoinunits.h"
 #include "coincontrol.h"
-#include "coincontroldialog.h"
 #include "util.h"
 #include "init.h"
+#include "bitcoinrpc.h"
 
-
+#ifndef HEADLESS
+#include "coincontroldialog.h"
+#include "bitcoinunits.h"
+#include "optionsmodel.h"
+#include "bitcoinaddressvalidator.h"
 #include <QString>
 #include <QDateTime>
 #include <QDoubleValidator>
@@ -25,6 +26,7 @@
 #include <QThread>
 #include <QTranslator>
 #include <QLocale>
+#endif
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -49,6 +51,7 @@
 
 namespace GUIUtil {
 
+#ifndef HEADLESS
 bool IsAmountStringValid(int currentUnit, const QString &amountString)
 {
     bool valid = true;
@@ -74,20 +77,30 @@ void SetControlValidity(QWidget* widget, bool valid)
     else
         widget->setStyleSheet(STYLE_INVALID);
 }
+#endif
 
-bool SendCoinsHelper(QWidget* parent, const QList<SendCoinsRecipient>& recipients, WalletModel* model, const QString& sendAccountAddress, bool ignoreCoinControl)
+#ifdef HEADLESS
+bool SendCoinsHelper(const std::vector<SendCoinsRecipient>& recipients, WalletModel* model, const std::string& sendAccountAddress, bool ignoreCoinControl, std::string& transactionHash)
+#else
+bool SendCoinsHelper(QWidget* parent, const std::vector<SendCoinsRecipient>& recipients, WalletModel* model, const std::string& sendAccountAddress, bool ignoreCoinControl, std::string& transactionHash)
+#endif
 {
-    // Format confirmation message
-    QStringList formatted;
-    foreach(const SendCoinsRecipient &rcp, recipients)
+    #ifndef HEADLESS
+    // If parent is NULL then no UI.
+    if(parent)
     {
-        formatted.append(QObject::tr("<b>%1</b> to %2 (%3)").arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, rcp.amount, true, false), Qt::escape(rcp.label), rcp.address));
-    }
+        // Format confirmation message
+        QStringList formatted;
+        foreach(const SendCoinsRecipient &rcp, recipients)
+        {
+            formatted.append(QObject::tr("<b>%1</b> to %2 (%3)").arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, rcp.amount, true, false), Qt::escape(rcp.label.c_str()), rcp.address.c_str()));
+        }
 
-    QMessageBox::StandardButton retval = QMessageBox::question(parent, QObject::tr("Confirm send coins"), QObject::tr("Are you sure you want to send %1?").arg(formatted.join(QObject::tr(" and "))), QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel);
-    if(retval != QMessageBox::Yes)
-    {
-        return false;
+        QMessageBox::StandardButton retval = QMessageBox::question(parent, QObject::tr("Confirm send coins"), QObject::tr("Are you sure you want to send %1?").arg(formatted.join(QObject::tr(" and "))), QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel);
+        if(retval != QMessageBox::Yes)
+        {
+            return false;
+        }
     }
 
     WalletModel::UnlockContext ctx(model->requestUnlock());
@@ -96,23 +109,26 @@ bool SendCoinsHelper(QWidget* parent, const QList<SendCoinsRecipient>& recipient
         // Unlock wallet was cancelled
         return false;
     }
+    #endif
 
     WalletModel::SendCoinsReturn sendstatus;
+#ifndef HEADLESS
     if (ignoreCoinControl || !model->getOptionsModel() || !model->getOptionsModel()->getCoinControlFeatures())
+#endif
     {
         CCoinControl control;
 
-        map<QString, vector<COutput> > mapCoins;
+        map<std::string, vector<COutput> > mapCoins;
         model->listCoins(mapCoins);
-        BOOST_FOREACH(PAIRTYPE(QString, vector<COutput>) coins, mapCoins)
+        BOOST_FOREACH(PAIRTYPE(std::string, vector<COutput>) coins, mapCoins)
         {
-            QString sWalletAddress = coins.first;
+            std::string sWalletAddress = coins.first;
             if(sWalletAddress == sendAccountAddress)
             {
                 BOOST_FOREACH(const COutput& out, coins.second)
                 {
                     CTxDestination outputAddress;
-                    QString sAddress = "";
+                    std::string sAddress = "";
                     if(ExtractDestination(out.tx->vout[out.i].scriptPubKey, outputAddress))
                     {
                         sAddress = CBitcoinAddress(outputAddress).ToString().c_str();
@@ -124,64 +140,127 @@ bool SendCoinsHelper(QWidget* parent, const QList<SendCoinsRecipient>& recipient
                 }
             }
         }
+#ifdef HEADLESS
         sendstatus = model->sendCoins(recipients, &control);
+#else
+        sendstatus = model->sendCoins(recipients, &control, (parent != NULL));
+#endif
     }
+#ifndef HEADLESS
     else
     {
-        sendstatus = model->sendCoins(recipients, CoinControlDialog::coinControl);
+        sendstatus = model->sendCoins(recipients, CoinControlDialog::coinControl, (parent != NULL));
     }
+#endif
 
     switch(sendstatus.status)
     {
     case WalletModel::InvalidAddress:
-        QMessageBox::warning(parent, QObject::tr("Send Coins"),
-            QObject::tr("The recipient address is not valid, please recheck."),
-            QMessageBox::Ok, QMessageBox::Ok);
+#ifndef HEADLESS
+        if(parent)
+        {
+            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The recipient address is not valid, please recheck."), QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+#endif
+        {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "The recipient address is not valid, please recheck.");
+        }
         break;
     case WalletModel::InvalidAmount:
-        QMessageBox::warning(parent, QObject::tr("Send Coins"),
-            QObject::tr("The amount to pay must be larger than 0."),
-            QMessageBox::Ok, QMessageBox::Ok);
+#ifndef HEADLESS
+        if(parent)
+        {
+            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The amount to pay must be larger than 0."), QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+#endif
+        {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "The amount to pay must be larger than 0.");
+        }
         break;
     case WalletModel::AmountExceedsBalance:
-        QMessageBox::warning(parent, QObject::tr("Send Coins"),
-            QObject::tr("The amount exceeds your balance."),
-            QMessageBox::Ok, QMessageBox::Ok);
+#ifndef HEADLESS
+        if(parent)
+        {
+            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The amount exceeds your balance."), QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+#endif
+        {
+            throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "The amount exceeds your balance.");
+        }
         break;
     case WalletModel::AmountWithFeeExceedsBalance:
-        QMessageBox::warning(parent, QObject::tr("Send Coins"),
-            QObject::tr("The total exceeds your balance when the %1 transaction fee is included.").
-            arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, sendstatus.fee, true, false)),
-            QMessageBox::Ok, QMessageBox::Ok);
+#ifndef HEADLESS
+        if(parent)
+        {
+            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The total exceeds your balance when the %1 transaction fee is included."). arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, sendstatus.fee, true, false)), QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+#endif
+        {
+            throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "The amount exceeds your balance when the transaction fee is added.");
+        }
         break;
     case WalletModel::DuplicateAddress:
-        QMessageBox::warning(parent, QObject::tr("Send Coins"),
-            QObject::tr("Duplicate address found, can only send to each address once per send operation."),
-            QMessageBox::Ok, QMessageBox::Ok);
+#ifndef HEADLESS
+        if(parent)
+        {
+            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("Duplicate address found, can only send to each address once per send operation."), QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+#endif
+        {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Duplicate address found, can only send to each address once per send operation.");
+        }
         break;
     case WalletModel::TransactionTooBig:
-        QMessageBox::warning(parent, QObject::tr("Send Coins"),
-            QObject::tr("Error: Transaction creation failed because transaction size (in Kb) too large."),
-            QMessageBox::Ok, QMessageBox::Ok);
+#ifndef HEADLESS
+        if(parent)
+        {
+            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("Error: Transaction creation failed because transaction size (in Kb) too large."), QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+#endif
+        {
+            throw JSONRPCError(RPC_WALLET_ERROR, "Error: Transaction creation failed because transaction size (in Kb) too large.");
+        }
         break;
     case WalletModel::TransactionCreationFailed:
-        QMessageBox::warning(parent, QObject::tr("Send Coins"),
-            QObject::tr("Error: Transaction creation failed."),
-            QMessageBox::Ok, QMessageBox::Ok);
+#ifndef HEADLESS
+        if(parent)
+        {
+            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("Error: Transaction creation failed."), QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+#endif
+        {
+            throw JSONRPCError(RPC_WALLET_ERROR, "Error: Transaction creation failed.");
+        }
         break;
     case WalletModel::TransactionCommitFailed:
-        QMessageBox::warning(parent, QObject::tr("Send Coins"),
-            QObject::tr("Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here."),
-            QMessageBox::Ok, QMessageBox::Ok);
+#ifndef HEADLESS
+        if(parent)
+        {
+            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here."), QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+#endif
+        {
+            throw JSONRPCError(RPC_WALLET_ERROR, "Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.");
+        }
         break;
     case WalletModel::Aborted: // User aborted, nothing to do
         break;
     case WalletModel::OK:
+        transactionHash = sendstatus.hex;
         return true;
     }
     return false;
 }
 
+#ifndef HEADLESS
 QString dateTimeStr(const QDateTime &date)
 {
     return date.date().toString(Qt::SystemLocaleShortDate) + QString(" ") + date.toString("hh:mm");
@@ -231,7 +310,7 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
         return false;
 
     SendCoinsRecipient rv;
-    rv.address = uri.path();
+    rv.address = uri.path().toStdString();
     rv.amount = 0;
     QList<QPair<QString, QString> > items = uri.queryItems();
     for (QList<QPair<QString, QString> >::iterator i = items.begin(); i != items.end(); i++)
@@ -245,14 +324,14 @@ bool parseBitcoinURI(const QUrl &uri, SendCoinsRecipient *out)
 
         if (i->first == "label")
         {
-            rv.label = i->second;
+            rv.label = i->second.toStdString();
             fShouldReturnFalse = false;
         }
         else if (i->first == "amount")
         {
             if(!i->second.isEmpty())
             {
-                if(!BitcoinUnits::parse(BitcoinUnits::BTC, i->second, &rv.amount))
+                if(!BitcoinUnits::parse(BitcoinUnits::BTC, i->second, (qint64*)&rv.amount))
                 {
                     return false;
                 }
@@ -595,6 +674,6 @@ void HelpMessageBox::showOrPrint()
         printToConsole();
 #endif
 }
-
+#endif //HEADLESS
 } // namespace GUIUtil
 

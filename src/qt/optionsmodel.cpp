@@ -41,6 +41,8 @@ bool static ApplyProxySettings()
 
 void OptionsModel::Init()
 {
+    hadPreviousClientMode = false;
+
     QSettings settings;
 
     // These are Qt-only settings:
@@ -65,6 +67,26 @@ void OptionsModel::Init()
         SoftSetBoolArg("-detachdb", settings.value("detachDB").toBool());
     if (!language.isEmpty())
         SoftSetArg("-lang", language.toStdString());
+
+    std::string storedclientMode = settings.value("ClientMode", "default").toString().toStdString();
+    if (storedclientMode == "default")
+    {
+        hadPreviousClientMode = false;
+        storedclientMode = "hybrid";
+    }
+
+    if(storedclientMode=="hybrid")
+    {
+        setClientMode(ClientHybrid, false);
+    }
+    else if(storedclientMode=="light")
+    {
+        setClientMode(ClientLight, false);
+    }
+    else if(storedclientMode=="full")
+    {
+        setClientMode(ClientFull, false);
+    }
 }
 
 bool OptionsModel::Upgrade()
@@ -186,6 +208,8 @@ QVariant OptionsModel::data(const QModelIndex & index, int role) const
             return settings.value("language", "");
         case CoinControlFeatures:
             return QVariant(fCoinControlFeatures);
+        case ClientModeOption:
+            return QVariant(currentClientMode);
         default:
             return QVariant();
         }
@@ -286,6 +310,12 @@ bool OptionsModel::setData(const QModelIndex & index, const QVariant & value, in
             emit coinControlFeaturesChanged(fCoinControlFeatures);
             }
             break;
+        case ClientModeOption:
+        {
+            currentClientMode = ClientMode(value.toInt());
+            settings.setValue("ClientMode", currentClientMode);
+            emit clientModeChanged(currentClientMode);
+        }
         default:
             break;
         }
@@ -328,4 +358,38 @@ int OptionsModel::getDisplayUnit()
 bool OptionsModel::getDisplayAddresses()
 {
     return bDisplayAddresses;
+}
+
+ClientMode OptionsModel::getClientMode()
+{
+    return currentClientMode;
+}
+
+void OptionsModel::setClientMode(ClientMode mode, bool transition)
+{
+    ClientMode oldClientMode = currentClientMode;
+    currentClientMode = mode;
+
+    QSettings settings;
+    if (mode == ClientHybrid)
+    {
+        settings.setValue("ClientMode", "hybrid");
+    }
+    else if (mode == ClientLight)
+    {
+        settings.setValue("ClientMode", "light");
+    }
+    else if (mode == ClientFull)
+    {
+        settings.setValue("ClientMode", "full");
+    }
+
+
+    if (oldClientMode == mode)
+        return;
+
+    if (transition)
+        TransitionClientMode(oldClientMode, mode);
+
+    emit clientModeChanged(currentClientMode);
 }

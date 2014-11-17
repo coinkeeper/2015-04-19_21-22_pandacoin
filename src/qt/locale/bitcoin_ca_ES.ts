@@ -697,17 +697,17 @@ This product includes software developed by the OpenSSL Project for use in the O
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+311"/>
+        <location filename="../bitcoingui.cpp" line="+312"/>
         <source>Sign &amp;message...</source>
         <translation>Signar &amp;missatge...</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+281"/>
         <source>Synchronizing with network...</source>
         <translation>Sincronitzant amb la xarxa ...</translation>
     </message>
     <message>
-        <location line="-310"/>
+        <location line="-347"/>
         <source>&amp;Overview</source>
         <translation>&amp;Panorama general</translation>
     </message>
@@ -818,7 +818,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="obsolete">&amp;Canviar contrasenya...</translation>
     </message>
     <message numerus="yes">
-        <location line="+261"/>
+        <location line="+298"/>
         <source>~%n block(s) remaining</source>
         <translation>
             <numerusform>~%n bloc restant</numerusform>
@@ -832,7 +832,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>Descarregats %1 de %2 blocs d&apos;historial de transaccions (%3% completat).</translation>
     </message>
     <message>
-        <location line="-249"/>
+        <location line="-286"/>
         <source>&amp;Export...</source>
         <translation>&amp;Exportar...</translation>
     </message>
@@ -944,12 +944,12 @@ This product includes software developed by the OpenSSL Project for use in the O
         </translation>
     </message>
     <message>
-        <location line="+183"/>
+        <location line="+220"/>
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation>Descarregats %1 blocs d&apos;historial de transaccions</translation>
     </message>
     <message>
-        <location line="+255"/>
+        <location line="+256"/>
         <location line="+15"/>
         <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
@@ -997,7 +997,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="obsolete">&amp;Desbloquejar cartera</translation>
     </message>
     <message>
-        <location line="-303"/>
+        <location line="-341"/>
         <source>&amp;About PandaBank</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1076,8 +1076,46 @@ This product includes software developed by the OpenSSL Project for use in the O
             <numerusform></numerusform>
         </translation>
     </message>
+    <message>
+        <location line="+24"/>
+        <source>Syncing checkpoints...</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message numerus="yes">
-        <location line="+66"/>
+        <location line="+2"/>
+        <source>~%n checkpoints(s) remaining</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Downloaded %1 of %2 checkpoints (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Fetching headers from checkpoint...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>~%n headers(s) remaining</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Downloaded %1 of %2 headers after first checkpoint (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+54"/>
         <source>%n minute(s) ago</source>
         <translation>
             <numerusform>fa %n minut</numerusform>
@@ -1253,7 +1291,7 @@ Address: %4
         <translation type="obsolete">No s&apos;està fent &quot;stake&quot; </translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+110"/>
+        <location filename="../bitcoin.cpp" line="+111"/>
         <source>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</source>
         <translation>S&apos;ha produït un error fatal. Pandacoin ja no pot continuar de forma segura i es tancarà.</translation>
     </message>
@@ -1664,7 +1702,7 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+562"/>
+        <location filename="../guiutil.cpp" line="+641"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
         <translation>Pandacoin-Qt</translation>
@@ -2126,7 +2164,17 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+13"/>
+        <source>Welcome to your PandaBank, You last logged on at</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
         <location line="+7"/>
         <source>Select account</source>
         <translation type="unfinished"></translation>
@@ -2135,7 +2183,7 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../guiutil.cpp" line="-488"/>
+        <location filename="../guiutil.cpp" line="-555"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
         <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; a %2 (%3)</translation>
     </message>
@@ -2155,54 +2203,54 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
         <translation type="unfinished">i</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+6"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
+        <location line="+63"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
         <source>Send Coins</source>
         <translation type="unfinished">Enviar monedes</translation>
     </message>
     <message>
-        <location line="-35"/>
+        <location line="-84"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation type="unfinished">L&apos;adreça remetent no és vàlida, si us plau comprovi-la.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The amount to pay must be larger than 0.</source>
         <translation type="unfinished">La quantitat a pagar ha de ser major que 0.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">Import superi el saldo de la seva compte.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
         <translation type="unfinished">El total excedeix el teu balanç quan s&apos;afegeix la comisió a la transacció %1.</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+12"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
         <translation type="unfinished">S&apos;ha trobat una adreça duplicada, tan sols es pot enviar a cada adreça un cop per ordre de enviament.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: Transaction creation failed because transaction size (in Kb) too large.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: Transaction creation failed.</source>
         <translation type="unfinished">Error: La creació de transacció ha fallat.</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
         <translation type="unfinished">Error: La transacció ha sigut rebutjada. Això pot passar si algunes de les monedes a la cartera ja s&apos;han gastat, per exemple, si vostè utilitza una còpia del wallet.dat i les monedes han estat gastades a la cópia pero no s&apos;han marcat com a gastades aqui.</translation>
     </message>
@@ -2827,7 +2875,7 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
         <translation type="unfinished">Copiar canvi</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+273"/>
         <source>Search your accounts list...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3737,7 +3785,7 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+223"/>
+        <location filename="../walletmodel.cpp" line="+494"/>
         <source>Sending...</source>
         <translation>Enviant...</translation>
     </message>

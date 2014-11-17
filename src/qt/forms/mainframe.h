@@ -21,9 +21,10 @@ public:
     ~MainFrame();
 
     void addTab(QWidget* widget,QString name);
+    void setActiveTab(QWidget* widget);
+    TabBar* getTabBar();
     MenuBar* getMenuBar();
     LockBar* getLockBar();
-    void setActiveTab(QWidget* widget);
 
 private:
     Ui::MainFrame *ui;

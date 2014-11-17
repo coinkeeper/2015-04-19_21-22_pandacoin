@@ -702,17 +702,17 @@ This product includes software developed by the OpenSSL Project for use in the O
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+311"/>
+        <location filename="../bitcoingui.cpp" line="+312"/>
         <source>Sign &amp;message...</source>
         <translation>消息签名(&amp;M)...</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+281"/>
         <source>Synchronizing with network...</source>
         <translation>正在与网络同步...</translation>
     </message>
     <message>
-        <location line="-310"/>
+        <location line="-347"/>
         <source>&amp;Overview</source>
         <translation>概况(&amp;O)</translation>
     </message>
@@ -823,7 +823,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="obsolete">更改密码(&amp;C)...</translation>
     </message>
     <message numerus="yes">
-        <location line="+261"/>
+        <location line="+298"/>
         <source>~%n block(s) remaining</source>
         <translation>
             <numerusform>~%n 个区块未完成</numerusform>
@@ -835,7 +835,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>交易记录已下载%3% (%1 / %2 个区块)</translation>
     </message>
     <message>
-        <location line="-249"/>
+        <location line="-286"/>
         <source>&amp;Export...</source>
         <translation>导出(&amp;E)</translation>
     </message>
@@ -945,12 +945,12 @@ This product includes software developed by the OpenSSL Project for use in the O
         </translation>
     </message>
     <message>
-        <location line="+183"/>
+        <location line="+220"/>
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation>已下载 %1 个区块的交易记录</translation>
     </message>
     <message>
-        <location line="+255"/>
+        <location line="+256"/>
         <location line="+15"/>
         <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
@@ -996,7 +996,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="obsolete">解锁钱包(&amp;U)</translation>
     </message>
     <message>
-        <location line="-303"/>
+        <location line="-341"/>
         <source>&amp;About PandaBank</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1073,8 +1073,42 @@ This product includes software developed by the OpenSSL Project for use in the O
             <numerusform></numerusform>
         </translation>
     </message>
+    <message>
+        <location line="+24"/>
+        <source>Syncing checkpoints...</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message numerus="yes">
-        <location line="+66"/>
+        <location line="+2"/>
+        <source>~%n checkpoints(s) remaining</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Downloaded %1 of %2 checkpoints (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Fetching headers from checkpoint...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>~%n headers(s) remaining</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Downloaded %1 of %2 headers after first checkpoint (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+54"/>
         <source>%n minute(s) ago</source>
         <translation>
             <numerusform>%n 分钟前</numerusform>
@@ -1240,7 +1274,7 @@ Address: %4
         <translation type="obsolete">未进行权益增值</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+110"/>
+        <location filename="../bitcoin.cpp" line="+111"/>
         <source>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</source>
         <translation>发生严重错误，熊猫币客户端即将关闭。</translation>
     </message>
@@ -1644,7 +1678,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+562"/>
+        <location filename="../guiutil.cpp" line="+641"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
         <translation>熊猫币客户端Pandacoin-Qt</translation>
@@ -2106,7 +2140,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+13"/>
+        <source>Welcome to your PandaBank, You last logged on at</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
         <location line="+7"/>
         <source>Select account</source>
         <translation type="unfinished"></translation>
@@ -2115,7 +2159,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../guiutil.cpp" line="-488"/>
+        <location filename="../guiutil.cpp" line="-555"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
         <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; 至 %2 (%3)</translation>
     </message>
@@ -2135,54 +2179,54 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished">和</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+6"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
+        <location line="+63"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
         <source>Send Coins</source>
         <translation type="unfinished">发送货币</translation>
     </message>
     <message>
-        <location line="-35"/>
+        <location line="-84"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation type="unfinished">收款人地址不合法，请检查。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The amount to pay must be larger than 0.</source>
         <translation type="unfinished">支付金额必须大于0。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">金额超出您的账上余额。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
         <translation type="unfinished">计入 %1 交易费后的金额超出您的账上余额。</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+12"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
         <translation type="unfinished">发现重复的地址, 每次只能对同一地址发送一次。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: Transaction creation failed because transaction size (in Kb) too large.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: Transaction creation failed.</source>
         <translation type="unfinished">错误：交易创建失败。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
         <translation type="unfinished">错误：交易被拒绝。可能由于钱包中部分金额已被使用，例如您使用了钱包数据的副本，在副本中某些金额已被使用，但在此处尚未被标记为已使用。</translation>
     </message>
@@ -2807,7 +2851,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished">复制零钱</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+273"/>
         <source>Search your accounts list...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3709,7 +3753,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+223"/>
+        <location filename="../walletmodel.cpp" line="+494"/>
         <source>Sending...</source>
         <translation>正在发送</translation>
     </message>

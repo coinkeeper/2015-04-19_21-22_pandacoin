@@ -2,6 +2,7 @@
 #define OPTIONSMODEL_H
 
 #include <QAbstractListModel>
+#include "main.h"
 
 /** Interface from Qt to configuration data structure for Bitcoin client.
    To Qt, the options are presented as a list with the different options
@@ -16,7 +17,8 @@ class OptionsModel : public QAbstractListModel
 public:
     explicit OptionsModel(QObject *parent = 0);
 
-    enum OptionID {
+    enum OptionID
+    {
         StartAtStartup,    // bool
         MinimizeToTray,    // bool
         MapPortUPnP,       // bool
@@ -33,6 +35,7 @@ public:
         Language,          // QString
         CoinControlFeatures, // bool
         OptionIDRowCount,
+        ClientModeOption    //ClientMode (enum)
     };
 
     void Init();
@@ -53,6 +56,10 @@ public:
     bool getDisplayAddresses();
     bool getCoinControlFeatures();
     QString getLanguage() { return language; }
+    ClientMode getClientMode();
+    void setClientMode(ClientMode mode, bool transition=true);
+
+    bool hadPreviousClientMode;
 
 private:
     int nDisplayUnit;
@@ -67,6 +74,8 @@ signals:
     void transactionFeeChanged(qint64);
     void reserveBalanceChanged(qint64);
     void coinControlFeaturesChanged(bool);
+    //fixme: add listeners
+    void clientModeChanged(ClientMode);
 };
 
 #endif // OPTIONSMODEL_H

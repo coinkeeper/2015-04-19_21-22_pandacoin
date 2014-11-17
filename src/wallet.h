@@ -13,7 +13,7 @@
 #include "main.h"
 #include "key.h"
 #include "keystore.h"
-#include "script.h"
+#include "script/script.h"
 #include "ui_interface.h"
 #include "util.h"
 #include "walletdb.h"
@@ -63,6 +63,7 @@ public:
         READWRITE(vchPubKey);
     )
 };
+
 
 /** A CWallet is an extension of a keystore, which also maintains a set of transactions and balances,
  * and provides the ability to create new transactions.
@@ -177,7 +178,7 @@ public:
     bool AddToWalletIfInvolvingMe(const CTransaction& tx, const CBlock* pblock, bool fUpdate = false, bool fFindBlock = false);
     bool EraseFromWallet(uint256 hash);
     void WalletUpdateSpent(const CTransaction& prevout, bool fBlock = false);
-    int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false);
+    int ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate = false, int* pNumEpochTransactionsScanned = NULL, int* pNumEpochTransactionsToScan = NULL);
     int ScanForWalletTransaction(const uint256& hashTx);
     void ReacceptWalletTransactions();
     void ResendWalletTransactions(bool fForce = false);

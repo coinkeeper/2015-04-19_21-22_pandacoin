@@ -221,6 +221,14 @@ ReadKeyValue(CWallet* pwallet, CDataStream& ssKey, CDataStream& ssValue,
             ssKey >> hash;
             CWalletTx& wtx = pwallet->mapWallet[hash];
             ssValue >> wtx;
+
+            // Store the time of first transaction.
+            // Light and hybrid wallets will need this in order to determine the epoch checkpoint.
+            if(wtx.nTimeSmart<firstWalletTxTime)
+            {
+                firstWalletTxTime = wtx.nTimeSmart;
+            }
+
             if (wtx.CheckTransaction() && (wtx.GetHash() == hash))
                 wtx.BindWallet(pwallet);
             else

@@ -702,17 +702,17 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+311"/>
+        <location filename="../bitcoingui.cpp" line="+312"/>
         <source>Sign &amp;message...</source>
         <translation>メッセージの署名... (&amp;m)</translation>
     </message>
     <message>
-        <location line="+244"/>
+        <location line="+281"/>
         <source>Synchronizing with network...</source>
         <translation>ネットワークに同期中……</translation>
     </message>
     <message>
-        <location line="-310"/>
+        <location line="-347"/>
         <source>&amp;Overview</source>
         <translation>概要(&amp;O)</translation>
     </message>
@@ -823,7 +823,7 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
         <translation type="obsolete">パスフレーズの変更... (&amp;C)</translation>
     </message>
     <message numerus="yes">
-        <location line="+261"/>
+        <location line="+298"/>
         <source>~%n block(s) remaining</source>
         <translation>
             <numerusform>~%n ブロックが残っている</numerusform>
@@ -835,7 +835,7 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
         <translation>処理の履歴の%1 / %2 ブロックをダウンロードしました。(%3% 完成）</translation>
     </message>
     <message>
-        <location line="-249"/>
+        <location line="-286"/>
         <source>&amp;Export...</source>
         <translation>(&amp;E)書き出す...</translation>
     </message>
@@ -945,12 +945,12 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
         </translation>
     </message>
     <message>
-        <location line="+183"/>
+        <location line="+220"/>
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation>処理履歴の%1ブロックをダウンロードしました。</translation>
     </message>
     <message>
-        <location line="+255"/>
+        <location line="+256"/>
         <location line="+15"/>
         <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
@@ -996,7 +996,7 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
         <translation type="obsolete">&amp;ウォレットをアンロック...</translation>
     </message>
     <message>
-        <location line="-303"/>
+        <location line="-341"/>
         <source>&amp;About PandaBank</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1073,8 +1073,42 @@ MIT/X11 ソフトウェア ライセンスの下で配布されています。�
             <numerusform></numerusform>
         </translation>
     </message>
+    <message>
+        <location line="+24"/>
+        <source>Syncing checkpoints...</source>
+        <translation type="unfinished"></translation>
+    </message>
     <message numerus="yes">
-        <location line="+66"/>
+        <location line="+2"/>
+        <source>~%n checkpoints(s) remaining</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+5"/>
+        <source>Downloaded %1 of %2 checkpoints (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
+        <source>Fetching headers from checkpoint...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+2"/>
+        <source>~%n headers(s) remaining</source>
+        <translation type="unfinished">
+            <numerusform></numerusform>
+        </translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Downloaded %1 of %2 headers after first checkpoint (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message numerus="yes">
+        <location line="+54"/>
         <source>%n minute(s) ago</source>
         <translation>
             <numerusform>%n 分前</numerusform>
@@ -1239,7 +1273,7 @@ Address: %4
         <translation type="obsolete">賭けていません</translation>
     </message>
     <message>
-        <location filename="../bitcoin.cpp" line="+110"/>
+        <location filename="../bitcoin.cpp" line="+111"/>
         <source>A fatal error occurred. Pandacoin can no longer continue safely and will quit.</source>
         <translation>致命的エラー。安全に続きができないため、バラックコインQTは閉じます。</translation>
     </message>
@@ -1650,7 +1684,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+562"/>
+        <location filename="../guiutil.cpp" line="+641"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
         <translation>ブラックコインQT</translation>
@@ -2112,7 +2146,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+73"/>
+        <location line="+13"/>
+        <source>Welcome to your PandaBank, You last logged on at</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+96"/>
         <location line="+7"/>
         <source>Select account</source>
         <translation type="unfinished"></translation>
@@ -2121,7 +2165,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../guiutil.cpp" line="-488"/>
+        <location filename="../guiutil.cpp" line="-555"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
         <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; から %2 (%3)に</translation>
     </message>
@@ -2141,54 +2185,54 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished">と</translation>
     </message>
     <message>
-        <location line="+50"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+6"/>
-        <location line="+5"/>
-        <location line="+5"/>
-        <location line="+5"/>
+        <location line="+63"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
+        <location line="+12"/>
         <source>Send Coins</source>
         <translation type="unfinished">コインを送る</translation>
     </message>
     <message>
-        <location line="-35"/>
+        <location line="-84"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation type="unfinished">受取人のアドレスが不正です。再確認してください。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The amount to pay must be larger than 0.</source>
         <translation type="unfinished">支払額は0より大きくないといけません。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">額が残高を超えています。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
         <translation type="unfinished">%1 の処理手数料を含めると額が残高を超えています。</translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+12"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
         <translation type="unfinished">重複しているアドレスが見つかりました。1回の送信で同じアドレスに送ることは出来ません。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: Transaction creation failed because transaction size (in Kb) too large.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: Transaction creation failed.</source>
         <translation type="unfinished">エラー：処理を失敗しました。</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+12"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
         <translation type="unfinished">エラー：処理は拒否されました。ウォレットのコインをすでに費やした可能性で、wallet.datのコピーで費やしたが、現行のwallet.datとはアップデートされていない。</translation>
     </message>
@@ -2813,7 +2857,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished">お釣りをコピー</translation>
     </message>
     <message>
-        <location line="+271"/>
+        <location line="+273"/>
         <source>Search your accounts list...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3715,7 +3759,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+223"/>
+        <location filename="../walletmodel.cpp" line="+494"/>
         <source>Sending...</source>
         <translation>通信中...</translation>
     </message>

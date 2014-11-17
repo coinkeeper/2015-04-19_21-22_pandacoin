@@ -11,6 +11,9 @@
 #include "addrman.h"
 #include "ui_interface.h"
 
+//#include "walletmodel.h"
+//#include "optionsmodel.h"
+
 #ifdef WIN32
 #include <string.h>
 #endif
@@ -75,6 +78,10 @@ set<CNetAddr> setservAddNodeAddresses;
 CCriticalSection cs_setservAddNodeAddresses;
 
 static CSemaphore *semOutbound = NULL;
+
+std::deque<std::pair<uint256,uint256> > CNode::RangesToSync;
+CCriticalSection CNode::cs_alterSyncRanges;
+int CNode::NumRangesToSync;
 
 void AddOneShot(string strDest)
 {
@@ -664,28 +671,40 @@ void ThreadSocketHandler2(void* parg)
         // Disconnect nodes
         //
         {
-            LOCK(cs_vNodes);
-            // Disconnect unused nodes
-            vector<CNode*> vNodesCopy = vNodes;
-            BOOST_FOREACH(CNode* pnode, vNodesCopy)
             {
-                if (pnode->fDisconnect ||
-                    (pnode->GetRefCount() <= 0 && pnode->vRecv.empty() && pnode->vSend.empty()))
+                LOCK2(cs_vNodes, CNode::cs_alterSyncRanges);
+                // Disconnect unused nodes
+                vector<CNode*> vNodesCopy = vNodes;
+                BOOST_FOREACH(CNode* pnode, vNodesCopy)
                 {
-                    // remove from vNodes
-                    vNodes.erase(remove(vNodes.begin(), vNodes.end(), pnode), vNodes.end());
+                    if (pnode->fDisconnect || (pnode->GetRefCount() <= 0 && pnode->vRecv.empty() && pnode->vSend.empty()))
+                    {
+                        printf("Disconnecting peer node. \n");
+                        if(pnode->syncFrom != uint256(0) && pnode->isSyncing)
+                        {
+                            if (fDebugNetRanges)
+                                printf("[%s] Peer had sync range adding back into pool %s:%d -> %s:%d - Ranges remaining [%d]\n", pnode->addrName.c_str(), pnode->syncFrom.ToString().c_str(), mapBlockIndex.count(pnode->syncFrom)?mapBlockIndex[pnode->syncFrom]->nHeight:-1, pnode->syncTo.ToString().c_str(), mapBlockIndex.count(pnode->syncTo)?mapBlockIndex[pnode->syncTo]->nHeight:-1, pnode->NumRangesToSync);
+                            pnode->RangesToSync.push_front(std::make_pair(pnode->syncFrom, pnode->syncTo));
+                            pnode->syncFrom = uint256(0);
+                            pnode->syncTo = uint256(0);
+                            pnode->isSyncing = false;
+                        }
 
-                    // release outbound grant (if any)
-                    pnode->grantOutbound.Release();
+                        // remove from vNodes
+                        vNodes.erase(remove(vNodes.begin(), vNodes.end(), pnode), vNodes.end());
 
-                    // close socket and cleanup
-                    pnode->CloseSocketDisconnect();
-                    pnode->Cleanup();
+                        // release outbound grant (if any)
+                        pnode->grantOutbound.Release();
 
-                    // hold in disconnected pool until all refs are released
-                    if (pnode->fNetworkNode || pnode->fInbound)
-                        pnode->Release();
-                    vNodesDisconnected.push_back(pnode);
+                        // close socket and cleanup
+                        pnode->CloseSocketDisconnect();
+                        pnode->Cleanup();
+
+                        // hold in disconnected pool until all refs are released
+                        if (pnode->fNetworkNode || pnode->fInbound)
+                            pnode->Release();
+                        vNodesDisconnected.push_back(pnode);
+                    }
                 }
             }
 
@@ -769,8 +788,7 @@ void ThreadSocketHandler2(void* parg)
         }
 
         vnThreadsRunning[THREAD_SOCKETHANDLER]--;
-        int nSelect = select(have_fds ? hSocketMax + 1 : 0,
-                             &fdsetRecv, &fdsetSend, &fdsetError, &timeout);
+        int nSelect = select(have_fds ? hSocketMax + 1 : 0, &fdsetRecv, &fdsetSend, &fdsetError, &timeout);
         vnThreadsRunning[THREAD_SOCKETHANDLER]++;
         if (fShutdown)
             return;
@@ -854,6 +872,15 @@ void ThreadSocketHandler2(void* parg)
             BOOST_FOREACH(CNode* pnode, vNodesCopy)
                 pnode->AddRef();
         }
+
+        // Prevent excessive dropping of all peers at once.
+        int maxDrop = 2;
+        BOOST_FOREACH(CNode* pnode, vNodesCopy)
+        {
+            if(pnode->fDisconnect)
+                --maxDrop;
+        }
+
         BOOST_FOREACH(CNode* pnode, vNodesCopy)
         {
             if (fShutdown)
@@ -873,9 +900,9 @@ void ThreadSocketHandler2(void* parg)
                     unsigned int nPos = vRecv.size();
 
                     if (nPos > ReceiveBufferSize()) {
-                        if (!pnode->fDisconnect)
-                            printf("socket recv flood control disconnect (%"PRIszu" bytes)\n", vRecv.size());
-                        pnode->CloseSocketDisconnect();
+                        //if (!pnode->fDisconnect)
+                            //printf("socket recv flood control disconnect (%"PRIszu" bytes)\n", vRecv.size());
+                        //pnode->CloseSocketDisconnect();
                     }
                     else {
                         // typical socket buffer is 8K-64K
@@ -947,20 +974,71 @@ void ThreadSocketHandler2(void* parg)
             //
             if (pnode->vSend.empty())
                 pnode->nLastSendEmpty = GetTime();
-            if (GetTime() - pnode->nTimeConnected > 60)
+
+
+            // When we are busy syncing we use far more aggresive values for non responsive nodes as otherwise they can stall the sync...
+            int nSecondsToWaitForInitialHandShake = 60;
+            int nSecondsToWaitForInactivityTimeout = 90*60;
+            static int nSecondsToWaitForInitialHandShakeDuringInitialSync = 12;
+            static int nSecondsToWaitForInactivityTimeoutDuringInitialSync = 8;
+            if(currentClientMode != ClientFull)
             {
-                if (pnode->nLastRecv == 0 || pnode->nLastSend == 0)
+                int nSecondsForTimeout = nSecondsToWaitForInactivityTimeoutDuringInitialSync;
+                if ( vNodesCopy.size() < 12 )
+                    nSecondsForTimeout *= 12 - vNodesCopy.size();
+
+                if( (currentLoadState == LoadState_SyncAllBlocks && numSyncedBlocks > numSyncedEpochBlocks + 25000) ||
+                    (currentLoadState == LoadState_SyncBlocksFromEpoch && numSyncedBlocks > 3000) ||
+                    (currentLoadState == LoadState_SyncHeadersFromEpoch) ||
+                    (currentLoadState == LoadState_SyncAllHeaders && numSyncedHeaders > numSyncedEpochBlocks + 25000) )
                 {
-                    printf("socket no message in first 60 seconds, %d %d\n", pnode->nLastRecv != 0, pnode->nLastSend != 0);
+                    if(pnode->isSyncing)
+                    {
+                        if (
+                            ( ( currentLoadState == LoadState_SyncAllBlocks || currentLoadState == LoadState_SyncBlocksFromEpoch ) && GetTime() - pnode->nLastRecvBlock > nSecondsForTimeout )
+                          ||( ( currentLoadState == LoadState_SyncAllHeaders || currentLoadState == LoadState_SyncHeadersFromEpoch ) && GetTime() - pnode->nLastRecvHeader > nSecondsForTimeout )
+                           )
+                        {
+                            if ( pnode->vRecv.size() < 2048 && maxDrop > 0 )
+                            {
+                                --maxDrop;
+                                nSecondsToWaitForInactivityTimeoutDuringInitialSync++;
+                                printf("[%s] Syncing socket not getting any blocks.\n", pnode->addrName.c_str());
+                                pnode->fDisconnect = true;
+                            }
+                        }
+                    }
+
+                    // Always be more aggresive on handshaking during initial sync.
+                    if ( vNodesCopy.size() > 6 )
+                    {
+                        nSecondsToWaitForInitialHandShake = nSecondsToWaitForInitialHandShakeDuringInitialSync;
+                        nSecondsToWaitForInactivityTimeout = 20;
+                    }
+                    else
+                    {
+                        nSecondsToWaitForInactivityTimeout = 40;
+                    }
+                }
+            }
+
+            if (GetTime() - pnode->nTimeConnected > nSecondsToWaitForInitialHandShake && maxDrop > 0)
+            {
+                if ((pnode->nLastRecv == 0 || pnode->nLastSend == 0))
+                {
+                    --maxDrop;
+                    printf("socket no message in first %d seconds, %d %d\n", nSecondsToWaitForInitialHandShake,  pnode->nLastRecv != 0, pnode->nLastSend != 0);
                     pnode->fDisconnect = true;
                 }
-                else if (GetTime() - pnode->nLastSend > 90*60 && GetTime() - pnode->nLastSendEmpty > 90*60)
+                else if ((GetTime() - pnode->nLastSend > nSecondsToWaitForInactivityTimeout && GetTime() - pnode->nLastSendEmpty > nSecondsToWaitForInactivityTimeout))
                 {
+                    --maxDrop;
                     printf("socket not sending\n");
                     pnode->fDisconnect = true;
                 }
-                else if (GetTime() - pnode->nLastRecv > 90*60)
+                else if ((GetTime() - pnode->nLastRecv > nSecondsToWaitForInactivityTimeout))
                 {
+                    --maxDrop;
                     printf("socket inactivity timeout\n");
                     pnode->fDisconnect = true;
                 }
@@ -1601,6 +1679,8 @@ void ThreadMessageHandler2(void* parg)
                 pnode->AddRef();
         }
 
+        std::random_shuffle(vNodesCopy.begin(), vNodesCopy.end());
+
         // Poll the connected nodes for messages
         CNode* pnodeTrickle = NULL;
         if (!vNodesCopy.empty())
@@ -1632,16 +1712,19 @@ void ThreadMessageHandler2(void* parg)
                 pnode->Release();
         }
 
-        // Wait and allow messages to bunch up.
-        // Reduce vnThreadsRunning so StopNode has permission to exit while
-        // we're sleeping, but we must always check fShutdown after doing this.
-        vnThreadsRunning[THREAD_MESSAGEHANDLER]--;
-        MilliSleep(100);
-        if (fRequestShutdown)
-            StartShutdown();
-        vnThreadsRunning[THREAD_MESSAGEHANDLER]++;
-        if (fShutdown)
-            return;
+        if (!IsInitialBlockDownload())
+        {
+            // Wait and allow messages to bunch up.
+            // Reduce vnThreadsRunning so StopNode has permission to exit while
+            // we're sleeping, but we must always check fShutdown after doing this.
+            vnThreadsRunning[THREAD_MESSAGEHANDLER]--;
+            MilliSleep(100);
+            if (fRequestShutdown)
+                StartShutdown();
+            vnThreadsRunning[THREAD_MESSAGEHANDLER]++;
+            if (fShutdown)
+                return;
+        }
     }
 }
 

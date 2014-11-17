@@ -33,7 +33,7 @@ OverviewPage::OverviewPage(QWidget *parent)
     ui->setupUi(this);
 
     connect(ui->portfolio_heading_more, SIGNAL(pressed()), this, SIGNAL(requestGotoTransactionPage()));
-    connect(ui->PortfolioTable, SIGNAL(activated(QModelIndex)), this, SLOT(handleAccountClicked(QModelIndex)));
+    connect(ui->PortfolioTable, SIGNAL(clicked(QModelIndex)), this, SLOT(handleAccountClicked(QModelIndex)));
     ui->PortfolioTable->setContextMenuPolicy(Qt::CustomContextMenu);
 
     // Actions
@@ -64,7 +64,7 @@ void OverviewPage::handleAccountClicked(const QModelIndex &index)
     {
         if(index.column() == AccountModel::Label)
         {
-            emit accountClicked(ui->PortfolioTable->model()->data(index).toString());
+            emit accountClicked(ui->PortfolioTable->model()->data(index, Qt::UserRole).toString());
         }
     }
 }
@@ -198,7 +198,7 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 
 void OverviewPage::on_quick_transfer_next_button_clicked()
 {
-    QList<SendCoinsRecipient> recipients;
+    std::vector<SendCoinsRecipient> recipients;
 
     if(!model)
         return;
@@ -234,13 +234,14 @@ void OverviewPage::on_quick_transfer_next_button_clicked()
     int fromIndex = ui->quick_transfer_from_combobox->currentIndex() - 1;
     QString toAddress = model->getExternalAccountModel()->data(AccountModel::Address, toIndex).toString().trimmed();
     QString toLabel = model->getExternalAccountModel()->data(AccountModel::Label, toIndex).toString().trimmed();
-    QString fromAccountAddress = model->getMyAccountModel()->data(AccountModel::Address, fromIndex).toString().trimmed();
+    std::string fromAccountAddress = model->getMyAccountModel()->data(AccountModel::Address, fromIndex).toString().trimmed().toStdString();
 
     qint64 amt=ui->quick_transfer_amount->value();
 
-    recipients.append(SendCoinsRecipient(amt, toAddress, toLabel));
+    recipients.push_back(SendCoinsRecipient(amt, toAddress.toStdString(), toLabel.toStdString()));
 
-    if(GUIUtil::SendCoinsHelper(this, recipients, model, fromAccountAddress, true))
+    std::string transactionHash;
+    if(GUIUtil::SendCoinsHelper(this, recipients, model, fromAccountAddress, true, transactionHash))
     {
         ui->quick_transfer_amount->clear();
         ui->quick_transfer_to_combobox->clear();

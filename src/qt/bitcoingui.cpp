@@ -15,8 +15,6 @@
 #include "editaddressdialog.h"
 #include "optionsmodel.h"
 #include "transactiondescdialog.h"
-#include "addresstablemodel.h"
-#include "transactionview.h"
 #include "tabbar.h"
 #include "forms/mainframe.h"
 #include "forms/lockbar.h"
@@ -32,6 +30,7 @@
 #include "rpcconsole.h"
 #include "wallet.h"
 #include "pandastyles.h"
+#include "checkpoints.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -64,7 +63,11 @@
 #include <iostream>
 
 
+// Use this style when we want the progress bar to grab user attention.
+QString styleImportant="QProgressBar { background-color: #e8e8e8; border: 1px solid grey; border-radius: 7px; padding: 1px; text-align: center; } QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF8000, stop: 1 orange); border-radius: 7px; margin: 0px; }";
 
+// Use this style when we want the progress bar to run in the 'background' without grabbing user attention.
+QString styleBackground="QProgressBar { background-color: #e8e8e8; border: 1px solid grey; border-radius: 7px; padding: 1px; text-align: center; } QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #7F7F7F, stop: 1 #DCDDDF); border-radius: 7px; margin: 0px; }";
 
 extern CWallet* pwalletMain;
 extern int64_t nLastCoinStakeSearchInterval;
@@ -94,7 +97,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent)
     QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
 
-	// Load an application style
+    // Load an application style
     QFile styleFile(":qss/main");
     styleFile.open(QFile::ReadOnly);
 
@@ -121,7 +124,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent)
     style.replace("CURRENCY_DECIMAL_FONT_SIZE",CURRENCY_DECIMAL_FONT_SIZE);
 
     setStyleSheet(style);
-	
+
     // Accept D&D of URIs
     setAcceptDrops(true);
 
@@ -191,7 +194,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent)
     QString curStyle = qApp->style()->metaObject()->className();
     if(curStyle == "QWindowsStyle" || curStyle == "QWindowsXPStyle")
     {
-        progressBar->setStyleSheet("QProgressBar { background-color: #e8e8e8; border: 1px solid grey; border-radius: 7px; padding: 1px; text-align: center; } QProgressBar::chunk { background: QLinearGradient(x1: 0, y1: 0, x2: 1, y2: 0, stop: 0 #FF8000, stop: 1 orange); border-radius: 7px; margin: 0px; }");
+        progressBar->setStyleSheet(styleImportant);
     }
 
     statusBar()->addWidget(progressBarLabel);
@@ -204,11 +207,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent)
     connect(overviewPage, SIGNAL(accountClicked(QString)), this, SLOT(gotoHistoryPage(QString)));
     connect(overviewPage, SIGNAL(requestGotoTransactionPage()), this, SLOT(gotoHistoryPage()));
 
-    //connect(overviewPage, SIGNAL(transactionClicked(QModelIndex)), transactionView, SLOT(focusTransaction(QModelIndex)));
-
-    // Double-clicking on a transaction on the transaction history page shows details
-    //connect(transactionView, SIGNAL(doubleClicked(QModelIndex)), transactionView, SLOT(showDetails()));
-
     rpcConsole = new RPCConsole(this);
     connect(openRPCConsoleAction, SIGNAL(triggered()), rpcConsole, SLOT(show()));
 
@@ -218,6 +216,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent)
     connect(transactionsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
 
     //Show menus as needed
+    connect(centralWidget->getMenuBar(), SIGNAL(showModeMenu(QPoint)), this, SLOT(showModeMenu(QPoint)));
     connect(centralWidget->getMenuBar(), SIGNAL(showFileMenu(QPoint)), this, SLOT(showFileMenu(QPoint)));
     connect(centralWidget->getMenuBar(), SIGNAL(showSettingsMenu(QPoint)), this, SLOT(showSettingsMenu(QPoint)));
     connect(centralWidget->getMenuBar(), SIGNAL(showHelpMenu(QPoint)), this, SLOT(showHelpMenu(QPoint)));
@@ -277,11 +276,9 @@ void BitcoinGUI::createActions()
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(gotoSendCoinsPage()));
     connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    //connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
 
     quitAction = new QAction(QIcon(":/icons/quit"), tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -311,6 +308,13 @@ void BitcoinGUI::createActions()
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
 
+    clientModeFullAction = new QAction(QIcon(":/icons/mode_full"), tr("Activate 'Classic' client mode."), this);
+    clientModeFullAction->setToolTip(tr("Activate 'Classic' client mode."));
+    clientModeHybridAction = new QAction(QIcon(":/icons/mode_hybrid"), tr("Activate 'Hybrid' client mode."), this);
+    clientModeHybridAction->setToolTip(tr("Activate 'Hybrid' client mode."));
+    clientModeLightAction = new QAction(QIcon(":/icons/mode_light"), tr("Activate 'Lite' client mode."), this);
+    clientModeLightAction->setToolTip(tr("Activate 'Lite' client mode."));
+
     exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
@@ -328,6 +332,21 @@ void BitcoinGUI::createActions()
     connect(lockWalletAction, SIGNAL(triggered()), this, SLOT(lockWallet()));
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(gotoSignMessageTab()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(gotoVerifyMessageTab()));
+
+
+    connect(clientModeFullAction, SIGNAL(triggered()), this, SLOT(setFullClientMode()));
+    connect(clientModeHybridAction, SIGNAL(triggered()), this, SLOT(setHybridClientMode()));
+    connect(clientModeLightAction, SIGNAL(triggered()), this, SLOT(setLightClientMode()));
+}
+
+void BitcoinGUI::showModeMenu(QPoint pos)
+{
+    QMenu *mode = new QMenu(this);
+    mode->addAction(clientModeFullAction);
+    mode->addAction(clientModeHybridAction);
+    mode->addAction(clientModeLightAction);
+
+    mode->exec(pos,0);
 }
 
 void BitcoinGUI::showFileMenu(QPoint pos)
@@ -404,8 +423,6 @@ void BitcoinGUI::setClientModel(ClientModel *clientModel)
         connect(clientModel, SIGNAL(error(QString,QString,bool)), this, SLOT(error(QString,QString,bool)));
 
         rpcConsole->setClientModel(clientModel);
-        //addressBookPage->setOptionsModel(clientModel->getOptionsModel());
-        //receiveCoinsPage->setOptionsModel(clientModel->getOptionsModel());
     }
 }
 
@@ -419,15 +436,15 @@ bool BitcoinGUI::setWalletModel(WalletModel *walletModel)
         // Report errors from wallet thread
         connect(walletModel, SIGNAL(error(QString,QString,bool)), this, SLOT(error(QString,QString,bool)));
 
-        // Put transaction list in tabs
-        //transactionView->setModel(walletModel);
-
         overviewPage->setModel(walletModel);
-        //addressBookPage->setModel(walletModel->getAddressTableModel());
         transactionsPage->setModel(walletModel);
-        //receiveCoinsPage->setModel(walletModel->getAddressTableModel());
         signVerifyMessageDialog->setModel(walletModel);
         transferPage->setModel(walletModel);
+
+        // Handle changing of client modes
+        connect(walletModel->getOptionsModel(), SIGNAL(clientModeChanged(ClientMode)), centralWidget->getMenuBar(), SLOT(clientModeChanged(ClientMode)) );
+        connect(walletModel->getOptionsModel(), SIGNAL(clientModeChanged(ClientMode)), centralWidget->getTabBar(), SLOT(clientModeChanged(ClientMode)) );
+
 
         setEncryptionStatus(walletModel->getEncryptionStatus());
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
@@ -528,7 +545,7 @@ void BitcoinGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to PandaBank network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%1 active %2 to PandaBank network").arg(count).arg(count == 1 ? tr("connection") : tr("connections")));
 }
 
 void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
@@ -536,39 +553,291 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     // don't show / hide progress bar and its label if we have no connection to the network
     if (!clientModel || clientModel->getNumConnections() == 0)
     {
-        progressBarLabel->setVisible(false);
-        progressBar->setVisible(false);
-
-        return;
+        if(currentClientMode == ClientFull || currentLoadState == LoadState_AcceptingNewBlocks)
+        {
+            progressBarLabel->setVisible(false);
+            progressBar->setVisible(false);
+            return;
+        }
+        else if(currentLoadState != LoadState_VerifyAllBlocks)
+        {
+            progressBarLabel->setText(tr("Searching for peers."));
+            progressBar->setTextVisible(false);
+            progressBarLabel->setVisible(true);
+            return;
+        }
     }
 
     QString strStatusBarWarnings = clientModel->getStatusBarWarnings();
     QString tooltip;
 
-    if(count < nTotalBlocks)
+    switch(currentLoadState)
     {
-        int nRemainingBlocks = nTotalBlocks - count;
-        float nPercentageDone = count / (nTotalBlocks * 0.01f);
-
-        if (strStatusBarWarnings.isEmpty())
+        case LoadState_Begin:
+        case LoadState_Connect:
         {
-            progressBarLabel->setText(tr("Synchronizing with network..."));
+            progressBar->setStyleSheet(styleImportant);
+
+            progressBarLabel->setText(tr("Connecting to peers."));
+            progressBar->setTextVisible(false);
             progressBarLabel->setVisible(true);
-            progressBar->setFormat(tr("~%n block(s) remaining", "", nRemainingBlocks));
-            progressBar->setMaximum(nTotalBlocks);
-            progressBar->setValue(count);
-            progressBar->setVisible(true);
         }
+        break;
+        case LoadState_CheckPoint:
+        {
+            progressBar->setStyleSheet(styleImportant);
 
-        tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done).").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
-    }
-    else
-    {
-        if (strStatusBarWarnings.isEmpty())
-            progressBarLabel->setVisible(false);
+            int nNumLoadedCheckpoints = Checkpoints::GetNumLoadedCheckpoints();
+            int nNumCheckpoints = Checkpoints::GetNumCheckpoints();
+            int nRemainingBlocks = nNumCheckpoints-nNumLoadedCheckpoints;
+            float nPercentageDone = nNumLoadedCheckpoints / (nNumCheckpoints * 0.01f);
 
-        progressBar->setVisible(false);
-        tooltip = tr("Downloaded %1 blocks of transaction history.").arg(count);
+            if (strStatusBarWarnings.isEmpty())
+            {
+                progressBarLabel->setText(tr("Fetching checkpoints."));
+                progressBarLabel->setVisible(true);
+                if(nRemainingBlocks <= 0)
+                {
+                    progressBar->setTextVisible(false);
+                }
+                else
+                {
+                    progressBar->setFormat(tr("%1 %2 remaining").arg(nRemainingBlocks).arg(nRemainingBlocks == 1 ? tr("checkpoint") : tr("checkpoints")));
+                    progressBar->setTextVisible(true);
+                }
+                progressBar->setMaximum(nNumLoadedCheckpoints);
+                progressBar->setValue(nNumCheckpoints);
+                progressBar->setVisible(true);
+            }
+            tooltip = tr("Downloaded %1 of %2 checkpoints (%3% done).").arg(nNumLoadedCheckpoints).arg(nNumCheckpoints).arg(nPercentageDone, 0, 'f', 2);
+
+        }
+        break;
+        case LoadState_SyncHeadersFromEpoch:
+        {
+            progressBar->setStyleSheet(styleImportant);
+
+            int nTotalBlocksToSync = nTotalBlocks - epochCheckpointDepth;
+            int nNumSynced = numSyncedHeaders;
+            int nRemainingBlocks = nTotalBlocksToSync-nNumSynced;
+            float nPercentageDone = nNumSynced / (nTotalBlocksToSync * 0.01f);
+
+            if (strStatusBarWarnings.isEmpty())
+            {
+                QString Label = tr("Performing Instant Sync");
+                if(currentClientMode != ClientLight)
+                    Label += " " + tr("(Phase 1 of 3)");
+                progressBarLabel->setText(Label);
+                progressBarLabel->setVisible(true);
+                if(nRemainingBlocks <= 0)
+                {
+                    progressBar->setTextVisible(false);
+                }
+                else
+                {
+                    progressBar->setFormat(tr("%1 %2 remaining").arg(nRemainingBlocks).arg(nRemainingBlocks == 1 ? tr("header") : tr("headers")));
+                    progressBar->setTextVisible(true);
+                }
+                progressBar->setMaximum(nTotalBlocksToSync);
+                progressBar->setValue(nNumSynced);
+                progressBar->setVisible(true);
+            }
+
+            tooltip = tr("Downloaded %1 of %2 headers (%3% done).").arg(nNumSynced).arg(nTotalBlocksToSync).arg(nPercentageDone, 0, 'f', 2);
+        }
+        break;
+        case LoadState_SyncBlocksFromEpoch:
+        {
+            progressBar->setStyleSheet(styleImportant);
+
+            int nTotalBlocksToSync = nTotalBlocks - epochCheckpointDepth;
+            int nNumSynced = numSyncedBlocks;
+            int nRemainingBlocks = nTotalBlocksToSync-nNumSynced;
+            float nPercentageDone = nNumSynced / (nTotalBlocksToSync * 0.01f);
+
+            if (strStatusBarWarnings.isEmpty())
+            {
+                QString Label = tr("Performing Instant Sync");
+                if(currentClientMode != ClientLight)
+                    Label += " " + tr("(Phase 2 of 3)");
+                progressBarLabel->setText(Label);
+                progressBarLabel->setVisible(true);
+                if(nRemainingBlocks <= 0)
+                {
+                    progressBar->setTextVisible(false);
+                }
+                else
+                {
+                    progressBar->setFormat(tr("%1 %2 remaining").arg(nRemainingBlocks).arg(nRemainingBlocks == 1 ? tr("block") : tr("blocks")));
+                    progressBar->setTextVisible(true);
+                }
+                progressBar->setMaximum(nTotalBlocksToSync);
+                progressBar->setValue(nNumSynced);
+                progressBar->setVisible(true);
+            }
+
+            tooltip = tr("Downloaded %1 of %2 blocks (%3% done).").arg(nNumSynced).arg(nTotalBlocksToSync).arg(nPercentageDone, 0, 'f', 2);
+        }
+        break;
+        case LoadState_ScanningTransactionsFromEpoch:
+        {
+            progressBar->setStyleSheet(styleImportant);
+
+            int nTotalBlocksToSync = numEpochTransactionsToScan;
+            int nNumSynced = numEpochTransactionsScanned;
+            int nRemainingBlocks = nTotalBlocksToSync-nNumSynced;
+            float nPercentageDone = nNumSynced / (nTotalBlocksToSync * 0.01f);
+
+            if (strStatusBarWarnings.isEmpty())
+            {
+                QString Label = tr("Scanning wallet transactions");
+                if(currentClientMode != ClientLight)
+                    Label += " " + tr("(Phase 3 of 3)");
+                progressBarLabel->setText(Label);
+                progressBarLabel->setVisible(true);
+                if(nRemainingBlocks <= 0)
+                {
+                    progressBar->setTextVisible(false);
+                }
+                else
+                {
+                    progressBar->setFormat(tr("%1 %2 remaining").arg(nRemainingBlocks).arg(nRemainingBlocks == 1 ? tr("block") : tr("blocks")));
+                    progressBar->setTextVisible(true);
+                }
+                progressBar->setMaximum(nTotalBlocksToSync);
+                progressBar->setValue(nNumSynced);
+                progressBar->setVisible(true);
+            }
+
+            tooltip = tr("Scanned %1 of %2 blocks (%3% done).").arg(nNumSynced).arg(nTotalBlocksToSync).arg(nPercentageDone, 0, 'f', 2);
+        }
+        break;
+        case LoadState_SyncAllHeaders:
+        {
+            progressBar->setStyleSheet(styleBackground);
+
+            int nTotalBlocksToSync = nTotalBlocks;
+            int nNumSynced = numSyncedHeaders;
+            int nRemainingBlocks = nTotalBlocksToSync-nNumSynced;
+            float nPercentageDone = nNumSynced / (nTotalBlocksToSync * 0.01f);
+
+            if (strStatusBarWarnings.isEmpty())
+            {
+                progressBarLabel->setText(tr("Rapid Blockchain Download (Phase 1 of 2)."));
+                progressBarLabel->setVisible(true);
+                if(nRemainingBlocks <= 0)
+                {
+                    progressBar->setTextVisible(false);
+                }
+                else
+                {
+                    progressBar->setFormat(tr("%1 %2 remaining").arg(nRemainingBlocks).arg(nRemainingBlocks == 1 ? tr("header") : tr("headers")));
+                    progressBar->setTextVisible(true);
+                }
+                progressBar->setMaximum(nTotalBlocksToSync);
+                progressBar->setValue(nNumSynced);
+                progressBar->setVisible(true);
+            }
+
+            tooltip = tr("Downloaded %1 of %2 headers (%3% done).").arg(nNumSynced).arg(nTotalBlocksToSync).arg(nPercentageDone, 0, 'f', 2);
+        }
+        break;
+        case LoadState_SyncAllBlocks:
+        {
+            progressBar->setStyleSheet(styleBackground);
+
+            int nTotalBlocksToSync = nTotalBlocks;
+            int nNumSynced = numSyncedBlocks;
+            int nRemainingBlocks = nTotalBlocksToSync-nNumSynced;
+            float nPercentageDone = nNumSynced / (nTotalBlocksToSync * 0.01f);
+
+            if (strStatusBarWarnings.isEmpty())
+            {
+                progressBarLabel->setText(tr("Rapid Blockchain Download (Phase 2 of 2)."));
+                progressBarLabel->setVisible(true);
+                if(nRemainingBlocks <= 0)
+                {
+                    progressBar->setTextVisible(false);
+                }
+                else
+                {
+                    progressBar->setFormat(tr("%1 %2 remaining").arg(nRemainingBlocks).arg(nRemainingBlocks == 1 ? tr("block") : tr("blocks")));
+                    progressBar->setTextVisible(true);
+                }
+                progressBar->setMaximum(nTotalBlocksToSync);
+                progressBar->setValue(nNumSynced);
+                progressBar->setVisible(true);
+            }
+
+            tooltip = tr("Downloaded %1 of %2 blocks (%3% done).").arg(nNumSynced).arg(nTotalBlocksToSync).arg(nPercentageDone, 0, 'f', 2);
+        }
+        break;
+        case LoadState_VerifyAllBlocks:
+        {
+            progressBar->setStyleSheet(styleBackground);
+
+            int nRemainingBlocks = numBlocksToVerify-numBlocksVerified;
+            // Assign a double weight to first 100k blocks to try make progress bar smoother.
+            float nPercentageDone = ( (numBlocksVerified > 100000 ? 100000 : numBlocksVerified) + numBlocksVerified ) / ( (100000 + numBlocksToVerify) * 0.01f);
+
+            if (strStatusBarWarnings.isEmpty())
+            {
+                progressBarLabel->setText(tr("Verify blockchain."));
+                progressBarLabel->setVisible(true);
+                if(nRemainingBlocks <= 0)
+                {
+                    progressBar->setTextVisible(false);
+                }
+                else
+                {
+                    progressBar->setFormat(tr("%1 %2 remaining").arg(nRemainingBlocks).arg(nRemainingBlocks == 1 ? tr("block") : tr("blocks")));
+                    progressBar->setTextVisible(true);
+                }
+                progressBar->setMaximum(100000 + numBlocksToVerify);
+                progressBar->setValue((numBlocksVerified > 100000 ? 100000 : numBlocksVerified) + numBlocksVerified);
+                progressBar->setVisible(true);
+            }
+
+            tooltip = tr("Verified %1 of %2 blocks (%3% done).").arg(numBlocksVerified).arg(numBlocksToVerify).arg(nPercentageDone, 0, 'f', 2);
+        }
+        break;
+        case LoadState_AcceptingNewBlocks:
+        default:
+        {
+            if(count < nTotalBlocks)
+            {
+                int nRemainingBlocks = nTotalBlocks - count;
+                float nPercentageDone = count / (nTotalBlocks * 0.01f);
+
+                if (strStatusBarWarnings.isEmpty())
+                {
+                    progressBarLabel->setText(tr("Synchronizing with network..."));
+                    progressBarLabel->setVisible(true);
+                    if(nRemainingBlocks <= 0)
+                    {
+                        progressBar->setTextVisible(false);
+                    }
+                    else
+                    {
+                        progressBar->setFormat(tr("%1 %2 remaining").arg(nRemainingBlocks).arg(nRemainingBlocks == 1 ? tr("block") : tr("blocks")));
+                        progressBar->setTextVisible(true);
+                    }
+                    progressBar->setMaximum(nTotalBlocks);
+                    progressBar->setValue(count);
+                    progressBar->setVisible(true);
+                }
+
+                tooltip = tr("Downloaded %1 of %2 blocks of transaction history (%3% done).").arg(count).arg(nTotalBlocks).arg(nPercentageDone, 0, 'f', 2);
+            }
+            else
+            {
+                if (strStatusBarWarnings.isEmpty())
+                    progressBarLabel->setVisible(false);
+
+                progressBar->setVisible(false);
+                tooltip = tr("Downloaded %1 blocks of transaction history.").arg(count);
+            }
+        }
     }
 
     // Override progressBarLabel text and hide progress bar, when we have warnings to display
@@ -590,19 +859,19 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
     }
     else if(secs < 60)
     {
-        text = tr("%n second(s) ago","",secs);
+        text = tr("%1 %2 ago").arg(secs).arg(secs == 1 ? tr("second") : tr("seconds"));
     }
     else if(secs < 60*60)
     {
-        text = tr("%n minute(s) ago","",secs/60);
+        text = tr("%1 %2 ago").arg(secs/60).arg(secs/60 == 1 ? tr("minute") : tr("minutes"));
     }
     else if(secs < 24*60*60)
     {
-        text = tr("%n hour(s) ago","",secs/(60*60));
+        text = tr("%1 %2 ago").arg(secs/(60*60)).arg(secs/(60*60) == 1 ? tr("hour") : tr("hours"));
     }
     else
     {
-        text = tr("%n day(s) ago","",secs/(60*60*24));
+        text = tr("%1 %2 ago").arg(secs/(60*60*24)).arg(secs/(60*60*24) == 1 ? tr("day") : tr("days"));
     }
 
     // Set icon state: spinning if catching up, tick otherwise
@@ -747,30 +1016,8 @@ void BitcoinGUI::gotoHistoryPage(const QString& account)
 
     exportAction->setEnabled(true);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-    //connect(exportAction, SIGNAL(triggered()), transactionView, SLOT(exportClicked()));
 }
 
-void BitcoinGUI::gotoAddressBookPage()
-{
-    addressBookAction->setChecked(true);
-    //centralWidget->setCurrentWidget(addressBookPage);
-
-    exportAction->setEnabled(true);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-    //connect(exportAction, SIGNAL(triggered()), addressBookPage, SLOT(exportClicked()));
-}
-
-void BitcoinGUI::gotoReceiveCoinsPage()
-{
-    receiveCoinsAction->setChecked(true);
-    //checkme: Right place to go?
-    centralWidget->setActiveTab(transferPage);
-    transferPage->setFocusToAddessBookPane();
-
-    exportAction->setEnabled(true);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-    //connect(exportAction, SIGNAL(triggered()), receiveCoinsPage, SLOT(exportClicked()));
-}
 
 void BitcoinGUI::gotoSendCoinsPage()
 {
@@ -945,6 +1192,68 @@ void BitcoinGUI::lockWallet()
     walletModel->setWalletLocked(true);
 }
 
+void BitcoinGUI::setFullClientMode()
+{
+    if(!walletModel)
+        return;
+
+    if(currentClientMode == ClientFull)
+        return;
+
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle(tr("Activate PandaBank ‘Classic’"));
+    msgBox.setText(tr("PandaBank 'Classic' allows you to earn interest and help secure the Pandacoin Network once synchronization and download of the blockchain is completed. It operates using the outdated method of synchronization and downloading of the blockchain, which could take between 4 to 24 hours to complete. We recommend most Pandacoin users to use Pandacoin 'Hybrid'.\n\nSwitching to PandaBank 'Classic' from other modes will wipe out your existing blockchain data.\n\nActivate PandaBank 'Classic'?"));
+    msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    msgBox.setIconPixmap(QPixmap(":/icons/mode_full_35"));
+    int reply = msgBox.exec();
+
+    if(reply != QMessageBox::Yes)
+        return;
+
+    walletModel->getOptionsModel()->setClientMode(ClientFull);
+}
+
+void BitcoinGUI::setHybridClientMode()
+{
+    if(!walletModel)
+        return;
+
+    if(currentClientMode == ClientHybrid)
+        return;
+
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle(tr("Activate PandaBank ‘Hybrid’"));
+    msgBox.setText(tr("PandaBank 'Hybrid' is the recommended mode for most Pandacoin users. Synchronization with the Pandacoin Network will only take seconds after installation so you can see and use your Pandacoins immediately. \n\nPandaBank 'Hybrid allows you to earn interest and help secure the Pandacoin Network in approximately 5 to 15 minutes after installation, once both synchronization and download of the blockchain is completed.\n\nActivate PandaBank 'Hybrid'?"));
+    msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    msgBox.setIconPixmap(QPixmap(":/icons/mode_hybrid_35"));
+    int reply = msgBox.exec();
+
+    if(reply == QMessageBox::Yes)
+        walletModel->getOptionsModel()->setClientMode(ClientHybrid);
+}
+
+void BitcoinGUI::setLightClientMode()
+{
+    if(!walletModel)
+        return;
+
+    if(currentClientMode == ClientLight)
+        return;
+
+    QMessageBox msgBox(this);
+    msgBox.setWindowTitle(tr("Activate PandaBank ‘Lite’"));
+    msgBox.setText(tr("PandaBank 'Lite' is for users that have access to limited download or hard drive storage space. Stored data is only a few megabytes. Synchronization with the Pandacoin Network will only take seconds after installation so you can see and use your Pandacoins immediately.\n\nPandacoin 'Lite' DOES NOT allow you to earn interest or help secure the Pandacoin Network.\n\nActivate PandaBank 'Lite'?"));
+    msgBox.setStandardButtons(QMessageBox::Yes|QMessageBox::No);
+    msgBox.setDefaultButton(QMessageBox::No);
+    msgBox.setIconPixmap(QPixmap(":/icons/mode_light_35"));
+    int reply = msgBox.exec();
+
+    if(reply == QMessageBox::Yes)
+        walletModel->getOptionsModel()->setClientMode(ClientLight);
+}
+
 void BitcoinGUI::showNormalIfMinimized(bool fToggleHidden)
 {
     // activateWindow() (sometimes) helps with keyboard focus on Windows
@@ -974,6 +1283,19 @@ void BitcoinGUI::toggleHidden()
 
 void BitcoinGUI::updateStakingIcon()
 {
+    if(currentClientMode == ClientLight)
+    {
+        labelStakingIcon->setPixmap(QIcon(":/icons/staking_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+        labelStakingIcon->setToolTip(tr("Unable to earn interest in light mode.<br/>Switch to hybrid mode if you would like to earn interest."));
+        return;
+    }
+    else if(currentClientMode == ClientHybrid && currentLoadState != LoadState_AcceptingNewBlocks)
+    {
+        labelStakingIcon->setPixmap(QIcon(":/icons/staking_disabled").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
+        labelStakingIcon->setToolTip(tr("Unable to earn interest until syncing is completed."));
+        return;
+    }
+
     uint64_t nMinWeight = 0, nMaxWeight = 0, nWeight = 0;
     if (pwalletMain)
         pwalletMain->GetStakeWeight(*pwalletMain, nMinWeight, nMaxWeight, nWeight);
@@ -986,19 +1308,19 @@ void BitcoinGUI::updateStakingIcon()
         QString text;
         if (nEstimateTime < 60)
         {
-            text = tr("%n second(s)", "", nEstimateTime);
+            text = tr("%1 %2").arg(nEstimateTime).arg(nEstimateTime == 1 ? tr("second") : tr("seconds"));
         }
         else if (nEstimateTime < 60*60)
         {
-            text = tr("%n minute(s)", "", nEstimateTime/60);
+            text = tr("%1 %2").arg(nEstimateTime/60).arg(nEstimateTime/60 == 1 ? tr("minute") : tr("minutes"));
         }
         else if (nEstimateTime < 24*60*60)
         {
-            text = tr("%n hour(s)", "", nEstimateTime/(60*60));
+            text = tr("%1 %2").arg(nEstimateTime/(60*60)).arg(nEstimateTime/(60*60) == 1 ? tr("hour") : tr("hours"));
         }
         else
         {
-            text = tr("%n day(s)", "", nEstimateTime/(60*60*24));
+            text = tr("%1 %2").arg(nEstimateTime/(60*60*24)).arg(nEstimateTime/(60*60*24) == 1 ? tr("day") : tr("days"));
         }
 
         labelStakingIcon->setPixmap(QIcon(":/icons/staking_on").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));

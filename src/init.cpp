@@ -11,6 +11,7 @@
 #include "ui_interface.h"
 #include "checkpoints.h"
 #include "zerocoin/ZeroTest.h"
+#include "qt/walletmodel.h"
 
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
@@ -28,6 +29,10 @@ using namespace std;
 using namespace boost;
 
 CWallet* pwalletMain;
+#if !defined(QT_GUI)
+WalletModel* pwalletModel;
+#endif
+
 CClientUIInterface uiInterface;
 std::string strWalletFileName;
 bool fConfChange;
@@ -64,6 +69,21 @@ void StartShutdown()
 
 void Shutdown(void* parg)
 {
+    // Ensure clean shutdown during sync.
+    if (currentClientMode != ClientFull)
+    {
+        currentLoadState = LoadState_Exiting;
+        LOCK2(cs_ChangeLoadState,cs_VerifyAllBlocks);
+        currentLoadState = LoadState_Exiting;
+#ifdef WIN32
+        MilliSleep(2000);
+#else
+        sleep(2);
+#endif
+        FlushBlockFile();
+    }
+
+
     static CCriticalSection cs_Shutdown;
     static bool fTaken;
 
@@ -91,6 +111,10 @@ void Shutdown(void* parg)
         boost::filesystem::remove(GetPidFile());
         UnregisterWallet(pwalletMain);
         delete pwalletMain;
+#if !defined(QT_GUI)
+        setRPCWalletModel(NULL);
+        delete pwalletModel;
+#endif
         NewThread(ExitTimeout, NULL);
         MilliSleep(50);
         printf("Pandacoin exited\n\n");
@@ -321,7 +345,12 @@ std::string HelpMessage()
 /** Initialize bitcoin.
  *  @pre Parameters should be parsed and config file should be read.
  */
+#ifdef HEADLESS
 bool AppInit2()
+#else
+bool AppInit2(OptionsModel& optionsModel)
+#endif
+
 {
     // ********************************************************* Step 1: setup
 #ifdef _MSC_VER
@@ -430,9 +459,18 @@ bool AppInit2()
 
     // -debug implies fDebug*
     if (fDebug)
+    {
         fDebugNet = true;
+        fDebugNetRanges = true;
+    }
     else
         fDebugNet = GetBoolArg("-debugnet");
+
+    // -debugnet implies fDebugNetRanges
+    if (fDebugNet)
+        fDebugNetRanges = true;
+    else
+        fDebugNetRanges = GetBoolArg("-debugnetranges");
 
     bitdb.SetDetach(GetBoolArg("-detachdb", false));
 
@@ -693,7 +731,135 @@ bool AppInit2()
     BOOST_FOREACH(string strDest, mapMultiArgs["-seednode"])
         AddOneShot(strDest);
 
-    // ********************************************************* Step 7: load blockchain
+    // ********************************************************* Step 7: load wallet
+
+    uiInterface.InitMessage(_("Loading wallet..."));
+    printf("Loading wallet...\n");
+    nStart = GetTimeMillis();
+    bool fFirstRun = true;
+    pwalletMain = new CWallet(strWalletFileName);
+#if !defined(QT_GUI)
+    pwalletModel = new WalletModel(pwalletMain);
+    setRPCWalletModel(pwalletModel);
+#endif
+
+    DBErrors nLoadWalletRet = pwalletMain->LoadWallet(fFirstRun);
+    if (nLoadWalletRet != DB_LOAD_OK)
+    {
+        if (nLoadWalletRet == DB_CORRUPT)
+            strErrors << _("Error loading wallet.dat: Wallet corrupted") << "\n";
+        else if (nLoadWalletRet == DB_NONCRITICAL_ERROR)
+        {
+            string msg(_("Warning: error reading wallet.dat! All keys read correctly, but transaction data"
+                         " or address book entries might be missing or incorrect."));
+            uiInterface.ThreadSafeMessageBox(msg, _("Pandacoin"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+        }
+        else if (nLoadWalletRet == DB_TOO_NEW)
+            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Pandacoin") << "\n";
+        else if (nLoadWalletRet == DB_NEED_REWRITE)
+        {
+            strErrors << _("Wallet needed to be rewritten: restart Pandacoin to complete") << "\n";
+            printf("%s", strErrors.str().c_str());
+            return InitError(strErrors.str());
+        }
+        else
+            strErrors << _("Error loading wallet.dat") << "\n";
+    }
+
+    if (GetBoolArg("-upgradewallet", fFirstRun))
+    {
+        int nMaxVersion = GetArg("-upgradewallet", 0);
+        if (nMaxVersion == 0) // the -upgradewallet without argument case
+        {
+            printf("Performing wallet upgrade to %i\n", FEATURE_LATEST);
+            nMaxVersion = CLIENT_VERSION;
+            pwalletMain->SetMinVersion(FEATURE_LATEST); // permanently upgrade the wallet immediately
+        }
+        else
+            printf("Allowing wallet upgrade up to %i\n", nMaxVersion);
+        if (nMaxVersion < pwalletMain->GetVersion())
+            strErrors << _("Cannot downgrade wallet") << "\n";
+        pwalletMain->SetMaxVersion(nMaxVersion);
+    }
+
+    // Options model will load default (hybrid) or previous setting.
+    // Below command line option overrides this if passed.
+    std::string clientModeOverride;
+    if(mapMultiArgs.count("-clientmode"))
+        clientModeOverride = mapMultiArgs["-clientmode"][0];
+
+    // Non UI client defaults to Full mode for now, just to keep things simple.
+    #ifdef HEADLESS
+    currentClientMode = ClientFull;
+    #else
+    //fixme: LIGHT HYBRID check no other options have messed up here?
+    optionsModel.Upgrade(); // Must be done after wallet load
+    #endif
+
+    // fixme: Should this override config?
+    if(clientModeOverride=="hybrid")
+    {
+        #ifdef HEADLESS
+        currentClientMode = ClientHybrid;
+        #else
+        optionsModel.setClientMode(ClientHybrid, (!fFirstRun && optionsModel.hadPreviousClientMode) );
+        #endif
+    }
+    else if(clientModeOverride=="light")
+    {
+        #ifdef HEADLESS
+        currentClientMode = ClientLight;
+        #else
+        optionsModel.setClientMode(ClientLight, (!fFirstRun && optionsModel.hadPreviousClientMode) );
+        #endif
+    }
+    else if(clientModeOverride=="full")
+    {
+        #ifdef HEADLESS
+        currentClientMode = ClientFull;
+        #else
+        optionsModel.setClientMode(ClientFull, (!fFirstRun && optionsModel.hadPreviousClientMode) );
+        #endif
+    }
+
+    if (fFirstRun)
+    {
+        // Create new keyUser and set as default key
+        RandAddSeedPerfmon();
+
+        CPubKey newDefaultKey;
+        if (pwalletMain->GetKeyFromPool(newDefaultKey, false)) {
+            pwalletMain->SetDefaultKey(newDefaultKey);
+            if (!pwalletMain->SetAddressBookName(pwalletMain->vchDefaultKey.GetID(), "My account"))
+                strErrors << _("Cannot write default address") << "\n";
+        }
+    }
+
+    printf("%s", strErrors.str().c_str());
+    printf(" wallet      %15"PRId64"ms\n", GetTimeMillis() - nStart);
+
+    RegisterWallet(pwalletMain);
+
+    CBlockIndex *pindexRescan = pindexBest;
+    if (GetBoolArg("-rescan"))
+        pindexRescan = pindexGenesisBlock;
+    else
+    {
+        CWalletDB walletdb(strWalletFileName);
+        CBlockLocator locator;
+        if (walletdb.ReadBestBlock(locator))
+            pindexRescan = locator.GetBlockIndex();
+    }
+    if (pindexBest != pindexRescan && pindexBest && pindexRescan && pindexBest->nHeight > pindexRescan->nHeight)
+    {
+        uiInterface.InitMessage(_("Rescanning..."));
+        printf("Rescanning last %i blocks (from block %i)...\n", pindexBest->nHeight - pindexRescan->nHeight, pindexRescan->nHeight);
+        nStart = GetTimeMillis();
+        pwalletMain->ScanForWalletTransactions(pindexRescan, true);
+        printf(" rescan      %15"PRId64"ms\n", GetTimeMillis() - nStart);
+    }
+
+    // ********************************************************* Step 8: load blockchain
 
     if (!bitdb.Open(GetDataDir()))
     {
@@ -716,7 +882,6 @@ bool AppInit2()
     nStart = GetTimeMillis();
     if (!LoadBlockIndex())
         return InitError(_("Error loading blkindex.dat"));
-
 
     // as LoadBlockIndex can take several minutes, it's possible the user
     // requested to kill bitcoin-qt during the last operation. If so, exit.
@@ -765,89 +930,6 @@ bool AppInit2()
         printf("\n=== ZeroCoin tests start ===\n");
         Test_RunAllTests();
         printf("=== ZeroCoin tests end ===\n\n");
-    }
-
-    // ********************************************************* Step 8: load wallet
-
-    uiInterface.InitMessage(_("Loading wallet..."));
-    printf("Loading wallet...\n");
-    nStart = GetTimeMillis();
-    bool fFirstRun = true;
-    pwalletMain = new CWallet(strWalletFileName);
-    DBErrors nLoadWalletRet = pwalletMain->LoadWallet(fFirstRun);
-    if (nLoadWalletRet != DB_LOAD_OK)
-    {
-        if (nLoadWalletRet == DB_CORRUPT)
-            strErrors << _("Error loading wallet.dat: Wallet corrupted") << "\n";
-        else if (nLoadWalletRet == DB_NONCRITICAL_ERROR)
-        {
-            string msg(_("Warning: error reading wallet.dat! All keys read correctly, but transaction data"
-                         " or address book entries might be missing or incorrect."));
-            uiInterface.ThreadSafeMessageBox(msg, _("Pandacoin"), CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
-        }
-        else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Pandacoin") << "\n";
-        else if (nLoadWalletRet == DB_NEED_REWRITE)
-        {
-            strErrors << _("Wallet needed to be rewritten: restart Pandacoin to complete") << "\n";
-            printf("%s", strErrors.str().c_str());
-            return InitError(strErrors.str());
-        }
-        else
-            strErrors << _("Error loading wallet.dat") << "\n";
-    }
-
-    if (GetBoolArg("-upgradewallet", fFirstRun))
-    {
-        int nMaxVersion = GetArg("-upgradewallet", 0);
-        if (nMaxVersion == 0) // the -upgradewallet without argument case
-        {
-            printf("Performing wallet upgrade to %i\n", FEATURE_LATEST);
-            nMaxVersion = CLIENT_VERSION;
-            pwalletMain->SetMinVersion(FEATURE_LATEST); // permanently upgrade the wallet immediately
-        }
-        else
-            printf("Allowing wallet upgrade up to %i\n", nMaxVersion);
-        if (nMaxVersion < pwalletMain->GetVersion())
-            strErrors << _("Cannot downgrade wallet") << "\n";
-        pwalletMain->SetMaxVersion(nMaxVersion);
-    }
-
-    if (fFirstRun)
-    {
-        // Create new keyUser and set as default key
-        RandAddSeedPerfmon();
-
-        CPubKey newDefaultKey;
-        if (pwalletMain->GetKeyFromPool(newDefaultKey, false)) {
-            pwalletMain->SetDefaultKey(newDefaultKey);
-            if (!pwalletMain->SetAddressBookName(pwalletMain->vchDefaultKey.GetID(), ""))
-                strErrors << _("Cannot write default address") << "\n";
-        }
-    }
-
-    printf("%s", strErrors.str().c_str());
-    printf(" wallet      %15"PRId64"ms\n", GetTimeMillis() - nStart);
-
-    RegisterWallet(pwalletMain);
-
-    CBlockIndex *pindexRescan = pindexBest;
-    if (GetBoolArg("-rescan"))
-        pindexRescan = pindexGenesisBlock;
-    else
-    {
-        CWalletDB walletdb(strWalletFileName);
-        CBlockLocator locator;
-        if (walletdb.ReadBestBlock(locator))
-            pindexRescan = locator.GetBlockIndex();
-    }
-    if (pindexBest != pindexRescan && pindexBest && pindexRescan && pindexBest->nHeight > pindexRescan->nHeight)
-    {
-        uiInterface.InitMessage(_("Rescanning..."));
-        printf("Rescanning last %i blocks (from block %i)...\n", pindexBest->nHeight - pindexRescan->nHeight, pindexRescan->nHeight);
-        nStart = GetTimeMillis();
-        pwalletMain->ScanForWalletTransactions(pindexRescan, true);
-        printf(" rescan      %15"PRId64"ms\n", GetTimeMillis() - nStart);
     }
 
     // ********************************************************* Step 9: import blocks
@@ -929,8 +1011,8 @@ bool AppInit2()
     printf("mapWallet.size() = %"PRIszu"\n",       pwalletMain->mapWallet.size());
     printf("mapAddressBook.size() = %"PRIszu"\n",  pwalletMain->mapAddressBook.size());
 
-    if (!NewThread(StartNode, NULL))
-        InitError(_("Error: could not start node"));
+    currentLoadState = LoadState_Begin;
+    TransitionLoadState(NULL);
 
     if (fServer)
         NewThread(ThreadRPCServer, NULL);
@@ -943,7 +1025,7 @@ bool AppInit2()
     if (!strErrors.str().empty())
         return InitError(strErrors.str());
 
-     // Add wallet transactions that aren't already in a block to mapTransactions
+    // Add wallet transactions that aren't already in a block to mapTransactions
     pwalletMain->ReacceptWalletTransactions();
 
 #if !defined(QT_GUI)

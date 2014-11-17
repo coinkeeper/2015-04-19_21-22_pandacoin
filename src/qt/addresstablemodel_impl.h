@@ -3,7 +3,7 @@
 
 #include <QAbstractTableModel>
 #include <QStringList>
-#include "script.h"
+#include "script/script.h"
 #include "base58.h"
 
 class CWallet;

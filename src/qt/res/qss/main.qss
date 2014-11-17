@@ -215,8 +215,8 @@ MenuBar QToolButton
     margin:0px;
     padding:0px;
     /* Push images down and text up so that they look better aligned with everything else */
-    padding-top:12px;
-    padding-bottom:10px
+    padding-top:10px;
+    padding-bottom:8px
 }
 
 MenuBar QToolButton:hover

@@ -95,6 +95,10 @@ private:
     QAction *aboutQtAction;
     QAction *openRPCConsoleAction;
 
+    QAction *clientModeFullAction;
+    QAction *clientModeHybridAction;
+    QAction *clientModeLightAction;
+
     QSystemTrayIcon *trayIcon;
     Notificator *notificator;
     RPCConsole *rpcConsole;
@@ -132,6 +136,7 @@ public slots:
     void handleURI(QString strURI);
 
     /** Show menus as needed. */
+    void showModeMenu(QPoint pos);
     void showFileMenu(QPoint pos);
     void showSettingsMenu(QPoint pos);
     void showHelpMenu(QPoint pos);
@@ -141,10 +146,6 @@ private slots:
     void gotoOverviewPage();
     /** Switch to history (transactions) page - optionally set an active account */
     void gotoHistoryPage(const QString& account="");
-    /** Switch to address book page */
-    void gotoAddressBookPage();
-    /** Switch to receive coins page */
-    void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage();
 
@@ -176,6 +177,10 @@ private slots:
     bool unlockWallet(bool forStakingOnly=false, bool forLogin=false);
 
     void lockWallet();
+
+    void setFullClientMode();
+    void setHybridClientMode();
+    void setLightClientMode();
 
     /** Show window if hidden, unminimize when minimized, rise when obscured or show if hidden and fToggleHidden is true */
     void showNormalIfMinimized(bool fToggleHidden = false);

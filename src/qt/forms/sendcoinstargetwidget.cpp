@@ -65,7 +65,7 @@ bool SendCoinsTargetWidget::validate(WalletModel *model)
         }
     }
 
-    if(!ui->pay_to_address->hasAcceptableInput() || (model && !model->validateAddress(ui->pay_to_address->text())))
+    if(!ui->pay_to_address->hasAcceptableInput() || (model && !model->validateAddress(ui->pay_to_address->text().toStdString())))
     {
         ui->pay_to_address->setValid(false);
         retval = false;
@@ -95,8 +95,8 @@ SendCoinsRecipient SendCoinsTargetWidget::getValue()
 {
     SendCoinsRecipient rv;
 
-    rv.address = ui->pay_to_address->text();
-    rv.label = ui->pay_to_name->text();
+    rv.address = ui->pay_to_address->text().toStdString();
+    rv.label = ui->pay_to_name->text().toStdString();
     rv.amount = ui->pay_amount->value();
 
     return rv;
@@ -105,7 +105,7 @@ SendCoinsRecipient SendCoinsTargetWidget::getValue()
 
 void SendCoinsTargetWidget::setValue(const SendCoinsRecipient &value)
 {
-    ui->pay_to_address->setText(value.address);
-    ui->pay_to_name->setText(value.label);
+    ui->pay_to_address->setText(QString(value.address.c_str()));
+    ui->pay_to_name->setText(QString(value.label.c_str()));
     ui->pay_amount->setValue(value.amount);
 }

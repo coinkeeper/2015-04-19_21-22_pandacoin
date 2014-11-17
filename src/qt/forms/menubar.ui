@@ -36,13 +36,39 @@
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0">
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="0,0,0,0">
      <property name="spacing">
       <number>0</number>
      </property>
      <property name="sizeConstraint">
       <enum>QLayout::SetDefaultConstraint</enum>
      </property>
+     <item>
+      <widget class="QToolButton" name="ModeButton">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Mode</string>
+       </property>
+       <property name="icon">
+        <iconset resource="../bitcoin.qrc">
+         <normaloff>:/icons/mode_hybrid</normaloff>:/icons/mode_hybrid</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>24</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextUnderIcon</enum>
+       </property>
+      </widget>
+     </item>
      <item>
       <widget class="QToolButton" name="FileButton">
        <property name="sizePolicy">
@@ -60,8 +86,8 @@
        </property>
        <property name="iconSize">
         <size>
-         <width>18</width>
-         <height>18</height>
+         <width>24</width>
+         <height>24</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -86,8 +112,8 @@
        </property>
        <property name="iconSize">
         <size>
-         <width>18</width>
-         <height>18</height>
+         <width>24</width>
+         <height>24</height>
         </size>
        </property>
        <property name="toolButtonStyle">
@@ -112,8 +138,8 @@
        </property>
        <property name="iconSize">
         <size>
-         <width>18</width>
-         <height>18</height>
+         <width>24</width>
+         <height>24</height>
         </size>
        </property>
        <property name="toolButtonStyle">

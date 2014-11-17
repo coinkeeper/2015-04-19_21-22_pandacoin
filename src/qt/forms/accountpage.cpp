@@ -132,6 +132,9 @@ void AccountPage::on_TransactionTabAccountSelection_currentIndexChanged(int inde
 
 void AccountPage::update()
 {
+    if (currentLoadState == LoadState_SyncHeadersFromEpoch)
+        return;
+
     // Calculate various values used for widget display
     int selectionIndex = ui->TransactionTabAccountSelection->currentIndex();
     if(selectionIndex == -1)

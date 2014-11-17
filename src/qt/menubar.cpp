@@ -13,6 +13,32 @@ MenuBar::~MenuBar()
     delete ui;
 }
 
+
+void MenuBar::clientModeChanged(ClientMode mode)
+{
+    switch(mode)
+    {
+        case ClientFull:
+            ui->ModeButton->setIcon(QIcon(":/icons/mode_full"));
+            break;
+        case ClientLight:
+            ui->ModeButton->setIcon(QIcon(":/icons/mode_light"));
+            break;
+        case ClientHybrid:
+        default:
+            ui->ModeButton->setIcon(QIcon(":/icons/mode_hybrid"));
+            break;
+    }
+}
+
+void MenuBar::on_ModeButton_clicked()
+{
+    QPoint pos=ui->ModeButton->mapToGlobal(QPoint(0,0));
+    pos.setY(pos.y()+ui->ModeButton->height());
+    emit showModeMenu(pos);
+    ui->ModeButton->update();
+}
+
 void MenuBar::on_FileButton_clicked()
 {
     QPoint pos=ui->FileButton->mapToGlobal(QPoint(0,0));

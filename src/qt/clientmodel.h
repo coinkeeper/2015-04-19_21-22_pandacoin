@@ -2,6 +2,7 @@
 #define CLIENTMODEL_H
 
 #include <QObject>
+#include "main.h"
 
 class OptionsModel;
 class AddressTableModel;
@@ -52,6 +53,8 @@ private:
     int numBlocksAtStartup;
 
     QTimer *pollTimer;
+
+    LoadState prevLoadState;
 
     void subscribeToCoreSignals();
     void unsubscribeFromCoreSignals();

@@ -1,6 +1,10 @@
 #ifndef GUIUTIL_H
 #define GUIUTIL_H
 
+#include <vector>
+#include <string>
+
+#ifndef  HEADLESS
 #include <QString>
 #include <QObject>
 #include <QMessageBox>
@@ -13,6 +17,8 @@ class QDateTime;
 class QUrl;
 class QAbstractItemView;
 QT_END_NAMESPACE
+#endif
+
 class SendCoinsRecipient;
 class WalletModel;
 
@@ -21,7 +27,11 @@ class WalletModel;
 namespace GUIUtil
 {
     // Helper for making payments.
-    bool SendCoinsHelper(QWidget* parent, const QList<SendCoinsRecipient>& recipients, WalletModel* model, const QString& sendAccountAddress, bool ignoreCoinControl);
+    #ifndef  HEADLESS
+    bool SendCoinsHelper(QWidget* parent, const std::vector<SendCoinsRecipient>& recipients, WalletModel* model, const std::string& sendAccountAddress, bool ignoreCoinControl, std::string& transactionHash);
+    #else
+    bool SendCoinsHelper(const std::vector<SendCoinsRecipient>& recipients, WalletModel* model, const std::string& sendAccountAddress, bool ignoreCoinControl, std::string& transactionHash);
+    #endif
 
     // Helper class to lock flags safely.
     class flagLocker
@@ -40,6 +50,7 @@ namespace GUIUtil
         bool &flag;
     };
 
+    #ifndef HEADLESS
     bool IsAmountStringValid(int currentUnit, const QString &amountString);
     qint64 AmountStringToBitcoinUnits(int currentUnit, const QString &amountString);
 
@@ -143,7 +154,7 @@ namespace GUIUtil
         QString coreOptions;
         QString uiOptions;
     };
-
+    #endif
 } // namespace GUIUtil
 
 #endif // GUIUTIL_H

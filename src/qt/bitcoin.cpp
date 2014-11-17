@@ -2,6 +2,7 @@
  * W.J. van der Laan 2011-2012
  */
 #include "bitcoingui.h"
+#include "bitcoinrpc.h"
 #include "clientmodel.h"
 #include "walletmodel.h"
 #include "optionsmodel.h"
@@ -155,6 +156,7 @@ int main(int argc, char *argv[])
     // ... then GUI settings:
     OptionsModel optionsModel;
 
+
     // Get desired locale (e.g. "de_DE") from command line or use system locale
     QString lang_territory = QString::fromStdString(GetArg("-lang", QLocale::system().name().toStdString()));
     QString lang = lang_territory;
@@ -218,19 +220,18 @@ int main(int argc, char *argv[])
 
         BitcoinGUI window;
         guiref = &window;
-        if(AppInit2())
+        if(AppInit2(optionsModel))
         {
             {
                 // Put this in a block, so that the Model objects are cleaned up before
                 // calling Shutdown().
-
-                optionsModel.Upgrade(); // Must be done after AppInit2
 
                 if (splashref)
                     splash.finish(&window);
 
                 ClientModel clientModel(&optionsModel);
                 WalletModel walletModel(pwalletMain, &optionsModel);
+                setRPCWalletModel(&walletModel);
 
                 window.setClientModel(&clientModel);
                 if(window.setWalletModel(&walletModel))
@@ -238,9 +239,10 @@ int main(int argc, char *argv[])
                     // Default size.
                     QDesktopWidget dw;
                     QRect screenSize = dw.availableGeometry();
+                    window.setMinimumSize(940,540);
                     int width = std::min((int)(screenSize.width() * 0.9f),1024);
                     int height = std::min((int)(screenSize.height() * 0.9f),750);
-                    window.resize(QSize(width,height));
+                    window.resize(QSize(width,height));                    
 
 
                     // If -min option passed, start window minimized.
@@ -263,7 +265,9 @@ int main(int argc, char *argv[])
                     window.setWalletModel(0);
                     guiref = 0;
                 }
+                setRPCWalletModel(NULL);
             }
+
             // Shutdown the core and its threads, but don't exit Bitcoin-Qt here
             Shutdown(NULL);
         }

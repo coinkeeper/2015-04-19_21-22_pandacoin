@@ -120,7 +120,7 @@ bool AddressTableModel::setData(const QModelIndex &index, const QVariant &value,
                 return false;
             }
             // Refuse to set invalid address, set error status and return false
-            else if(!walletModel->validateAddress(value.toString()))
+            else if(!walletModel->validateAddress(value.toString().toStdString()))
             {
                 editStatus = INVALID_ADDRESS;
                 return false;
@@ -205,7 +205,7 @@ QString AddressTableModel::addRow(const QString &type, const QString &label, con
 
     if(type == Send)
     {
-        if(!walletModel->validateAddress(address))
+        if(!walletModel->validateAddress(address.toStdString()))
         {
             editStatus = INVALID_ADDRESS;
             return QString();

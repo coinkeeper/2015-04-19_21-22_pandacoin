@@ -7,11 +7,21 @@
 
 #include "wallet.h"
 
+#ifndef HEADLESS
+#include "qt/optionsmodel.h"
+#endif
+
 extern CWallet* pwalletMain;
 extern std::string strWalletFileName;
 void StartShutdown();
 void Shutdown(void* parg);
+
+#ifdef HEADLESS
 bool AppInit2();
+#else
+bool AppInit2(OptionsModel& optionsModel);
+#endif
+
 std::string HelpMessage();
 
 #endif

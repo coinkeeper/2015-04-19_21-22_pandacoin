@@ -493,7 +493,8 @@ bool CheckStake(CBlock* pblock, CWallet& wallet)
         return error("CheckStake() : %s is not a proof-of-stake block", hashBlock.GetHex().c_str());
 
     // verify hash target and signature of coinstake tx
-    if (!CheckProofOfStake(pblock->vtx[1], pblock->nTime, pblock->nBits, proofHash, hashTarget))
+    CTxDB txdb("r");
+    if (!CheckProofOfStake(txdb, pblock->vtx[1], pblock->nTime, pblock->nBits, proofHash, hashTarget))
         return error("CheckStake() : proof-of-stake checking failed");
 
     //// debug print
@@ -543,7 +544,7 @@ void StakeMiner(CWallet *pwallet)
                 return;
         }
 
-        while (vNodes.empty() || IsInitialBlockDownload())
+        while (vNodes.empty() || ( currentLoadState == LoadState_VerifyAllBlocks || IsInitialBlockDownload() ))
         {
             nLastCoinStakeSearchInterval = 0;
             fTryToSync = true;
@@ -562,23 +563,27 @@ void StakeMiner(CWallet *pwallet)
             }
         }
 
-        //
-        // Create new block
-        //
-        int64_t nFees;
-        auto_ptr<CBlock> pblock(CreateNewBlock(pwallet, true, &nFees));
-        if (!pblock.get())
-            return;
-
-        // Trying to sign a block
-        if (pblock->SignBlock(*pwallet, nFees))
+        //Do not stake without the full blockchain.
+        if(currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
         {
-            SetThreadPriority(THREAD_PRIORITY_NORMAL);
-            CheckStake(pblock.get(), *pwallet);
-            SetThreadPriority(THREAD_PRIORITY_LOWEST);
-            MilliSleep(500);
+            //
+            // Create new block
+            //
+            int64_t nFees;
+            auto_ptr<CBlock> pblock(CreateNewBlock(pwallet, true, &nFees));
+            if (!pblock.get())
+                return;
+
+            // Trying to sign a block
+            if (pblock->SignBlock(*pwallet, nFees))
+            {
+                SetThreadPriority(THREAD_PRIORITY_NORMAL);
+                CheckStake(pblock.get(), *pwallet);
+                SetThreadPriority(THREAD_PRIORITY_LOWEST);
+                MilliSleep(500);
+            }
+            else
+                MilliSleep(nMinerSleep);
         }
-        else
-            MilliSleep(nMinerSleep);
     }
 }

@@ -548,6 +548,8 @@ bool CWallet::AddToWallet(const CWalletTx& wtxIn)
     return true;
 }
 
+
+
 // Add a transaction to the wallet, or update it.
 // pblock is optional, but should be provided if the transaction is known to be in a block.
 // If fUpdate is true, existing transactions will be updated.
@@ -842,15 +844,32 @@ bool CWalletTx::WriteToDisk()
 // Scan the block chain (starting in pindexStart) for transactions
 // from or to us. If fUpdate is true, found transactions that already
 // exist in the wallet will be updated.
-int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate)
+int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate, int* pNumEpochTransactionsScanned, int* pNumEpochTransactionsToScan)
 {
     int ret = 0;
 
     CBlockIndex* pindex = pindexStart;
+    CBlockIndex* pindexEnd = pindexBest;
+    if (pNumEpochTransactionsToScan && pNumEpochTransactionsScanned)
     {
-        LOCK(cs_wallet);
-        while (pindex)
+        *pNumEpochTransactionsToScan = 0;
+        *pNumEpochTransactionsScanned = 0;
+        while (pindex->pnext && pindex != pindexEnd)
         {
+            ++(*pNumEpochTransactionsToScan);
+            pindex = pindex->pnext;
+        }
+        pindex = pindexStart;
+    }
+    {
+        //LOCK(cs_wallet);
+        //fixme:
+        while (pindex!=NULL && pindex!=pindexEnd)
+        {
+            // Speed exiting up.
+            if (currentLoadState == LoadState_Exiting)
+                return 0;
+
             // no need to read and scan block, if block was created before
             // our wallet birthday (as adjusted for block time variability)
             if (nTimeFirstKey && (pindex->nTime < (nTimeFirstKey - 7200))) {
@@ -859,13 +878,20 @@ int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate)
             }
 
             CBlock block;
-            block.ReadFromDisk(pindex, true);
+            {
+                LOCK(cs_IO);
+                FlushBlockFile();
+                block.ReadFromDisk(pindex, true);
+            }
+
             BOOST_FOREACH(CTransaction& tx, block.vtx)
             {
                 if (AddToWalletIfInvolvingMe(tx, &block, fUpdate))
                     ret++;
             }
             pindex = pindex->pnext;
+            if (pNumEpochTransactionsScanned)
+                ++(*pNumEpochTransactionsScanned);
         }
     }
     return ret;
@@ -1087,6 +1113,9 @@ int64_t CWalletTx::GetAvailableCreditForAddress(std::string addr, bool fUseCache
 //unconfirmed = pending
 void CWallet::GetBalanceForAddress(std::string addr, int64_t& earningInterest,  int64_t& pending, int64_t& balance) const
 {
+    if (currentLoadState == LoadState_SyncHeadersFromEpoch)
+        return;
+
     balance = 0;
 
     {

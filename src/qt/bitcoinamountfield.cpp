@@ -159,8 +159,6 @@ void BitcoinAmountField::unitChanged(int idx)
 
     // Determine new unit ID
     int newUnit = unit->itemData(idx, BitcoinUnits::UnitRole).toInt();
-    int oldUnit = currentUnit;
-
 
     // Parse current value and convert to new unit
     bool valid = false;

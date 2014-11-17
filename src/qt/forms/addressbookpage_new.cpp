@@ -153,7 +153,7 @@ void AddressBookPage_new::onAddressBookEdit()
 
 void AddressBookPage_new::onAddressBookSendCoins()
 {
-    QList<SendCoinsRecipient> recipients;
+    std::vector<SendCoinsRecipient> recipients;
 
     if(!model)
         return;
@@ -182,12 +182,13 @@ void AddressBookPage_new::onAddressBookSendCoins()
     int fromIndex = ui->address_book_transfer_from_combobox->currentIndex();
     QString selectedAccountLabel = filterModel->data(ui->address_list->selectionModel()->currentIndex()).toString();
     QString selectedAccountAddress = model->getAddressTableModel()->addressForLabel(selectedAccountLabel);
-    QString fromAccountAddress = model->getMyAccountModel()->data(AccountModel::Address, fromIndex).toString().trimmed();
+    std::string fromAccountAddress = model->getMyAccountModel()->data(AccountModel::Address, fromIndex).toString().trimmed().toStdString();
     qint64 amt=ui->address_book_transfer_from_amount->value();
 
-    recipients.append(SendCoinsRecipient(amt, selectedAccountAddress, selectedAccountLabel));
+    recipients.push_back(SendCoinsRecipient(amt, selectedAccountAddress.toStdString(), selectedAccountLabel.toStdString()));
 
-    if(GUIUtil::SendCoinsHelper(this, recipients, model, fromAccountAddress, true))
+    std::string transactionHash;
+    if(GUIUtil::SendCoinsHelper(this, recipients, model, fromAccountAddress, true, transactionHash))
     {
         ui->address_book_transfer_from_amount->clear();
         ui->address_book_transfer_from_combobox->clear();

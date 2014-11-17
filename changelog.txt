@@ -1,12 +1,32 @@
+3.0.0
+
+Major:
+	New light mode, which works only on headers and latest blocks and is unable to stake - similar to 'light' clients offered by several other coins.
+	New hybrid mode, which is something new to the crypto world, starts off by doing the equivalent of 'light' mode and then *rapidly* downloads the rest of the blockchain allowing the user to stake and be fully
+	secure. A full blockchain download via this method is much faster than with a classic client.
+    New 'classic' mode which is essentially the same as what previous wallets were.
+
+Minor:
+	IO: Fix regression in 2.2.2 - Clicking an account name in overview page was not jumping to transaction grid, it now does this properly again.
+	CORE: Change console command "getbalance account" so that it returns a meaningful balance instead of always returning 0. (Only works on
+	top level accounts for now)
+	CORE: Change console command(s) "sendfrom" and "sendmany" to reuse new codebase and work in a more correct manner. They were incorrectly taking money from accounts other than the one specified in the command line.
+	App: Default account created with name "My account" instead of no name when creating a new wallet.
+	UI: Update icons and logo for cleaner look.
+	UI: Tweak minimum size a little to prevent glitches with small window sizes.
+	UI: Improve progress messages.
+
 2.1.2
 
 Wallet no longer loses its staking status when doing an action that requires a full unlock, 'unlock for staking' is preserved across actions.
 Add a right click context menu to portfolio overview so that account address can be easily copied.
 Fix color issues on systems with 'non standard' color themes.
-Cap the 'transaction fee' setting in options dialog at 100PND to prevent users accidentally setting it to high.
+Cap the 'transaction fee' setting in options dialog at 100PND to prevent users accidentally setting it too high.
 Fixes to transaction history in some problem cases where transaction history was incorrect.
-Show fee transactions seperately so th at transaction history is less confusing and more like a regular bank account.
+Show fee transactions seperately so that transaction history is less confusing and more like a regular bank account.
 Fix problem on rare machines where transaction view table would expand to infinite width.
+Fix display issues with large account names.
+Other minor UI tweaks.
 
 2.1.1
 
