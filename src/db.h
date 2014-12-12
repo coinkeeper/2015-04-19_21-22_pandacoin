@@ -321,6 +321,7 @@ public:
     CAddrDB();
     bool Write(const CAddrMan& addr);
     bool Read(CAddrMan& addr);
+    void Erase();
 };
 
 #endif // BITCOIN_DB_H

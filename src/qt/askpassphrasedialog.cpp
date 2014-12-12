@@ -42,7 +42,7 @@ AskPassphraseDialog::AskPassphraseDialog(Mode mode_, QWidget *parent_)
             ui->passLabel1->setText(tr("Enter password"));
             ui->stakingCheckBox->setChecked(true);
             ui->stakingCheckBox->hide();
-            ui->buttonBox->button(QDialogButtonBox::Ok)->setText("LOG ON");
+            ui->buttonBox->button(QDialogButtonBox::Ok)->setText(tr("LOG ON"));
             ui->passLabel2->hide();
             ui->passEdit2->hide();
             ui->passLabel3->hide();

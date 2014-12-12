@@ -11,7 +11,7 @@ SendCoinsTargetWidget::SendCoinsTargetWidget(QWidget *parent) :
     connect(ui->delete_button, SIGNAL(pressed()), this, SIGNAL(deleteButtonPressed()));
     connect(ui->paste_button, SIGNAL(pressed()), this, SIGNAL(pasteButtonPressed()));
     connect(ui->address_book_button, SIGNAL(pressed()), this, SIGNAL(addressBookButtonPressed()));
-    connect(ui->add_another_button, SIGNAL(pressed()), this, SIGNAL(addAnotherButtonPressed()));
+    connect(ui->add_another_button, SIGNAL(clicked()), this, SIGNAL(addAnotherButtonPressed()));
     connect(ui->next_button, SIGNAL(pressed()), this, SIGNAL(confirmButtonPressed()));
     connect(ui->pay_to_address, SIGNAL(textChanged(QString)), this, SIGNAL(payToAddressChanged(QString)));
     connect(this, SIGNAL(deleteButtonPressed()), parent, SLOT(deleteButtonPressed()));

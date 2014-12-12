@@ -593,3 +593,8 @@ bool CAddrDB::Read(CAddrMan& addr)
     return true;
 }
 
+void CAddrDB::Erase()
+{
+    boost::filesystem::remove(pathAddr);
+}
+

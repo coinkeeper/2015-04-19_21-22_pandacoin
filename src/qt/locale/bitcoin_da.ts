@@ -132,7 +132,7 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../forms/accountpage.cpp" line="+152"/>
+        <location filename="../forms/accountpage.cpp" line="+155"/>
         <source>All Accounts</source>
         <translation type="unfinished"></translation>
     </message>
@@ -555,7 +555,12 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+4"/>
+        <source>LOG ON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>This operation needs your PandaBank password to unlock PandaBank.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -702,27 +707,172 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+312"/>
+        <location filename="../bitcoingui.cpp" line="+311"/>
         <source>Sign &amp;message...</source>
         <translation>Underskriv besked...</translation>
     </message>
     <message>
-        <location line="+281"/>
+        <location line="+240"/>
+        <source>%1 active %2 to PandaBank network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>connections</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Searching for peers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Connecting to peers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Fetching checkpoints.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <location line="+33"/>
+        <location line="+33"/>
+        <location line="+33"/>
+        <location line="+30"/>
+        <location line="+30"/>
+        <location line="+29"/>
+        <location line="+29"/>
+        <source>%1 %2 remaining</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-217"/>
+        <source>checkpoint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>checkpoints</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+33"/>
+        <source>Performing Instant Sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-31"/>
+        <source>(Phase 1 of 3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+96"/>
+        <source>header</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-96"/>
+        <location line="+96"/>
+        <source>headers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-88"/>
+        <location line="+96"/>
+        <source>Downloaded %1 of %2 headers (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-80"/>
+        <source>(Phase 2 of 3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+33"/>
+        <location line="+60"/>
+        <location line="+29"/>
+        <location line="+29"/>
+        <source>block</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-151"/>
+        <location line="+33"/>
+        <location line="+60"/>
+        <location line="+29"/>
+        <location line="+29"/>
+        <source>blocks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-143"/>
+        <location line="+93"/>
+        <source>Downloaded %1 of %2 blocks (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-79"/>
+        <source>Scanning wallet transactions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>(Phase 3 of 3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Scanned %1 of %2 blocks (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Rapid Blockchain Download (Phase 1 of 2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Rapid Blockchain Download (Phase 2 of 2).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+29"/>
+        <source>Verify blockchain.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Verified %1 of %2 blocks (%3% done).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Synchronizing with network...</source>
         <translation>Synkroniserer med netværk...</translation>
     </message>
     <message>
-        <location line="-347"/>
+        <location line="-570"/>
         <source>&amp;Overview</source>
         <translation>Oversigt</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-156"/>
         <source>PandaBank</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+58"/>
         <source>My Home</source>
         <translation type="unfinished"></translation>
     </message>
@@ -737,7 +887,7 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+96"/>
         <source>Show general overview of wallet</source>
         <translation>Vis generel oversigt over tegnebog</translation>
     </message>
@@ -782,7 +932,7 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation>&amp;Send mønter</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+33"/>
         <source>E&amp;xit</source>
         <translation>Luk</translation>
     </message>
@@ -823,20 +973,19 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation type="obsolete">Skift adgangskode...</translation>
     </message>
     <message numerus="yes">
-        <location line="+298"/>
         <source>~%n block(s) remaining</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>~%n blok resterer</numerusform>
             <numerusform>~%n blokke resterende</numerusform>
         </translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+537"/>
         <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
         <translation>Downloadet% 1 af% 2 blokke af transaktions historie (% 3% færdig).</translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-512"/>
         <source>&amp;Export...</source>
         <translation>&amp;Eksporter ...</translation>
     </message>
@@ -876,7 +1025,7 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation>Åbn fejlsøgnings- og diagnosticeringskonsollen</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-12"/>
         <source>&amp;Verify message...</source>
         <translation>Verificér besked...</translation>
     </message>
@@ -930,7 +1079,7 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation type="obsolete">Fanværktøjslinje</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+102"/>
         <location line="+9"/>
         <source>[testnet]</source>
         <translation>[testnetværk]</translation>
@@ -947,18 +1096,74 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         </translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+431"/>
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation>Downloadet %1 blokke af transaktions historie.</translation>
     </message>
     <message>
-        <location line="+256"/>
+        <location line="+24"/>
+        <location line="+4"/>
+        <location line="+4"/>
+        <location line="+4"/>
+        <source>%1 %2 ago</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-12"/>
+        <location line="+449"/>
+        <source>second</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-449"/>
+        <location line="+449"/>
+        <source>seconds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-445"/>
+        <location line="+449"/>
+        <source>minute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-449"/>
+        <location line="+449"/>
+        <source>minutes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-445"/>
+        <location line="+449"/>
+        <source>hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-449"/>
+        <location line="+449"/>
+        <source>hours</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-445"/>
+        <location line="+449"/>
+        <source>day</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-449"/>
+        <location line="+449"/>
+        <source>days</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-250"/>
         <location line="+15"/>
         <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="+239"/>
         <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
         <translation>Renter.&lt;br&gt; Din andel er% 1 &lt;br&gt; Netværkets andel er% 2 &lt;br&gt; Forventet tid til at modtage rente %3</translation>
     </message>
@@ -979,9 +1184,8 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation type="obsolete">Ingen rente fordi der ingen modne mønter eksistere </translation>
     </message>
     <message numerus="yes">
-        <location line="-412"/>
         <source>%n second(s) ago</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n sekund siden</numerusform>
             <numerusform>%n sekunder siden</numerusform>
         </translation>
@@ -999,7 +1203,7 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation type="obsolete">Lås tegnebog op</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-1040"/>
         <source>&amp;About PandaBank</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1064,81 +1268,57 @@ Produktet indeholder software, som er udviklet af OpenSSL Project til brug i Ope
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+78"/>
-        <location line="+73"/>
+        <location line="+4"/>
+        <location line="+1"/>
+        <source>Activate &apos;Classic&apos; client mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+1"/>
+        <source>Activate &apos;Hybrid&apos; client mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+1"/>
+        <source>Activate &apos;Lite&apos; client mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+91"/>
+        <location line="+71"/>
         <source>PandaBank client</source>
         <translation type="unfinished"></translation>
     </message>
-    <message numerus="yes">
-        <location line="+70"/>
-        <source>%n active connection(s) to PandaBank network</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
     <message>
-        <location line="+24"/>
-        <source>Syncing checkpoints...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+2"/>
-        <source>~%n checkpoints(s) remaining</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+134"/>
         <source>Downloaded %1 of %2 checkpoints (%3% done).</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location line="+11"/>
-        <source>Fetching headers from checkpoint...</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message numerus="yes">
-        <location line="+2"/>
-        <source>~%n headers(s) remaining</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Downloaded %1 of %2 headers after first checkpoint (%3% done).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+54"/>
         <source>%n minute(s) ago</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n minut siden</numerusform>
             <numerusform>%n minutter siden</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n hour(s) ago</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n time siden</numerusform>
             <numerusform>%n timer siden</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n day(s) ago</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n dag siden</numerusform>
             <numerusform>%n dage siden</numerusform>
         </translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+268"/>
         <source>Up to date</source>
         <translation>Opdateret</translation>
     </message>
@@ -1186,13 +1366,73 @@ Adresse: %4
 </translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+83"/>
         <location line="+15"/>
         <source>URI handling</source>
         <translation>URI håndtering</translation>
     </message>
     <message>
-        <location line="+170"/>
+        <location line="+116"/>
+        <source>Activate PandaBank ‘Classic’</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PandaBank &apos;Classic&apos; allows you to earn interest and help secure the Pandacoin Network once synchronization and download of the blockchain is completed. It operates using the outdated method of synchronization and downloading of the blockchain, which could take between 4 to 24 hours to complete. We recommend most Pandacoin users to use Pandacoin &apos;Hybrid&apos;.
+
+Switching to PandaBank &apos;Classic&apos; from other modes will wipe out your existing blockchain data.
+
+Activate PandaBank &apos;Classic&apos;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Activate PandaBank ‘Hybrid’</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PandaBank &apos;Hybrid&apos; is the recommended mode for most Pandacoin users. Synchronization with the Pandacoin Network will only take seconds after installation so you can see and use your Pandacoins immediately. 
+
+PandaBank &apos;Hybrid allows you to earn interest and help secure the Pandacoin Network in approximately 5 to 15 minutes after installation, once both synchronization and download of the blockchain is completed.
+
+Activate PandaBank &apos;Hybrid&apos;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Activate PandaBank ‘Lite’</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PandaBank &apos;Lite&apos; is for users that have access to limited download or hard drive storage space. Stored data is only a few megabytes. Synchronization with the Pandacoin Network will only take seconds after installation so you can see and use your Pandacoins immediately.
+
+Pandacoin &apos;Lite&apos; DOES NOT allow you to earn interest or help secure the Pandacoin Network.
+
+Activate PandaBank &apos;Lite&apos;?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Unable to earn interest in light mode.&lt;br/&gt;Switch to hybrid mode if you would like to earn interest.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Unable to earn interest until syncing is completed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <location line="+4"/>
+        <location line="+4"/>
+        <location line="+4"/>
+        <source>%1 %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
         <source>Not earning interest because wallet is locked</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1221,7 +1461,7 @@ Adresse: %4
         <translation type="obsolete">URI kan ikke tolkes! Dette kan skyldes en ugyldig Pandacoin adresse eller misdannede URI parametre.</translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location line="-235"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>Tegnebog er &lt;b&gt;krypteret&lt;/b&gt; og i øjeblikket &lt;b&gt;ulåst&lt;/b&gt;</translation>
     </message>
@@ -1251,33 +1491,29 @@ Adresse: %4
         <translation>Der opstod en fejl under forsøg på at gemme data i tegnebogen til den nye placering.</translation>
     </message>
     <message numerus="yes">
-        <location line="+91"/>
         <source>%n second(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n sekund</numerusform>
             <numerusform>%n sekunder</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n minut</numerusform>
             <numerusform>%n minutter</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n hour(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n time(r)</numerusform>
             <numerusform>%n time(r)</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n day(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n dag(e)</numerusform>
             <numerusform>%n dag(e)</numerusform>
         </translation>
@@ -1295,7 +1531,7 @@ Adresse: %4
 <context>
     <name>ClientModel</name>
     <message>
-        <location filename="../clientmodel.cpp" line="+90"/>
+        <location filename="../clientmodel.cpp" line="+92"/>
         <source>Network Alert</source>
         <translation>Netværksadvarsel</translation>
     </message>
@@ -1743,11 +1979,13 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     <name>LockBar</name>
     <message>
         <location filename="../forms/lockbar.ui" line="+69"/>
+        <location filename="../forms/lockbar.cpp" line="+37"/>
+        <location line="+5"/>
         <source>Lock</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../forms/lockbar.cpp" line="+39"/>
+        <location filename="../forms/lockbar.cpp" line="-3"/>
         <source>Wallet is &lt;b&gt;not encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to encrypt and lock.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1757,7 +1995,12 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+3"/>
+        <source>Unlock</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt; click to unlock.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1774,6 +2017,11 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     <name>MenuBar</name>
     <message>
         <location filename="../forms/menubar.ui" line="+55"/>
+        <source>Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+26"/>
         <source>File</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2249,6 +2497,16 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
         <location line="+12"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
         <translation type="unfinished">Fejl: Transaktionen blev afvist. Dette kan ske, hvis nogle af mønterne i din tegnebog allerede er blevet brugt, som hvis du brugte en kopi af wallet.dat og mønterne blev brugt i kopien, men ikke markeret som brugt her.</translation>
+    </message>
+    <message>
+        <location filename="../pandastyles.cpp" line="+18"/>
+        <source>Arial, &apos;Helvetica Neue&apos;, Helvetica, sans-serif</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../init.cpp" line="+849"/>
+        <source>My account</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3155,6 +3413,15 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     </message>
 </context>
 <context>
+    <name>SingleColumnAccountModel</name>
+    <message>
+        <location filename="../accountmodel.cpp" line="+241"/>
+        <location line="+4"/>
+        <source>All Accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>TabbedDateWidget</name>
     <message>
         <location filename="../forms/tabbeddatewidget.ui" line="+20"/>
@@ -3404,7 +3671,7 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
 <context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+323"/>
+        <location filename="../transactiontablemodel.cpp" line="+326"/>
         <source>Date</source>
         <translation>Dato</translation>
     </message>
@@ -3423,7 +3690,7 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
         <translation>Beløb</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+67"/>
         <source>Open until %1</source>
         <translation>Åben indtil %1</translation>
     </message>
@@ -3441,7 +3708,7 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
         </translation>
     </message>
     <message>
-        <location line="-58"/>
+        <location line="-64"/>
         <source>From account</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3461,7 +3728,7 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+70"/>
         <source>Offline</source>
         <translation>Offline</translation>
     </message>
@@ -3689,7 +3956,7 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show transaction on Pandachain</source>
+        <source>Show transaction in blockchain explorer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3777,7 +4044,7 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+494"/>
+        <location filename="../walletmodel.cpp" line="+501"/>
         <source>Sending...</source>
         <translation>Sender...</translation>
     </message>

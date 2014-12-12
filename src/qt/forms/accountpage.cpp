@@ -238,8 +238,8 @@ void AccountPage::update()
             QLabel* accountInterestLabel = new QLabel(accountName);
             QFont lblFont = accountInterestLabel->font();
             QString fontSize = TOTAL_FONT_SIZE;
-            fontSize = fontSize.replace("pt","");
-            lblFont.setPointSize(fontSize.toLong());
+            fontSize = fontSize.replace("px","");
+            lblFont.setPixelSize(fontSize.toLong());
             QPalette lblPal = accountInterestLabel->palette();
             lblPal.setColor(QPalette::WindowText, QColor("#424242"));
             accountInterestLabel->setFont(lblFont);
@@ -353,6 +353,6 @@ void AccountPage::updateHeaderWidths()
         int balanceWidth = ui->transaction_table->getBalanceColumnWidth();
         int amountWidth = ui->transaction_table->getAmountColumnWidth();
         int accountWidth = ui->transaction_table->getAccountColumnWidth();
-        ui->account_summary_header->setColumnWidths(accountWidth, amountWidth, balanceWidth);
+        //ui->account_summary_header->setColumnWidths(accountWidth, amountWidth, balanceWidth);
     }
 }

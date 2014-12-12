@@ -57,13 +57,19 @@ BitcoinAmountField::BitcoinAmountField(QWidget *parent)
 void BitcoinAmountField::setText(const QString &text)
 {
     if (text.isEmpty())
+    {
+        amount->setValue(0.0);
         amount->clear();
+    }
     else
+    {
         amount->setValue(text.toDouble());
+    }
 }
 
 void BitcoinAmountField::clear()
 {
+    amount->setValue(0.0);
     amount->clear();
     unit->setCurrentIndex(0);
 }
@@ -106,6 +112,13 @@ bool BitcoinAmountField::eventFilter(QObject *object, QEvent *event)
     {
         // Clear invalid flag on focus
         setValid(true);
+    }
+    else if (event->type() == QEvent::FocusOut)
+    {
+        if (text() == "")
+        {
+            clear();
+        }
     }
     else if (event->type() == QEvent::KeyPress || event->type() == QEvent::KeyRelease)
     {

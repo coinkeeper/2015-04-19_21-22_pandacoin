@@ -24,6 +24,9 @@
 #include <signal.h>
 #endif
 
+#ifndef HEADLESS
+#include <QObject>
+#endif
 
 using namespace std;
 using namespace boost;
@@ -117,6 +120,15 @@ void Shutdown(void* parg)
 #endif
         NewThread(ExitTimeout, NULL);
         MilliSleep(50);
+
+        if (nNumRejectedStakes >= 2)
+        {
+            printf("Detected multiple rejected stakes, wiping Peers.dat for clean slate.\n\n");
+
+            CAddrDB adb;
+            adb.Erase();
+        }
+
         printf("Pandacoin exited\n\n");
         fExit = true;
 #ifndef QT_GUI
@@ -304,6 +316,7 @@ std::string HelpMessage()
         "  -testnet               " + _("Use the test network") + "\n" +
         "  -debug                 " + _("Output extra debugging information. Implies all other -debug* options") + "\n" +
         "  -debugnet              " + _("Output extra network debugging information") + "\n" +
+        "  -debugnetranges        " + _("Output additional network debugging information that is specific to hybrid mode syncing") + "\n" +
         "  -logtimestamps         " + _("Prepend debug output with timestamp") + "\n" +
         "  -shrinkdebugfile       " + _("Shrink debug.log file on client startup (default: 1 when no -debug)") + "\n" +
         "  -printtoconsole        " + _("Send trace/debug info to console instead of debug.log file") + "\n" +
@@ -327,6 +340,8 @@ std::string HelpMessage()
         "  -checkblocks=<n>       " + _("How many blocks to check at startup (default: 2500, 0 = all)") + "\n" +
         "  -checklevel=<n>        " + _("How thorough the block verification is (0-6, default: 1)") + "\n" +
         "  -loadblock=<file>      " + _("Imports blocks from external blk000?.dat file") + "\n" +
+        "  -qm=<file>             " + _("Use a specific .qm (qt linguist) localisation file from the absolute path provided, instead of one based on -lang or the system locale.") + "\n" +
+        "  -clientMode=[mode]     " + _("Override the client mode that is used, valid values are [full, hybrid, light], default is hybrid for ui client and full for daemon client.") + "\n" +
 
         "\n" + _("Block creation options:") + "\n" +
         "  -blockminsize=<n>      "   + _("Set minimum block size in bytes (default: 0)") + "\n" +
@@ -830,8 +845,13 @@ bool AppInit2(OptionsModel& optionsModel)
         CPubKey newDefaultKey;
         if (pwalletMain->GetKeyFromPool(newDefaultKey, false)) {
             pwalletMain->SetDefaultKey(newDefaultKey);
+            #ifdef HEADLESS
             if (!pwalletMain->SetAddressBookName(pwalletMain->vchDefaultKey.GetID(), "My account"))
                 strErrors << _("Cannot write default address") << "\n";
+            #else
+            if (!pwalletMain->SetAddressBookName(pwalletMain->vchDefaultKey.GetID(), QObject::tr("My account").toStdString()))
+                strErrors << _("Cannot write default address") << "\n";
+            #endif
         }
     }
 

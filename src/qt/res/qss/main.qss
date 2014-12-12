@@ -7,7 +7,7 @@
 /* Generic whole app styles */
 QWidget
 {
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-family: MAIN_FONTSTACK;
 }
 
 QDialog

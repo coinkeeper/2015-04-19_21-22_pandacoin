@@ -318,7 +318,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/transactionviewtable.h \
     src/qt/richtextdelegate.h \
     src/qt/richtextcombo.h \
-    src/qt/pandastyles.h
+    src/qt/pandastyles.h \
+    src/lrucache.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \

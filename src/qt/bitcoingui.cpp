@@ -94,8 +94,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent)
     setWindowIcon(QIcon(":icons/bitcoin"));
 #else
     setUnifiedTitleAndToolBarOnMac(false);
-    QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
+
+    // We always want menu icons to be visible on all platforms as this is *not* a native application but a skinned UI.
+    QApplication::setAttribute(Qt::AA_DontShowIconsInMenus, false);
 
     // Load an application style
     QFile styleFile(":qss/main");
@@ -122,6 +124,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent)
     style.replace("CURRENCY_FONT_SIZE",CURRENCY_FONT_SIZE);
     style.replace("TOTAL_FONT_SIZE",TOTAL_FONT_SIZE);
     style.replace("CURRENCY_DECIMAL_FONT_SIZE",CURRENCY_DECIMAL_FONT_SIZE);
+    style.replace("MAIN_FONTSTACK",MAIN_FONTSTACK);
 
     setStyleSheet(style);
 

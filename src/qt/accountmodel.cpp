@@ -115,8 +115,8 @@ QVariant AccountModel::data(const QModelIndex &index, int role) const
                 QFont underlineFont;
                 underlineFont.setUnderline(true);
                 QString fontSize = TOTAL_FONT_SIZE;
-                fontSize = fontSize.replace("pt","");
-                underlineFont.setPointSize(fontSize.toLong());
+                fontSize = fontSize.replace("px","");
+                underlineFont.setPixelSize(fontSize.toLong());
                 return underlineFont;
             }
             default:
@@ -262,11 +262,11 @@ QVariant SingleColumnAccountModel::data(const QModelIndex &index, int role) cons
                             BitcoinUnits::parse(unit,parentModel->data(2,i).toString(),&amt);
                             balance += amt;
                         }
-                        return "All Accounts (" + BitcoinUnits::formatWithUnit(unit, balance, true, false) + ")";
+                        return tr("All Accounts") + " (" + BitcoinUnits::formatWithUnit(unit, balance, true, false) + ")";
                     }
                     else
                     {
-                        return "All Accounts";
+                        return tr("All Accounts");
                     }
                 }
                 row--;

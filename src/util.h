@@ -143,6 +143,9 @@ extern bool fPrintToConsole;
 extern bool fPrintToDebugger;
 extern bool fRequestShutdown;
 extern bool fShutdown;
+// fixme: LIGHT/HYBRID - Bit of a gross 'workaround' for potential issues where the client gets stuck in a fork and marks multiple peers bad as a result - clear peers.dat on restart as we may have banned a bunch of legitimate peers, so rather start fresh.
+// Obviously such fork issues should be resolved, this is just a 'last line of defense' so that users can just restart instead of following a complex set of instructions.
+extern int nNumRejectedStakes;
 extern bool fDaemon;
 extern bool fServer;
 extern bool fCommandLine;

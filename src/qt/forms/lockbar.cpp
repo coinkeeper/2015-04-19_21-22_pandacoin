@@ -34,17 +34,17 @@ void LockBar::encryptionStatusChanged(int newStatus)
     switch(newStatus)
     {
         case WalletModel::Unencrypted:
-            ui->LockButton->setText("Lock");
+            ui->LockButton->setText(tr("Lock"));
             ui->LockButton->setIcon(QIcon(":/icons/lock_closed_2"));
             ui->LockButton->setToolTip(tr("Wallet is <b>not encrypted</b> and currently <b>unlocked</b> click to encrypt and lock."));
             break;
         case WalletModel::Unlocked:
-            ui->LockButton->setText("Lock");
+            ui->LockButton->setText(tr("Lock"));
             ui->LockButton->setIcon(QIcon(":/icons/lock_closed_2"));
             ui->LockButton->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>unlocked</b> click to lock."));
             break;
         case WalletModel::Locked:
-            ui->LockButton->setText("Unlock");
+            ui->LockButton->setText(tr("Unlock"));
             ui->LockButton->setIcon(QIcon(":/icons/unlock2"));
             ui->LockButton->setToolTip(tr("Wallet is <b>encrypted</b> and currently <b>locked</b> click to unlock."));
             break;

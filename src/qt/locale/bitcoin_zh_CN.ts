@@ -11,12 +11,12 @@
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
         <source>About PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">关于熊猫币</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>&lt;b&gt;Pandacoin&lt;/b&gt; version</source>
-        <translation>熊猫币客户端 版本</translation>
+        <translation type="unfinished">&lt;b&gt;熊猫币客户端&lt;/b&gt; 版本</translation>
     </message>
     <message>
         <location line="+41"/>
@@ -48,17 +48,17 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../accountmodel.cpp" line="+24"/>
         <source>Account Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">帐号名</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Account Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">账号地址</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Account Balance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">账号余额</translation>
     </message>
 </context>
 <context>
@@ -71,42 +71,42 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+31"/>
         <source>Transactions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">交易记录</translation>
     </message>
     <message>
         <location line="+38"/>
         <source>View transactions for</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">查看此帐号的交易记录</translation>
     </message>
     <message>
         <location line="+36"/>
         <source>Copy Address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">复制地址</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Show QR Code</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">显示二维码</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Sign message</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">信息签名</translation>
     </message>
     <message>
         <location line="+132"/>
         <source>Last 30 Days</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最近30天</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Out</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">支出</translation>
     </message>
     <message>
         <location line="+23"/>
         <source>In</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">收入</translation>
     </message>
     <message>
         <location line="+23"/>
@@ -118,29 +118,29 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-128"/>
         <source>Interest Gained</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">已获取的利息</translation>
     </message>
     <message>
         <location line="+115"/>
         <source>Total interest</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">总利息</translation>
     </message>
     <message>
         <location line="+32"/>
         <location line="+25"/>
         <source>Create Account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">创建账号</translation>
     </message>
     <message>
-        <location filename="../forms/accountpage.cpp" line="+152"/>
+        <location filename="../forms/accountpage.cpp" line="+155"/>
         <source>All Accounts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">所有账号</translation>
     </message>
     <message>
         <location line="+28"/>
         <location line="+4"/>
         <source>transaction found</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">已找到的交易记录</translation>
     </message>
 </context>
 <context>
@@ -153,37 +153,37 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+32"/>
         <source>Earning interest</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">正在获取利息</translation>
     </message>
     <message>
         <location line="+31"/>
         <source>Total balance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">总金额</translation>
     </message>
     <message>
         <location line="+153"/>
         <source>Edit account name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">编辑帐号名</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Accept new account name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">确认新帐号名</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Cancel editing of account name.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">取消编辑帐号名</translation>
     </message>
     <message>
         <location line="-156"/>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">可用的</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Pending</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">处理中</translation>
     </message>
     <message>
         <location filename="../forms/accountsummaryheaderwidget.cpp" line="+63"/>
@@ -194,12 +194,12 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-9"/>
         <source>An account with this name already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">此帐号名已存在</translation>
     </message>
     <message>
         <location line="+9"/>
         <source>Error could not change name of PandaBank account.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">错误！不能更改熊猫币帐号名！</translation>
     </message>
 </context>
 <context>
@@ -365,7 +365,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+25"/>
         <source>Search address book</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">搜索地址簿</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -380,17 +380,17 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+80"/>
         <location line="+245"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">编辑</translation>
     </message>
     <message>
         <location line="+40"/>
         <source>Account address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">账号地址</translation>
     </message>
     <message>
         <location line="-191"/>
         <source>Send Pandacoins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">发送熊猫币</translation>
     </message>
     <message>
         <location line="+40"/>
@@ -400,27 +400,27 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+36"/>
         <source>Amount</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">总额</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
     <message>
         <location line="+67"/>
         <source>Done</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">完成</translation>
     </message>
     <message>
         <location line="+16"/>
         <source>Account name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">帐号名</translation>
     </message>
     <message>
         <location line="+57"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">删除</translation>
     </message>
 </context>
 <context>
@@ -452,22 +452,22 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+21"/>
         <location filename="../askpassphrasedialog.cpp" line="+42"/>
         <source>Enter password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">输入密码</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>New password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新密码</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Repeat new password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">重输新密码</translation>
     </message>
     <message>
         <location line="+39"/>
         <source>For earning interest only</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">仅用于获取利息</translation>
     </message>
     <message>
         <source>Enter passphrase</source>
@@ -484,7 +484,7 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="-3"/>
         <source>Serves to disable the trivial sendmoney when OS account compromised. Provides no real security.</source>
-        <translation>在系统允许的情况下用于防止sendmoney欺诈，并未提供真正的安全防护措施。</translation>
+        <translation type="unfinished">在系统允许的情况下用于防止发送钱币欺诈，并未提供真正的安全防护措施。</translation>
     </message>
     <message>
         <source>For staking only</source>
@@ -537,78 +537,83 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location filename="../askpassphrasedialog.cpp" line="-7"/>
         <source>Enter the new password to the wallet.&lt;br/&gt;Please use a password of &lt;b&gt;10 or more random characters&lt;/b&gt;, or &lt;b&gt;eight or more words&lt;/b&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">输入钱包新密码&lt;br/&gt;新密码请使用&lt;b&gt;10个甚至更多的随机字符&lt;/b&gt;，或者&lt;b&gt;8个甚至更多的单词&lt;/b&gt;。</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypt PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">加密熊猫银行</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Log on to PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">登录熊猫银行</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Please enter your PandaBank password to log on to PandaBank.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">请输入你的密码以登录熊猫银行</translation>
     </message>
     <message>
-        <location line="+15"/>
+        <location line="+4"/>
+        <source>LOG ON</source>
+        <translation type="unfinished">登入</translation>
+    </message>
+    <message>
+        <location line="+11"/>
         <source>This operation needs your PandaBank password to unlock PandaBank.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">此操作需要你的密码以解锁熊猫银行</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Unlock PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">解锁熊猫银行</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>This operation needs your PandaBank password to decrypt PandaBank.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">此操作需要你的密码以解密熊猫银行</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Decrypt PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">解密熊猫银行</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Change password</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">更改密码</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Enter the old and new password to PandaBank.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">输入旧密码和新密码</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>Confirm PandaBank encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">确认加密熊猫银行</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Warning: If you encrypt your PandaBank and lose your password, you will &lt;b&gt;LOSE ALL OF YOUR COINS&lt;/b&gt;!</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">警告：如果你加密熊猫银行又忘记密码，你将会&lt;b&gt;丢失所有币&lt;/b&gt;！</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Are you sure you wish to encrypt your PandaBank?</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">你确定要加密你的熊猫银行？</translation>
     </message>
     <message>
         <location line="+9"/>
         <location line="+61"/>
         <source>PandaBank encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">熊猫银行加密</translation>
     </message>
     <message>
         <location line="-59"/>
         <source>PandaBank will close now to finish the encryption process. Remember that encrypting your PandaBank cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">熊猫银行现在将会关闭以完成加密进程。请注意，加密你的熊猫银行并不能完全确保你的币不被你电脑里的恶意软件窃取。</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -621,40 +626,40 @@ This product includes software developed by the OpenSSL Project for use in the O
         <location line="+45"/>
         <location line="+6"/>
         <source>PandaBank encryption failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">熊猫银行加密失败</translation>
     </message>
     <message>
         <location line="-57"/>
         <source>PandaBank encryption failed due to an internal error. Your PandaBank was not encrypted.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">因为一个内部错误，熊猫银行加密失败。你的熊猫银行并未被加密。</translation>
     </message>
     <message>
         <location line="+7"/>
         <location line="+51"/>
         <source>The supplied passwords do not match.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">提供的密码不对应</translation>
     </message>
     <message>
         <location line="-38"/>
         <source>PandaBank unlock failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">解锁熊猫银行失败</translation>
     </message>
     <message>
         <location line="+1"/>
         <location line="+12"/>
         <location line="+19"/>
         <source>The password entered for your PandaBank was incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">密码输入错误。</translation>
     </message>
     <message>
         <location line="-20"/>
         <source>PandaBank decryption failed</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">解密熊猫银行失败</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Wallet password was successfully changed.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">钱包密码更改成功</translation>
     </message>
     <message>
         <location line="+49"/>
@@ -702,49 +707,194 @@ This product includes software developed by the OpenSSL Project for use in the O
 <context>
     <name>BitcoinGUI</name>
     <message>
-        <location filename="../bitcoingui.cpp" line="+312"/>
+        <location filename="../bitcoingui.cpp" line="+311"/>
         <source>Sign &amp;message...</source>
         <translation>消息签名(&amp;M)...</translation>
     </message>
     <message>
-        <location line="+281"/>
+        <location line="+240"/>
+        <source>%1 active %2 to PandaBank network</source>
+        <translation type="unfinished">%1 活跃 %2 到熊猫银行网络</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>connection</source>
+        <translation type="unfinished">连接</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>connections</source>
+        <translation type="unfinished">连接数</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Searching for peers.</source>
+        <translation type="unfinished">正在搜索节点</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Connecting to peers.</source>
+        <translation type="unfinished">正在连接节点</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Fetching checkpoints.</source>
+        <translation type="unfinished">正在获取记录点</translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <location line="+33"/>
+        <location line="+33"/>
+        <location line="+33"/>
+        <location line="+30"/>
+        <location line="+30"/>
+        <location line="+29"/>
+        <location line="+29"/>
+        <source>%1 %2 remaining</source>
+        <translation type="unfinished">还剩%1 %2</translation>
+    </message>
+    <message>
+        <location line="-217"/>
+        <source>checkpoint</source>
+        <translation type="unfinished">记录点</translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>checkpoints</source>
+        <translation type="unfinished">记录点</translation>
+    </message>
+    <message>
+        <location line="+22"/>
+        <location line="+33"/>
+        <source>Performing Instant Sync</source>
+        <translation type="unfinished">正在执行快速同步</translation>
+    </message>
+    <message>
+        <location line="-31"/>
+        <source>(Phase 1 of 3)</source>
+        <translation type="unfinished">(阶段1/3)</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+96"/>
+        <source>header</source>
+        <translation type="unfinished">标头</translation>
+    </message>
+    <message>
+        <location line="-96"/>
+        <location line="+96"/>
+        <source>headers</source>
+        <translation type="unfinished">标头</translation>
+    </message>
+    <message>
+        <location line="-88"/>
+        <location line="+96"/>
+        <source>Downloaded %1 of %2 headers (%3% done).</source>
+        <translation type="unfinished">已下载 %1 / %2 标头 (%3% 完成).</translation>
+    </message>
+    <message>
+        <location line="-80"/>
+        <source>(Phase 2 of 3)</source>
+        <translation type="unfinished">(阶段2/3)</translation>
+    </message>
+    <message>
+        <location line="+9"/>
+        <location line="+33"/>
+        <location line="+60"/>
+        <location line="+29"/>
+        <location line="+29"/>
+        <source>block</source>
+        <translation type="unfinished">区块</translation>
+    </message>
+    <message>
+        <location line="-151"/>
+        <location line="+33"/>
+        <location line="+60"/>
+        <location line="+29"/>
+        <location line="+29"/>
+        <source>blocks</source>
+        <translation type="unfinished">区块</translation>
+    </message>
+    <message>
+        <location line="-143"/>
+        <location line="+93"/>
+        <source>Downloaded %1 of %2 blocks (%3% done).</source>
+        <translation type="unfinished">已下载 %1 / %2 区块 (%3% 完成).</translation>
+    </message>
+    <message>
+        <location line="-79"/>
+        <source>Scanning wallet transactions</source>
+        <translation type="unfinished">扫描钱包交易历史</translation>
+    </message>
+    <message>
+        <location line="+2"/>
+        <source>(Phase 3 of 3)</source>
+        <translation type="unfinished">(阶段3/3)</translation>
+    </message>
+    <message>
+        <location line="+17"/>
+        <source>Scanned %1 of %2 blocks (%3% done).</source>
+        <translation type="unfinished">已扫描 %1 / %2 区块 (%3% 完成).</translation>
+    </message>
+    <message>
+        <location line="+14"/>
+        <source>Rapid Blockchain Download (Phase 1 of 2).</source>
+        <translation type="unfinished">快速区块链下载(阶段1/2)</translation>
+    </message>
+    <message>
+        <location line="+30"/>
+        <source>Rapid Blockchain Download (Phase 2 of 2).</source>
+        <translation type="unfinished">快速区块链下载(阶段2/2)</translation>
+    </message>
+    <message>
+        <location line="+29"/>
+        <source>Verify blockchain.</source>
+        <translation type="unfinished">验证区块链</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <source>Verified %1 of %2 blocks (%3% done).</source>
+        <translation type="unfinished">已验证 %1 / %2 区块 (%3% 完成).</translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Synchronizing with network...</source>
         <translation>正在与网络同步...</translation>
     </message>
     <message>
-        <location line="-347"/>
+        <location line="-570"/>
         <source>&amp;Overview</source>
         <translation>概况(&amp;O)</translation>
     </message>
     <message>
-        <location line="-157"/>
+        <location line="-156"/>
         <source>PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">熊猫银行</translation>
     </message>
     <message>
-        <location line="+55"/>
+        <location line="+58"/>
         <source>My Home</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">我的首页</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>View Accounts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">浏览账号</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Transfers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">转账</translation>
     </message>
     <message>
-        <location line="+100"/>
+        <location line="+96"/>
         <source>Show general overview of wallet</source>
         <translation>显示钱包概况</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Send coins to a PandaBank address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">发币到一个熊猫银行地址</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -782,7 +932,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>发送货币(&amp;S)</translation>
     </message>
     <message>
-        <location line="+35"/>
+        <location line="+33"/>
         <source>E&amp;xit</source>
         <translation>退出(&amp;X)</translation>
     </message>
@@ -823,19 +973,18 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="obsolete">更改密码(&amp;C)...</translation>
     </message>
     <message numerus="yes">
-        <location line="+298"/>
         <source>~%n block(s) remaining</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>~%n 个区块未完成</numerusform>
         </translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+537"/>
         <source>Downloaded %1 of %2 blocks of transaction history (%3% done).</source>
         <translation>交易记录已下载%3% (%1 / %2 个区块)</translation>
     </message>
     <message>
-        <location line="-286"/>
+        <location line="-512"/>
         <source>&amp;Export...</source>
         <translation>导出(&amp;E)</translation>
     </message>
@@ -875,7 +1024,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation>打开调试和诊断控制台</translation>
     </message>
     <message>
-        <location line="-5"/>
+        <location line="-12"/>
         <source>&amp;Verify message...</source>
         <translation>验证消息(&amp;V)...</translation>
     </message>
@@ -929,7 +1078,7 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="obsolete">工具栏</translation>
     </message>
     <message>
-        <location line="+80"/>
+        <location line="+102"/>
         <location line="+9"/>
         <source>[testnet]</source>
         <translation>[测试网络]</translation>
@@ -945,18 +1094,74 @@ This product includes software developed by the OpenSSL Project for use in the O
         </translation>
     </message>
     <message>
-        <location line="+220"/>
+        <location line="+431"/>
         <source>Downloaded %1 blocks of transaction history.</source>
         <translation>已下载 %1 个区块的交易记录</translation>
     </message>
     <message>
-        <location line="+256"/>
-        <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
-        <translation type="unfinished"></translation>
+        <location line="+24"/>
+        <location line="+4"/>
+        <location line="+4"/>
+        <location line="+4"/>
+        <source>%1 %2 ago</source>
+        <translation type="unfinished">%1 %2 之前</translation>
     </message>
     <message>
-        <location line="+164"/>
+        <location line="-12"/>
+        <location line="+449"/>
+        <source>second</source>
+        <translation type="unfinished">秒</translation>
+    </message>
+    <message>
+        <location line="-449"/>
+        <location line="+449"/>
+        <source>seconds</source>
+        <translation type="unfinished">秒</translation>
+    </message>
+    <message>
+        <location line="-445"/>
+        <location line="+449"/>
+        <source>minute</source>
+        <translation type="unfinished">分钟</translation>
+    </message>
+    <message>
+        <location line="-449"/>
+        <location line="+449"/>
+        <source>minutes</source>
+        <translation type="unfinished">分钟</translation>
+    </message>
+    <message>
+        <location line="-445"/>
+        <location line="+449"/>
+        <source>hour</source>
+        <translation type="unfinished">小时</translation>
+    </message>
+    <message>
+        <location line="-449"/>
+        <location line="+449"/>
+        <source>hours</source>
+        <translation type="unfinished">小时</translation>
+    </message>
+    <message>
+        <location line="-445"/>
+        <location line="+449"/>
+        <source>day</source>
+        <translation type="unfinished">天</translation>
+    </message>
+    <message>
+        <location line="-449"/>
+        <location line="+449"/>
+        <source>days</source>
+        <translation type="unfinished">天</translation>
+    </message>
+    <message>
+        <location line="-250"/>
+        <location line="+15"/>
+        <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
+        <translation type="unfinished">无法解析URI！这可能是因为通过一个无效的熊猫币地址或URI参数引起的畸形。</translation>
+    </message>
+    <message>
+        <location line="+239"/>
         <source>Staking.&lt;br&gt;Your weight is %1&lt;br&gt;Network weight is %2&lt;br&gt;Expected time to earn reward is %3</source>
         <translation>权益增值中 &lt;br&gt;您的权重为 %1 &lt;br&gt;网络总权重为 %2&lt;br&gt;预计将在 %3 之后获得收益</translation>
     </message>
@@ -977,9 +1182,8 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="obsolete">未进行权益增值，因为钱包中没有成熟的熊猫币</translation>
     </message>
     <message numerus="yes">
-        <location line="-412"/>
         <source>%n second(s) ago</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n 秒前</numerusform>
         </translation>
     </message>
@@ -996,140 +1200,119 @@ This product includes software developed by the OpenSSL Project for use in the O
         <translation type="obsolete">解锁钱包(&amp;U)</translation>
     </message>
     <message>
-        <location line="-341"/>
+        <location line="-1040"/>
         <source>&amp;About PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;关于熊猫银行</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Show information about PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">显示关于熊猫银行的资料</translation>
     </message>
     <message>
         <location line="+6"/>
         <source>Modify configuration options for PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">修改熊猫银行配置选项</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Encrypt PandaBank...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;加密熊猫银行...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Encrypt or decrypt PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">加密或解密熊猫银行</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>&amp;Backup PandaBank...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;备份熊猫银行...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Backup PandaBank to another location</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">备份熊猫银行到另一个地址</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;Change Password...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;更改密码...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Change the password used for wallet encryption</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">更改用于钱包加密的密码</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;Unlock PandaBank...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;解锁熊猫银行...</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Unlock PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">解锁熊猫银行</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>&amp;Lock PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;锁定熊猫银行</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Lock PandaBank</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">锁定熊猫银行</translation>
     </message>
     <message>
-        <location line="+78"/>
-        <location line="+73"/>
+        <location line="+4"/>
+        <location line="+1"/>
+        <source>Activate &apos;Classic&apos; client mode.</source>
+        <translation type="unfinished">启用&quot;经典&quot;客户端模式</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+1"/>
+        <source>Activate &apos;Hybrid&apos; client mode.</source>
+        <translation type="unfinished">启用&quot;混合&quot;客户端模式</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <location line="+1"/>
+        <source>Activate &apos;Lite&apos; client mode.</source>
+        <translation type="unfinished">启用&quot;轻量&quot;客户端模式</translation>
+    </message>
+    <message>
+        <location line="+91"/>
+        <location line="+71"/>
         <source>PandaBank client</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+70"/>
-        <source>%n active connection(s) to PandaBank network</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
+        <translation type="unfinished">熊猫银行客户端</translation>
     </message>
     <message>
-        <location line="+24"/>
-        <source>Syncing checkpoints...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+2"/>
-        <source>~%n checkpoints(s) remaining</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location line="+5"/>
+        <location line="+134"/>
         <source>Downloaded %1 of %2 checkpoints (%3% done).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location line="+11"/>
-        <source>Fetching headers from checkpoint...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">已下载 %1 / %2 记录点 (%3% 完成).</translation>
     </message>
     <message numerus="yes">
-        <location line="+2"/>
-        <source>~%n headers(s) remaining</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-        </translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Downloaded %1 of %2 headers after first checkpoint (%3% done).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message numerus="yes">
-        <location line="+54"/>
         <source>%n minute(s) ago</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n 分钟前</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n hour(s) ago</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n 小时前</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n day(s) ago</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n 天前</numerusform>
         </translation>
     </message>
     <message>
-        <location line="+6"/>
+        <location line="+268"/>
         <source>Up to date</source>
         <translation>已是最新</translation>
     </message>
@@ -1177,42 +1360,114 @@ Address: %4
 </translation>
     </message>
     <message>
-        <location line="+105"/>
+        <location line="+83"/>
         <location line="+15"/>
         <source>URI handling</source>
         <translation>URI处理</translation>
     </message>
     <message>
-        <location line="+170"/>
-        <source>Not earning interest because wallet is locked</source>
+        <location line="+116"/>
+        <source>Activate PandaBank ‘Classic’</source>
+        <translation type="unfinished">启用 熊猫银行 “经典模式”</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PandaBank &apos;Classic&apos; allows you to earn interest and help secure the Pandacoin Network once synchronization and download of the blockchain is completed. It operates using the outdated method of synchronization and downloading of the blockchain, which could take between 4 to 24 hours to complete. We recommend most Pandacoin users to use Pandacoin &apos;Hybrid&apos;.
+
+Switching to PandaBank &apos;Classic&apos; from other modes will wipe out your existing blockchain data.
+
+Activate PandaBank &apos;Classic&apos;?</source>
+        <translation type="unfinished">使用熊猫银行的“经典模式”可在你下载完整区块链，同步到熊猫币网络后获取利息并帮助熊猫币网络保持安全。它是传统的同步手段，需要4到24小时来下载区块链。我们推荐你启用&quot;混合模式&quot;。
+
+从其他模式切换到“经典模式”将会重新擦写你的区块链数据。
+
+是否启用熊猫银行“经典模式”？</translation>
+    </message>
+    <message>
+        <location line="+21"/>
+        <source>Activate PandaBank ‘Hybrid’</source>
+        <translation type="unfinished">启用 熊猫银行 “混合模式”</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PandaBank &apos;Hybrid&apos; is the recommended mode for most Pandacoin users. Synchronization with the Pandacoin Network will only take seconds after installation so you can see and use your Pandacoins immediately. 
+
+PandaBank &apos;Hybrid allows you to earn interest and help secure the Pandacoin Network in approximately 5 to 15 minutes after installation, once both synchronization and download of the blockchain is completed.
+
+Activate PandaBank &apos;Hybrid&apos;?</source>
+        <translation type="unfinished">熊猫银行的“混合模式”是官方推荐模式，适合大部分用户。其快速同步可使你在安装钱包后很快就可使用你的熊猫币。
+
+如启用熊猫银行的“混合模式”，你可以在安装钱包后5-15分钟左右下载完整区块链与网络同步，获取利息并帮助熊猫币网络保持安全。
+
+是否启用熊猫银行的“混合模式”？</translation>
+    </message>
+    <message>
+        <location line="+19"/>
+        <source>Activate PandaBank ‘Lite’</source>
+        <translation type="unfinished">启用 熊猫银行 “轻量模式”</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>PandaBank &apos;Lite&apos; is for users that have access to limited download or hard drive storage space. Stored data is only a few megabytes. Synchronization with the Pandacoin Network will only take seconds after installation so you can see and use your Pandacoins immediately.
+
+Pandacoin &apos;Lite&apos; DOES NOT allow you to earn interest or help secure the Pandacoin Network.
+
+Activate PandaBank &apos;Lite&apos;?</source>
+        <translation type="unfinished">熊猫银行的“轻量模式”为带宽有限，硬盘空间有限的用户所设计。只占用几兆空间。数秒即可完成同步，因此你可以立即应用你的熊猫币。
+
+使用熊猫银行的“轻量模式”不能获取利息，也不能帮助熊猫币网络保持安全。
+
+是否启用熊猫银行的“轻量模式”？</translation>
+    </message>
+    <message>
+        <location line="+42"/>
+        <source>Unable to earn interest in light mode.&lt;br/&gt;Switch to hybrid mode if you would like to earn interest.</source>
+        <translation type="unfinished">轻量模式不能获取利息.&lt;br/&gt;如你想获取利息请切换到混合模式。</translation>
+    </message>
+    <message>
+        <location line="+6"/>
+        <source>Unable to earn interest until syncing is completed.</source>
+        <translation type="unfinished">不能获取利息，直到同步完成</translation>
+    </message>
+    <message>
+        <location line="+16"/>
+        <location line="+4"/>
+        <location line="+4"/>
+        <location line="+4"/>
+        <source>%1 %2</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+10"/>
+        <source>Not earning interest because wallet is locked</source>
+        <translation type="unfinished">钱包被锁定，不能获取利息</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not earning interest because wallet is offline</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">钱包离线，不能获取利息</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not earning interest because wallet is syncing</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">正在同步，不能获取利息</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not earning interest because you don&apos;t have mature coins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">没有已成熟的币，未能获取利息</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Not earning interest</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">未有利息正在获取</translation>
     </message>
     <message>
         <source>URI can not be parsed! This can be caused by an invalid Pandacoin address or malformed URI parameters.</source>
         <translation type="obsolete">无法解析URI：无效的熊猫币地址或错误的URI参数。</translation>
     </message>
     <message>
-        <location line="-160"/>
+        <location line="-235"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt;</source>
         <translation>钱包已被&lt;b&gt;加密&lt;/b&gt;，当前为&lt;b&gt;解锁&lt;/b&gt;状态</translation>
     </message>
@@ -1242,30 +1497,26 @@ Address: %4
         <translation>试图将钱包地址保存到新位置时出现错误</translation>
     </message>
     <message numerus="yes">
-        <location line="+91"/>
         <source>%n second(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n秒</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n minute(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n 分钟</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n hour(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n 小时</numerusform>
         </translation>
     </message>
     <message numerus="yes">
-        <location line="+4"/>
         <source>%n day(s)</source>
-        <translation>
+        <translation type="obsolete">
             <numerusform>%n 天</numerusform>
         </translation>
     </message>
@@ -1282,7 +1533,7 @@ Address: %4
 <context>
     <name>ClientModel</name>
     <message>
-        <location filename="../clientmodel.cpp" line="+90"/>
+        <location filename="../clientmodel.cpp" line="+92"/>
         <source>Network Alert</source>
         <translation>网络警报</translation>
     </message>
@@ -1558,27 +1809,27 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+53"/>
         <source>Creating a new PandaBank account is easy</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">创建一个新的熊猫银行帐号是很简单的</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Create</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">创建</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Account name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">帐户名</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>Account address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">帐号地址</translation>
     </message>
     <message>
         <location line="+27"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">取消</translation>
     </message>
     <message>
         <location filename="../forms/createaccountwidget.cpp" line="+55"/>
@@ -1589,22 +1840,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-19"/>
         <source>An account with this name already exists.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">该帐户名已存在</translation>
     </message>
     <message>
         <location line="+15"/>
         <source>PandaBank account created</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">熊猫银行账号创建成功</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Your PandaBank Account has been created.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">你的熊猫银行账号已创建成功</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Error creating PandaBank account.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">熊猫银行账号创建错误</translation>
     </message>
 </context>
 <context>
@@ -1723,23 +1974,30 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <name>LockBar</name>
     <message>
         <location filename="../forms/lockbar.ui" line="+69"/>
+        <location filename="../forms/lockbar.cpp" line="+37"/>
+        <location line="+5"/>
         <source>Lock</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">锁定</translation>
     </message>
     <message>
-        <location filename="../forms/lockbar.cpp" line="+39"/>
+        <location filename="../forms/lockbar.cpp" line="-3"/>
         <source>Wallet is &lt;b&gt;not encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to encrypt and lock.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">钱包 &lt;b&gt;并未加密&lt;/b&gt; 并且现在 &lt;b&gt;未锁定&lt;/b&gt; 点击以加密并锁定</translation>
     </message>
     <message>
         <location line="+5"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;unlocked&lt;/b&gt; click to lock.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">钱包 &lt;b&gt;已加密&lt;/b&gt; 并且现在 &lt;b&gt;未锁定&lt;/b&gt; 点击以锁定</translation>
     </message>
     <message>
-        <location line="+5"/>
+        <location line="+3"/>
+        <source>Unlock</source>
+        <translation type="unfinished">解锁</translation>
+    </message>
+    <message>
+        <location line="+2"/>
         <source>Wallet is &lt;b&gt;encrypted&lt;/b&gt; and currently &lt;b&gt;locked&lt;/b&gt; click to unlock.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">钱包 &lt;b&gt;已加密&lt;/b&gt; 并且现在 &lt;b&gt;已锁定&lt;/b&gt; 点击以解锁</translation>
     </message>
 </context>
 <context>
@@ -1754,18 +2012,23 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <name>MenuBar</name>
     <message>
         <location filename="../forms/menubar.ui" line="+55"/>
+        <source>Mode</source>
+        <translation type="unfinished">模式</translation>
+    </message>
+    <message>
+        <location line="+26"/>
         <source>File</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">文件</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">设置</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">帮助</translation>
     </message>
 </context>
 <context>
@@ -1812,12 +2075,12 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+3"/>
         <source>&amp;Start PandaBank on system login</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&amp;开机时自动启动熊猫银行</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Detach block and address databases at shutdown. This means they can be moved to another data directory, but it slows down shutdown. The wallet is always detached.</source>
-        <translation>关机时断开区块和地址数据连接使得它们可以被移动到其他目录。这样做会使关机速度变慢。钱包数据总是断开存储的。</translation>
+        <translation type="unfinished">关机时断开区块和地址数据连接使得它们可以被移动到其他目录。这样做会使关机速度变慢。钱包数据总是断开存储的。</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1997,52 +2260,52 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+26"/>
         <source>Welcome to your PandaBank, You last logged on at &lt;TIME&gt; on &lt;DATE&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">欢迎来到你的熊猫银行，你上次登录于 &lt;TIME&gt; 时 &lt;DATE&gt;日</translation>
     </message>
     <message>
         <location line="+22"/>
         <source>My Portfolio</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">我的投资组合</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>More</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">更多</translation>
     </message>
     <message>
         <location line="+58"/>
         <source>Portfolio Summary</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">投资组合总览</translation>
     </message>
     <message>
         <location line="+20"/>
         <source>Available</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">可用的</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>Earning Interest</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">正在获取利息的</translation>
     </message>
     <message>
         <location line="+42"/>
         <source>Pending</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">正在处理的</translation>
     </message>
     <message>
         <location line="+45"/>
         <source>Total Balance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">总余额</translation>
     </message>
     <message>
         <location line="+48"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Note: &lt;span style=&quot; font-weight:600;&quot;&gt;Available&lt;/span&gt; is the amount of PND that is available for you to spend or transfer. &lt;span style=&quot; font-weight:600;&quot;&gt;Earning Interest&lt;/span&gt; is the amount of PND that is currently being used to generate interest. &lt;span style=&quot; font-weight:600;&quot;&gt;Pending&lt;/span&gt; is the amount of recent incoming PND from another account address waiting to be transferred to your account. &lt;span style=&quot; font-weight:600;&quot;&gt;Total Balance&lt;/span&gt; is the sum total of PND of all your account balances. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;提示: &lt;span style=&quot; font-weight:600;&quot;&gt;可用的&lt;/span&gt; 是指你当前可消费或转账的熊猫币总量 &lt;span style=&quot; font-weight:600;&quot;&gt;正在获取利息&lt;/span&gt; 是指你当前在用于获取利息的熊猫币总量 &lt;span style=&quot; font-weight:600;&quot;&gt;正在处理的&lt;/span&gt; 是指正在从另一个熊猫币地址发送过来有待确认的熊猫币总量 &lt;span style=&quot; font-weight:600;&quot;&gt;总余额&lt;/span&gt; 是指你所有账号的熊猫币余额之和 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location line="+89"/>
         <source>Quick Transfer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">快速转账</translation>
     </message>
     <message>
         <location line="+30"/>
@@ -2052,7 +2315,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+7"/>
         <source>Amount</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">金额</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2062,7 +2325,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+71"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Pandacoin network after a connection is established, but this process has not completed yet.</source>
@@ -2127,33 +2390,33 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../overviewpage.cpp" line="+40"/>
         <source>Copy account address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">复制账号地址</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy account name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">复制帐号名</translation>
     </message>
     <message>
         <location line="+1"/>
         <source>Copy account balance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">复制账号余额</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Welcome to your PandaBank, You last logged on at</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">欢迎来到你的熊猫银行，你上次登录于</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>on</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">在</translation>
     </message>
     <message>
         <location line="+96"/>
         <location line="+7"/>
         <source>Select account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">选择账号</translation>
     </message>
 </context>
 <context>
@@ -2229,6 +2492,16 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+12"/>
         <source>Error: The transaction was rejected. This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
         <translation type="unfinished">错误：交易被拒绝。可能由于钱包中部分金额已被使用，例如您使用了钱包数据的副本，在副本中某些金额已被使用，但在此处尚未被标记为已使用。</translation>
+    </message>
+    <message>
+        <location filename="../pandastyles.cpp" line="+18"/>
+        <source>Arial, &apos;Helvetica Neue&apos;, Helvetica, sans-serif</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../init.cpp" line="+849"/>
+        <source>My account</source>
+        <translation type="unfinished">我的帐号</translation>
     </message>
 </context>
 <context>
@@ -2645,7 +2918,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+59"/>
         <source>Send Pandacoins</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">发送熊猫币</translation>
     </message>
     <message>
         <location line="+74"/>
@@ -2749,22 +3022,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+15"/>
         <source>Or</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">或</translation>
     </message>
     <message>
         <location line="+25"/>
         <source>Amount</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">金额</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>▾ Send To My Own Accounts</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">▾ 发送到我钱包内的其他账号</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
     <message>
         <source>A&amp;mount:</source>
@@ -2853,7 +3126,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+273"/>
         <source>Search your accounts list...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">搜索你的帐号列表</translation>
     </message>
     <message>
         <location line="+224"/>
@@ -2881,7 +3154,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+27"/>
         <source>Account name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">帐号名</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -2891,7 +3164,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+6"/>
         <source>Enter a Pandacoin address (e.g. PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">输入一个熊猫币地址(如PBZ8YVV3XT3WWWd2a1jo4N9WePiwKB3mJE)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2921,17 +3194,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+16"/>
         <source>Account address</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">账号地址</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Next</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">下一个</translation>
     </message>
     <message>
         <location line="+13"/>
         <source>Add another</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">增加其他</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2941,17 +3214,17 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+7"/>
         <source>Amount</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">金额</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>New accounts will automatically be added to your address book</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">新账号会自动添加到你的地址簿里</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Enter an account name for this account address to add it to your address book</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">输入一个此账号的名字以将它添加到你的地址簿</translation>
     </message>
 </context>
 <context>
@@ -3135,11 +3408,20 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
 </context>
 <context>
+    <name>SingleColumnAccountModel</name>
+    <message>
+        <location filename="../accountmodel.cpp" line="+241"/>
+        <location line="+4"/>
+        <source>All Accounts</source>
+        <translation type="unfinished">所有 账号</translation>
+    </message>
+</context>
+<context>
     <name>TabbedDateWidget</name>
     <message>
         <location filename="../forms/tabbeddatewidget.ui" line="+20"/>
         <source>TabWidget</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">标签部件</translation>
     </message>
 </context>
 <context>
@@ -3350,27 +3632,27 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+21"/>
         <source> or jump to</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">或者跳转到</translation>
     </message>
     <message>
         <location line="+14"/>
         <source>Show</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">显示</translation>
     </message>
     <message>
         <location line="+7"/>
         <source>Recent Transactions</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">最近的交易</translation>
     </message>
     <message>
         <location line="+30"/>
         <source>Export</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">输出</translation>
     </message>
     <message>
         <location line="+19"/>
         <source>Search by keyword</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">用关键词搜索</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -3381,7 +3663,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>TransactionTableModel</name>
     <message>
-        <location filename="../transactiontablemodel.cpp" line="+323"/>
+        <location filename="../transactiontablemodel.cpp" line="+326"/>
         <source>Date</source>
         <translation>日期</translation>
     </message>
@@ -3400,7 +3682,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>数量</translation>
     </message>
     <message>
-        <location line="+61"/>
+        <location line="+67"/>
         <source>Open until %1</source>
         <translation>至 %1 个数据块时开启</translation>
     </message>
@@ -3417,27 +3699,27 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         </translation>
     </message>
     <message>
-        <location line="-58"/>
+        <location line="-64"/>
         <source>From account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">来自账号</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>To account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">到账号</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Account Name</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">帐号名</translation>
     </message>
     <message>
         <location line="+0"/>
         <source>Balance</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">余额</translation>
     </message>
     <message>
-        <location line="+64"/>
+        <location line="+70"/>
         <source>Offline</source>
         <translation>掉线</translation>
     </message>
@@ -3475,52 +3757,52 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+42"/>
         <location line="+2"/>
         <source>Received</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">已收到</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Sent</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">已发送</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>Internal Transfer</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">内部转账</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Interest</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">利息</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Fee</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">费用</translation>
     </message>
     <message>
         <location line="+569"/>
         <source>Destination account of transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">交易目标帐号。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Source account of transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">交易源帐号。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Account for transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">交易帐号。</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Other account for transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">其他交易帐号。</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>Account balance at end of transaction.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">交易最后阶段帐号余额。</translation>
     </message>
     <message>
         <source>Received with</source>
@@ -3558,7 +3840,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+2"/>
         <source>Date and time that the transaction was received.</source>
-        <translation>接收到交易的时间</translation>
+        <translation type="unfinished">接收到交易的时间。</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3664,9 +3946,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation>显示交易详情</translation>
     </message>
     <message>
-        <location line="+1"/>
         <source>Show transaction on Pandachain</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">显示熊猫币交易帐号</translation>
+    </message>
+    <message>
+        <location line="+1"/>
+        <source>Show transaction in blockchain explorer</source>
+        <translation type="unfinished">显示熊猫币交易帐号</translation>
     </message>
     <message>
         <location line="+57"/>
@@ -3742,7 +4028,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+22"/>
         <source>Transfers</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">转账</translation>
     </message>
     <message>
         <location line="+16"/>
@@ -3753,7 +4039,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>WalletModel</name>
     <message>
-        <location filename="../walletmodel.cpp" line="+494"/>
+        <location filename="../walletmodel.cpp" line="+501"/>
         <source>Sending...</source>
         <translation>正在发送</translation>
     </message>
@@ -3966,7 +4252,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-18"/>
         <source>Warning: wallet.dat corrupt, data salvaged! Original wallet.dat saved as wallet.{timestamp}.bak in %s; if your balance or transactions are incorrect you should restore from a backup.</source>
-        <translation>警告：钱包文件wallet.dat损坏! 原始的钱包文件已经备份到%s目录下并重命名为{timestamp}.bak 。如果您的账户余额或者交易记录不正确，请使用您的钱包备份文件恢复。</translation>
+        <translation type="unfinished">警告：钱包文件wallet.dat损坏! 原始的钱包文件已经备份到%s目录下并重命名为{timestamp}.bak 。如果您的账号余额或者交易记录不正确，请使用您的钱包备份文件恢复。</translation>
     </message>
     <message>
         <location line="-30"/>
@@ -4001,7 +4287,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+5"/>
         <source>Sync checkpoints policy (default: strict)</source>
-        <translation>同步检测点政策 (默认：严格)</translation>
+        <translation type="unfinished">同步记录点政策 (默认：严格)</translation>
     </message>
     <message>
         <location line="+83"/>

@@ -406,7 +406,7 @@ void VerifyAllBlocks(void* parg)
 
                 CBlock block;
                 block.ReadFromDisk(pIndex, true);
-                block.ConnectBlock(txdb, pIndex, false);
+                block.ConnectBlock(txdb, pIndex, false, true);
 
                 uint256 hashProof = 0;
                 if (pIndex->IsProofOfStake())
@@ -466,60 +466,8 @@ void VerifyAllBlocks(void* parg)
                 assert(FAILEDTOWRITETRANSACTIONPOOL);
             }
 
-
             pwalletMain->ScanForWalletTransactions(pIndex, true);
             //pwalletMain->ReacceptWalletTransactions();
-
-
-            if (!txdb.TxnBegin())
-            {
-                printf("Failed to open txdb.\n");
-                int FAILEDTOOPENTXPOOL=0;
-                assert(FAILEDTOOPENTXPOOL);
-            }
-
-            CBlock block;
-            block.ReadFromDisk(pindexBest, true);
-            block.ConnectBlock(txdb, pindexBest, false);
-            uint256 hashProof = 0;
-            if (pindexBest->IsProofOfStake())
-            {
-                uint256 targetProofOfStake = 0;
-                if (!CheckProofOfStake(txdb, block.vtx[1], block.nTime, block.nBits, hashProof, targetProofOfStake))
-                {
-                    printf("WARNING: VerifyAllBlocks(): check proof-of-stake failed for block %s\n", block.GetHash().ToString().c_str());
-                }
-            }
-            if (pindexBest->IsProofOfWork())
-            {
-                hashProof = block.GetPoWHash();
-            }
-            pindexBest->hashProof = hashProof;
-
-            uint64_t nStakeModifier = 0;
-            bool fGeneratedStakeModifier = false;
-            if (!ComputeNextStakeModifier(pindexBest->pprev, nStakeModifier, fGeneratedStakeModifier, vSortedByTimestamp))
-                printf("ERROR computing stake modifier, staking will not work.\n ");
-            pindexBest->SetStakeModifier(nStakeModifier, fGeneratedStakeModifier);
-            pindexBest->nStakeModifierChecksum = GetStakeModifierChecksum(pindexBest);
-
-            if(fDebug)
-                printf(">>><<<STAKEMODIFER - blockhash:%s stakemodifier:0x%016"PRIx64" stakemodifierchecksum:%d\n", pindexBest->GetBlockHash().ToString().c_str() ,nStakeModifier, pindexBest->nStakeModifierChecksum);
-
-            //checkme: make sure this is necessary
-            if (!txdb.WriteBlockIndex(pindexBest->GetBlockHash(), CDiskBlockIndex(pindexBest)))
-            {
-                int FAILEDTOWRITEBLOCKINDEX=0;
-                assert(FAILEDTOWRITEBLOCKINDEX);
-            }
-
-
-            if (!txdb.TxnCommit())
-            {
-                printf("Failed to commit txdb.\n");
-                int FAILEDTOCOMMITTXPOOL=0;
-                assert(FAILEDTOCOMMITTXPOOL);
-            }
         }
     }
 
@@ -2457,8 +2405,11 @@ unsigned int CTransaction::GetP2SHSigOpCount(const MapPrevTx& inputs) const
 }
 
 bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTxIndex>& mapTestPool, const CDiskTxPos& posThisTx,
-    const CBlockIndex* pindexBlock, bool fBlock, bool fMiner)
+    const CBlockIndex* pindexBlock, bool fBlock, bool fMiner, bool fForceFullConnect)
 {
+    if(currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+        fForceFullConnect = true;
+
     // Take over previous transactions' spent pointers
     // fBlock is true when this is called from AcceptBlock when a new best-block is added to the blockchain
     // fMiner is true when called from the internal bitcoin miner
@@ -2471,7 +2422,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
         {
             COutPoint prevout = vin[i].prevout;
             //fixme:LIGHTHYBRID
-            if(currentClientMode == ClientFull || inputs.count(prevout.hash) > 0)
+            if(fForceFullConnect || inputs.count(prevout.hash) > 0)
             {
                 assert(inputs.count(prevout.hash) > 0);
                 CTxIndex& txindex = inputs[prevout.hash].first;
@@ -2501,7 +2452,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
         {
             COutPoint prevout = vin[i].prevout;
             //fixme:LIGHTHYBRID
-            if(currentClientMode == ClientFull || inputs.count(prevout.hash) > 0)
+            if(fForceFullConnect || inputs.count(prevout.hash) > 0)
             {
                 assert(inputs.count(prevout.hash) > 0);
                 CTxIndex& txindex = inputs[prevout.hash].first;
@@ -2539,7 +2490,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
         if (!IsCoinStake())
         {
             //fixme:LIGHTHYBRID
-            if(currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks) )
+            if(fForceFullConnect)
             {
                 if (nValueIn < GetValueOut())
                     return DoS(100, error("ConnectInputs() : %s value in %ld < value out %ld", GetHash().ToString().substr(0,10).c_str(), nValueIn, GetValueOut()));
@@ -2640,10 +2591,13 @@ bool CBlock::DisconnectBlock(CTxDB& txdb, CBlockIndex* pindex)
     return true;
 }
 
-bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
+bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck, bool fForceFullConnection)
 {
+    if (currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+        fForceFullConnection = true;
+
     // Check it again in case a previous version let a bad block in, but skip BlockSig checking
-    if (!CheckBlock(!fJustCheck, !fJustCheck, false))
+    if (!CheckBlock(!fJustCheck, !fJustCheck, false, fForceFullConnection))
         return false;
 
     //// issue here: it doesn't know the version
@@ -2680,14 +2634,17 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         // two in the chain that violate it. This prevents exploiting the issue against nodes in their
         // initial block download.
         CTxIndex txindexOld;
-        if (txdb.ReadTxIndex(hashTx, txindexOld)) {
+        if (txdb.ReadTxIndex(hashTx, txindexOld))
+        {
             BOOST_FOREACH(CDiskTxPos &pos, txindexOld.vSpent)
+            {
                 if (pos.IsNull())
                 {
                     //fixme:LIGHTHYBRID
-                    if (currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+                    if (fForceFullConnection)
                         return false;
                 }
+            }
         }
 
         nSigOps += tx.GetLegacySigOpCount();
@@ -2705,7 +2662,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         {
             bool fInvalid;
             //fixme:LIGHTHYBRID
-            if (currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+            if (fForceFullConnection)
             {
                 if (!tx.FetchInputs(txdb, mapQueuedChanges, true, false, mapInputs, fInvalid))
                     return false;
@@ -2731,7 +2688,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
             if (!tx.ConnectInputs(txdb, mapInputs, mapQueuedChanges, posThisTx, pindex, true, false))
             {
                 //fixme:LIGHTHYBRID
-                if(currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+                if (fForceFullConnection)
                     return false;
             }
         }
@@ -2749,7 +2706,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     {
         int64_t nReward = GetProofOfWorkReward(pindex->nHeight, nFees, prevHash);
         // Check coinbase reward
-        if(currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+        if (fForceFullConnection)
             if (vtx[0].GetValueOut() > nReward)
                 return DoS(50, error("ConnectBlock() : coinbase reward exceeded (actual=%"PRId64" vs calculated=%"PRId64")",
                        vtx[0].GetValueOut(),
@@ -2759,12 +2716,12 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     {
         // ppcoin: coin stake tx earns reward instead of paying fee
         uint64_t nCoinAge;
-        if(currentClientMode == ClientFull  || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+        if(fForceFullConnection)
             if (!vtx[1].GetCoinAge(txdb, nTime, nCoinAge))
                 return error("ConnectBlock() : %s unable to get coin age for coinstake", vtx[1].GetHash().ToString().substr(0,10).c_str());
 
         int64_t nCalculatedStakeReward = GetProofOfStakeReward(nCoinAge, nFees);
-        if(currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+        if(fForceFullConnection)
         {
             if (nStakeReward > nCalculatedStakeReward)
                 return DoS(100, error("ConnectBlock() : coinstake pays too much(actual=%"PRId64" vs calculated=%"PRId64")", nStakeReward, nCalculatedStakeReward));
@@ -2855,9 +2812,12 @@ bool static Reorganize(CTxDB& txdb, CBlockIndex* pindexNew)
             return error("Reorganize() : DisconnectBlock %s failed", pindex->GetBlockHash().ToString().substr(0,20).c_str());
 
         // Queue memory transactions to resurrect
-        BOOST_FOREACH(const CTransaction& tx, block.vtx)
-            if (!(tx.IsCoinBase() || tx.IsCoinStake()))
-                vResurrect.push_back(tx);
+        if (currentClientMode == ClientFull || (currentLoadState == LoadState_AcceptingNewBlocks))
+        {
+            BOOST_FOREACH(const CTransaction& tx, block.vtx)
+                if (!(tx.IsCoinBase() || tx.IsCoinStake()))
+                    vResurrect.push_back(tx);
+        }
     }
 
     // Connect longer branch
@@ -3301,10 +3261,13 @@ bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos, const u
 
 
 
-bool CBlock::CheckBlock(bool fCheckPOW, bool fCheckMerkleRoot, bool fCheckSig) const
+bool CBlock::CheckBlock(bool fCheckPOW, bool fCheckMerkleRoot, bool fCheckSig, bool fForceFullCheck) const
 {
+    if (currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
+        fForceFullCheck = true;
+
     //fixme:LIGHTHYBRIDSECURITY
-    if(currentClientMode == ClientLight || ( currentClientMode == ClientHybrid && currentLoadState != LoadState_AcceptingNewBlocks) )
+    if (!fForceFullCheck)
         return true;
 
     // These are checks that are independent of context
@@ -4732,6 +4695,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv)
 
     else if (strCommand == "tx")
     {
+        // Don't process incoming transactions until staking.
+        if (currentClientMode != ClientFull && currentLoadState != LoadState_AcceptingNewBlocks)
+            return true;
+
         vector<uint256> vWorkQueue;
         vector<uint256> vEraseQueue;
         CDataStream vMsg(vRecv);

@@ -227,6 +227,7 @@ void SendCoinsEntry::confirmButtonPressed()
     {
         if(!model->getOptionsModel()->getCoinControlFeatures())
         {
+            QMessageBox::information(this, tr("No from account selected"), tr("You have not selected an account from which to make the payment.\nPlease select the \"from\" address at the top of this page."), QMessageBox::Ok);
             return;
         }
     }
@@ -272,6 +273,7 @@ void SendCoinsEntry::myAccountNextButtonPressed()
     {
         if(!model->getOptionsModel()->getCoinControlFeatures())
         {
+            QMessageBox::information(this, tr("No from account selected"), tr("You have not selected an account from which to make the payment.\nPlease select the \"from\" address at the top of this page."), QMessageBox::Ok);
             return;
         }
     }

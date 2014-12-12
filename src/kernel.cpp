@@ -65,10 +65,9 @@ static int64_t GetStakeModifierSelectionInterval()
 }
 
 
-#if 0
-std::map<std::pair<int64_t, uint256>, uint256> hashSelectionCache;
-std::pair<int64_t, uint256> hashSelectionCacheLookupIndex;
-std::map<std::pair<int64_t, uint256>, uint256>::const_iterator hashSelectionCacheIter;
+#if 1
+#include "lrucache.h"
+lru::Cache<std::pair<int64_t, uint256>, uint256> hashSelectionCache(2048);
 #endif
 // select a block from the candidate blocks in vSortedByTimestamp, excluding
 // already selected blocks in vSelectedBlocks, and with timestamp up to
@@ -91,21 +90,20 @@ static bool SelectBlockFromCandidates(vector<pair<int64_t, uint256> >& vSortedBy
         // compute the selection hash by hashing its proof-hash and the
         // previous proof-of-stake modifier
         uint256 hashSelection;
-        #if 0
-        hashSelectionCacheLookupIndex = std::make_pair(nStakeModifierPrev, pindex->hashProof);
-        hashSelectionCacheIter = hashSelectionCache.find(hashSelectionCacheLookupIndex);
-        if (hashSelectionCacheIter != hashSelectionCache.end())
+        #if 1
+        try
         {
-            hashSelection = hashSelectionCacheIter->second;
+            //Throws exception if key not in cache
+            hashSelection = hashSelectionCache.get(std::make_pair(nStakeModifierPrev, pindex->hashProof));
         }
-        else
+        catch(...)
         {
         #endif
             CDataStream ss(SER_GETHASH, 0);
             ss << pindex->hashProof << nStakeModifierPrev;
             hashSelection = Hash(ss.begin(), ss.end());
-        #if 0
-            hashSelectionCache[hashSelectionCacheLookupIndex] = hashSelection;
+        #if 1
+            hashSelectionCache.insert(std::make_pair(nStakeModifierPrev, pindex->hashProof),hashSelection);
         }
         #endif
 

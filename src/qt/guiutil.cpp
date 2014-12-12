@@ -183,7 +183,14 @@ bool SendCoinsHelper(QWidget* parent, const std::vector<SendCoinsRecipient>& rec
 #ifndef HEADLESS
         if(parent)
         {
-            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The amount exceeds your balance."), QMessageBox::Ok, QMessageBox::Ok);
+            if (model->getUnconfirmedBalance() > 0)
+            {
+                QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The amount exceeds your balance."), QMessageBox::Ok, QMessageBox::Ok);
+            }
+            else
+            {
+                QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The amount exceeds your available balance, some of your Pandacoins are currently being used to earn you interest."), QMessageBox::Ok, QMessageBox::Ok);
+            }
         }
         else
 #endif
@@ -195,7 +202,14 @@ bool SendCoinsHelper(QWidget* parent, const std::vector<SendCoinsRecipient>& rec
 #ifndef HEADLESS
         if(parent)
         {
-            QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The total exceeds your balance when the %1 transaction fee is included."). arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, sendstatus.fee, true, false)), QMessageBox::Ok, QMessageBox::Ok);
+            if (model->getUnconfirmedBalance() > 0)
+            {
+                QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The total exceeds your balance when the %1 transaction fee is included."). arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, sendstatus.fee, true, false)), QMessageBox::Ok, QMessageBox::Ok);
+            }
+            else
+            {
+                QMessageBox::warning(parent, QObject::tr("Send Coins"), QObject::tr("The amount exceeds your available balance when the %1 transaction fee is included, some of your Pandacoins are currently being used to earn you interest."). arg(BitcoinUnits::formatWithUnit(BitcoinUnits::BTC, sendstatus.fee, true, false)), QMessageBox::Ok, QMessageBox::Ok);
+            }
         }
         else
 #endif

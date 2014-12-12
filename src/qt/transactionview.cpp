@@ -68,7 +68,7 @@ TransactionView::TransactionView(QWidget *parent) :
     QAction *copyTxIDAction = new QAction(tr("Copy transaction ID"), this);
     QAction *editLabelAction = new QAction(tr("Edit label"), this);
     QAction *showDetailsAction = new QAction(tr("Show transaction details"), this);
-    QAction *viewOnPandachain = new QAction(tr("Show transaction on Pandachain"), this);
+    QAction *viewOnBlockExplorer = new QAction(tr("Show transaction in blockchain explorer"), this);
 
     contextMenu = new QMenu(this);
     contextMenu->addAction(copyAddressAction);
@@ -79,7 +79,7 @@ TransactionView::TransactionView(QWidget *parent) :
     contextMenu->addAction(editLabelAction);
     contextMenu->addAction(showDetailsAction);
     contextMenu->addSeparator();
-    contextMenu->addAction(viewOnPandachain);
+    contextMenu->addAction(viewOnBlockExplorer);
 
     // Connect actions
     connect(transactionView, SIGNAL(doubleClicked(QModelIndex)), this, SIGNAL(doubleClicked(QModelIndex)));
@@ -91,7 +91,7 @@ TransactionView::TransactionView(QWidget *parent) :
     connect(copyTxIDAction, SIGNAL(triggered()), this, SLOT(copyTxID()));
     connect(editLabelAction, SIGNAL(triggered()), this, SLOT(editLabel()));
     connect(showDetailsAction, SIGNAL(triggered()), this, SLOT(showDetails()));
-    connect(viewOnPandachain, SIGNAL(triggered()), this, SLOT(viewOnPandachain()));
+    connect(viewOnBlockExplorer, SIGNAL(triggered()), this, SLOT(viewOnBlockExplorer()));
 }
 
 void TransactionView::setModel(WalletModel *model)
@@ -229,9 +229,9 @@ void TransactionView::showDetails()
     dlg.exec();
 }
 
-void TransactionView::viewOnPandachain()
+void TransactionView::viewOnBlockExplorer()
 {
-    QString format("http://pandachain.net/tx/");
+    QString format("http://pnd.showed.us/tx/");
     format += contextMenuTriggerIndex.data(TransactionTableModel::TxIDRole).toString();
     QDesktopServices::openUrl(QUrl(format));
 }
