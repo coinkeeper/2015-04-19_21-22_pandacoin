@@ -3131,10 +3131,10 @@ bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos, const u
     pindexNew->phashBlock = &hash;
 
 
-    map<uint256, CBlockIndex*>::iterator miPrev = mapBlockIndex.find(hashPrevBlock);
-    if (currentClientMode != ClientFull && currentLoadState != LoadState_AcceptingNewBlocks && currentLoadState != LoadState_VerifyAllBlocks)
+    map<uint256, CBlockIndex*>::iterator miPrev = mapBlockIndex.find(hashPrevBlock);    
+    if (miPrev != mapBlockIndex.end())
     {
-        if (miPrev != mapBlockIndex.end())
+        if (currentClientMode != ClientFull && currentLoadState != LoadState_AcceptingNewBlocks && currentLoadState != LoadState_VerifyAllBlocks)
         {
             if((*miPrev).second->pnext && (*miPrev).second->pnext != pindexNew)
             {
@@ -3144,13 +3144,12 @@ bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos, const u
             pindexNew->pprev = (*miPrev).second;
             pindexNew->pprev->pnext = pindexNew;
         }
-    }
-    else
-    {
-        pindexNew->pprev = (*miPrev).second;
-    }
-    if (miPrev != mapBlockIndex.end())
-    {
+        else
+        {
+            pindexNew->pprev = (*miPrev).second;
+        }
+
+
         if(placeHolderBlock)
         {
             pindexNew->nHeight = pindexNew->pprev->nHeight + numPlacesHeld -1;
