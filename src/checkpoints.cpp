@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
@@ -59,7 +59,10 @@ namespace Checkpoints
         ( 350000 , uint256("0xcb43cae668d5efe204daa278cf313fb5cb09d57089939aa845fc1085ba1be89b"))
         ( 375000 , uint256("0xf70679d589e481e6d4c05bbfb2ae67c604135e63fa80973c1f5671769cb4a4e4"))
         ( 400000 , uint256("0x27fbc9e87af89407c4419ceabcd1a7bfae2f90cf7b0521401171ab420a48a61b"))
-        ( 420000 , uint256("0xd5b538f1fb095d6c4bad89f1b887ac3faa9bfa3b37dc3a11a0f4eaf9f5724e4c"))
+        ( 425000 , uint256("0x47a375b1b561fae4b6f10cd79707683af7b17dc2baebd5aa4291206696fcb81a"))
+        ( 450000 , uint256("0xc8906cafc1f2d09963869120bd239fb5f14a701c54e61db7ed6685d13572ab4c"))
+        ( 475000 , uint256("0x65bface2efe48220f196b85c59a2b191f3700ae0c6c329df42c3f10c26bab440"))
+        ( 500000 , uint256("0x1338f27a71738f392fe01035757d31278abae752e6c63ca6235e5e5bd78677f8"))
     ;
 
     // TestNet has no checkpoints
@@ -331,7 +334,7 @@ namespace Checkpoints
     {
         const CBlockIndex *pindex = pindexBest;
         // Search backward for a block within max span and maturity window
-        while (pindex->pprev && (pindex->GetBlockTime() + nCheckpointSpan * nTargetSpacing > pindexBest->GetBlockTime() || pindex->nHeight + nCheckpointSpan > pindexBest->nHeight))
+        while (pindex->pprev && (pindex->GetBlockTime() + nCheckpointSpan * GetTargetSpacing(pindex->nHeight) > pindexBest->GetBlockTime() || pindex->nHeight + nCheckpointSpan > pindexBest->nHeight))
             pindex = pindex->pprev;
         return pindex->GetBlockHash();
     }

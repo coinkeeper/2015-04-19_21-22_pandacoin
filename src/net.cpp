@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "irc.h"
@@ -60,7 +60,7 @@ static bool vfLimited[NET_MAX] = {};
 static CNode* pnodeLocalHost = NULL;
 CAddress addrSeenByPeer(CService("0.0.0.0", 0), nLocalServices);
 uint64_t nLocalHostNonce = 0;
-array<int, THREAD_MAX> vnThreadsRunning;
+boost::array<int, THREAD_MAX> vnThreadsRunning;
 static std::vector<SOCKET> vhListenSocket;
 CAddrMan addrman;
 
@@ -181,14 +181,14 @@ bool RecvLine(SOCKET hSocket, string& strLine)
             if (nBytes == 0)
             {
                 // socket closed
-                printf("socket closed\n");
+                LogPrint("net", "socket closed\n");
                 return false;
             }
             else
             {
                 // socket error
                 int nErr = WSAGetLastError();
-                printf("recv failed: %d\n", nErr);
+                LogPrint("net", "recv failed: %s\n", NetworkErrorString(nErr));
                 return false;
             }
         }
@@ -234,7 +234,7 @@ bool AddLocal(const CService& addr, int nScore)
     if (IsLimited(addr))
         return false;
 
-    printf("AddLocal(%s,%i)\n", addr.ToString().c_str(), nScore);
+    LogPrintf("AddLocal(%s,%i)\n", addr.ToString(), nScore);
 
     {
         LOCK(cs_mapLocalHost);
@@ -487,11 +487,10 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest)
         }
     }
 
-
     /// debug print
-    printf("trying connection %s lastseen=%.1fhrs\n",
-        pszDest ? pszDest : addrConnect.ToString().c_str(),
-        pszDest ? 0 : (double)(GetAdjustedTime() - addrConnect.nTime)/3600.0);
+    LogPrint("net", "trying connection %s lastseen=%.1fhrs\n",
+        pszDest ? pszDest : addrConnect.ToString(),
+        pszDest ? 0.0 : (double)(GetAdjustedTime() - addrConnect.nTime)/3600.0);
 
     // Connect
     SOCKET hSocket;
@@ -568,7 +567,13 @@ CCriticalSection CNode::cs_setBanned;
 
 void CNode::ClearBanned()
 {
+    LOCK(cs_setBanned);
     setBanned.clear();
+}
+
+void CNode::ClearMisbehaving()
+{
+    nMisbehavior = 0;
 }
 
 bool CNode::IsBanned(CNetAddr ip)
@@ -797,7 +802,7 @@ void ThreadSocketHandler2(void* parg)
             if (have_fds)
             {
                 int nErr = WSAGetLastError();
-                printf("socket select error %d\n", nErr);
+                LogPrintf("socket select error %s\n", NetworkErrorString(nErr));
                 for (unsigned int i = 0; i <= hSocketMax; i++)
                     FD_SET(i, &fdsetRecv);
             }
@@ -918,7 +923,7 @@ void ThreadSocketHandler2(void* parg)
                         {
                             // socket closed gracefully
                             if (!pnode->fDisconnect)
-                                printf("socket closed\n");
+                                LogPrint("net", "socket closed\n");
                             pnode->CloseSocketDisconnect();
                         }
                         else if (nBytes < 0)
@@ -928,7 +933,7 @@ void ThreadSocketHandler2(void* parg)
                             if (nErr != WSAEWOULDBLOCK && nErr != WSAEMSGSIZE && nErr != WSAEINTR && nErr != WSAEINPROGRESS)
                             {
                                 if (!pnode->fDisconnect)
-                                    printf("socket recv error %d\n", nErr);
+                                    LogPrintf("socket recv error %s\n", NetworkErrorString(nErr));
                                 pnode->CloseSocketDisconnect();
                             }
                         }
@@ -1114,16 +1119,16 @@ void ThreadMapPort2(void* parg)
             char externalIPAddress[40];
             r = UPNP_GetExternalIPAddress(urls.controlURL, data.first.servicetype, externalIPAddress);
             if(r != UPNPCOMMAND_SUCCESS)
-                printf("UPnP: GetExternalIPAddress() returned %d\n", r);
+                LogPrintf("UPnP: GetExternalIPAddress() returned %d\n", r);
             else
             {
                 if(externalIPAddress[0])
                 {
-                    printf("UPnP: ExternalIPAddress = %s\n", externalIPAddress);
+                    LogPrintf("UPnP: ExternalIPAddress = %s\n", externalIPAddress);
                     AddLocal(CNetAddr(externalIPAddress), LOCAL_UPNP);
                 }
                 else
-                    printf("UPnP: GetExternalIPAddress failed.\n");
+                    LogPrintf("UPnP: GetExternalIPAddress failed.\n");
             }
         }
 
@@ -1167,10 +1172,10 @@ void ThreadMapPort2(void* parg)
 #endif
 
                 if(r!=UPNPCOMMAND_SUCCESS)
-                    printf("AddPortMapping(%s, %s, %s) failed with code %d (%s)\n",
-                        port.c_str(), port.c_str(), lanaddr, r, strupnperror(r));
+                    LogPrintf("AddPortMapping(%s, %s, %s) failed with code %d (%s)\n",
+                        port, port, lanaddr, r, strupnperror(r));
                 else
-                    printf("UPnP Port Mapping successful.\n");;
+                    LogPrintf("UPnP Port Mapping successful.\n");
             }
             MilliSleep(2000);
             i++;
@@ -1216,13 +1221,17 @@ void MapPort()
 // Each pair gives a source name and a seed name.
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
-static const char *strDNSSeed[][2] = {
+static const char * strDNSSeed[][2] = {
     {"dnsseeder.pandapool.info", "seeder.pandapool.info"},
     {"dnsseeder.bamboohouse.info", "seeder.bamboohouse.info"},
     {"dnsseeder.thepandacoin.net", "seeder.thepandacoin.net"},
     {"dnsseeder.pandacoinpnd.org", "seeder.pandacoinpnd.org"},
     {"showed.us", "seeder.showed.us"},
     {"altmin.es", "seeder.altmin.es"}
+};
+
+static const char * strDNSSeedTestnet[][2]  = {
+    {"pndstats.com", "pndstats.com"}
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1251,33 +1260,32 @@ void ThreadDNSAddressSeed2(void* parg)
     printf("ThreadDNSAddressSeed started\n");
     int found = 0;
 
-    if (!fTestNet)
-    {
-        printf("Loading addresses from DNS seeds (could take a while)\n");
+    printf("Loading addresses from DNS seeds (could take a while)\n");
 
-        for (unsigned int seed_idx = 0; seed_idx < ARRAYLEN(strDNSSeed); seed_idx++) {
-            if (HaveNameProxy()) {
-                AddOneShot(strDNSSeed[seed_idx][1]);
-            } else {
-                vector<CNetAddr> vaddr;
-                vector<CAddress> vAdd;
-                if (LookupHost(strDNSSeed[seed_idx][1], vaddr))
+    //fixme: c++11
+    unsigned int size = fTestNet?ARRAYLEN(strDNSSeedTestnet):ARRAYLEN(strDNSSeed);
+    for (unsigned int seed_idx = 0; seed_idx < size; seed_idx++) {
+        if (HaveNameProxy()) {
+            AddOneShot((fTestNet?strDNSSeedTestnet:strDNSSeed)[seed_idx][1]);
+        } else {
+            vector<CNetAddr> vaddr;
+            vector<CAddress> vAdd;
+            if (LookupHost((fTestNet?strDNSSeedTestnet:strDNSSeed)[seed_idx][1], vaddr))
+            {
+                BOOST_FOREACH(CNetAddr& ip, vaddr)
                 {
-                    BOOST_FOREACH(CNetAddr& ip, vaddr)
-                    {
-                        int nOneDay = 24*3600;
-                        CAddress addr = CAddress(CService(ip, GetDefaultPort()));
-                        addr.nTime = GetTime() - 3*nOneDay - GetRand(4*nOneDay); // use a random age between 3 and 7 days old
-                        vAdd.push_back(addr);
-                        found++;
-                    }
+                    int nOneDay = 24*3600;
+                    CAddress addr = CAddress(CService(ip, GetDefaultPort()));
+                    addr.nTime = GetTime() - 3*nOneDay - GetRand(4*nOneDay); // use a random age between 3 and 7 days old
+                    vAdd.push_back(addr);
+                    found++;
                 }
-                addrman.Add(vAdd, CNetAddr(strDNSSeed[seed_idx][0], true));
             }
+            addrman.Add(vAdd, CNetAddr((fTestNet?strDNSSeedTestnet:strDNSSeed)[seed_idx][0], true));
         }
     }
 
-    printf("%d addresses found from DNS seeds\n", found);
+    LogPrintf("%d addresses found from DNS seeds\n", found);
 }
 
 // HARD CODED SEED NODES
@@ -1286,12 +1294,55 @@ unsigned int pnSeed[] =
     0xc246fb94, // bamboohouse.info
     0x38f1175e, // pandapool 1
     0x22fc175e, // pandapool 2
-    0x035acc36, 0x4cf3d348, 0x850e7562, 0xa39264c6, 0xa059aa6b, 0x12487554, 0xcc37692e, 0xbdaf7245,
-    0x041c146e, 0xd01d8018, 0xb466f3a2, 0xca08555f, 0x65e96161, 0x0cff7318, 0x0478fd1b, 0x51a8af4d,
-    0x6141ba62, 0xc7a3c80e, 0x1ef1cc3e, 0x0c803540, 0x3682db5d, 0xb965c544, 0x5464ec2e, 0x04c86456,
-    0x7a39c948, 0xee827662, 0xca9ac445, 0x81259062, 0xf0b5ba62, 0xf0ffdcba, 0x3e297247, 0x2de4d418,
-    0x7a65bd42, 0xd221a755, 0x62d4022a, 0xef92fc60, 0x488aa942, 0x1c9ad855, 0x30a4d354
+    0x035acc36,
+    0x4cf3d348,
+    0x850e7562,
+    0xa39264c6,
+    0xa059aa6b,
+    0x12487554,
+    0xcc37692e,
+    0xbdaf7245,
+    0x041c146e,
+    0xd01d8018,
+    0xb466f3a2,
+    0xca08555f,
+    0x65e96161,
+    0x0cff7318,
+    0x0478fd1b,
+    0x51a8af4d,
+    0x6141ba62,
+    0xc7a3c80e,
+    0x1ef1cc3e,
+    0x0c803540,
+    0x3682db5d,
+    0xb965c544,
+    0x5464ec2e,
+    0x04c86456,
+    0x7a39c948,
+    0xee827662,
+    0xca9ac445,
+    0x81259062,
+    0xf0b5ba62,
+    0xf0ffdcba,
+    0x3e297247,
+    0x2de4d418,
+    0x7a65bd42,
+    0xd221a755,
+    0x62d4022a,
+    0xef92fc60,
+    0x488aa942,
+    0x1c9ad855,
+    0x30a4d354
 };
+
+unsigned int pnSeedTestnet[] =
+{
+    0xA8EB94DF
+};
+
+
+
+
 
 void DumpAddresses()
 {
@@ -1300,7 +1351,7 @@ void DumpAddresses()
     CAddrDB adb;
     adb.Write(addrman);
 
-    printf("Flushed %d addresses to peers.dat  %"PRId64"ms\n",
+    LogPrint("net", "Flushed %d addresses to peers.dat  %dms\n",
            addrman.size(), GetTimeMillis() - nStart);
 }
 
@@ -1438,8 +1489,10 @@ void ThreadOpenConnections2(void* parg)
         // Add seed nodes if IRC isn't working
         if (addrman.size()==0 && (GetTime() - nStart > 60) && !fTestNet)
         {
+            //fixme: c++11
+            unsigned int size = fTestNet?ARRAYLEN(pnSeedTestnet):ARRAYLEN(pnSeed);
             std::vector<CAddress> vAdd;
-            for (unsigned int i = 0; i < ARRAYLEN(pnSeed); i++)
+            for (unsigned int i = 0; i < size; i++)
             {
                 // It'll only connect to one or two seed nodes because once it connects,
                 // it'll get a pile of addresses with newer timestamps.
@@ -1447,7 +1500,7 @@ void ThreadOpenConnections2(void* parg)
                 // weeks ago.
                 const int64_t nOneWeek = 7*24*60*60;
                 struct in_addr ip;
-                memcpy(&ip, &pnSeed[i], sizeof(ip));
+                memcpy(&ip, &((fTestNet?pnSeedTestnet:pnSeed)[i]), sizeof(ip));
                 CAddress addr(CService(ip, GetDefaultPort()));
                 addr.nTime = GetTime()-GetRand(nOneWeek)-nOneWeek;
                 vAdd.push_back(addr);
@@ -1760,7 +1813,7 @@ bool BindListenPort(const CService &addrBind, string& strError)
     if (!addrBind.GetSockAddr((struct sockaddr*)&sockaddr, &len))
     {
         strError = strprintf("Error: bind address family for %s not supported", addrBind.ToString().c_str());
-        printf("%s\n", strError.c_str());
+        LogPrintf("%s\n", strError);
         return false;
     }
 
@@ -1768,7 +1821,7 @@ bool BindListenPort(const CService &addrBind, string& strError)
     if (hListenSocket == INVALID_SOCKET)
     {
         strError = strprintf("Error: Couldn't open socket for incoming connections (socket returned error %d)", WSAGetLastError());
-        printf("%s\n", strError.c_str());
+        LogPrintf("%s\n", strError);
         return false;
     }
 
@@ -1779,7 +1832,7 @@ bool BindListenPort(const CService &addrBind, string& strError)
 
 #ifndef WIN32
     // Allow binding if the port is still in TIME_WAIT state after
-    // the program was closed and restarted.  Not an issue on windows.
+    // the program was closed and restarted. Not an issue on windows!
     setsockopt(hListenSocket, SOL_SOCKET, SO_REUSEADDR, (void*)&nOne, sizeof(int));
 #endif
 
@@ -1792,7 +1845,7 @@ bool BindListenPort(const CService &addrBind, string& strError)
 #endif
     {
         strError = strprintf("Error: Couldn't set properties on socket for incoming connections (error %d)", WSAGetLastError());
-        printf("%s\n", strError.c_str());
+        LogPrintf("%s\n", strError);
         return false;
     }
 
@@ -1823,16 +1876,16 @@ bool BindListenPort(const CService &addrBind, string& strError)
             strError = strprintf(_("Unable to bind to %s on this computer. Pandacoin is probably already running."), addrBind.ToString().c_str());
         else
             strError = strprintf(_("Unable to bind to %s on this computer (bind returned error %d, %s)"), addrBind.ToString().c_str(), nErr, strerror(nErr));
-        printf("%s\n", strError.c_str());
+        LogPrintf("%s\n", strError);
         return false;
     }
-    printf("Bound to %s\n", addrBind.ToString().c_str());
+    LogPrintf("Bound to %s\n", addrBind.ToString());
 
     // Listen for incoming connections
     if (listen(hListenSocket, SOMAXCONN) == SOCKET_ERROR)
     {
         strError = strprintf("Error: Listening for incoming connections failed (listen returned error %d)", WSAGetLastError());
-        printf("%s\n", strError.c_str());
+        LogPrintf("%s\n", strError);
         return false;
     }
 
@@ -1879,7 +1932,7 @@ void static Discover()
                 struct sockaddr_in* s4 = (struct sockaddr_in*)(ifa->ifa_addr);
                 CNetAddr addr(s4->sin_addr);
                 if (AddLocal(addr, LOCAL_IF))
-                    printf("IPv4 %s: %s\n", ifa->ifa_name, addr.ToString().c_str());
+                    LogPrintf("%s: IPv4 %s: %s\n", __func__, ifa->ifa_name, addr.ToString());
             }
 #ifdef USE_IPV6
             else if (ifa->ifa_addr->sa_family == AF_INET6)
@@ -1887,7 +1940,7 @@ void static Discover()
                 struct sockaddr_in6* s6 = (struct sockaddr_in6*)(ifa->ifa_addr);
                 CNetAddr addr(s6->sin6_addr);
                 if (AddLocal(addr, LOCAL_IF))
-                    printf("IPv6 %s: %s\n", ifa->ifa_name, addr.ToString().c_str());
+                    LogPrintf("%s: IPv6 %s: %s\n", __func__, ifa->ifa_name, addr.ToString());
             }
 #endif
         }
@@ -1921,7 +1974,7 @@ void StartNode(void* parg)
     //
 
     if (!GetBoolArg("-dnsseed", true))
-        printf("DNS seeding disabled\n");
+        LogPrintf("DNS seeding disabled\n");
     else
         if (!NewThread(ThreadDNSAddressSeed, NULL))
             printf("Error: NewThread(ThreadDNSAddressSeed) failed\n");

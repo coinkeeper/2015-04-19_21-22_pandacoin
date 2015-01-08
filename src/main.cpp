@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "alert.h"
@@ -43,13 +43,56 @@ map<uint256, CBlockIndex*> mapBlockIndex;
 set<pair<COutPoint, unsigned int> > setStakeSeen;
 libzerocoin::Params* ZCParams;
 
-CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // "standard" scrypt target limit for proof of work, results with 0,000244140625 proof-of-work difficulty
-CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
-CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
 
-static const int64_t nTargetTimespan = 4 * 60 * 60; // Pandacoin: every 4 hours
-unsigned int nTargetSpacing = 1 * 60; // 1 minute
-static const int64_t nInterval = nTargetTimespan / nTargetSpacing;
+CBigNum GetWorkLimit(int nHeight = -1)
+{
+    if (nHeight == -1)
+        nHeight = pindexBest?pindexBest->nHeight:0;
+
+    if (fTestNet && nHeight <= LAST_POW_BLOCK)
+        return CBigNum(~uint256(0) >> 10);
+    return CBigNum(~uint256(0) >> 20); // "standard" scrypt target limit for proof of work, results with 0,000244140625 proof-of-work difficulty
+}
+
+
+int64_t GetTargetSpacing(int nHeight)
+{
+    if (nHeight == -1)
+        nHeight = pindexBest->nHeight;
+
+    if (fTestNet && nHeight < 950000)
+    {
+        if (nHeight > 136167)
+        {
+            return 30; // 30 seconds
+        }
+        else if (nHeight >= 50)
+        {
+            return 1; // 1 second
+        }
+        else
+        {
+            return 4; // 4 seconds
+        }
+    }
+    return 1 * 60; // 1 minute
+}
+
+int64_t GetTargetTimespan()
+{
+    if (fTestNet)
+    {
+        return 120; // Pandacoin: every 2 minutes.
+    }
+    return 4 * 60 * 60; // Pandacoin: every 4 hours
+}
+
+int64_t GetInterval()
+{
+    return GetTargetTimespan() / GetTargetSpacing();
+}
+
+
 unsigned int nStakeMinAge = 8 * 60 * 60; // 8 hours
 unsigned int nStakeMaxAge = 2592000; // 30 days
 unsigned int nModifierInterval = 10 * 60; // time to elapse before new modifier is computed
@@ -377,9 +420,9 @@ void VerifyAllBlocks(void* parg)
         {
             if(pIndex->IsHeaderOnly())
             {
-                int FAILEDTOLOADBLOCK=0;
-                printf("Failed to load block %s\n", pIndex->GetBlockHash().ToString().c_str());
-                assert(FAILEDTOLOADBLOCK);
+                string strError = strprintf("Failed to load block %s\n", pIndex->GetBlockHash().ToString().c_str());
+                ShowWarningAndResetBlockchain(strError);
+                return;
             }
             pIndex = pIndex->pnext;
         }
@@ -414,9 +457,9 @@ void VerifyAllBlocks(void* parg)
                     uint256 targetProofOfStake = 0;
                     if (!CheckProofOfStake(txdb, block.vtx[1], block.nTime, block.nBits, hashProof, targetProofOfStake))
                     {
-                        printf("WARNING: VerifyAllBlocks(): check proof-of-stake failed for block %s\n", block.GetHash().ToString().c_str());
-                        int PROOFOFSTAKECHECKFAILED=0;
-                        assert(PROOFOFSTAKECHECKFAILED);
+                        string strError = strprintf("WARNING: VerifyAllBlocks(): check proof-of-stake failed for block %s\n", block.GetHash().ToString().c_str());
+                        ShowWarningAndResetBlockchain(strError);
+                        return;
                     }
                 }
                 if (pIndex->IsProofOfWork())
@@ -430,9 +473,9 @@ void VerifyAllBlocks(void* parg)
                 bool fGeneratedStakeModifier = false;
                 if (!ComputeNextStakeModifier(pIndex->pprev, nStakeModifier, fGeneratedStakeModifier, vSortedByTimestamp))
                 {
-                    printf("ERROR computing stake modifier, staking will not work.\n ");
-                    int COMPUTERSTAKEMODIFIERFAILED=0;
-                    assert(COMPUTERSTAKEMODIFIERFAILED);
+                    string strError = "ERROR computing stake modifier, staking will not work.\n";
+                    ShowWarningAndResetBlockchain(strError);
+                    return;
                 }
                 pIndex->SetStakeModifier(nStakeModifier, fGeneratedStakeModifier);
 
@@ -446,9 +489,9 @@ void VerifyAllBlocks(void* parg)
                 //checkme: make sure this is necessary
                 if (!txdb.WriteBlockIndex(pIndex->GetBlockHash(), CDiskBlockIndex(pIndex)))
                 {
-                    printf("Failed to write block index.\n");
-                    int FAILEDTOWRITEBLOCKINDEX=0;
-                    assert(FAILEDTOWRITEBLOCKINDEX);
+                    string strError = "Failed to write block index.\n";
+                    ShowWarningAndResetBlockchain(strError);
+                    return;
                 }
             }
             pIndex = pIndex->pnext;
@@ -461,9 +504,9 @@ void VerifyAllBlocks(void* parg)
 
             if (!txdb.TxnEndTxPool())
             {
-                printf("Failed to write transaction pool.\n");
-                int FAILEDTOWRITETRANSACTIONPOOL=0;
-                assert(FAILEDTOWRITETRANSACTIONPOOL);
+                string strError = "Failed to write transaction pool.\n";
+                ShowWarningAndResetBlockchain(strError);
+                return;
             }
 
             pwalletMain->ScanForWalletTransactions(pIndex, true);
@@ -725,7 +768,6 @@ bool TransitionLoadState(CNode* pfrom)
                     currentLoadState = LoadState_SyncAllBlocks;
 
                     numSyncedBlocks = 0;
-                    CBlockIndex* pEpochIndex = mapBlockIndex[Checkpoints::GetEpochHash(firstWalletTxTime)];
                     CBlockIndex* pIndex = pindexGenesisBlock;
                     while (pIndex && pIndex != pindexBest)
                     {
@@ -829,7 +871,7 @@ void TransitionFromHybridToLightMode(ClientMode newMode)
     return;
 }
 
-void TransitionFromHybridToFullMode(ClientMode newMode)
+void ResetBlockchain()
 {
     currentLoadState = LoadState_Begin;
     abortVerifyAllBlocks = true;
@@ -864,6 +906,38 @@ void TransitionFromHybridToFullMode(ClientMode newMode)
     currentLoadState = LoadState_Connect;
     ForceTransitionOnNextNodeActivity = true;
     denyIncomingBlocks = false;
+}
+
+void ResetPeers()
+{
+    CNode::ClearBanned();
+
+    LOCK(cs_vNodes);
+    BOOST_FOREACH(CNode* pnode, vNodes)
+    {
+        pnode->ClearMisbehaving();
+    }
+
+    //fixme: Need to wipe entire addrman here.
+}
+
+void ShowWarningAndResetBlockchain(string strMessage)
+{
+    printf("%s",strMessage.c_str());
+    #ifndef HEADLESS
+    string strError = strprintf(QObject::tr("Sync error encountered: \n%s\n\nThe most likely cause of this error is a problem with your local blockchain, so the blockchain will now reset itself and sync again.\nShould you encounter this error repeatedly please seek assistance.").toStdString().c_str(), strMessage.c_str());
+    #else
+    string strError = strprintf("Sync error encountered: \n%s\n\nThe most likely cause of this error is a problem with your local blockchain, so the blockchain will now reset itself and sync again.\nShould you encounter this error repeatedly please seek assistance.", strMessage.c_str());
+    #endif
+    uiInterface.ThreadSafeMessageBox(strError, "Pandacoin", CClientUIInterface::OK | CClientUIInterface::ICON_EXCLAMATION | CClientUIInterface::MODAL);
+    ResetBlockchain();
+    ResetPeers();
+}
+
+void TransitionFromHybridToFullMode(ClientMode newMode)
+{
+    ResetBlockchain();
+    ResetPeers();
 }
 
 void TransitionFromHybridMode(ClientMode newMode)
@@ -1941,7 +2015,12 @@ unsigned int ComputeMaxBits(CBigNum bnTargetLimit, unsigned int nBase, int64_t n
 //
 unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 {
-    return ComputeMaxBits(bnProofOfWorkLimit, nBase, nTime);
+    // Testnet has min-difficulty blocks
+    // after GetTargetSpacing()*2 time between blocks:
+    if (fTestNet && nTime > GetTargetSpacing()*2)
+        return GetWorkLimit().GetCompact();
+
+    return ComputeMaxBits(GetWorkLimit(), nBase, nTime);
 }
 
 //
@@ -1950,7 +2029,7 @@ unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime)
 //
 unsigned int ComputeMinStake(unsigned int nBase, int64_t nTime, unsigned int nBlockTime)
 {
-    return ComputeMaxBits(bnProofOfStakeLimit, nBase, nTime);
+    return ComputeMaxBits(GetWorkLimit(), nBase, nTime);
 }
 
 
@@ -1962,24 +2041,40 @@ const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfSta
     return pindex;
 }
 
-unsigned int static GetNextWorkRequired_V1(const CBlockIndex* pindexLast)
+unsigned int static GetNextWorkRequired_V1(const CBlockIndex* pindexLast, const CBlock *pblock)
 {
-    CBigNum bnTargetLimit = bnProofOfWorkLimit;
+    unsigned int nProofOfWorkLimit = (GetWorkLimit()).GetCompact();
 
     if (pindexLast == NULL)
-        return bnTargetLimit.GetCompact(); // genesis block
+        return nProofOfWorkLimit; // genesis block
 
     // Only change once per interval
-    if ((pindexLast->nHeight+1) % nInterval != 0)
+    if ((pindexLast->nHeight+1) % GetInterval() != 0)
     {
+        // Special difficulty rule for testnet:
+        if (fTestNet)
+        {
+            // If the new block's timestamp is more than 2* GetTargetSpacing() minutes
+            // then allow mining of a min-difficulty block.
+            if (pblock->nTime > pindexLast->nTime + GetTargetSpacing()*2)
+                return nProofOfWorkLimit;
+            else
+            {
+                // Return the last non-special-min-difficulty-rules-block
+                const CBlockIndex* pindex = pindexLast;
+                while (pindex->pprev && pindex->nHeight % GetInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
+                    pindex = pindex->pprev;
+                return pindex->nBits;
+            }
+        }
         return pindexLast->nBits;
     }
 
     // Pandacoin: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
-    int blockstogoback = nInterval-1;
-    if ((pindexLast->nHeight+1) != nInterval)
-        blockstogoback = nInterval;
+    int blockstogoback = GetInterval() - 1;
+    if ((pindexLast->nHeight+1) != GetInterval())
+        blockstogoback = GetInterval();
 
     // Go back by what we want to be 14 days worth of blocks
     const CBlockIndex* pindexFirst = pindexLast;
@@ -1992,40 +2087,40 @@ unsigned int static GetNextWorkRequired_V1(const CBlockIndex* pindexLast)
     printf("  nActualTimespan = %ld before bounds\n", nActualTimespan);
     if(pindexLast->nHeight+1 > 10000)
     {
-        if (nActualTimespan < nTargetTimespan/4)
-            nActualTimespan = nTargetTimespan/4;
-        if (nActualTimespan > nTargetTimespan*4)
-            nActualTimespan = nTargetTimespan*4;
+        if (nActualTimespan < GetTargetTimespan()/4)
+            nActualTimespan = GetTargetTimespan()/4;
+        if (nActualTimespan > GetTargetTimespan()*4)
+            nActualTimespan = GetTargetTimespan()*4;
     }
     else if(pindexLast->nHeight+1 > 5000)
     {
-        if (nActualTimespan < nTargetTimespan/8)
-           nActualTimespan = nTargetTimespan/8;
-        if (nActualTimespan > nTargetTimespan*4)
-            nActualTimespan = nTargetTimespan*4;
+        if (nActualTimespan < GetTargetTimespan()/8)
+           nActualTimespan = GetTargetTimespan()/8;
+        if (nActualTimespan > GetTargetTimespan()*4)
+            nActualTimespan = GetTargetTimespan()*4;
     }
     else
     {
-        if (nActualTimespan < nTargetTimespan/16)
-            nActualTimespan = nTargetTimespan/16;
-        if (nActualTimespan > nTargetTimespan*4)
-            nActualTimespan = nTargetTimespan*4;
+        if (nActualTimespan < GetTargetTimespan()/16)
+            nActualTimespan = GetTargetTimespan()/16;
+        if (nActualTimespan > GetTargetTimespan()*4)
+            nActualTimespan = GetTargetTimespan()*4;
    }
 
     // Retarget
     CBigNum bnNew;
     bnNew.SetCompact(pindexLast->nBits);
     bnNew *= nActualTimespan;
-    bnNew /= nTargetTimespan;
+    bnNew /= GetTargetTimespan();
 
-    if (bnNew > bnProofOfWorkLimit)
-        bnNew = bnProofOfWorkLimit;
+    if (bnNew > GetWorkLimit())
+        bnNew = GetWorkLimit();
 
     /// debug print
     if (fDebug || !IsInitialBlockDownload())
     {
         printf("GetNextWorkRequired RETARGET\n");
-        printf("nTargetTimespan = %ld    nActualTimespan = %ld\n", nTargetTimespan, nActualTimespan);
+        printf("nTargetTimespan = %ld    nActualTimespan = %ld\n", GetTargetTimespan(), nActualTimespan);
         printf("Before: %08x  %s\n", pindexLast->nBits, CBigNum().SetCompact(pindexLast->nBits).getuint256().ToString().c_str());
         printf("After:  %08x  %s\n", bnNew.GetCompact(), bnNew.getuint256().ToString().c_str());
     }
@@ -2049,7 +2144,7 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, uint64_t Ta
     double		EventHorizonDeviationFast;
     double		EventHorizonDeviationSlow;
 
-    if (BlockLastSolved == NULL || BlockLastSolved->nHeight == 0 || (uint64_t)BlockLastSolved->nHeight < PastBlocksMin) { return bnProofOfWorkLimit.GetCompact(); }
+    if (BlockLastSolved == NULL || BlockLastSolved->nHeight == 0 || (uint64_t)BlockLastSolved->nHeight < PastBlocksMin) { return GetWorkLimit().GetCompact(); }
 
     int64_t LatestBlockTime = BlockLastSolved->GetBlockTime();
     for (unsigned int i = 1; BlockReading && BlockReading->nHeight > 0; i++) {
@@ -2090,7 +2185,10 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, uint64_t Ta
             bnNew *= PastRateActualSeconds;
             bnNew /= PastRateTargetSeconds;
     }
-    if (bnNew > bnProofOfWorkLimit) { bnNew = bnProofOfWorkLimit; }
+    if (bnNew > GetWorkLimit())
+    {
+            bnNew = GetWorkLimit();
+    }
 
     /// debug print
     if (fDebug || !IsInitialBlockDownload())
@@ -2106,20 +2204,33 @@ unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, uint64_t Ta
 
 unsigned int static GetNextWorkRequired_V2(const CBlockIndex* pindexLast)
 {
-        static const int64_t BlocksTargetSpacing = 1 * 60; // 1 minute
-        unsigned int         TimeDaySeconds      = 60 * 60 * 24;
+    int64_t	BlocksTargetSpacing			= 60; // 60 seconds
 
-        int64_t PastSecondsMin = TimeDaySeconds * 0.01;
-        int64_t PastSecondsMax = TimeDaySeconds * 0.14;
-        uint64_t PastBlocksMin = PastSecondsMin / BlocksTargetSpacing;
-        uint64_t PastBlocksMax = PastSecondsMax / BlocksTargetSpacing;
+    // Accelerate testnet past normal net
+    if (fTestNet && pindexLast->nHeight < 550000)
+    {
+        if (pindexLast->nHeight > 136167)
+        {
+            BlocksTargetSpacing = 30;
+        }
+        else
+        {
+            BlocksTargetSpacing = 1;
+        }
+    }
 
-        return KimotoGravityWell(pindexLast, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
+    unsigned int		TimeDaySeconds				= 60 * 60 * 24;
+    int64_t				PastSecondsMin				= TimeDaySeconds * 0.01;
+    int64_t				PastSecondsMax				= TimeDaySeconds * 0.14;
+    uint64_t				PastBlocksMin				= PastSecondsMin / BlocksTargetSpacing;
+    uint64_t				PastBlocksMax				= PastSecondsMax / BlocksTargetSpacing;
+
+    return KimotoGravityWell(pindexLast, BlocksTargetSpacing, PastBlocksMin, PastBlocksMax);
 }
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, bool fProofOfStake)
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, bool fProofOfStake, const CBlock *pblock)
 {
-    CBigNum bnTargetLimit = bnProofOfWorkLimit;
+    CBigNum bnTargetLimit = GetWorkLimit();
 
     if(fProofOfStake)
     {
@@ -2132,15 +2243,14 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, bool fProofOfSta
 
         int64_t nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
         if (nActualSpacing < 0)
-            nActualSpacing = nTargetSpacing;
+            nActualSpacing = GetTargetSpacing();
 
         // ppcoin: target change every block
         // ppcoin: retarget with exponential moving toward target spacing
         CBigNum bnNew;
         bnNew.SetCompact(pindexPrev->nBits);
-        int64_t nInterval = nTargetTimespan / nTargetSpacing;
-        bnNew *= ((nInterval - 1) * nTargetSpacing + nActualSpacing + nActualSpacing);
-        bnNew /= ((nInterval + 1) * nTargetSpacing);
+        bnNew *= ((GetInterval() - 1) * GetTargetSpacing() + nActualSpacing + nActualSpacing);
+        bnNew /= ((GetInterval() + 1) * GetTargetSpacing());
 
         if (bnNew <= 0 || bnNew > bnTargetLimit)
             bnNew = bnTargetLimit;
@@ -2157,7 +2267,7 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, bool fProofOfSta
     }
 
     if (DiffMode == 1)
-        return GetNextWorkRequired_V1(pindexLast);
+        return GetNextWorkRequired_V1(pindexLast, pblock);
 
     return GetNextWorkRequired_V2(pindexLast);
 }
@@ -2168,7 +2278,7 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits)
     bnTarget.SetCompact(nBits);
 
     // Check range
-    if (bnTarget <= 0 || bnTarget > bnProofOfWorkLimit)
+    if (bnTarget <= 0 || bnTarget > GetWorkLimit(0))
         return error("CheckProofOfWork() : nBits below minimum work");
 
     // Check proof of work matches claimed amount
@@ -3394,7 +3504,7 @@ bool CBlock::AcceptBlock()
         //fixme:LIGHTHYBRIDSECURITY
         if(currentClientMode == ClientFull || (currentClientMode == ClientHybrid && currentLoadState == LoadState_AcceptingNewBlocks))
         {
-            if (nBits != GetNextWorkRequired(pindexPrev, IsProofOfStake()))
+            if (nBits != GetNextWorkRequired(pindexPrev, IsProofOfStake(), this))
                 return DoS(100, error("AcceptBlock() : incorrect %s", IsProofOfWork() ? "proof-of-work" : "proof-of-stake"));
         }
 
@@ -3454,7 +3564,7 @@ bool CBlock::AcceptBlock()
         {
             // Enforce rule that the coinbase starts with serialized block height
             // Unfortunately there are bad version 2 blocks in Pandacoin blockchain (e.g. block 6)
-            if (nVersion >= 2 && nHeight > 1000)
+            if ( (nVersion > 2 || (!fTestNet && nVersion ==2) ) && nHeight > 1000)
             {
                 CScript expect = CScript() << nHeight;
                 if (vtx[0].vin[0].scriptSig.size() < expect.size() ||
@@ -3559,7 +3669,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
         if(currentLoadState != LoadState_SyncBlocksFromEpoch)
         {
             CBlockIndex* pcheckpoint = Checkpoints::GetLastSyncCheckpoint();
-            if (pcheckpoint && pblock->hashPrevBlock != hashBestChain && !Checkpoints::WantedByPendingSyncCheckpoint(hash))
+            if (pcheckpoint && (pcheckpoint->GetBlockHash() != hashGenesisBlock) && pblock->hashPrevBlock != hashBestChain && !Checkpoints::WantedByPendingSyncCheckpoint(hash))
             {
                 // Extra checks to prevent "fill up memory by spamming with bogus blocks"
                 int64_t deltaTime = pblock->GetBlockTime() - pcheckpoint->nTime;
@@ -3859,7 +3969,7 @@ bool CreateGenesisBlock(bool fAllowNew)
         block.nVersion = 1;
         block.nTime    = 1392488611;
         block.nBits    = 0x1e0ffff0;
-        block.nNonce   = !fTestNet ? 1541569 : 1541569;
+        block.nNonce   = 1541569;
 
         block.print();
         assert(block.hashMerkleRoot == uint256("0xfbc9541b2da3a32b93a2bc03feafb5b094abc7a080a37838127765df41dc65fa"));
@@ -3887,8 +3997,11 @@ bool LoadBlockIndex(bool fAllowNew)
 
     if (fTestNet)
     {
+        pchMessageStart[0] = 0xfc;
+        pchMessageStart[1] = 0xc1;
+        pchMessageStart[2] = 0xb7;
+        pchMessageStart[3] = 0xdc;
         bnTrustedModulus.SetHex("f0d14cf72623dacfe738d0892b599be0f31052239cddd95a3f25101c801dc990453b38c9434efe3f372db39a32c2bb44cbaea72d62c8931fa785b0ec44531308df3e46069be5573e49bb29f4d479bfc3d162f57a5965db03810be7636da265bfced9c01a6b0296c77910ebdc8016f70174f0f18a57b3b971ac43a934c6aedbc5c866764a3622b5b7e3f9832b8b3f133c849dbcc0396588abcd1e41048555746e4823fb8aba5b3d23692c6857fccce733d6bb6ec1d5ea0afafecea14a0f6f798b6b27f77dc989c557795cc39a0940ef6bb29a7fc84135193a55bcfc2f01dd73efad1b69f45a55198bd0e6bef4d338e452f6a420f1ae2b1167b923f76633ab6e55");
-        bnProofOfWorkLimit = bnProofOfWorkLimitTestNet;
         nStakeMinAge = 1 * 60;
         nCoinbaseMaturity = 5;
     }
@@ -5072,7 +5185,7 @@ bool ProcessMessages(CNode* pfrom)
     if (vRecv.empty())
         return true;
     if (fDebugNet)
-        printf("[%s] ProcessMessages(%ul bytes)\n", pfrom->addrName.c_str() , vRecv.size());
+        printf("[%s] ProcessMessages(%lu bytes)\n", pfrom->addrName.c_str() , vRecv.size());
 
     //
     // Message format

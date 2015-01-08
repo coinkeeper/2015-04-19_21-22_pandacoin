@@ -1,15 +1,14 @@
 TEMPLATE = app
 TARGET = pandacoin-qt
-VERSION = 3.0.1
+VERSION = 3.0.2
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
-
-greaterThan(QT_MAJOR_VERSION, 4) {
-    QT += widgets
-    DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
-}
+#QMAKE_CXXFLAGS += -std=c++11 # Enable support for c++11
+OBJECTS_DIR = build
+MOC_DIR = build
+UI_DIR = build
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -21,9 +20,26 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
-OBJECTS_DIR = build
-MOC_DIR = build
-UI_DIR = build
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT += widgets
+    DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
+}
+
+isEmpty($$DEP_DIR) {
+    DEP_DIR = deps
+}
+
+# Build our own boost so we can ensure c++11 support
+#isEmpty($$BOOST_INCLUDE_PATH) {
+#    boost.commands = cd $$DEP_DIR ; git clone https://github.com/boostorg/boost.git ; cd boost ; git checkout master; git pull origin ; git submodule init; git submodule update --init --remote --merge tools/build tools/inspect libs/intrusive libs/regex libs/assign libs/interprocess libs/unordered libs/algorithm libs/multi_index libs/signals2 libs/optional libs/tuple libs/foreach libs/variant libs/utility libs/tokenizer libs/math libs/container libs/exception libs/array libs/lexical_cast libs/concept_check libs/integer libs/numeric libs/function libs/io libs/date_time libs/range libs/smart_ptr libs/wave libs/thread libs/asio libs/bind libs/filesystem libs/iostreams libs/bind libs/spirit libs/random libs/system libs/core libs/config libs/atomic libs/chrono libs/program_options libs/predef libs/any libs/assert libs/mpl libs/preprocessor libs/type_traits libs/type_index libs/utility libs/ratio libs/functional libs/move libs/detail libs/iterator libs/static_assert libs/throw_exception; ./bootstrap.sh --prefix=out --with-libraries=thread,filesystem,iostreams,chrono,random,program_options,atomic,system,exception,regex cxxflags=-std=c++11 ; ./b2 --ignore-site-config cxxflags=-std=c++11 -d+2 ; ./b2 --ignore-site-config headers ; ./b2 --ignore-site-config install
+#    boost.target = $$DEP_DIR/boost/out/include/boost/filesystem.hpp
+#    boost.depends = FORCE
+#    PRE_TARGETDEPS += $$DEP_DIR/boost/out/include/boost/filesystem.hpp
+#    QMAKE_EXTRA_TARGETS += boost
+#    BOOST_INCLUDE_PATH = $$DEP_DIR/boost/out/include
+#    BOOST_LIB_PATH = $$DEP_DIR/boost/out/lib
+#}
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
@@ -36,15 +52,17 @@ contains(RELEASE, 1) {
 }
 
 !win32 {
-# for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
-QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
-QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
-# We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
-# This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
+    # for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
+    QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
+    QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
+    # We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
+    # This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
 }
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
-win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
-win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
+win32 {
+    QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
+    QMAKE_LFLAGS += -static-libgcc -static-libstdc++
+}
 
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
@@ -60,7 +78,8 @@ contains(USE_QRCODE, 1) {
 # miniupnpc (http://miniupnp.free.fr/files/) must be installed for support
 contains(USE_UPNP, -) {
     message(Building without UPNP support)
-} else {
+}
+else {
     message(Building with UPNP support)
     count(USE_UPNP, 0) {
         USE_UPNP=1
@@ -83,7 +102,8 @@ contains(USE_DBUS, 1) {
 #  or: qmake "USE_IPV6=-" (not supported)
 contains(USE_IPV6, -) {
     message(Building without IPv6 support)
-} else {
+}
+else {
     count(USE_IPV6, 0) {
         USE_IPV6=1
     }
@@ -96,7 +116,6 @@ contains(BITCOIN_NEED_QT_PLUGINS, 1) {
 }
 
 macx: {
-
     isEmpty(DEPSDIR) {
 
         check_dir = /usr/local/Cellar
@@ -110,11 +129,11 @@ macx: {
     }
 
     isEmpty(BOOST_LIB_PATH) {
-        BOOST_LIB_PATH = $$DEPSDIR/lib
+         BOOST_LIB_PATH = $$DEPSDIR/lib
     }
 
     isEmpty(BOOST_INCLUDE_PATH) {
-        BOOST_INCLUDE_PATH = $$DEPSDIR/include
+         BOOST_INCLUDE_PATH = $$DEPSDIR/include
     }
 
     isEmpty(BDB_LIB_PATH) {
@@ -163,11 +182,17 @@ SOURCES += src/txdb-leveldb.cpp \
     src/qt/transactionviewtable.cpp \
     src/qt/richtextdelegate.cpp \
     src/qt/richtextcombo.cpp \
-    src/qt/pandastyles.cpp
+    src/qt/pandastyles.cpp \
+    src/wallet_ismine.cpp \
+    src/amount.cpp \
+    src/random.cpp \
+    src/utiltime.cpp \
+    src/utilstrencodings.cpp
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a
-} else {
+}
+else {
     # make an educated guess about what the ranlib command is called
     isEmpty(QMAKE_RANLIB) {
         QMAKE_RANLIB = $$replace(QMAKE_STRIP, strip, ranlib)
@@ -319,7 +344,12 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/richtextdelegate.h \
     src/qt/richtextcombo.h \
     src/qt/pandastyles.h \
-    src/lrucache.h
+    src/lrucache.h \
+    src/wallet_ismine.h \
+    src/amount.h \
+    src/random.h \
+    src/utiltime.h \
+    src/utilstrencodings.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -429,9 +459,9 @@ FORMS += \
     src/qt/forms/sendcoinstargetwidget.ui
 
 contains(USE_QRCODE, 1) {
-HEADERS += src/qt/qrcodedialog.h
-SOURCES += src/qt/qrcodedialog.cpp
-FORMS += src/qt/forms/qrcodedialog.ui
+    HEADERS += src/qt/qrcodedialog.h
+    SOURCES += src/qt/qrcodedialog.cpp
+    FORMS += src/qt/forms/qrcodedialog.ui
 }
 
 CODECFORTR = UTF-8
@@ -469,6 +499,14 @@ isEmpty(BOOST_THREAD_LIB_SUFFIX) {
     else:BOOST_THREAD_LIB_SUFFIX = $$BOOST_LIB_SUFFIX
 }
 
+isEmpty(BOOST_LIB_PATH) {
+    macx:BOOST_LIB_PATH = /opt/local/lib
+}
+
+isEmpty(BOOST_INCLUDE_PATH) {
+    macx:BOOST_INCLUDE_PATH = /opt/local/include
+}
+
 isEmpty(BDB_LIB_PATH) {
     macx:BDB_LIB_PATH = /opt/local/lib/db60
 }
@@ -481,18 +519,11 @@ isEmpty(BDB_INCLUDE_PATH) {
     macx:BDB_INCLUDE_PATH = /opt/local/include/db60
 }
 
-isEmpty(BOOST_LIB_PATH) {
-    macx:BOOST_LIB_PATH = /opt/local/lib
-}
-
-isEmpty(BOOST_INCLUDE_PATH) {
-    macx:BOOST_INCLUDE_PATH = /opt/local/include
-}
-
 windows:DEFINES += WIN32
 windows:RC_FILE = src/qt/res/bitcoin-qt.rc
 
-windows:!contains(MINGW_THREAD_BUGFIX, 0) {
+windows:!contains(MINGW_THREAD_BUGFIX, 0)
+{
     # At least qmake's win32-g++-cross profile is missing the -lmingwthrd
     # thread-safety flag. GCC has -mthreads to enable this, but it doesn't
     # work with static linking. -lmingwthrd must come BEFORE -lmingw, so
@@ -510,11 +541,11 @@ windows:!contains(MINGW_THREAD_BUGFIX, 0) {
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH
-LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
+LIBS += $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB_PATH,,-L,) $$join(QRENCODE_LIB_PATH,,-L,)
 LIBS += -lssl -lcrypto -ldb_cxx$$BDB_LIB_SUFFIX
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
-LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
+LIBS += $$join(BOOST_LIB_PATH,,-L,) -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_THREAD_LIB_SUFFIX
 windows:LIBS += -lboost_chrono$$BOOST_LIB_SUFFIX
 
 contains(RELEASE, 1) {

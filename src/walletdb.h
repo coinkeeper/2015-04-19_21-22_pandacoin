@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2013 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #ifndef BITCOIN_WALLETDB_H
 #define BITCOIN_WALLETDB_H
@@ -11,6 +11,14 @@
 class CKeyPool;
 class CAccount;
 class CAccountingEntry;
+struct CBlockLocator;
+class CKeyPool;
+class CMasterKey;
+class CScript;
+class CWallet;
+class CWalletTx;
+class uint160;
+class uint256;
 
 /** Error statuses for the wallet database */
 enum DBErrors
@@ -54,7 +62,6 @@ public:
     }
 };
 
-
 /** Access to the wallet database (wallet.dat) */
 class CWalletDB : public CDB
 {
@@ -67,7 +74,6 @@ private:
     void operator=(const CWalletDB&);
 public:
     bool WriteName(const std::string& strAddress, const std::string& strName);
-
     bool EraseName(const std::string& strAddress);
 
     bool WriteTx(uint256 hash, const CWalletTx& wtx)

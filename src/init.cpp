@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include "txdb.h"
 #include "walletdb.h"
@@ -278,7 +278,7 @@ std::string HelpMessage()
         "  -socks=<n>             " + _("Select the version of socks proxy to use (4-5, default: 5)") + "\n" +
         "  -tor=<ip:port>         " + _("Use proxy to reach tor hidden services (default: same as -proxy)") + "\n"
         "  -dns                   " + _("Allow DNS lookups for -addnode, -seednode and -connect") + "\n" +
-        "  -port=<port>           " + _("Listen for connections on <port> (default: 15714 or testnet: 25714)") + "\n" +
+        "  -port=<port>           " + _("Listen for connections on <port> (default: 22445 or testnet: 44656)") + "\n" +
         "  -maxconnections=<n>    " + _("Maintain at most <n> connections to peers (default: 125)") + "\n" +
         "  -addnode=<ip>          " + _("Add a node to connect to and attempt to keep the connection open") + "\n" +
         "  -connect=<ip>          " + _("Connect only to the specified node(s)") + "\n" +
@@ -341,7 +341,7 @@ std::string HelpMessage()
         "  -checklevel=<n>        " + _("How thorough the block verification is (0-6, default: 1)") + "\n" +
         "  -loadblock=<file>      " + _("Imports blocks from external blk000?.dat file") + "\n" +
         "  -qm=<file>             " + _("Use a specific .qm (qt linguist) localisation file from the absolute path provided, instead of one based on -lang or the system locale.") + "\n" +
-        "  -clientMode=[mode]     " + _("Override the client mode that is used, valid values are [full, hybrid, light], default is hybrid for ui client and full for daemon client.") + "\n" +
+        "  -clientmode=[mode]     " + _("Override the client mode that is used, valid values are [full, hybrid, light], default is hybrid for ui client and full for daemon client.") + "\n" +
 
         "\n" + _("Block creation options:") + "\n" +
         "  -blockminsize=<n>      "   + _("Set minimum block size in bytes (default: 0)") + "\n" +
@@ -431,9 +431,6 @@ bool AppInit2(OptionsModel& optionsModel)
     nDerivationMethodIndex = 0;
 
     fTestNet = GetBoolArg("-testnet");
-    if (fTestNet) {
-        SoftSetBoolArg("-irc", true);
-    }
 
     if (mapArgs.count("-bind")) {
         // when specifying an explicit binding address, you want to listen on it

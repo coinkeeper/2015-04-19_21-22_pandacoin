@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "walletmodel.h"
 #include "wallet.h"
 #include "walletdb.h" // for BackupWallet
@@ -521,10 +525,10 @@ WalletModel::SendCoinsReturn WalletModel::sendCoins(const std::vector<SendCoinsR
         {
             LOCK(wallet->cs_wallet);
 
-            std::map<CTxDestination, std::string>::iterator mi = wallet->mapAddressBook.find(dest);
+            std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(dest);
 
             // Check if we have a new address or an updated label
-            if (mi == wallet->mapAddressBook.end() || mi->second != strLabel)
+            if (mi == wallet->mapAddressBook.end() || mi->second.name != strLabel)
             {
                 wallet->SetAddressBookName(dest, strLabel);
             }

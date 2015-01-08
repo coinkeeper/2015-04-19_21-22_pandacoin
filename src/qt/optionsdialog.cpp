@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2013 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "optionsdialog.h"
 #include "ui_optionsdialog.h"
 
@@ -261,4 +265,20 @@ bool OptionsDialog::eventFilter(QObject *object, QEvent *event)
         }
     }
     return QDialog::eventFilter(object, event);
+}
+
+void OptionsDialog::on_buttonResetBlockchain_clicked()
+{
+    QMessageBox::StandardButton retval = QMessageBox::question(this, tr("Confirm Blockchain reset"), tr("Are you sure you want to reset your Blockchain? This will cause the entire Blockchain to download again."), QMessageBox::Yes|QMessageBox::Cancel, QMessageBox::Cancel);
+    if(retval == QMessageBox::Yes)
+    {
+        ResetBlockchain();
+        ResetPeers();
+    }
+    hide();
+}
+
+void OptionsDialog::on_buttonResetPeers_clicked()
+{
+    ResetPeers();
 }

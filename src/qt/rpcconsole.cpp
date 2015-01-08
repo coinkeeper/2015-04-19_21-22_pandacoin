@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "rpcconsole.h"
 #include "ui_rpcconsole.h"
 
@@ -20,7 +24,6 @@
 
 const int CONSOLE_SCROLLBACK = 50;
 const int CONSOLE_HISTORY = 50;
-
 const QSize ICON_SIZE(24, 24);
 
 const struct {
@@ -166,7 +169,7 @@ void RPCExecutor::request(const QString &command)
 
         emit reply(RPCConsole::CMD_REPLY, QString::fromStdString(strPrint));
     }
-    catch (json_spirit::Object& objError)
+    catch (const json_spirit::Object& objError)
     {
         try // Nice formatting for standard-format error
         {
@@ -174,12 +177,12 @@ void RPCExecutor::request(const QString &command)
             std::string message = find_value(objError, "message").get_str();
             emit reply(RPCConsole::CMD_ERROR, QString::fromStdString(message) + " (code " + QString::number(code) + ")");
         }
-        catch(std::runtime_error &) // raised when converting to invalid type, i.e. missing code or message
+        catch (const std::runtime_error&) // raised when converting to invalid type, i.e. missing code or message
         {   // Show raw JSON object
             emit reply(RPCConsole::CMD_ERROR, QString::fromStdString(write_string(json_spirit::Value(objError), false)));
         }
     }
-    catch (std::exception& e)
+    catch (const std::exception& e)
     {
         emit reply(RPCConsole::CMD_ERROR, QString("Error: ") + QString::fromStdString(e.what()));
     }
@@ -388,7 +391,7 @@ void RPCConsole::browseHistory(int offset)
 
 void RPCConsole::startExecutor()
 {
-    QThread* thread = new QThread;
+    QThread *thread = new QThread;
     RPCExecutor *executor = new RPCExecutor();
     executor->moveToThread(thread);
 
@@ -398,6 +401,7 @@ void RPCConsole::startExecutor()
     connect(executor, SIGNAL(reply(int,QString)), this, SLOT(message(int,QString)));
     // Requests from this object must go to executor
     connect(this, SIGNAL(cmdRequest(QString)), executor, SLOT(request(QString)));
+
     // On stopExecutor signal
     // - queue executor for deletion (in execution thread)
     // - quit the Qt event loop in the execution thread

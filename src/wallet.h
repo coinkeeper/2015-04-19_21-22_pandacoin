@@ -1,7 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef BITCOIN_WALLET_H
 #define BITCOIN_WALLET_H
 
@@ -17,6 +18,8 @@
 #include "ui_interface.h"
 #include "util.h"
 #include "walletdb.h"
+#include "wallet_ismine.h"
+#include "utilstrencodings.h"
 
 extern bool fWalletUnlockStakingOnly;
 extern bool fConfChange;
@@ -64,6 +67,21 @@ public:
     )
 };
 
+/** Address book data */
+class CAddressBookData
+{
+public:
+    std::string name;
+    std::string purpose;
+
+    CAddressBookData()
+    {
+        purpose = "unknown";
+    }
+
+    typedef std::map<std::string, std::string> StringMap;
+    StringMap destdata;
+};
 
 /** A CWallet is an extension of a keystore, which also maintains a set of transactions and balances,
  * and provides the ability to create new transactions.
@@ -122,7 +140,7 @@ public:
     int64_t nOrderPosNext;
     std::map<uint256, int> mapRequestCount;
 
-    std::map<CTxDestination, std::string> mapAddressBook;
+    std::map<CTxDestination, CAddressBookData> mapAddressBook;
 
     CPubKey vchDefaultKey;
     int64_t nTimeFirstKey;
@@ -222,16 +240,26 @@ public:
         return ::IsMine(*this, CBitcoinAddress(address).Get());
     }
     bool IsMine(const CTxIn& txin) const;
+    CAmount GetDebit(const CTxIn& txin, const isminefilter& filter) const;
     int64_t GetDebit(const CTxIn& txin) const;
-    bool IsMine(const CTxOut& txout) const
+    isminetype IsMine(const CTxOut& txout) const
     {
-        return ::IsMine(*this, txout.scriptPubKey);
+        if(::IsMine(*this, txout.scriptPubKey)==true)
+            return ISMINE_SPENDABLE;
+        else
+            return ISMINE_NO;
     }
     int64_t GetCredit(const CTxOut& txout) const
     {
         if (!MoneyRange(txout.nValue))
             throw std::runtime_error("CWallet::GetCredit() : value out of range");
         return (IsMine(txout) ? txout.nValue : 0);
+    }
+    CAmount GetCredit(const CTxOut& txout, const isminefilter& filter) const
+    {
+        if (!MoneyRange(txout.nValue))
+            throw std::runtime_error("CWallet::GetCredit() : value out of range");
+        return ((IsMine(txout) & filter) ? txout.nValue : 0);
     }
     bool IsChange(const CTxOut& txout) const;
     int64_t GetChange(const CTxOut& txout) const
@@ -250,6 +278,28 @@ public:
     bool IsFromMe(const CTransaction& tx) const
     {
         return (GetDebit(tx) > 0);
+    }
+    CAmount GetDebit(const CTransaction& tx, const isminefilter& filter) const
+    {
+        CAmount nDebit = 0;
+        BOOST_FOREACH(const CTxIn& txin, tx.vin)
+        {
+            nDebit += GetDebit(txin, filter);
+            if (!MoneyRange(nDebit))
+                throw std::runtime_error("CWallet::GetDebit() : value out of range");
+        }
+        return nDebit;
+    }
+    CAmount GetCredit(const CTransaction& tx, const isminefilter& filter) const
+    {
+        CAmount nCredit = 0;
+        BOOST_FOREACH(const CTxOut& txout, tx.vout)
+        {
+            nCredit += GetCredit(txout, filter);
+            if (!MoneyRange(nCredit))
+                throw std::runtime_error("CWallet::GetCredit() : value out of range");
+        }
+        return nCredit;
     }
     int64_t GetDebit(const CTransaction& tx) const
     {
@@ -563,6 +613,72 @@ public:
         MarkDirty();
     }
 
+    //! filter decides which addresses will count towards the debit
+    CAmount GetDebit(const isminefilter& filter) const
+    {
+        if (vin.empty())
+            return 0;
+
+        CAmount debit = 0;
+        if(filter & ISMINE_SPENDABLE)
+        {
+            if (fDebitCached)
+                debit += nDebitCached;
+            else
+            {
+                nDebitCached = pwallet->GetDebit(*this, ISMINE_SPENDABLE);
+                fDebitCached = true;
+                debit += nDebitCached;
+            }
+        }
+        /*if(filter & ISMINE_WATCH_ONLY)
+        {
+            if(fWatchDebitCached)
+                debit += nWatchDebitCached;
+            else
+            {
+                nWatchDebitCached = pwallet->GetDebit(*this, ISMINE_WATCH_ONLY);
+                fWatchDebitCached = true;
+                debit += nWatchDebitCached;
+            }
+        }*/
+        return debit;
+    }
+
+    CAmount GetCredit(const isminefilter& filter) const
+    {
+        // Must wait until coinbase is safely deep enough in the chain before valuing it
+        if (IsCoinBase() && GetBlocksToMaturity() > 0)
+            return 0;
+
+        int64_t credit = 0;
+        if (filter & ISMINE_SPENDABLE)
+        {
+            // GetBalance can assume transactions in mapWallet won't change
+            if (fCreditCached)
+                credit += nCreditCached;
+            else
+            {
+                nCreditCached = pwallet->GetCredit(*this, ISMINE_SPENDABLE);
+                fCreditCached = true;
+                credit += nCreditCached;
+            }
+        }
+        /*if (filter & ISMINE_WATCH_ONLY)
+        {
+            if (fWatchCreditCached)
+                credit += nWatchCreditCached;
+            else
+            {
+                nWatchCreditCached = pwallet->GetCredit(*this, ISMINE_WATCH_ONLY);
+                fWatchCreditCached = true;
+                credit += nWatchCreditCached;
+            }
+        }*/
+        return credit;
+    }
+
+
     void MarkSpent(unsigned int nOut)
     {
         if (nOut >= vout.size())
@@ -669,6 +785,9 @@ public:
         fChangeCached = true;
         return nChangeCached;
     }
+
+    void GetAmounts(std::list<COutputEntry>& listReceived,
+                    std::list<COutputEntry>& listSent, CAmount& nFee, std::string& strSentAccount, const isminefilter& filter) const;
 
     void GetAmounts(std::list<std::pair<CTxDestination, int64_t> >& listReceived,
                     std::list<std::pair<CTxDestination, int64_t> >& listSent, int64_t& nFee, std::string& strSentAccount) const;
@@ -915,4 +1034,4 @@ private:
 
 bool GetWalletFile(CWallet* pwallet, std::string &strWalletFileOut);
 
-#endif
+#endif // BITCOIN_WALLET_H

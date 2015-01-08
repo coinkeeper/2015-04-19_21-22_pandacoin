@@ -1,3 +1,30 @@
+3.0.2
+
+
+Initial translation of UI into zh_TW (Traditional Chinese).
+New buttons to reset peers and blockchains from within settings dialog (Advanced tab) - this will make assisting anyone who has issues much smoother.
+Change various asserts for bad blockchain; which forced the application to close; to instead show a clear warning dialog and then automatically reset the blockchain and resync, this is much more user friendly, although obviously a last resort as focus is still on avoiding such error conditions to begin with.
+Initial support for building using c++11 support, however commented out for now will some issues are ironed out. NB! If you are building from source with c++11 enable you will need to use a version of boost with c++11 support enabled as well.
+Change alert system so that there are no popups for empty alerts.
+Silence the 3.0.0 upgrade alert.
+Add new RPC/console command 'renameaccount' to change the name of an account in a proper way, without any negeative side effects (creating new accounts) that 'setaccount' has - 'setaccount' is kept for backwards compatibility but 'renameaccount' should be preffered.
+Fix some minor issues with renaming accounts that may have caused some RPC commands to work in correctly in some cases.
+Improve 'listaccounts' RPC/console command so that balances are correct in more instances, e.g. if payments have been made via UI and not just via 'sendfrom' command.
+Change 'sendfrom' and 'sendmany' RPC/console commands so that they can work on either address or account names.
+Change 'sendfrom' and 'sendmany' RPC/console commands so that they can take a blank 'from' account, in which case they will draw funds from all accounts in the walley as needed.
+Change 'sendalert' RPC command so that it takes an optional array of 'subversions' as the final paramater - e.g. ["/Pandoshi:3.0.0/","/Pandoshi:2.6.5/"] - this way we can target specific versions in future if the need arises.
+Fix some errors in --help text (Incorrect default port was showing).
+Merge in some changes that will allow fow much better/clearer help text within RPC/command window.
+Merge in updated and improved help/description text for most commands in RPC/command window.
+Merge in some changes that allow accounts to have more information associated with them than just a name, not currently fully exposed by client but paves the way for future development.
+Merge in some changes that allow for 'watch only' accounts - not yet fully enabled but paves the way to enable this in a future release.
+Merge in improved logging functions, that will allow for better debug logging and fix some rare logging related issues when closing client.
+Various other minor code refactoring/improvements.
+Merge in some minor security improvements - wipe RNG number data from memory immediately in some instances where it was not.
+Merge in random number improvement that improves coin selection when making payments.
+Various minor code changes to get a new testnet running, testnet is configured in such a way that it will overtake and stay ahead of main chain to help spot any future issues in advance.
+Turn IRC node discovery off by default for testnet.
+
 3.0.1
 
 Fix an issue that was leading to small font sizes on some OSX systems.

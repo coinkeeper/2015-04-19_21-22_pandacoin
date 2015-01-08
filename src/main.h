@@ -1,7 +1,8 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef BITCOIN_MAIN_H
 #define BITCOIN_MAIN_H
 
@@ -13,6 +14,7 @@
 #include "zerocoin/Zerocoin.h"
 
 #include <list>
+#include "amount.h"
 
 class CWallet;
 class CBlock;
@@ -41,9 +43,7 @@ static const int64_t MIN_TX_FEE = 100000000;
 static const int64_t MIN_RELAY_TX_FEE = MIN_TX_FEE;
 static const int64_t DUST_SOFT_LIMIT = 100000000;
 static const int64_t DUST_HARD_LIMIT = 1000000;
-static const int64_t MAX_MONEY = 50000000000 * COIN;
 static const int64_t COIN_YEAR_REWARD = 2.5 * CENT;
-inline bool MoneyRange(int64_t nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
 static const unsigned int LOCKTIME_THRESHOLD = 500000000; // Tue Nov  5 00:53:20 1985 UTC
 static const unsigned int MAX_BLOCKS_PER_INV = 500;
 static const unsigned int MAX_HEADERS_PER_REQUEST = 2000;
@@ -66,7 +66,7 @@ extern CCriticalSection cs_main;
 extern std::map<uint256, CBlockIndex*> mapBlockIndex;
 extern std::set<std::pair<COutPoint, unsigned int> > setStakeSeen;
 extern CBlockIndex* pindexGenesisBlock;
-extern unsigned int nTargetSpacing;
+extern int64_t GetTargetSpacing(int nHeight=-1);
 extern unsigned int nStakeMinAge;
 extern unsigned int nStakeMaxAge;
 extern unsigned int nNodeLifespan;
@@ -126,7 +126,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle);
 bool LoadExternalBlockFile(FILE* fileIn);
 
 bool CheckProofOfWork(uint256 hash, unsigned int nBits);
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, bool fProofOfStake);
+unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, bool fProofOfStake, const CBlock *pblock);
 int64_t GetProofOfWorkReward(int nHeight, int64_t nFees, uint256 prevHash);
 int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees);
 unsigned int ComputeMinWork(unsigned int nBase, int64_t nTime);
@@ -174,6 +174,10 @@ enum ClientMode
 };
 
 void TransitionClientMode(ClientMode oldMode, ClientMode newMode);
+
+void ResetBlockchain();
+void ResetPeers();
+void ShowWarningAndResetBlockchain(string strMessage);
 
 // What mode the client is in i.e. Is it in light or full mode?
 extern ClientMode currentClientMode;
@@ -783,6 +787,12 @@ protected:
 
 
 
+struct COutputEntry
+{
+    CTxDestination destination;
+    CAmount amount;
+    int vout;
+};
 
 
 /** A transaction with a merkle branch linking it to the block chain. */
@@ -1529,15 +1539,15 @@ public:
 
     std::string ToString() const
     {
-        return strprintf("CBlockIndex(nprev=%p, pnext=%p, nFile=%u, nBlockPos=%-6d nHeight=%d, nMint=%s, nMoneySupply=%s, nFlags=(%s)(%d)(%s), nStakeModifier=%016"PRIx64", nStakeModifierChecksum=%08x, hashProof=%s, prevoutStake=(%s), nStakeTime=%d merkle=%s, hashBlock=%s)",
-            pprev, pnext, nFile, nBlockPos, nHeight,
-            FormatMoney(nMint).c_str(), FormatMoney(nMoneySupply).c_str(),
+        std::string ret = strprintf("CBlockIndex(nprev=%p, pnext=%p, nFile=%u, nBlockPos=%-6d nHeight=%d, nMint=%s, nMoneySupply=%s,",pprev, pnext, nFile, nBlockPos, nHeight, FormatMoney(nMint).c_str(), FormatMoney(nMoneySupply).c_str());
+        ret += strprintf(" nFlags=(%s)(%d)(%s), nStakeModifier=%016"PRIx64", nStakeModifierChecksum=%08x, hashProof=%s, prevoutStake=(%s), nStakeTime=%d merkle=%s, hashBlock=%s)",
             GeneratedStakeModifier() ? "MOD" : "-", GetStakeEntropyBit(), IsProofOfStake()? "PoS" : "PoW",
-            nStakeModifier, nStakeModifierChecksum, 
+            nStakeModifier, nStakeModifierChecksum,
             hashProof.ToString().c_str(),
             prevoutStake.ToString().c_str(), nStakeTime,
             hashMerkleRoot.ToString().c_str(),
             GetBlockHash().ToString().c_str());
+        return ret;
     }
 
     void print() const

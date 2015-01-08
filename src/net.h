@@ -1,13 +1,14 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef BITCOIN_NET_H
 #define BITCOIN_NET_H
 
 #include <deque>
-#include <boost/array.hpp>
 #include <boost/foreach.hpp>
+#include <boost/array.hpp>
 #include <openssl/rand.h>
 
 #ifndef WIN32
@@ -18,6 +19,9 @@
 #include "netbase.h"
 #include "protocol.h"
 #include "addrman.h"
+#include "random.h"
+#include "utiltime.h"
+#include "utilstrencodings.h"
 
 class CRequestTracker;
 class CNode;
@@ -638,7 +642,8 @@ public:
     // dangerous, because it can cause a network split
     // between nodes running old code and nodes running
     // new code.
-    static void ClearBanned(); // needed for unit testing
+    static void ClearBanned();
+    void ClearMisbehaving();
     static bool IsBanned(CNetAddr ip);
     bool Misbehaving(int howmuch); // 1 == a little, 100 == a lot
     void copyStats(CNodeStats &stats);
