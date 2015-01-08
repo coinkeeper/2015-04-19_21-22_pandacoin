@@ -12,6 +12,7 @@
 #include "guiconstants.h"
 #include "ui_interface.h"
 #include "util.h"
+#include "utiltime.h" //For MilliSleep
 
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>

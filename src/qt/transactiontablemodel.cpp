@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "transactiontablemodel.h"
 #include "guiutil.h"
 #include "transactionrecord.h"

@@ -350,9 +350,9 @@ void AccountPage::updateHeaderWidths()
     if(countu<2)
     {
         ++countu;
-        int balanceWidth = ui->transaction_table->getBalanceColumnWidth();
-        int amountWidth = ui->transaction_table->getAmountColumnWidth();
-        int accountWidth = ui->transaction_table->getAccountColumnWidth();
+        //int balanceWidth = ui->transaction_table->getBalanceColumnWidth();
+        //int amountWidth = ui->transaction_table->getAmountColumnWidth();
+        //int accountWidth = ui->transaction_table->getAccountColumnWidth();
         //ui->account_summary_header->setColumnWidths(accountWidth, amountWidth, balanceWidth);
     }
 }

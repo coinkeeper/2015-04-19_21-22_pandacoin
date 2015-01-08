@@ -45,6 +45,10 @@ private slots:
     void updateDisplayUnit();
     void handleProxyIpValid(QValidatedLineEdit *object, bool fState);
 
+    void on_buttonResetBlockchain_clicked();
+
+    void on_buttonResetPeers_clicked();
+
 signals:
     void proxyIpValid(QValidatedLineEdit *object, bool fValid);
 

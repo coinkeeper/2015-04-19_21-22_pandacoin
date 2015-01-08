@@ -1,14 +1,16 @@
-// Copyright (c) 2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2012 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #ifndef BITCOIN_MRUSET_H
 #define BITCOIN_MRUSET_H
 
-#include <set>
 #include <deque>
+#include <set>
 
 /** STL-like set container that only keeps the most recent N elements. */
-template <typename T> class mruset
+template <typename T>
+class mruset
 {
 public:
     typedef T key_type;

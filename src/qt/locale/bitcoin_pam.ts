@@ -878,7 +878,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+235"/>
+        <location line="+240"/>
         <location line="+15"/>
         <source>URI can not be parsed! This can be caused by an invalid PandaBank address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
@@ -889,7 +889,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-1040"/>
+        <location line="-1045"/>
         <source>&amp;About PandaBank</source>
         <translation type="unfinished"></translation>
     </message>
@@ -998,7 +998,7 @@ Ing produktung ini atin yang makayabeng software a gewa dareng OpenSSL Project p
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+64"/>
         <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1127,7 +1127,7 @@ Activate PandaBank &apos;Lite&apos;?</source>
         <translation>Maka-&lt;b&gt;encrypt&lt;/b&gt; ya ing wallet at kasalukuyan yang maka-&lt;b&gt;unlocked&lt;/b&gt;</translation>
     </message>
     <message>
-        <location line="-558"/>
+        <location line="-563"/>
         <source>%1 active %2 to PandaBank network</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1281,49 +1281,49 @@ Activate PandaBank &apos;Lite&apos;?</source>
     </message>
     <message>
         <location line="-12"/>
-        <location line="+449"/>
+        <location line="+454"/>
         <source>second</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-454"/>
+        <location line="+454"/>
         <source>seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-445"/>
-        <location line="+449"/>
+        <location line="-450"/>
+        <location line="+454"/>
         <source>minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-454"/>
+        <location line="+454"/>
         <source>minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-445"/>
-        <location line="+449"/>
+        <location line="-450"/>
+        <location line="+454"/>
         <source>hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-454"/>
+        <location line="+454"/>
         <source>hours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-445"/>
-        <location line="+449"/>
+        <location line="-450"/>
+        <location line="+454"/>
         <source>day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-454"/>
+        <location line="+454"/>
         <source>days</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1750,7 +1750,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+641"/>
+        <location filename="../guiutil.cpp" line="+655"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
         <translation type="unfinished"></translation>
@@ -2030,7 +2030,22 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+21"/>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Reset Blockchain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Reset Peers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+86"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -2065,6 +2080,16 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+29"/>
         <source>The supplied proxy address is invalid.</source>
         <translation>Ing milageng proxy address eya katanggap-tanggap.</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Confirm Blockchain reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Are you sure you want to reset your Blockchain? This will cause the entire Blockchain to download again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2223,7 +2248,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../guiutil.cpp" line="-555"/>
+        <location filename="../guiutil.cpp" line="-569"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2245,9 +2270,11 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+63"/>
         <location line="+12"/>
-        <location line="+12"/>
-        <location line="+12"/>
-        <location line="+12"/>
+        <location line="+14"/>
+        <location line="+4"/>
+        <location line="+15"/>
+        <location line="+4"/>
+        <location line="+13"/>
         <location line="+12"/>
         <location line="+12"/>
         <location line="+12"/>
@@ -2255,7 +2282,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished">Magpadalang Barya</translation>
     </message>
     <message>
-        <location line="-84"/>
+        <location line="-98"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation type="unfinished">Ing address na ning tumanggap ali ya katanggap-tanggap, maliari pung pakilaue pasibayu.</translation>
     </message>
@@ -2265,17 +2292,27 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished">Ing alaga na ning bayaran dapat mung mas matas ya king 0.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+14"/>
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">Ing alaga mipasobra ya king kekang balanse.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+4"/>
+        <source>The amount exceeds your available balance, some of your Pandacoins are currently being used to earn you interest.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
         <translation type="unfinished">Ing kabuuan mipasobra ya king kekang balanse istung inabe ya ing %1 a bayad king transaksion </translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+4"/>
+        <source>The amount exceeds your available balance when the %1 transaction fee is included, some of your Pandacoins are currently being used to earn you interest.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
         <translation type="unfinished">Atin meakit a milupang address, maliari kamung magpadalang misan king metung a address king misan a pamagpadalang transaksion.</translation>
     </message>
@@ -2302,6 +2339,15 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../../init.cpp" line="+849"/>
         <source>My account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../main.cpp" line="+928"/>
+        <source>Sync error encountered: 
+%s
+
+The most likely cause of this error is a problem with your local blockchain, so the blockchain will now reset itself and sync again.
+Should you encounter this error repeatedly please seek assistance.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2380,7 +2426,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location filename="../rpcconsole.cpp" line="+348"/>
+        <location filename="../rpcconsole.cpp" line="+347"/>
         <source>N/A</source>
         <translation>N/A</translation>
     </message>
@@ -2773,7 +2819,20 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="+273"/>
+        <location line="+115"/>
+        <location line="+46"/>
+        <source>No from account selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-46"/>
+        <location line="+46"/>
+        <source>You have not selected an account from which to make the payment.
+Please select the &quot;from&quot; address at the top of this page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+114"/>
         <source>Search your accounts list...</source>
         <translation type="unfinished"></translation>
     </message>

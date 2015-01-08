@@ -1,6 +1,6 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "wallet.h"
@@ -10,6 +10,8 @@
 #include "init.h"
 #include "base58.h"
 #include "qt/guiutil.h"
+#include "wallet_ismine.h"
+#include "amount.h"
 
 using namespace json_spirit;
 using namespace std;
@@ -32,9 +34,18 @@ extern void TxToJSON(const CTransaction& tx, const uint256 hashBlock, json_spiri
 
 std::string HelpRequiringPassphrase()
 {
-    return pwalletMain->IsCrypted()
-        ? "\nrequires wallet passphrase to be set with walletpassphrase first"
+    return pwalletMain && pwalletMain->IsCrypted()
+        ? "\nRequires wallet passphrase to be set with walletpassphrase call."
         : "";
+}
+
+std::string HelpExampleCli(string methodname, string args){
+    return "> pandacoin-cli " + methodname + " " + args + "\n";
+}
+
+std::string HelpExampleRpc(string methodname, string args){
+    return "> curl --user myusername --data-binary '{\"jsonrpc\": \"1.0\", \"id\":\"curltest\", "
+        "\"method\": \"" + methodname + "\", \"params\": [" + args + "] }' -H 'content-type: text/plain;' http://127.0.0.1:8332/\n";
 }
 
 void EnsureWalletIsUnlocked()
@@ -140,10 +151,20 @@ Value getnewaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() > 1)
         throw runtime_error(
-            "getnewaddress [account]\n"
-            "Returns a new Pandacoin address for receiving payments.  "
-            "If [account] is specified (recommended), it is added to the address book "
-            "so payments received with the address will be credited to [account].");
+            "getnewaddress ( \"account\" )\n"
+            "\nReturns a new Pandacoin address for receiving payments.\n"
+            "If 'account' is specified (recommended), it is added to the address book \n"
+            "so payments received with the address will be credited to 'account'.\n"
+            "\nArguments:\n"
+            "1. \"account\"        (string, optional) The account name for the address to be linked to. if not provided, the default account \"\" is used. It can also be set to the empty string \"\" to represent the default account. The account does not need to exist, it will be created if there is no account by the given name.\n"
+            "\nResult:\n"
+            "\"pandacoinaddress\"    (string) The new Pandacoin address\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getnewaddress", "")
+            + HelpExampleCli("getnewaddress", "\"\"")
+            + HelpExampleCli("getnewaddress", "\"myaccount\"")
+            + HelpExampleRpc("getnewaddress", "\"myaccount\"")
+        );
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount;
@@ -207,8 +228,18 @@ Value getaccountaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "getaccountaddress <account>\n"
-            "Returns the current Pandacoin address for receiving payments to this account.");
+            "getaccountaddress \"account\"\n"
+            "\nReturns the current Pandacoin address for receiving payments to this account.\n"
+            "\nArguments:\n"
+            "1. \"account\"       (string, required) The account name for the address. It can also be set to the empty string \"\" to represent the default account. The account does not need to exist, it will be created and a new address created  if there is no account by the given name.\n"
+            "\nResult:\n"
+            "\"pandacoinaddress\"   (string) The account pandacoin address\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getaccountaddress", "")
+            + HelpExampleCli("getaccountaddress", "\"\"")
+            + HelpExampleCli("getaccountaddress", "\"myaccount\"")
+            + HelpExampleRpc("getaccountaddress", "\"myaccount\"")
+        );
 
     // Parse the account first so we don't generate a key if there's an error
     string strAccount = AccountFromValue(params[0]);
@@ -241,7 +272,7 @@ Value setaccount(const Array& params, bool fHelp)
     // Detect when changing the account of an address that is the 'unused current key' of another account:
     if (pwalletMain->mapAddressBook.count(address.Get()))
     {
-        string strOldAccount = pwalletMain->mapAddressBook[address.Get()];
+        string strOldAccount = pwalletMain->mapAddressBook[address.Get()].name;
         if (address == GetAccountAddress(strOldAccount))
             GetAccountAddress(strOldAccount, true);
     }
@@ -252,21 +283,50 @@ Value setaccount(const Array& params, bool fHelp)
 }
 
 
+Value renameaccount(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() < 1 || params.size() > 2)
+        throw runtime_error(
+            "renameaccount <address> <account>\n"
+            "Renames the account associated with the given address.");
+
+    CBitcoinAddress address(params[0].get_str());
+    if (!address.IsValid())
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid address");
+
+    string strNewAccountName;
+    if (params.size() > 1)
+        strNewAccountName = params[1].get_str();
+
+    if (!RenameAccount(address, strNewAccountName))
+        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Address not in wallet");
+
+    return Value::null;
+}
+
 Value getaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "getaccount <pandacoinaddress>\n"
-            "Returns the account associated with the given address.");
+            "getaccount \"pandacoinaddress\"\n"
+            "\nReturns the account associated with the given address.\n"
+            "\nArguments:\n"
+            "1. \"pandacoinaddress\"  (string, required) The pandacoin address for account lookup.\n"
+            "\nResult:\n"
+            "\"accountname\"        (string) the account address\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\"")
+            + HelpExampleRpc("getaccount", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\"")
+        );
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
         throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid Pandacoin address");
 
     string strAccount;
-    map<CTxDestination, string>::iterator mi = pwalletMain->mapAddressBook.find(address.Get());
-    if (mi != pwalletMain->mapAddressBook.end() && !(*mi).second.empty())
-        strAccount = (*mi).second;
+    map<CTxDestination, CAddressBookData>::iterator mi = pwalletMain->mapAddressBook.find(address.Get());
+    if (mi != pwalletMain->mapAddressBook.end() && !(*mi).second.name.empty())
+        strAccount = (*mi).second.name;
     return strAccount;
 }
 
@@ -275,17 +335,28 @@ Value getaddressesbyaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 1)
         throw runtime_error(
-            "getaddressesbyaccount <account>\n"
-            "Returns the list of addresses for the given account.");
+            "getaddressesbyaccount \"account\"\n"
+            "\nReturns the list of addresses for the given account.\n"
+            "\nArguments:\n"
+            "1. \"account\"  (string, required) The account name.\n"
+            "\nResult:\n"
+            "[                     (json array of string)\n"
+            "  \"bitcoinaddress\"  (string) a bitcoin address associated with the given account\n"
+            "  ,...\n"
+            "]\n"
+            "\nExamples:\n"
+            + HelpExampleCli("getaddressesbyaccount", "\"tabby\"")
+            + HelpExampleRpc("getaddressesbyaccount", "\"tabby\"")
+        );
 
     string strAccount = AccountFromValue(params[0]);
 
     // Find all addresses that have the given account
     Array ret;
-    BOOST_FOREACH(const PAIRTYPE(CBitcoinAddress, string)& item, pwalletMain->mapAddressBook)
+    BOOST_FOREACH(const PAIRTYPE(CBitcoinAddress, CAddressBookData)& item, pwalletMain->mapAddressBook)
     {
         const CBitcoinAddress& address = item.first;
-        const string& strName = item.second;
+        const string& strName = item.second.name;
         if (strName == strAccount)
             ret.push_back(address.ToString());
     }
@@ -296,9 +367,24 @@ Value sendtoaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
-            "sendtoaddress <pandacoinaddress> <amount> [comment] [comment-to]\n"
-            "<amount> is a real and is rounded to the nearest 0.000001"
-            + HelpRequiringPassphrase());
+            "sendtoaddress \"bitcoinaddress\" amount ( \"comment\" \"comment-to\" )\n"
+            "\nSend an amount to a given address. The amount is a real and is rounded to the nearest 0.00000001\n"
+            + HelpRequiringPassphrase() +
+            "\nArguments:\n"
+            "1. \"bitcoinaddress\"  (string, required) The bitcoin address to send to.\n"
+            "2. \"amount\"      (numeric, required) The amount in btc to send. eg 0.1\n"
+            "3. \"comment\"     (string, optional) A comment used to store what the transaction is for. \n"
+            "                             This is not part of the transaction, just kept in your wallet.\n"
+            "4. \"comment-to\"  (string, optional) A comment to store the name of the person or organization \n"
+            "                             to which you're sending the transaction. This is not part of the \n"
+            "                             transaction, just kept in your wallet.\n"
+            "\nResult:\n"
+            "\"transactionid\"  (string) The transaction id.\n"
+            "\nExamples:\n"
+            + HelpExampleCli("sendtoaddress", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\" 0.1")
+            + HelpExampleCli("sendtoaddress", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\" 0.1 \"donation\" \"seans outpost\"")
+            + HelpExampleRpc("sendtoaddress", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\", 0.1, \"donation\", \"seans outpost\"")
+        );
 
     CBitcoinAddress address(params[0].get_str());
     if (!address.IsValid())
@@ -329,9 +415,25 @@ Value listaddressgroupings(const Array& params, bool fHelp)
     if (fHelp)
         throw runtime_error(
             "listaddressgroupings\n"
-            "Lists groups of addresses which have had their common ownership\n"
+            "\nLists groups of addresses which have had their common ownership\n"
             "made public by common use as inputs or as the resulting change\n"
-            "in past transactions");
+            "in past transactions\n"
+            "\nResult:\n"
+            "[\n"
+            "  [\n"
+            "    [\n"
+            "      \"bitcoinaddress\",     (string) The bitcoin address\n"
+            "      amount,                 (numeric) The amount in btc\n"
+            "      \"account\"             (string, optional) The account\n"
+            "    ]\n"
+            "    ,...\n"
+            "  ]\n"
+            "  ,...\n"
+            "]\n"
+            "\nExamples:\n"
+            + HelpExampleCli("listaddressgroupings", "")
+            + HelpExampleRpc("listaddressgroupings", "")
+        );
 
     Array jsonGroupings;
     map<CTxDestination, int64_t> balances = pwalletMain->GetAddressBalances();
@@ -346,7 +448,7 @@ Value listaddressgroupings(const Array& params, bool fHelp)
             {
                 LOCK(pwalletMain->cs_wallet);
                 if (pwalletMain->mapAddressBook.find(CBitcoinAddress(address).Get()) != pwalletMain->mapAddressBook.end())
-                    addressInfo.push_back(pwalletMain->mapAddressBook.find(CBitcoinAddress(address).Get())->second);
+                    addressInfo.push_back(pwalletMain->mapAddressBook.find(CBitcoinAddress(address).Get())->second.name);
             }
             jsonGrouping.push_back(addressInfo);
         }
@@ -359,8 +461,24 @@ Value signmessage(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() != 2)
         throw runtime_error(
-            "signmessage <pandacoinaddress> <message>\n"
-            "Sign a message with the private key of an address");
+            "signmessage \"bitcoinaddress\" \"message\"\n"
+            "\nSign a message with the private key of an address"
+            + HelpRequiringPassphrase() + "\n"
+            "\nArguments:\n"
+            "1. \"bitcoinaddress\"  (string, required) The bitcoin address to use for the private key.\n"
+            "2. \"message\"         (string, required) The message to create a signature of.\n"
+            "\nResult:\n"
+            "\"signature\"          (string) The signature of the message encoded in base 64\n"
+            "\nExamples:\n"
+            "\nUnlock the wallet for 30 seconds\n"
+            + HelpExampleCli("walletpassphrase", "\"mypassphrase\" 30") +
+            "\nCreate the signature\n"
+            + HelpExampleCli("signmessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\" \"my message\"") +
+            "\nVerify the signature\n"
+            + HelpExampleCli("verifymessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\" \"signature\" \"my message\"") +
+            "\nAs json rpc\n"
+            + HelpExampleRpc("signmessage", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", \"my message\"")
+        );
 
     EnsureWalletIsUnlocked();
 
@@ -431,8 +549,23 @@ Value getreceivedbyaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
-            "getreceivedbyaddress <pandacoinaddress> [minconf=1]\n"
-            "Returns the total amount received by <pandacoinaddress> in transactions with at least [minconf] confirmations.");
+            "getreceivedbyaddress \"bitcoinaddress\" ( minconf )\n"
+            "\nReturns the total amount received by the given bitcoinaddress in transactions with at least minconf confirmations.\n"
+            "\nArguments:\n"
+            "1. \"bitcoinaddress\"  (string, required) The bitcoin address for transactions.\n"
+            "2. minconf             (numeric, optional, default=1) Only include transactions confirmed at least this many times.\n"
+            "\nResult:\n"
+            "amount   (numeric) The total amount in btc received at this address.\n"
+            "\nExamples:\n"
+            "\nThe amount from transactions with at least 1 confirmation\n"
+            + HelpExampleCli("getreceivedbyaddress", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\"") +
+            "\nThe amount including unconfirmed transactions, zero confirmations\n"
+            + HelpExampleCli("getreceivedbyaddress", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\" 0") +
+            "\nThe amount with at least 6 confirmation, very safe\n"
+            + HelpExampleCli("getreceivedbyaddress", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\" 6") +
+            "\nAs a json rpc call\n"
+            + HelpExampleRpc("getreceivedbyaddress", "\"1D1ZrZNe3JUo7ZycKEYQQiQAWd9y54F4XZ\", 6")
+       );
 
     // Bitcoin address
     CBitcoinAddress address = CBitcoinAddress(params[0].get_str());
@@ -468,10 +601,10 @@ Value getreceivedbyaddress(const Array& params, bool fHelp)
 
 void GetAccountAddresses(string strAccount, set<CTxDestination>& setAddress)
 {
-    BOOST_FOREACH(const PAIRTYPE(CTxDestination, string)& item, pwalletMain->mapAddressBook)
+    BOOST_FOREACH(const PAIRTYPE(CTxDestination, CAddressBookData)& item, pwalletMain->mapAddressBook)
     {
         const CTxDestination& address = item.first;
-        const string& strName = item.second;
+        const string& strName = item.second.name;
         if (strName == strAccount)
             setAddress.insert(address);
     }
@@ -481,8 +614,23 @@ Value getreceivedbyaccount(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 1 || params.size() > 2)
         throw runtime_error(
-            "getreceivedbyaccount <account> [minconf=1]\n"
-            "Returns the total amount received by addresses with <account> in transactions with at least [minconf] confirmations.");
+            "getreceivedbyaccount \"account\" ( minconf )\n"
+            "\nReturns the total amount received by addresses with <account> in transactions with at least [minconf] confirmations.\n"
+            "\nArguments:\n"
+            "1. \"account\"      (string, required) The selected account, may be the default account using \"\".\n"
+            "2. minconf          (numeric, optional, default=1) Only include transactions confirmed at least this many times.\n"
+            "\nResult:\n"
+            "amount              (numeric) The total amount in btc received for this account.\n"
+            "\nExamples:\n"
+            "\nAmount received by the default account with at least 1 confirmation\n"
+            + HelpExampleCli("getreceivedbyaccount", "\"\"") +
+            "\nAmount received at the tabby account including unconfirmed amounts with zero confirmations\n"
+            + HelpExampleCli("getreceivedbyaccount", "\"tabby\" 0") +
+            "\nThe amount with at least 6 confirmation, very safe\n"
+            + HelpExampleCli("getreceivedbyaccount", "\"tabby\" 6") +
+            "\nAs a json rpc call\n"
+            + HelpExampleRpc("getreceivedbyaccount", "\"tabby\", 6")
+        );
 
     // Minimum confirmations
     int nMinDepth = 1;
@@ -540,7 +688,14 @@ int64_t GetAccountBalance(CWallet* wallet, const string& strAccount, int nMinDep
     int64_t accountInterest = 0;
     int64_t accountBalance = 0;
     int64_t accountPending = 0;
-    wallet->GetBalanceForAddress(strAccount, accountInterest, accountPending, accountBalance);
+    if (strAccount == "*")
+    {
+        accountBalance = wallet->GetBalance();
+        accountInterest = wallet->GetStake();
+        accountPending = wallet->GetUnconfirmedBalance();
+    }
+    else
+        wallet->GetBalanceForAddress(strAccount, accountInterest, accountPending, accountBalance);
 
 
     nBalance = accountInterest + accountBalance + accountPending;
@@ -608,8 +763,23 @@ Value movecmd(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 5)
         throw runtime_error(
-            "move <fromaccount> <toaccount> <amount> [minconf=1] [comment]\n"
-            "Move from one account in your wallet to another.");
+            "move \"fromaccount\" \"toaccount\" amount ( minconf \"comment\" )\n"
+            "\nMove a specified amount from one account in your wallet to another.\n"
+            "\nArguments:\n"
+            "1. \"fromaccount\"   (string, required) The name of the account to move funds from. May be the default account using \"\".\n"
+            "2. \"toaccount\"     (string, required) The name of the account to move funds to. May be the default account using \"\".\n"
+            "3. minconf           (numeric, optional, default=1) Only use funds with at least this many confirmations.\n"
+            "4. \"comment\"       (string, optional) An optional comment, stored in the wallet only.\n"
+            "\nResult:\n"
+            "true|false           (boolean) true if successfull.\n"
+            "\nExamples:\n"
+            "\nMove 0.01 btc from the default account to the account named tabby\n"
+            + HelpExampleCli("move", "\"\" \"tabby\" 0.01") +
+            "\nMove 0.01 btc timotei to akiko with a comment and funds have 6 confirmations\n"
+            + HelpExampleCli("move", "\"timotei\" \"akiko\" 0.01 6 \"happy birthday!\"") +
+            "\nAs a json rpc call\n"
+            + HelpExampleRpc("move", "\"timotei\", \"akiko\", 0.01, 6, \"happy birthday!\"")
+        );
 
     string strFrom = AccountFromValue(params[0]);
     string strTo = AccountFromValue(params[1]);
@@ -658,19 +828,63 @@ Value movecmd(const Array& params, bool fHelp)
 Value sendfrom(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 3 || params.size() > 6)
-        throw runtime_error("sendfrom <frompandacoinaddress> <topandacoinaddress> <amount> [minconf=1] [comment] [comment-to]\n"
+        throw runtime_error("sendfrom <from address or account> <receive address or account> <amount> [minconf=1] [comment] [comment-to]\n"
             "<amount> is a real and is rounded to the nearest 0.000001"
             + HelpRequiringPassphrase());
 
     string fromAccount = AccountFromValue(params[0]);
-    CBitcoinAddress fromAddress(params[0].get_str());
+    CBitcoinAddress fromAddress(fromAccount);
+    string strFromAddress;
     if (!fromAddress.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid sender Pandacoin address");
+    {
+        // If from is empty we treat that as meaning all accounts (yuk) so go ahead and process as is
+        if (fromAccount != "")
+        {
+            std::map<CTxDestination, CAddressBookData>::iterator mi = pwalletMain->mapAddressBook.begin();
+            for (; mi != pwalletMain->mapAddressBook.end(); mi++)
+            {
+                if (mi->second.name == fromAccount)
+                {
+                    fromAddress = mi->first;
+                    strFromAddress = fromAddress.ToString();
+                    break;
+                }
+            }
+            if (!fromAddress.IsValid())
+            {
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid sender address");
+            }
+        }
+        else
+        {
+            strFromAddress = "*";
+        }
+    }
+    else
+    {
+        fromAccount = "";
+        strFromAddress = fromAddress.ToString();
+    }
 
     string toAccount = AccountFromValue(params[1]);
-    CBitcoinAddress toAddress(params[1].get_str());
+    CBitcoinAddress toAddress(toAccount);
     if (!toAddress.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid receiver Pandacoin address");
+    {
+        std::map<CTxDestination, CAddressBookData>::iterator mi = pwalletMain->mapAddressBook.begin();
+        for (; mi != pwalletMain->mapAddressBook.end(); mi++)
+        {
+            if (mi->second.name == toAccount)
+            {
+                toAddress = mi->first;
+                toAccount = toAddress.ToString();
+                break;
+            }
+        }
+        if (!toAddress.IsValid())
+        {
+            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid receiver address");
+        }
+    }
 
     int64_t nAmount = AmountFromValue(params[2]);
 
@@ -690,7 +904,7 @@ Value sendfrom(const Array& params, bool fHelp)
     EnsureWalletIsUnlocked();
 
     // Check funds
-    int64_t nBalance = GetAccountBalance(fromAccount, nMinDepth);
+    int64_t nBalance = GetAccountBalance(strFromAddress, nMinDepth);
     if (nAmount > nBalance)
         throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Account has insufficient funds");
 
@@ -698,9 +912,9 @@ Value sendfrom(const Array& params, bool fHelp)
     // Send
     std::string transactionHash;
 #ifdef HEADLESS
-    if(!GUIUtil::SendCoinsHelper(recipients, walletModel, fromAccount.c_str(), true, transactionHash))
+    if(!GUIUtil::SendCoinsHelper(recipients, walletModel, strFromAddress, true, transactionHash))
 #else
-    if(!GUIUtil::SendCoinsHelper(NULL, recipients, walletModel, fromAccount.c_str(), true, transactionHash))
+    if(!GUIUtil::SendCoinsHelper(NULL, recipients, walletModel, strFromAddress, true, transactionHash))
 #endif
     {
         throw JSONRPCError(RPC_WALLET_ERROR, "Send transaction failed for unspecified reasons.");
@@ -714,14 +928,43 @@ Value sendmany(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
-            "sendmany <frompandacoinaddress> {topandacoinaddress:amount,...} [minconf=1] [comment]\n"
+            "sendmany <from address or account> {receive address or account:amount,...} [minconf=1] [comment]\n"
             "amounts are double-precision floating point numbers"
             + HelpRequiringPassphrase());
 
     string fromAccount = AccountFromValue(params[0]);
-    CBitcoinAddress fromAddress(params[0].get_str());
+    CBitcoinAddress fromAddress(fromAccount);
+    string strFromAddress;
     if (!fromAddress.IsValid())
-        throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid sender Pandacoin address");
+    {
+        // If from is empty we treat that as meaning all accounts (yuk) so go ahead and process as is
+        if (fromAccount != "")
+        {
+            std::map<CTxDestination, CAddressBookData>::iterator mi = pwalletMain->mapAddressBook.begin();
+            for (; mi != pwalletMain->mapAddressBook.end(); mi++)
+            {
+                if (mi->second.name == fromAccount)
+                {
+                    fromAddress = mi->first;
+                    strFromAddress = fromAddress.ToString();
+                    break;
+                }
+            }
+            if (!fromAddress.IsValid())
+            {
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid sender address");
+            }
+        }
+        else
+        {
+            strFromAddress = "*";
+        }
+    }
+    else
+    {
+        fromAccount = "";
+        strFromAddress = fromAddress.ToString();
+    }
 
     Object sendTo = params[1].get_obj();
     int nMinDepth = 1;
@@ -739,9 +982,25 @@ Value sendmany(const Array& params, bool fHelp)
     int64_t totalAmount = 0;
     BOOST_FOREACH(const Pair& s, sendTo)
     {
-        CBitcoinAddress address(s.name_);
+        std::string strToAccount = s.name_;
+        CBitcoinAddress address(strToAccount);
         if (!address.IsValid())
-            throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid Pandacoin address: ")+s.name_);
+        {
+            std::map<CTxDestination, CAddressBookData>::iterator mi = pwalletMain->mapAddressBook.begin();
+            for (; mi != pwalletMain->mapAddressBook.end(); mi++)
+            {
+                if (mi->second.name == strToAccount)
+                {
+                    address = mi->first;
+                    strToAccount = address.ToString();
+                    break;
+                }
+            }
+            if (!address.IsValid())
+            {
+                throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, string("Invalid recipient address: ")+s.name_);
+            }
+        }
 
         if (setAddress.count(address))
             throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ")+s.name_);
@@ -754,13 +1013,13 @@ Value sendmany(const Array& params, bool fHelp)
         totalAmount += nAmount;
 
         vecSend.push_back(make_pair(scriptPubKey, nAmount));
-        recipients.push_back(SendCoinsRecipient(nAmount, s.name_.c_str(), ""));
+        recipients.push_back(SendCoinsRecipient(nAmount, strToAccount.c_str(), ""));
     }
 
     EnsureWalletIsUnlocked();
 
     // Check funds
-    int64_t nBalance = GetAccountBalance(fromAccount, nMinDepth);
+    int64_t nBalance = GetAccountBalance(strFromAddress, nMinDepth);
     if (totalAmount > nBalance)
         throw JSONRPCError(RPC_WALLET_INSUFFICIENT_FUNDS, "Account has insufficient funds");
 
@@ -768,9 +1027,9 @@ Value sendmany(const Array& params, bool fHelp)
     // Send
     std::string transactionHash;
 #ifdef HEADLESS
-    if(!GUIUtil::SendCoinsHelper(recipients, walletModel, fromAccount.c_str(), true, transactionHash))
+    if(!GUIUtil::SendCoinsHelper(recipients, walletModel, strFromAddress, true, transactionHash))
 #else
-    if(!GUIUtil::SendCoinsHelper(NULL, recipients, walletModel, fromAccount.c_str(), true, transactionHash))
+    if(!GUIUtil::SendCoinsHelper(NULL, recipients, walletModel, strFromAddress, true, transactionHash))
 #endif
     {
         throw JSONRPCError(RPC_WALLET_ERROR, "Send transaction failed for unspecified reasons.");
@@ -783,10 +1042,29 @@ Value addmultisigaddress(const Array& params, bool fHelp)
 {
     if (fHelp || params.size() < 2 || params.size() > 3)
     {
-        string msg = "addmultisigaddress <nrequired> <'[\"key\",\"key\"]'> [account]\n"
-            "Add a nrequired-to-sign multisignature address to the wallet\"\n"
-            "each key is a Pandacoin address or hex-encoded public key\n"
-            "If [account] is specified, assign address to [account].";
+        string msg = "addmultisigaddress nrequired [\"key\",...] ( \"account\" )\n"
+            "\nAdd a nrequired-to-sign multisignature address to the wallet.\n"
+            "Each key is a Pandcoin address or hex-encoded public key.\n"
+            "If 'account' is specified, assign address to that account.\n"
+
+            "\nArguments:\n"
+            "1. nrequired        (numeric, required) The number of required signatures out of the n keys or addresses.\n"
+            "2. \"keysobject\"   (string, required) A json array of pandacoin addresses or hex-encoded public keys\n"
+            "     [\n"
+            "       \"address\"  (string) pandacoin address or hex-encoded public key\n"
+            "       ...,\n"
+            "     ]\n"
+            "3. \"account\"      (string, optional) An account to assign the addresses to.\n"
+
+            "\nResult:\n"
+            "\"pandacoinaddress\"  (string) A pandacoin address associated with the keys.\n"
+
+            "\nExamples:\n"
+            "\nAdd a multisig address from 2 addresses\n"
+            + HelpExampleCli("addmultisigaddress", "2 \"[\\\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\\\",\\\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\\\"]\"") +
+            "\nAs json rpc call\n"
+            + HelpExampleRpc("addmultisigaddress", "2, \"[\\\"16sSauSf5pF2UkUwvKGq4qjNRzBZYqgEL5\\\",\\\"171sgjn4YtPu27adkKGrdDwzRTxnRkBfKV\\\"]\"")
+        ;
         throw runtime_error(msg);
     }
 
@@ -809,7 +1087,7 @@ Value addmultisigaddress(const Array& params, bool fHelp)
     {
         const std::string& ks = keys[i].get_str();
 
-        // Case 1: Bitcoin address and we have full public key:
+        // Case 1: Pandacoin address and we have full public key:
         CBitcoinAddress address(ks);
         if (address.IsValid())
         {
@@ -925,10 +1203,10 @@ Value ListReceived(const Array& params, bool fByAccounts)
     // Reply
     Array ret;
     map<string, tallyitem> mapAccountTally;
-    BOOST_FOREACH(const PAIRTYPE(CBitcoinAddress, string)& item, pwalletMain->mapAddressBook)
+    BOOST_FOREACH(const PAIRTYPE(CBitcoinAddress, CAddressBookData)& item, pwalletMain->mapAddressBook)
     {
         const CBitcoinAddress& address = item.first;
-        const string& strAccount = item.second;
+        const string& strAccount = item.second.name;
         map<CBitcoinAddress, tallyitem>::iterator it = mapTally.find(address);
         if (it == mapTally.end() && !fIncludeEmpty)
             continue;
@@ -1049,7 +1327,7 @@ void ListTransactions(const CWalletTx& wtx, const string& strAccount, int nMinDe
         {
             string account;
             if (pwalletMain->mapAddressBook.count(r.first))
-                account = pwalletMain->mapAddressBook[r.first];
+                account = pwalletMain->mapAddressBook[r.first].name;
             if (fAllAccounts || (account == strAccount))
             {
                 Object entry;
@@ -1162,42 +1440,64 @@ Value listtransactions(const Array& params, bool fHelp)
 
 Value listaccounts(const Array& params, bool fHelp)
 {
-    if (fHelp || params.size() > 1)
+    if (fHelp || params.size() > 2)
         throw runtime_error(
-            "listaccounts [minconf=1]\n"
-            "Returns Object that has account names as keys, account balances as values.");
+            "listaccounts ( minconf includeWatchonly)\n"
+            "\nReturns Object that has account names as keys, account balances as values.\n"
+            "\nArguments:\n"
+            "1. minconf          (numeric, optional, default=1) Only include transactions with at least this many confirmations\n"
+            "2. includeWatchonly (bool, optional, default=false) Include balances in watchonly addresses (see 'importaddress')\n"
+            "\nResult:\n"
+            "{                      (json object where keys are account names, and values are numeric balances\n"
+            "  \"account\": x.xxx,  (numeric) The property name is the account name, and the value is the total balance for the account.\n"
+            "  ...\n"
+            "}\n"
+            "\nExamples:\n"
+            "\nList account balances where there at least 1 confirmation\n"
+            + HelpExampleCli("listaccounts", "") +
+            "\nList account balances including zero confirmation transactions\n"
+            + HelpExampleCli("listaccounts", "0") +
+            "\nList account balances for 6 or more confirmations\n"
+            + HelpExampleCli("listaccounts", "6") +
+            "\nAs json rpc call\n"
+            + HelpExampleRpc("listaccounts", "6")
+        );
 
     int nMinDepth = 1;
     if (params.size() > 0)
         nMinDepth = params[0].get_int();
+    isminefilter includeWatchonly = ISMINE_SPENDABLE;
+    if(params.size() > 1)
+        if(params[1].get_bool())
+            includeWatchonly = includeWatchonly | ISMINE_WATCH_ONLY;
 
-    map<string, int64_t> mapAccountBalances;
-    BOOST_FOREACH(const PAIRTYPE(CTxDestination, string)& entry, pwalletMain->mapAddressBook) {
-        if (IsMine(*pwalletMain, entry.first)) // This address belongs to me
-            mapAccountBalances[entry.second] = 0;
+    map<string, CAmount> mapAccountBalances;
+    BOOST_FOREACH(const PAIRTYPE(CTxDestination, CAddressBookData)& entry, pwalletMain->mapAddressBook) {
+        if (IsMine(*pwalletMain, entry.first) & includeWatchonly) // This address belongs to me
+            mapAccountBalances[entry.second.name] = 0;
     }
 
     for (map<uint256, CWalletTx>::iterator it = pwalletMain->mapWallet.begin(); it != pwalletMain->mapWallet.end(); ++it)
     {
         const CWalletTx& wtx = (*it).second;
-        int64_t nFee;
+        CAmount nFee;
         string strSentAccount;
-        list<pair<CTxDestination, int64_t> > listReceived;
-        list<pair<CTxDestination, int64_t> > listSent;
+        list<COutputEntry> listReceived;
+        list<COutputEntry> listSent;
         int nDepth = wtx.GetDepthInMainChain();
-        if (nDepth < 0)
+        if (wtx.GetBlocksToMaturity() > 0 || nDepth < 0)
             continue;
-        wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount);
+        wtx.GetAmounts(listReceived, listSent, nFee, strSentAccount, includeWatchonly);
         mapAccountBalances[strSentAccount] -= nFee;
-        BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64_t)& s, listSent)
-            mapAccountBalances[strSentAccount] -= s.second;
-        if (nDepth >= nMinDepth && wtx.GetBlocksToMaturity() == 0)
+        BOOST_FOREACH(const COutputEntry& s, listSent)
+            mapAccountBalances[strSentAccount] -= s.amount;
+        if (nDepth >= nMinDepth)
         {
-            BOOST_FOREACH(const PAIRTYPE(CTxDestination, int64_t)& r, listReceived)
-                if (pwalletMain->mapAddressBook.count(r.first))
-                    mapAccountBalances[pwalletMain->mapAddressBook[r.first]] += r.second;
+            BOOST_FOREACH(const COutputEntry& r, listReceived)
+                if (pwalletMain->mapAddressBook.count(r.destination))
+                    mapAccountBalances[pwalletMain->mapAddressBook[r.destination].name] += r.amount;
                 else
-                    mapAccountBalances[""] += r.second;
+                    mapAccountBalances[""] += r.amount;
         }
     }
 
@@ -1207,7 +1507,7 @@ Value listaccounts(const Array& params, bool fHelp)
         mapAccountBalances[entry.strAccount] += entry.nCreditDebit;
 
     Object ret;
-    BOOST_FOREACH(const PAIRTYPE(string, int64_t)& accountBalance, mapAccountBalances) {
+    BOOST_FOREACH(const PAIRTYPE(string, CAmount)& accountBalance, mapAccountBalances) {
         ret.push_back(Pair(accountBalance.first, ValueFromAmount(accountBalance.second)));
     }
     return ret;
@@ -1482,8 +1782,16 @@ Value walletpassphrasechange(const Array& params, bool fHelp)
 {
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 2))
         throw runtime_error(
-            "walletpassphrasechange <oldpassphrase> <newpassphrase>\n"
-            "Changes the wallet passphrase from <oldpassphrase> to <newpassphrase>.");
+            "walletpassphrasechange \"oldpassphrase\" \"newpassphrase\"\n"
+            "\nChanges the wallet passphrase from 'oldpassphrase' to 'newpassphrase'.\n"
+            "\nArguments:\n"
+            "1. \"oldpassphrase\"      (string) The current passphrase\n"
+            "2. \"newpassphrase\"      (string) The new passphrase\n"
+            "\nExamples:\n"
+            + HelpExampleCli("walletpassphrasechange", "\"old one\" \"new one\"")
+            + HelpExampleRpc("walletpassphrasechange", "\"old one\", \"new one\"")
+        );
+
     if (fHelp)
         return true;
     if (!pwalletMain->IsCrypted())
@@ -1516,9 +1824,20 @@ Value walletlock(const Array& params, bool fHelp)
     if (pwalletMain->IsCrypted() && (fHelp || params.size() != 0))
         throw runtime_error(
             "walletlock\n"
-            "Removes the wallet encryption key from memory, locking the wallet.\n"
+            "\nRemoves the wallet encryption key from memory, locking the wallet.\n"
             "After calling this method, you will need to call walletpassphrase again\n"
-            "before being able to call any methods which require the wallet to be unlocked.");
+            "before being able to call any methods which require the wallet to be unlocked.\n"
+            "\nExamples:\n"
+            "\nSet the passphrase for 2 minutes to perform a transaction\n"
+            + HelpExampleCli("walletpassphrase", "\"my pass phrase\" 120") +
+            "\nPerform a send (requires passphrase set)\n"
+            + HelpExampleCli("sendtoaddress", "\"1M72Sfpbz1BPpXFHz9m3CdqATR44Jvaydd\" 1.0") +
+            "\nClear the passphrase since we are done before 2 minutes is up\n"
+            + HelpExampleCli("walletlock", "") +
+            "\nAs json rpc call\n"
+            + HelpExampleRpc("walletlock", "")
+        );
+
     if (fHelp)
         return true;
     if (!pwalletMain->IsCrypted())
@@ -1538,8 +1857,28 @@ Value encryptwallet(const Array& params, bool fHelp)
 {
     if (!pwalletMain->IsCrypted() && (fHelp || params.size() != 1))
         throw runtime_error(
-            "encryptwallet <passphrase>\n"
-            "Encrypts the wallet with <passphrase>.");
+            "encryptwallet \"passphrase\"\n"
+            "\nEncrypts the wallet with 'passphrase'. This is for first time encryption.\n"
+            "After this, any calls that interact with private keys such as sending or signing \n"
+            "will require the passphrase to be set prior the making these calls.\n"
+            "Use the walletpassphrase call for this, and then walletlock call.\n"
+            "If the wallet is already encrypted, use the walletpassphrasechange call.\n"
+            "Note that this will shutdown the server.\n"
+            "\nArguments:\n"
+            "1. \"passphrase\"    (string) The pass phrase to encrypt the wallet with. It must be at least 1 character, but should be long.\n"
+            "\nExamples:\n"
+            "\nEncrypt you wallet\n"
+            + HelpExampleCli("encryptwallet", "\"my pass phrase\"") +
+            "\nNow set the passphrase to use the wallet, such as for signing or sending pandacoin\n"
+            + HelpExampleCli("walletpassphrase", "\"my pass phrase\"") +
+            "\nNow we can so something like sign\n"
+            + HelpExampleCli("signmessage", "\"pandacoinaddress\" \"test message\"") +
+            "\nNow lock the wallet again by removing the passphrase\n"
+            + HelpExampleCli("walletlock", "") +
+            "\nAs a json rpc call\n"
+            + HelpExampleRpc("encryptwallet", "\"my pass phrase\"")
+        );
+
     if (fHelp)
         return true;
     if (pwalletMain->IsCrypted())
@@ -1626,7 +1965,7 @@ Value validateaddress(const Array& params, bool fHelp)
             ret.insert(ret.end(), detail.begin(), detail.end());
         }
         if (pwalletMain->mapAddressBook.count(dest))
-            ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest]));
+            ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest].name));
     }
     return ret;
 }
@@ -1663,7 +2002,7 @@ Value validatepubkey(const Array& params, bool fHelp)
             ret.insert(ret.end(), detail.begin(), detail.end());
         }
         if (pwalletMain->mapAddressBook.count(dest))
-            ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest]));
+            ret.push_back(Pair("account", pwalletMain->mapAddressBook[dest].name));
     }
     return ret;
 }

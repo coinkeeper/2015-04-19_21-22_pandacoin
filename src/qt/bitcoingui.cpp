@@ -1,9 +1,7 @@
-/*
- * Qt4 bitcoin GUI.
- *
- * W.J. van der Laan 2011-2012
- * The Bitcoin Developers 2011-2012
- */
+// Copyright (c) 2011-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "bitcoingui.h"
 #include "transactiontablemodel.h"
 #include "addressbookpage.h"
@@ -911,11 +909,16 @@ void BitcoinGUI::setNumBlocks(int count, int nTotalBlocks)
 void BitcoinGUI::error(const QString &title, const QString &message, bool modal)
 {
     // Report errors from network/worker thread
-    if(modal)
+    if (message != "")
     {
-        QMessageBox::critical(this, title, message, QMessageBox::Ok, QMessageBox::Ok);
-    } else {
-        notificator->notify(Notificator::Critical, title, message);
+        if(modal)
+        {
+            QMessageBox::critical(this, title, message, QMessageBox::Ok, QMessageBox::Ok);
+        }
+        else
+        {
+            notificator->notify(Notificator::Critical, title, message);
+        }
     }
 }
 
@@ -1306,7 +1309,7 @@ void BitcoinGUI::updateStakingIcon()
     if (nLastCoinStakeSearchInterval && nWeight)
     {
         uint64_t nNetworkWeight = GetPoSKernelPS();
-        unsigned nEstimateTime = nTargetSpacing * nNetworkWeight / nWeight;
+        unsigned nEstimateTime = GetTargetSpacing() * nNetworkWeight / nWeight;
 
         QString text;
         if (nEstimateTime < 60)

@@ -137,6 +137,8 @@ extern double GetPoSKernelPS();
 
 extern std::string HexBits(unsigned int nBits);
 extern std::string HelpRequiringPassphrase();
+extern std::string HelpExampleCli(std::string methodname, std::string args);
+extern std::string HelpExampleRpc(std::string methodname, std::string args);
 extern void EnsureWalletIsUnlocked();
 
 //
@@ -167,6 +169,7 @@ extern json_spirit::Value submitblock(const json_spirit::Array& params, bool fHe
 extern json_spirit::Value getnewaddress(const json_spirit::Array& params, bool fHelp); // in rpcwallet.cpp
 extern json_spirit::Value getaccountaddress(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value setaccount(const json_spirit::Array& params, bool fHelp);
+extern json_spirit::Value renameaccount(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value getaccount(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value getaddressesbyaccount(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value sendtoaddress(const json_spirit::Array& params, bool fHelp);

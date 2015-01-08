@@ -1112,49 +1112,49 @@ Tento produkt obsahuje softvér vyvinutý Projektom OpenSSL Project pre použiti
     </message>
     <message>
         <location line="-12"/>
-        <location line="+449"/>
+        <location line="+454"/>
         <source>second</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-454"/>
+        <location line="+454"/>
         <source>seconds</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-445"/>
-        <location line="+449"/>
+        <location line="-450"/>
+        <location line="+454"/>
         <source>minute</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-454"/>
+        <location line="+454"/>
         <source>minutes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-445"/>
-        <location line="+449"/>
+        <location line="-450"/>
+        <location line="+454"/>
         <source>hour</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-454"/>
+        <location line="+454"/>
         <source>hours</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-445"/>
-        <location line="+449"/>
+        <location line="-450"/>
+        <location line="+454"/>
         <source>day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location line="-449"/>
-        <location line="+449"/>
+        <location line="-454"/>
+        <location line="+454"/>
         <source>days</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1206,7 +1206,7 @@ Tento produkt obsahuje softvér vyvinutý Projektom OpenSSL Project pre použiti
         <translation type="obsolete">&amp;Odomknúť Peňaženku...</translation>
     </message>
     <message>
-        <location line="-1040"/>
+        <location line="-1045"/>
         <source>&amp;About PandaBank</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1339,7 +1339,7 @@ Tento produkt obsahuje softvér vyvinutý Projektom OpenSSL Project pre použiti
         <translation>Posledný prijatý blok bol vytvorený %1.</translation>
     </message>
     <message>
-        <location line="+59"/>
+        <location line="+64"/>
         <source>This transaction is over the size limit.  You can still send it for a fee of %1, which goes to the nodes that process your transaction and helps to support the network.  Do you want to pay the fee?</source>
         <translation>Táto transakcia je nad limit veľkosti. Stále to môžete poslať za poplatok %1, ktorý ide uzlom spracujúcim vaše transakcie, čím pomáhajú podporovať sieť. Chcete platiť poplatok?</translation>
     </message>
@@ -1943,7 +1943,7 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
 <context>
     <name>GUIUtil::HelpMessageBox</name>
     <message>
-        <location filename="../guiutil.cpp" line="+641"/>
+        <location filename="../guiutil.cpp" line="+655"/>
         <location line="+12"/>
         <source>Pandacoin-Qt</source>
         <translation>Pandacoin-Qt</translation>
@@ -2227,7 +2227,22 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
         <translation>Zobraziť coin &amp;control features (len pre odborníkov!)</translation>
     </message>
     <message>
-        <location line="+71"/>
+        <location line="+21"/>
+        <source>Advanced</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+8"/>
+        <source>Reset Blockchain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+7"/>
+        <source>Reset Peers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+86"/>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -2262,6 +2277,16 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
         <location line="+29"/>
         <source>The supplied proxy address is invalid.</source>
         <translation>Zadaná proxy adresa je neplatná.</translation>
+    </message>
+    <message>
+        <location line="+20"/>
+        <source>Confirm Blockchain reset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+0"/>
+        <source>Are you sure you want to reset your Blockchain? This will cause the entire Blockchain to download again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2436,7 +2461,7 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../guiutil.cpp" line="-555"/>
+        <location filename="../guiutil.cpp" line="-569"/>
         <source>&lt;b&gt;%1&lt;/b&gt; to %2 (%3)</source>
         <translation type="unfinished">&lt;b&gt;%1&lt;/b&gt; do %2 (%3)</translation>
     </message>
@@ -2458,9 +2483,11 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
     <message>
         <location line="+63"/>
         <location line="+12"/>
-        <location line="+12"/>
-        <location line="+12"/>
-        <location line="+12"/>
+        <location line="+14"/>
+        <location line="+4"/>
+        <location line="+15"/>
+        <location line="+4"/>
+        <location line="+13"/>
         <location line="+12"/>
         <location line="+12"/>
         <location line="+12"/>
@@ -2468,7 +2495,7 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
         <translation type="unfinished">Poslať Bitcoins</translation>
     </message>
     <message>
-        <location line="-84"/>
+        <location line="-98"/>
         <source>The recipient address is not valid, please recheck.</source>
         <translation type="unfinished">Adresa príjemcu je neplatná, prosím, overte ju.</translation>
     </message>
@@ -2478,17 +2505,27 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
         <translation type="unfinished">Suma na úhradu musí byť väčšia ako 0.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+14"/>
         <source>The amount exceeds your balance.</source>
         <translation type="unfinished">Suma je vyššia ako Váš zostatok.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+4"/>
+        <source>The amount exceeds your available balance, some of your Pandacoins are currently being used to earn you interest.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+15"/>
         <source>The total exceeds your balance when the %1 transaction fee is included.</source>
         <translation type="unfinished">Suma celkom prevyšuje Váš zostatok ak sú započítané %1 transakčné poplatky.</translation>
     </message>
     <message>
-        <location line="+12"/>
+        <location line="+4"/>
+        <source>The amount exceeds your available balance when the %1 transaction fee is included, some of your Pandacoins are currently being used to earn you interest.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+13"/>
         <source>Duplicate address found, can only send to each address once per send operation.</source>
         <translation type="unfinished">Duplikát adresy objavený, je možné poslať na každú adresu len raz v jednej odchádzajúcej transakcii.</translation>
     </message>
@@ -2515,6 +2552,15 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
     <message>
         <location filename="../../init.cpp" line="+849"/>
         <source>My account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../main.cpp" line="+928"/>
+        <source>Sync error encountered: 
+%s
+
+The most likely cause of this error is a problem with your local blockchain, so the blockchain will now reset itself and sync again.
+Should you encounter this error repeatedly please seek assistance.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2593,7 +2639,7 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
         <location line="+53"/>
         <location line="+23"/>
         <location line="+23"/>
-        <location filename="../rpcconsole.cpp" line="+348"/>
+        <location filename="../rpcconsole.cpp" line="+347"/>
         <source>N/A</source>
         <translation>nie je k dispozícii</translation>
     </message>
@@ -3138,7 +3184,20 @@ Sumy nižšie ako 0,546 násobok minimálneho poplatku sú zobrazené ako DUST.<
         <translation type="unfinished">Kopírovať zmenu</translation>
     </message>
     <message>
-        <location line="+273"/>
+        <location line="+115"/>
+        <location line="+46"/>
+        <source>No from account selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="-46"/>
+        <location line="+46"/>
+        <source>You have not selected an account from which to make the payment.
+Please select the &quot;from&quot; address at the top of this page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location line="+114"/>
         <source>Search your accounts list...</source>
         <translation type="unfinished"></translation>
     </message>

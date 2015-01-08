@@ -1,3 +1,7 @@
+// Copyright (c) 2011-2013 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "addresstablemodel.h"
 #include "addresstablemodel_impl.h"
 #include "guiutil.h"
@@ -104,13 +108,26 @@ bool AddressTableModel::setData(const QModelIndex &index, const QVariant &value,
         switch(index.column())
         {
         case Label:
-            // Do nothing, if old label == new label
-            if(rec->label == value.toString())
             {
-                editStatus = NO_CHANGES;
-                return false;
+                // Do nothing, if old label == new label
+                if(rec->label == value.toString())
+                {
+                    editStatus = DUPLICATE_ADDRESS;
+                    return false;
+                }
+                CBitcoinAddress address(rec->address.toStdString());
+                if (!address.IsValid())
+                {
+                    editStatus = INVALID_ADDRESS;
+                    return false;
+                }
+
+                if (!RenameAccount(address, value.toString().toStdString()))
+                {
+                    editStatus = INVALID_ADDRESS;
+                    return false;
+                }
             }
-            wallet->SetAddressBookName(CBitcoinAddress(rec->address.toStdString()).Get(), value.toString().toStdString());
             break;
         case Address:
             // Do nothing, if old address == new address
@@ -275,10 +292,10 @@ QString AddressTableModel::labelForAddress(const QString &address) const
     {
         LOCK(wallet->cs_wallet);
         CBitcoinAddress address_parsed(address.toStdString());
-        std::map<CTxDestination, std::string>::iterator mi = wallet->mapAddressBook.find(address_parsed.Get());
+        std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.find(address_parsed.Get());
         if (mi != wallet->mapAddressBook.end())
         {
-            return QString::fromStdString(mi->second);
+            return QString::fromStdString(mi->second.name);
         }
     }
     return QString();
@@ -288,10 +305,10 @@ QString AddressTableModel::addressForLabel(const QString &label) const
 {
     {
         LOCK(wallet->cs_wallet);
-        std::map<CTxDestination, std::string>::iterator mi = wallet->mapAddressBook.begin();
+        std::map<CTxDestination, CAddressBookData>::iterator mi = wallet->mapAddressBook.begin();
         for (; mi != wallet->mapAddressBook.end(); mi++)
         {
-            if(QString::fromStdString(mi->second) == label)
+            if(QString::fromStdString(mi->second.name) == label)
             {
                 return QString::fromStdString(CBitcoinAddress(mi->first).ToString());
             }

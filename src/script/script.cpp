@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2012 The Bitcoin developers
-// Distributed under the MIT/X11 software license, see the accompanying
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <boost/foreach.hpp>
@@ -17,6 +17,7 @@ using namespace boost;
 #include "main.h"
 #include "sync.h"
 #include "util.h"
+#include "wallet_ismine.h"
 
 bool CheckSig(vector<unsigned char> vchSig, vector<unsigned char> vchPubKey, CScript scriptCode, const CTransaction& txTo, unsigned int nIn, int nHashType);
 
@@ -1522,19 +1523,6 @@ bool IsStandard(const CScript& scriptPubKey)
 }
 
 
-unsigned int HaveKeys(const vector<valtype>& pubkeys, const CKeyStore& keystore)
-{
-    unsigned int nResult = 0;
-    BOOST_FOREACH(const valtype& pubkey, pubkeys)
-    {
-        CKeyID keyID = CPubKey(pubkey).GetID();
-        if (keystore.HaveKey(keyID))
-            ++nResult;
-    }
-    return nResult;
-}
-
-
 class CKeyStoreIsMineVisitor : public boost::static_visitor<bool>
 {
 private:
@@ -2024,4 +2012,12 @@ void CScript::SetMultisig(int nRequired, const std::vector<CKey>& keys)
     BOOST_FOREACH(const CKey& key, keys)
         *this << key.GetPubKey();
     *this << EncodeOP_N(keys.size()) << OP_CHECKMULTISIG;
+}
+
+CScript GetScriptForDestination(const CTxDestination& dest)
+{
+    CScript script;
+
+    boost::apply_visitor(CScriptVisitor(&script), dest);
+    return script;
 }

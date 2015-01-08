@@ -1,9 +1,9 @@
-#ifndef CLIENTVERSION_H
-#define CLIENTVERSION_H
+// Copyright (c) 2009-2014 The Bitcoin Core developers
+// Distributed under the MIT software license, see the accompanying
+// file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-//
-// client versioning
-//
+#ifndef BITCOIN_CLIENTVERSION_H
+#define BITCOIN_CLIENTVERSION_H
 
 // These need to be macros, as version.cpp's and bitcoin-qt.rc's voodoo requires it
 #define CLIENT_VERSION_MAJOR       3

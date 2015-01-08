@@ -40,10 +40,10 @@ void AddressTable_impl::refreshAddressTable()
     cachedAddressTable.clear();
     {
         LOCK(wallet->cs_wallet);
-        BOOST_FOREACH(const PAIRTYPE(CTxDestination, std::string)& item, wallet->mapAddressBook)
+        BOOST_FOREACH(const PAIRTYPE(CTxDestination, CAddressBookData)& item, wallet->mapAddressBook)
         {
             const CBitcoinAddress& address = item.first;
-            const std::string& strName = item.second;
+            const std::string& strName = item.second.name;
             bool fMine = IsMine(*wallet, address.Get());
             if( (includeExternalAccounts && !fMine) || (includeMyAccounts && fMine) )
             {
